@@ -20,26 +20,27 @@ export function useDashboard() {
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
+    const controller = new AbortController();
 
     async function load() {
       try {
         setLoading(true);
         setError(null);
-        const payload = await fetchDashboard();
-        if (!cancelled) {
+        const payload = await fetchDashboard(controller.signal);
+        if (!controller.signal.aborted) {
           setBaseModel(payload);
         }
       } catch (fetchError) {
-        if (!cancelled) {
-          setError(
-            fetchError instanceof Error
-              ? fetchError.message
-              : "Failed to load dashboard data",
-          );
+        if (controller.signal.aborted) {
+          return;
         }
+        setError(
+          fetchError instanceof Error
+            ? fetchError.message
+            : "Failed to load dashboard data",
+        );
       } finally {
-        if (!cancelled) {
+        if (!controller.signal.aborted) {
           setLoading(false);
         }
       }
@@ -47,7 +48,7 @@ export function useDashboard() {
 
     void load();
     return () => {
-      cancelled = true;
+      controller.abort();
     };
   }, []);
 

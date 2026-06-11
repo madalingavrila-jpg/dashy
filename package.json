@@ -10,8 +10,8 @@
   "scripts": {
     "build": "NODE_OPTIONS=--max-old-space-size=2048 NODE_ENV=production next build && tsc -p tsconfig.server.json && node scripts/verify-build.mjs",
     "build:boltable": "npm run build",
-    "start": "node dist/src/server.js",
-    "start:server": "node dist/src/server.js",
+    "start": "NODE_OPTIONS=--max-old-space-size=384 node dist/src/server.js",
+    "start:server": "NODE_OPTIONS=--max-old-space-size=384 node dist/src/server.js",
     "dev": "next dev",
     "dev:server": "tsx src/server.ts",
     "lint": "next lint"

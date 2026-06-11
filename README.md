@@ -67,7 +67,9 @@ Config files: `project.toml`, `Procfile`.
 
 **Auto-update:** every `git push` to the Boltable remote triggers a full rebuild and restart. Expect **~1–2 minutes of 503** (“Application is not responding”) while Paketo builds Next.js and swaps the container — this is normal redeploy downtime, not a crash.
 
-**Health check:** `GET /api/health` is lightweight (no dashboard load). It reports `staticReady` and `uptime` for debugging.
+**Health check:** `GET /api/health` is lightweight (no dashboard load). It reports `staticReady`, `dashboardCacheReady`, and `uptime` for debugging.
+
+**Memory:** `data/dashboard.json` (~600KB) is parsed once at startup and cached in memory (~500KB JSON response). Concurrent cache-miss loads were causing OOM on small Boltable containers; the server now deduplicates loads and pre-warms the cache on boot.
 
 **Tips to avoid repeated downtime:** batch commits before pushing; data-only updates (`data/dashboard.json`) still trigger a full rebuild on Boltable.
 

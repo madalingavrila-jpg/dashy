@@ -705,7 +705,37 @@ function toDashboardModel(
   };
 }
 
-let cachedModel: { expiresAt: number; value: DashboardModel } | null = null;
+type DashboardCacheEntry = {
+  expiresAt: number;
+  value: DashboardModel;
+  json: string;
+};
+
+let cachedModel: DashboardCacheEntry | null = null;
+let loadingPromise: Promise<DashboardModel> | null = null;
+
+function storeCache(model: DashboardModel, ttlMs: number): DashboardModel {
+  const json = JSON.stringify(model);
+  cachedModel = {
+    value: model,
+    json,
+    expiresAt: Date.now() + ttlMs,
+  };
+  return model;
+}
+
+async function refreshDashboardModel(): Promise<DashboardModel> {
+  try {
+    const { data, source } = await loadRawData();
+    return storeCache(toDashboardModel(data, source), config.cacheTtlMs);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Dashboard load failed";
+    return storeCache(
+      placeholderModel({ source: "error", message }, message),
+      15_000,
+    );
+  }
+}
 
 export async function loadDashboardModel(): Promise<DashboardModel> {
   const now = Date.now();
@@ -713,15 +743,28 @@ export async function loadDashboardModel(): Promise<DashboardModel> {
     return cachedModel.value;
   }
 
-  try {
-    const { data, source } = await loadRawData();
-    const model = toDashboardModel(data, source);
-    cachedModel = { value: model, expiresAt: now + config.cacheTtlMs };
-    return model;
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Dashboard load failed";
-    const model = placeholderModel({ source: "error", message }, message);
-    cachedModel = { value: model, expiresAt: now + 15_000 };
-    return model;
+  if (loadingPromise) {
+    return loadingPromise;
   }
+
+  loadingPromise = refreshDashboardModel().finally(() => {
+    loadingPromise = null;
+  });
+
+  return loadingPromise;
+}
+
+export function getCachedDashboardJson(): string | null {
+  const now = Date.now();
+  if (!cachedModel || cachedModel.expiresAt <= now) {
+    return null;
+  }
+  return cachedModel.json;
+}
+
+export function preloadDashboardModel(): void {
+  void loadDashboardModel().catch((error) => {
+    const message = error instanceof Error ? error.message : "Dashboard preload failed";
+    console.error("[dashy] dashboard preload failed:", message);
+  });
 }

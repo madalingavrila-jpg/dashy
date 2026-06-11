@@ -5,6 +5,7 @@ import helmet from "helmet";
 import path from "node:path";
 import { config } from "./config.js";
 import { apiRouter } from "./routes/api.js";
+import { preloadDashboardModel } from "./services/dashboard.js";
 
 const staticIndexPath = path.join(config.staticDir, "index.html");
 const staticReady =
@@ -137,6 +138,7 @@ const server = app.listen(config.port, config.host, () => {
     `dashy listening on http://${config.host}:${config.port}` +
       (staticReady ? "" : " (static export unavailable)"),
   );
+  preloadDashboardModel();
 });
 
 function shutdown(signal: string): void {
