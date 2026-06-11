@@ -122,6 +122,54 @@ ORDER BY CloseDate DESC
 
 `scripts/build-dashboard-data.mjs` reads this file for per-rep `wonMtd` / `activatedMtd` and global `mtdAchievement`.
 
+### Weekly production (stage transition dates)
+
+Weekly counts use **OpportunityFieldHistory** (StageName changes), not CloseDate or LastModifiedDate.
+
+| Bucket | SF stages | Record type | Week from |
+|--------|-----------|-------------|-----------|
+| Qualified | New Opportunity, Contacting DCM, First Pitch | Sales + Parent Opp | first transition INTO stage |
+| Negotiations | Negotiations | Sales Opportunity | first transition |
+| Closed Won | Closed Won | **Parent Opportunity** | first transition |
+| Active | Activated | Sales Opportunity | first transition |
+
+Cache: `scripts/.cache/sf-stage-history-2026.json` (merge monthly exports via `scripts/fetch-sf-stage-history.mjs`).
+
+Team owner IDs only (12 reps; excludes Teodor Domnica, Andrei-Sebastian Caba):
+
+```sql
+SELECT OpportunityId, Field, OldValue, NewValue, CreatedDate,
+  Opportunity.OwnerId, Opportunity.Owner.Name, Opportunity.RecordType.Name,
+  Opportunity.AccountId, Opportunity.Account.Name, Opportunity.Account.BillingCity,
+  Opportunity.Name, Opportunity.StageName
+FROM OpportunityFieldHistory
+WHERE Field = 'StageName'
+  AND CreatedDate >= 2026-01-01T00:00:00Z
+  AND CreatedDate < 2026-07-01T00:00:00Z
+  AND Opportunity.OwnerId IN (
+    '005Ts000002AX4nIAG','005Ts00000BtGPDIA3','005Ts00000BtX53IAF',
+    '005Ts000002AWIQIA4','005Ts00000BtZV3IAN','005Ts000001Ak10IAC',
+    '005Ts000006V3vpIAC','005Ts0000060ICnIAM','005Qs00000Mxc6EIAR',
+    '005Ts000005c4hFIAQ','005Qs00000Pr1HKIAZ','005Qs00000N2Hh3IAF'
+  )
+ORDER BY CreatedDate ASC
+```
+
+New Opportunity fallback: opps still in `New Opportunity` use `CreatedDate` (field history omits initial stage).
+
+Weekly opps export (`scripts/.cache/sf-weekly-2026.json`):
+
+```sql
+SELECT Id, Name, StageName, CreatedDate, LastModifiedDate, CloseDate,
+  OwnerId, Owner.Name, AccountId, Account.Name, Account.BillingCity
+FROM Opportunity
+WHERE RecordType.Name = 'Sales Opportunity'
+  AND StageName IN ('New Opportunity','Contacting DCM','First Pitch','Negotiations','Closed Won','Activated')
+  AND CreatedDate >= 2026-01-01T00:00:00Z
+  AND OwnerId IN ( /* same 12 rep IDs */ )
+ORDER BY CreatedDate DESC
+```
+
 ## Google Sheet reference
 
 Spreadsheet: `1IW8IxEs-YCsYMlCeTfkIz-b51eStjR5uUIEpkV1akRE`

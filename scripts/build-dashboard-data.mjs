@@ -8,7 +8,8 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { filterTeamAgents, buildMtdAchievement, isExcludedAgent, agentSegment } from "../lib/agent-segments.mjs";
 import {
-  accumulateWeeklyStatus,
+  accumulateWeeklyStatusFromHistory,
+  accumulateNewOpportunityFallback,
   breakdownStoreToHistory,
   countWeeklyLeads,
   deriveWeeklyHistory,
@@ -89,21 +90,33 @@ function mapAccount(opp, statusOverride) {
 
 // --- Load MCP exports (paths passed via env or defaults) ---
 const weeklyExport = process.env.SF_WEEKLY_EXPORT ?? join(root, "scripts/.cache/sf-weekly-2026.json");
+const stageHistoryExport =
+  process.env.SF_STAGE_HISTORY_EXPORT ?? join(root, "scripts/.cache/sf-stage-history-2026.json");
 const pipelineExport = process.env.SF_PIPELINE_EXPORT ?? join(root, "scripts/.cache/sf-pipeline-open.json");
 /** Full THIS_MONTH won/activated opps — not a recent-N sample (see AGENTS.md SOQL). */
 const wonExport = process.env.SF_WON_EXPORT ?? join(root, "scripts/.cache/sf-won-mtd.json");
 const weeklyData = parseSfJson(weeklyExport);
+const stageHistoryData = parseSfJson(stageHistoryExport);
 const pipelineData = parseSfJson(pipelineExport);
 const wonData = parseSfJson(wonExport);
 
 const now = new Date().toISOString();
 const currentWeekKey = weekKey(new Date("2026-06-11"));
 
-// Weekly status breakdown by team + agent (Qualified / Negotiations / Closed Won / Active)
+// Weekly status breakdown — stage transition dates from OpportunityFieldHistory
 const weeklyBreakdownStore = initWeeklyBreakdownStore(24);
-for (const rec of weeklyData.records ?? []) {
-  accumulateWeeklyStatus(rec, weeklyBreakdownStore, agentSegment, isExcludedAgent);
-}
+accumulateWeeklyStatusFromHistory(
+  stageHistoryData.records,
+  weeklyBreakdownStore,
+  agentSegment,
+  isExcludedAgent,
+);
+accumulateNewOpportunityFallback(
+  weeklyData.records,
+  weeklyBreakdownStore,
+  agentSegment,
+  isExcludedAgent,
+);
 const weeklyBreakdown = breakdownStoreToHistory(weeklyBreakdownStore);
 const leadsByWeek = countWeeklyLeads(weeklyData.records, agentSegment, isExcludedAgent);
 const history = deriveWeeklyHistory(weeklyBreakdown, leadsByWeek);
