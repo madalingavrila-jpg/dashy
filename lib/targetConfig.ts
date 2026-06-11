@@ -71,11 +71,13 @@ export function loadTargetConfig(): TargetConfig {
 }
 
 export function saveTargetConfig(config: TargetConfig): void {
+  if (typeof window === "undefined") return;
   localStorage.setItem(TARGET_CONFIG_STORAGE_KEY, JSON.stringify(config));
   dispatchTargetConfigUpdated();
 }
 
 export function clearTargetConfig(): void {
+  if (typeof window === "undefined") return;
   localStorage.removeItem(TARGET_CONFIG_STORAGE_KEY);
   dispatchTargetConfigUpdated();
 }
@@ -153,7 +155,10 @@ function updateOverviewMetrics(
 }
 
 export function applyTargetConfig(model: DashboardModel, config: TargetConfig): DashboardModel {
-  const updatedTeams: TeamProgressView[] = model.teamProgress.map((team) => {
+  const teamProgress = model.teamProgress ?? [];
+  const overviewMetrics = model.overviewMetrics ?? [];
+
+  const updatedTeams: TeamProgressView[] = teamProgress.map((team) => {
     const segment = team.segment;
     const defaultWon = config.segment[segment].won;
     const defaultActivated = config.segment[segment].activated;
@@ -235,7 +240,7 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
     }
   }
 
-  const agents = model.agents.map((agent) => {
+  const agents = (model.agents ?? []).map((agent) => {
     const segment =
       ownerSegment.get(agent.ownerId) ??
       (agent.segment === "Complex" ? "complex" : "density");
@@ -256,7 +261,7 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
   return {
     ...model,
     overviewMetrics: updateOverviewMetrics(
-      model.overviewMetrics,
+      overviewMetrics,
       month,
       targetWon,
       actualWon,

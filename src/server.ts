@@ -83,6 +83,24 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((error: unknown, _req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (res.headersSent) {
+    next(error);
+    return;
+  }
+  const message = error instanceof Error ? error.message : "Internal server error";
+  console.error("[express]", message);
+  res.status(500).json({ error: message });
+});
+
+process.on("unhandledRejection", (reason) => {
+  console.error("[unhandledRejection]", reason);
+});
+
+process.on("uncaughtException", (error) => {
+  console.error("[uncaughtException]", error);
+});
+
 app.listen(config.port, config.host, () => {
   console.log(`dashy listening on http://${config.host}:${config.port}`);
 });

@@ -58,10 +58,14 @@ export function useDashboard() {
     return () => window.removeEventListener("dashy-targets-updated", onUpdated);
   }, [refreshTargetConfig]);
 
-  const model = useMemo(
-    () => (baseModel ? applyTargetConfig(baseModel, targetConfig) : null),
-    [baseModel, targetConfig],
-  );
+  const model = useMemo(() => {
+    if (!baseModel) return null;
+    try {
+      return applyTargetConfig(baseModel, targetConfig);
+    } catch {
+      return baseModel;
+    }
+  }, [baseModel, targetConfig]);
 
   const sourceHint =
     model?.sources.source === "error"

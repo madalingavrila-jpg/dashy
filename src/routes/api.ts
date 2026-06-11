@@ -22,7 +22,13 @@ apiRouter.get("/status", (_req, res) => {
 });
 
 apiRouter.get("/dashboard", async (_req, res) => {
-  const model = await loadDashboardModel();
-  res.setHeader("Cache-Control", API_CACHE);
-  res.json(model);
+  try {
+    const model = await loadDashboardModel();
+    res.setHeader("Cache-Control", API_CACHE);
+    res.json(model);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Dashboard load failed";
+    console.error("[api/dashboard]", message);
+    res.status(500).json({ error: message });
+  }
 });
