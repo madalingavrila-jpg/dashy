@@ -11,6 +11,13 @@
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true
   },
-  "include": ["src/**/*.ts", "types/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*.ts",
+    "types/**/*.ts",
+    "lib/format.ts",
+    "lib/isoWeek.ts",
+    "lib/salesforce.ts",
+    "lib/agent-segments.ts"
+  ],
+  "exclude": ["node_modules", "dist", "lib/targetConfig.ts", "lib/useDashboard.ts", "lib/api.ts"]
 }

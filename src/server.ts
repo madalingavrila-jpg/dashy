@@ -6,9 +6,14 @@ import path from "node:path";
 import { config } from "./config.js";
 import { apiRouter } from "./routes/api.js";
 
-if (!fs.existsSync(config.staticDir)) {
-  throw new Error(
-    `Static export missing at ${config.staticDir}. Run npm run build first.`,
+const staticIndexPath = path.join(config.staticDir, "index.html");
+const staticReady =
+  fs.existsSync(config.staticDir) && fs.existsSync(staticIndexPath);
+
+if (!staticReady) {
+  console.error(
+    `[dashy] Static export missing at ${config.staticDir}. ` +
+      "API routes will start; UI routes return 503 until npm run build completes.",
   );
 }
 
@@ -24,26 +29,39 @@ app.use(compression({ threshold: 1024 }));
 
 app.use("/api", apiRouter);
 
-app.use(
-  express.static(config.staticDir, {
-    index: ["index.html"],
-    extensions: ["html"],
-    maxAge: config.isProduction ? "1y" : 0,
-    etag: true,
-    lastModified: true,
-    setHeaders(res, filePath) {
-      if (/\.html$/.test(filePath)) {
-        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-      }
-    },
-  }),
-);
+function sendStaticUnavailable(res: express.Response): void {
+  res.status(503).json({
+    error: "Static export missing. Run npm run build before serving the UI.",
+    staticDir: config.staticDir,
+  });
+}
 
-app.get("/", (_req, res) => {
-  res.sendFile(path.join(config.staticDir, "index.html"));
-});
+if (staticReady) {
+  app.use(
+    express.static(config.staticDir, {
+      index: ["index.html"],
+      extensions: ["html"],
+      maxAge: config.isProduction ? "1y" : 0,
+      etag: true,
+      lastModified: true,
+      setHeaders(res, filePath) {
+        if (/\.html$/.test(filePath)) {
+          res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        }
+      },
+    }),
+  );
+
+  app.get("/", (_req, res) => {
+    res.sendFile(staticIndexPath);
+  });
+}
 
 function resolveStaticPath(urlPath: string): string | null {
+  if (!staticReady) {
+    return null;
+  }
+
   const normalized = urlPath.replace(/\/$/, "") || "/";
   const candidates = [
     path.join(
@@ -57,7 +75,7 @@ function resolveStaticPath(urlPath: string): string | null {
   ];
 
   for (const candidate of candidates) {
-    if (candidate.startsWith(config.staticDir)) {
+    if (candidate.startsWith(config.staticDir) && fs.existsSync(candidate)) {
       return candidate;
     }
   }
@@ -70,17 +88,30 @@ app.use((req, res, next) => {
     return;
   }
 
+  if (!staticReady) {
+    sendStaticUnavailable(res);
+    return;
+  }
+
   const filePath = resolveStaticPath(req.path);
   if (filePath) {
     res.sendFile(filePath, (error) => {
       if (error) {
-        res.sendFile(path.join(config.staticDir, "index.html"));
+        res.sendFile(staticIndexPath, (fallbackError) => {
+          if (fallbackError) {
+            next(fallbackError);
+          }
+        });
       }
     });
     return;
   }
 
-  next();
+  res.sendFile(staticIndexPath, (error) => {
+    if (error) {
+      next(error);
+    }
+  });
 });
 
 app.use((error: unknown, _req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -102,5 +133,8 @@ process.on("uncaughtException", (error) => {
 });
 
 app.listen(config.port, config.host, () => {
-  console.log(`dashy listening on http://${config.host}:${config.port}`);
+  console.log(
+    `dashy listening on http://${config.host}:${config.port}` +
+      (staticReady ? "" : " (static export unavailable)"),
+  );
 });

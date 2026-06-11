@@ -88,6 +88,7 @@ export function isTargetSettingsUnlocked(): boolean {
 }
 
 export function setTargetSettingsUnlocked(unlocked: boolean): void {
+  if (typeof window === "undefined") return;
   if (unlocked) {
     sessionStorage.setItem(TARGET_UNLOCK_SESSION_KEY, "1");
   } else {
