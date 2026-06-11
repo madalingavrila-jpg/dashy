@@ -273,6 +273,7 @@ function AgentRowsTable({
 export function TeamProgressPanel({ team, loading, variant = "overview" }: TeamProgressPanelProps) {
   const accent = team.segment === "complex" ? "complex" : "density";
   const borderColor = accent === "complex" ? "border-l-primary" : "border-l-tertiary";
+  const cardAccent = accent === "complex" ? "team-card--complex" : "team-card--density";
   const badgeColor =
     accent === "complex"
       ? "bg-primary-container/50 text-on-primary-container"
@@ -280,14 +281,17 @@ export function TeamProgressPanel({ team, loading, variant = "overview" }: TeamP
   const detailed = variant === "detailed";
 
   return (
-    <div className={`team-card glass-card rounded-xl border-l-4 ${borderColor} p-lg`}>
+    <div
+      className={`team-card ${cardAccent} glass-card rounded-xl border-l-4 ${borderColor} p-lg`}
+      id={team.segment === "complex" ? "complex-team" : "density-team"}
+    >
       <header className="mb-lg space-y-md">
         <div className="flex flex-wrap items-start justify-between gap-sm">
           <div className="space-y-xs">
             <span
               className={`inline-flex rounded-full px-sm py-[2px] text-[11px] font-bold uppercase tracking-wide ${badgeColor}`}
             >
-              {team.segmentLabel} team
+              {team.segmentLabel}
             </span>
             <h3 className="text-headline-md font-extrabold text-on-background">{team.name}</h3>
             <p className="text-body-md text-on-surface-variant">
@@ -349,33 +353,41 @@ export function TeamProgressPanel({ team, loading, variant = "overview" }: TeamP
 }
 
 type TeamProgressGridProps = {
+  id?: string;
   teams?: TeamProgressView[];
   month?: string;
   loading?: boolean;
   variant?: "overview" | "detailed";
+  hero?: boolean;
 };
 
 export function TeamProgressGrid({
+  id,
   teams,
   month,
   loading,
   variant = "overview",
+  hero = false,
 }: TeamProgressGridProps) {
   const detailed = variant === "detailed";
 
   return (
-    <section className="space-y-sm">
+    <section id={id} className="space-y-sm scroll-mt-md">
       <div>
         <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
-          Teams · MTD progress
+          {hero ? "Teams · MTD hero" : "Teams · MTD progress"}
         </p>
         <h2 className="text-headline-md font-extrabold text-on-surface">
-          {detailed ? "Complex & Density — full agent breakdown" : "Complex & Density — by team"}
+          {hero
+            ? "Complex Team & Density Team"
+            : detailed
+              ? "Complex Team & Density Team — full agent breakdown"
+              : "Complex Team & Density Team"}
         </h2>
         {month ? (
           <p className="text-body-md text-on-surface-variant">
-            {month} · team totals first, then each agent&apos;s Won & Activated MTD (Complex Won
-            10 / Act 8 · Density Won 30 / Act 25)
+            {month} · team totals and per-agent Won & Activated MTD (Complex Won 10 / Act 8 ·
+            Density Won 30 / Act 25)
           </p>
         ) : null}
       </div>

@@ -330,8 +330,8 @@ function buildTeamProgress(
   };
 
   return [
-    buildTeam("complex", "Complex", "Complex", COMPLEX_MTD_TARGET, COMPLEX_ACTIVATED_MTD_TARGET),
-    buildTeam("density", "Density", "Density", DENSITY_MTD_TARGET, DENSITY_ACTIVATED_MTD_TARGET),
+    buildTeam("complex", "Complex", "Complex Team", COMPLEX_MTD_TARGET, COMPLEX_ACTIVATED_MTD_TARGET),
+    buildTeam("density", "Density", "Density Team", DENSITY_MTD_TARGET, DENSITY_ACTIVATED_MTD_TARGET),
   ];
 }
 

@@ -1,10 +1,14 @@
-import { AppShell } from "@/components/AppShell";
-import { AgentsShell } from "@/components/AgentsShell";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AgentsPage() {
-  return (
-    <AppShell>
-      <AgentsShell />
-    </AppShell>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/#teams");
+  }, [router]);
+
+  return null;
 }

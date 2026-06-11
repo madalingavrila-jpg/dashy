@@ -14,7 +14,7 @@ export function PipelineShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="Team Progress"
-        subtitle={`${monthLabel} — Complex & Density agents with Won and Activated MTD targets.`}
+        subtitle={`${monthLabel} — Complex Team & Density Team with Won and Activated MTD targets.`}
         updatedAt={model?.updatedAt}
         loading={loading}
       />

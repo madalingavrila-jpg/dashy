@@ -16,7 +16,7 @@ export function OverviewShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="Overview Dashboard"
-        subtitle={`${monthLabel} month-to-date at top; current ISO week status at bottom with week-over-week change.`}
+        subtitle={`${monthLabel} MTD metrics, Complex & Density team progress, then current ISO week status.`}
         updatedAt={model?.updatedAt}
         loading={loading}
       />
@@ -42,9 +42,12 @@ export function OverviewShell() {
       </section>
 
       <TeamProgressGrid
+        id="teams"
         teams={model?.teamProgress}
         month={monthLabel}
         loading={loading}
+        variant="detailed"
+        hero
       />
 
       <CurrentWeekStatus weekly={model?.weeklyPerformance} loading={loading} />
