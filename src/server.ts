@@ -26,7 +26,17 @@ app.use(
     contentSecurityPolicy: false,
   }),
 );
-app.use(compression({ threshold: 1024 }));
+app.use(
+  compression({
+    threshold: 1024,
+    filter(req, res) {
+      if (req.path === "/api/dashboard") {
+        return false;
+      }
+      return compression.filter(req, res);
+    },
+  }),
+);
 
 app.use("/api", apiRouter);
 

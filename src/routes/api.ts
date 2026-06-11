@@ -10,6 +10,19 @@ import {
 export const apiRouter = Router();
 
 const API_CACHE = "public, max-age=60, stale-while-revalidate=120";
+const MAX_CONCURRENT_DASHBOARD = 6;
+let activeDashboardRequests = 0;
+
+async function acquireDashboardSlot(): Promise<void> {
+  while (activeDashboardRequests >= MAX_CONCURRENT_DASHBOARD) {
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  activeDashboardRequests += 1;
+}
+
+function releaseDashboardSlot(): void {
+  activeDashboardRequests = Math.max(0, activeDashboardRequests - 1);
+}
 
 apiRouter.get("/health", (_req, res) => {
   const staticIndex = path.join(config.staticDir, "index.html");
@@ -36,6 +49,7 @@ apiRouter.get("/status", (_req, res) => {
 });
 
 apiRouter.get("/dashboard", async (_req, res) => {
+  await acquireDashboardSlot();
   try {
     await loadDashboardModel();
     const json = getCachedDashboardJson();
@@ -49,5 +63,7 @@ apiRouter.get("/dashboard", async (_req, res) => {
     const message = error instanceof Error ? error.message : "Dashboard load failed";
     console.error("[api/dashboard]", message);
     res.status(500).json({ error: message });
+  } finally {
+    releaseDashboardSlot();
   }
 });
