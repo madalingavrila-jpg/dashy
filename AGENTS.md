@@ -19,6 +19,74 @@ Optional: publish full JSON to Google Sheet and set `DASHBOARD_SHEET_URL` on Bol
 
 Never merge these metrics. Every section must keep them separate.
 
+## MTD targets (Romania URads reps)
+
+Per-rep monthly targets apply to **both Won MTD and Activated MTD** separately.
+
+| Segment | Reps | Target / rep / month |
+|---------|------|----------------------|
+| **Complex** | 5 named reps | **8** |
+| **Density** | All other active reps | **25** |
+
+**Complex reps only** (match by Salesforce Owner ID or fuzzy name):
+
+| Alias | Salesforce name | Owner ID |
+|-------|-----------------|----------|
+| Madalin | Ionut-Mădălin Gavrilă | `005Ts0000060ICnIAM` |
+| Paul | Paul-Daniel Rîngheanu | `005Qs00000Mxc6EIAR` |
+| Corne | Corneliu-Ștefan Radu | `005Ts000005c4hFIAQ` |
+| Vlad Popa | Vlad-Bogdan Popa | `005Qs00000Pr1HKIAZ` |
+| Andrei Patru | Andrei-Georgian Pătru | `005Qs00000N2Hh3IAF` |
+
+Everyone else on the agents table = **Density**.
+
+**Global MTD targets** (sum of individual targets):
+
+```
+targetWon       = complexReps × 8 + densityReps × 25
+targetActivated = complexReps × 8 + densityReps × 25
+```
+
+**Segment breakdown** in `mtdAchievement.tiers` (replaces old tier targets):
+
+- Complex / Won — target `complexReps × 8`, actual = sum of complex reps' `wonMtd`
+- Density / Won — target `densityReps × 25`, actual = sum of density reps' `wonMtd`
+- Complex / Activated — same target formula, actual = sum of `activatedMtd`
+- Density / Activated — same target formula, actual = sum of `activatedMtd`
+
+Each agent row must include `segment` (`complex` | `density`) and `mtdTarget` (`8` or `25`).
+
+Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.mjs` and `scripts/patch-mtd-targets.mjs`).
+
+### Won MTD per owner (Sales Opportunity)
+
+```sql
+SELECT OwnerId, Owner.Name, COUNT(Id) cnt
+FROM Opportunity
+WHERE RecordType.Name = 'Sales Opportunity'
+  AND CloseDate = THIS_MONTH
+  AND StageName IN (
+    'Contract sent', 'Ready to Activate', 'Onboarding',
+    'Onboarding Checklist', 'Closed Won', 'Activated'
+  )
+GROUP BY OwnerId, Owner.Name
+ORDER BY COUNT(Id) DESC
+```
+
+### Activated MTD per owner
+
+```sql
+SELECT OwnerId, Owner.Name, COUNT(Id) cnt
+FROM Opportunity
+WHERE RecordType.Name = 'Sales Opportunity'
+  AND CloseDate = THIS_MONTH
+  AND StageName = 'Activated'
+GROUP BY OwnerId, Owner.Name
+ORDER BY COUNT(Id) DESC
+```
+
+Exclude `Administrator` from the agents list. Map each owner to segment, set `mtdTarget`, then call `buildMtdAchievement(agents, month, { leadsMtd, qualifiedMtd })`.
+
 ## Google Sheet reference
 
 Spreadsheet: `1IW8IxEs-YCsYMlCeTfkIz-b51eStjR5uUIEpkV1akRE`

@@ -102,6 +102,8 @@
             "actualActivated": { "type": "number" },
             "leadsMtd": { "type": "number" },
             "qualifiedMtd": { "type": "number" },
+            "complexRepCount": { "type": "number" },
+            "densityRepCount": { "type": "number" },
             "tiers": {
               "type": "array",
               "items": {
@@ -198,10 +200,24 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["ownerId", "name", "pipelineCount", "stageCounts", "wonMtd", "activatedMtd"],
+            "required": [
+              "ownerId",
+              "name",
+              "segment",
+              "mtdTarget",
+              "pipelineCount",
+              "stageCounts",
+              "wonMtd",
+              "activatedMtd"
+            ],
             "properties": {
               "ownerId": { "type": "string" },
               "name": { "type": "string" },
+              "segment": { "type": "string", "enum": ["complex", "density"] },
+              "mtdTarget": {
+                "type": "number",
+                "description": "Monthly MTD target per rep (Complex: 8, Density: 25)."
+              },
               "pipelineCount": { "type": "number" },
               "stageCounts": {
                 "type": "object",

@@ -125,14 +125,16 @@ export function TierTrackingTable({ tiers, loading }: TierTableProps) {
   return (
     <div className="glass-card overflow-hidden rounded-xl">
       <div className="border-b border-outline-variant p-lg">
-        <h3 className="text-title-lg font-title-lg font-bold">Tier Breakdown</h3>
-        <p className="text-body-md text-on-surface-variant">MTD achievement by tier — Won and Activated tracked separately</p>
+        <h3 className="text-title-lg font-title-lg font-bold">Segment Breakdown</h3>
+        <p className="text-body-md text-on-surface-variant">
+          MTD achievement by segment — Complex (8/rep) vs Density (25/rep), Won and Activated tracked separately
+        </p>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-left">
           <thead className="bg-surface-container-low">
             <tr>
-              <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">Tier</th>
+              <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">Segment</th>
               <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">Type</th>
               <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">Actual</th>
               <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">Target</th>

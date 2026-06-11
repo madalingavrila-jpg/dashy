@@ -6,6 +6,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { enrichAgent, buildMtdAchievement } from "../lib/agent-segments.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -220,7 +221,13 @@ for (const opp of wonData.records ?? []) {
 
 const agents = [...agentMap.values()]
   .filter((a) => a.name !== "Administrator" && (a.pipelineCount > 0 || a.wonMtd > 0 || a.activatedMtd > 0))
+  .map(enrichAgent)
   .sort((a, b) => b.pipelineCount - a.pipelineCount);
+
+const mtdAchievement = buildMtdAchievement(agents, "June 2026", {
+  leadsMtd: 173,
+  qualifiedMtd: 15,
+});
 
 // Pipeline accounts by stage
 const pipelineAccounts = (pipelineData.records ?? []).map((o) => mapAccount(o, "backlog"));
@@ -276,23 +283,7 @@ const dashboard = {
       },
     },
     snapshot: { sales: salesSnapshot, onboarding: onboardingSnapshot },
-    mtdAchievement: {
-      month: "June 2026",
-      targetWon: 180,
-      actualWon: 220,
-      targetActivated: 120,
-      actualActivated: 80,
-      leadsMtd: 173,
-      qualifiedMtd: 15,
-      tiers: [
-        { name: "Enterprise (1A/1B/1C)", target: 25, actual: 12, type: "won" },
-        { name: "Growth (2A)", target: 60, actual: 35, type: "won" },
-        { name: "Standard (2B/2C)", target: 95, actual: 109, type: "won" },
-        { name: "Enterprise (1A/1B/1C)", target: 15, actual: 8, type: "activated" },
-        { name: "Growth (2A)", target: 40, actual: 28, type: "activated" },
-        { name: "Standard (2B/2C)", target: 65, actual: 44, type: "activated" },
-      ],
-    },
+    mtdAchievement,
     weeklyPerformance: {
       weekLabel: `W24 · 9–15 Jun 2026`,
       currentWeek: "W24",

@@ -35,7 +35,7 @@ export function OverviewShell() {
             href="/mtd"
             className="text-label-md font-medium text-primary hover:underline"
           >
-            Full MTD & tiers →
+            Full MTD & segments →
           </Link>
         </div>
         <MetricCards metrics={model?.overviewMetrics} loading={loading} columns={6} />

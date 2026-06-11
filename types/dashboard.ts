@@ -77,6 +77,8 @@ export type AccountRow = {
 export type AgentRow = {
   ownerId: string;
   name: string;
+  segment: "complex" | "density";
+  mtdTarget: number;
   pipelineCount: number;
   stageCounts: Record<string, number>;
   wonMtd: number;
@@ -87,10 +89,15 @@ export type AgentRow = {
 export type AgentViewRow = {
   ownerId: string;
   name: string;
+  segment: string;
+  segmentColor: string;
+  mtdTarget: string;
   pipelineCount: string;
   stageSummary: string;
   wonMtd: string;
   activatedMtd: string;
+  wonMtdProgress: number;
+  activatedMtdProgress: number;
   accountsUrl: string;
 };
 
@@ -133,6 +140,8 @@ export type DashboardRawData = {
       actualActivated: number;
       leadsMtd?: number;
       qualifiedMtd?: number;
+      complexRepCount?: number;
+      densityRepCount?: number;
       tiers: TierRow[];
     };
     weeklyPerformance: {

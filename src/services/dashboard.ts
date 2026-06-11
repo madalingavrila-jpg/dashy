@@ -18,6 +18,7 @@ import {
   trendDirection,
 } from "../../lib/format.js";
 import { accountsFilterUrl, salesforceAccountUrl } from "../../lib/salesforce.js";
+import { agentSegment, mtdTargetForSegment } from "../../lib/agent-segments.js";
 
 function parseCsvRow(line: string): string[] {
   const values: string[] = [];
@@ -265,18 +266,32 @@ function buildAgentViews(
   agents: DashboardRawData["salesPipeline"]["agents"],
 ): DashboardModel["agents"] {
   return (agents ?? []).map((agent) => {
+    const segment = agent.segment ?? agentSegment(agent.name, agent.ownerId);
+    const mtdTarget = agent.mtdTarget ?? mtdTargetForSegment(segment);
+    const segmentMeta = segmentStyle(segment);
     const topStages = Object.entries(agent.stageCounts)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 4)
       .map(([stage, count]) => `${stage} ${count}`)
       .join(" · ");
+    const wonProgress = mtdTarget
+      ? Math.min(100, Math.round((agent.wonMtd / mtdTarget) * 100))
+      : 0;
+    const activatedProgress = mtdTarget
+      ? Math.min(100, Math.round((agent.activatedMtd / mtdTarget) * 100))
+      : 0;
     return {
       ownerId: agent.ownerId,
       name: agent.name,
+      segment: segmentMeta.label,
+      segmentColor: segmentMeta.color,
+      mtdTarget: formatInteger(mtdTarget),
       pipelineCount: formatInteger(agent.pipelineCount),
       stageSummary: topStages || "—",
       wonMtd: formatInteger(agent.wonMtd),
       activatedMtd: formatInteger(agent.activatedMtd),
+      wonMtdProgress: wonProgress,
+      activatedMtdProgress: activatedProgress,
       accountsUrl: accountsFilterUrl({ ownerId: agent.ownerId }),
     };
   });

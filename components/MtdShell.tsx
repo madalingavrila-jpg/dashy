@@ -11,7 +11,7 @@ export function MtdShell() {
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
-        title="MTD & Tiers Tracking"
+        title="MTD & Segment Tracking"
         subtitle={`${model?.mtdAchievement.month ?? "Current month"} only — month-to-date production, not year-to-date.`}
         updatedAt={model?.updatedAt}
         loading={loading}

@@ -8,13 +8,25 @@ type AgentsTableProps = {
   loading?: boolean;
 };
 
+function progressBar(progress: number, accent: "won" | "activated") {
+  const barColor = accent === "won" ? "bg-won" : "bg-activated";
+  return (
+    <div className="flex items-center gap-sm">
+      <div className="h-2 w-16 overflow-hidden rounded-full bg-surface-container">
+        <div className={`h-full rounded-full ${barColor}`} style={{ width: `${progress}%` }} />
+      </div>
+      <span className="text-label-md text-on-surface-variant">{progress}%</span>
+    </div>
+  );
+}
+
 export function AgentsTable({ agents, loading }: AgentsTableProps) {
   return (
     <div className="glass-card overflow-hidden rounded-xl">
       <div className="border-b border-outline-variant p-lg">
         <h3 className="text-title-lg font-title-lg font-bold">Sales Agents</h3>
         <p className="text-body-md text-on-surface-variant">
-          Romania URads owners — pipeline, MTD Won & Activated (June 2026 only)
+          Romania URads owners — Complex target 8/rep, Density target 25/rep (MTD Won & Activated)
         </p>
       </div>
       <div className="overflow-x-auto">
@@ -23,6 +35,12 @@ export function AgentsTable({ agents, loading }: AgentsTableProps) {
             <tr>
               <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
                 Agent
+              </th>
+              <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
+                Segment
+              </th>
+              <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
+                Target
               </th>
               <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
                 Pipeline
@@ -44,13 +62,13 @@ export function AgentsTable({ agents, loading }: AgentsTableProps) {
           <tbody className="divide-y divide-outline-variant">
             {loading && !agents?.length ? (
               <tr>
-                <td colSpan={6} className="px-lg py-xl text-center text-on-surface-variant">
+                <td colSpan={8} className="px-lg py-xl text-center text-on-surface-variant">
                   Loading agents…
                 </td>
               </tr>
             ) : !agents?.length ? (
               <tr>
-                <td colSpan={6} className="px-lg py-xl text-center text-on-surface-variant">
+                <td colSpan={8} className="px-lg py-xl text-center text-on-surface-variant">
                   No agents found.
                 </td>
               </tr>
@@ -67,6 +85,16 @@ export function AgentsTable({ agents, loading }: AgentsTableProps) {
                       {agent.name}
                     </Link>
                   </td>
+                  <td className="px-lg py-md">
+                    <span
+                      className={`rounded-full px-xs py-[2px] text-[11px] font-bold ${agent.segmentColor}`}
+                    >
+                      {agent.segment}
+                    </span>
+                  </td>
+                  <td className="px-lg py-md text-data-mono font-data-mono font-bold">
+                    {agent.mtdTarget}
+                  </td>
                   <td className="px-lg py-md text-data-mono font-data-mono font-bold">
                     {agent.pipelineCount}
                   </td>
@@ -74,14 +102,20 @@ export function AgentsTable({ agents, loading }: AgentsTableProps) {
                     {agent.stageSummary}
                   </td>
                   <td className="px-lg py-md">
-                    <span className="rounded-full badge-won px-xs py-[2px] text-label-md font-bold">
-                      {agent.wonMtd}
-                    </span>
+                    <div className="space-y-xs">
+                      <span className="rounded-full badge-won px-xs py-[2px] text-label-md font-bold">
+                        {agent.wonMtd} / {agent.mtdTarget}
+                      </span>
+                      {progressBar(agent.wonMtdProgress, "won")}
+                    </div>
                   </td>
                   <td className="px-lg py-md">
-                    <span className="rounded-full badge-activated px-xs py-[2px] text-label-md font-bold">
-                      {agent.activatedMtd}
-                    </span>
+                    <div className="space-y-xs">
+                      <span className="rounded-full badge-activated px-xs py-[2px] text-label-md font-bold">
+                        {agent.activatedMtd} / {agent.mtdTarget}
+                      </span>
+                      {progressBar(agent.activatedMtdProgress, "activated")}
+                    </div>
                   </td>
                   <td className="px-lg py-md">
                     <Link
