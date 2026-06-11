@@ -6,6 +6,7 @@ import type { TeamProgressView } from "@/types/dashboard";
 type TeamProgressPanelProps = {
   team: TeamProgressView;
   loading?: boolean;
+  variant?: "overview" | "detailed";
 };
 
 function progressBar(
@@ -52,17 +53,235 @@ function progressBadge(progress: number, tone: "won" | "activated") {
   );
 }
 
-export function TeamProgressPanel({ team, loading }: TeamProgressPanelProps) {
+function MtdStatChip({
+  label,
+  actual,
+  target,
+  progress,
+  tone,
+}: {
+  label: string;
+  actual: string;
+  target: string;
+  progress: number;
+  tone: "won" | "activated";
+}) {
+  const labelColor = tone === "won" ? "text-won" : "text-activated";
+
+  return (
+    <div className="min-w-0 flex-1 rounded-lg border border-outline-variant/60 bg-white/60 p-md">
+      <p className={`text-label-md font-semibold uppercase tracking-wide ${labelColor}`}>{label}</p>
+      <div className="mt-xs flex flex-wrap items-end justify-between gap-xs">
+        <p className="text-headline-sm font-extrabold tabular-nums text-on-surface">
+          {actual}{" "}
+          <span className="text-body-md font-normal text-on-surface-variant">/ {target}</span>
+        </p>
+        {progressBadge(progress, tone)}
+      </div>
+      <div className="mt-sm">
+        {progressBar(progress, tone, tone === "won" ? "sm" : "xs")}
+      </div>
+    </div>
+  );
+}
+
+function AgentMtdCell({
+  actual,
+  target,
+  progress,
+  tone,
+  compact,
+}: {
+  actual: string;
+  target: string;
+  progress: number;
+  tone: "won" | "activated";
+  compact?: boolean;
+}) {
+  const chipClass = tone === "won" ? "badge-won" : "badge-activated";
+  const barSize = compact ? "xs" : "sm";
+
+  return (
+    <div className="space-y-xs">
+      <div className="flex flex-wrap items-center gap-xs">
+        <span className={`rounded-full px-xs py-[2px] text-label-md font-bold tabular-nums ${chipClass}`}>
+          {tone === "won" ? "Won" : "Act"} {actual}/{target}
+        </span>
+        <span
+          className={`text-label-md font-bold tabular-nums ${tone === "won" ? "text-won" : "text-activated"}`}
+        >
+          {progress}%
+        </span>
+      </div>
+      {progressBar(progress, tone, barSize)}
+    </div>
+  );
+}
+
+function AgentRowsTable({
+  team,
+  loading,
+  detailed,
+}: {
+  team: TeamProgressView;
+  loading?: boolean;
+  detailed?: boolean;
+}) {
+  if (loading && !team.agents.length) {
+    return <p className="px-sm py-md text-on-surface-variant">Loading agents…</p>;
+  }
+
+  if (detailed) {
+    return (
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[640px] text-left">
+          <thead>
+            <tr className="border-b border-outline-variant/60 bg-surface-container-low/50">
+              <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+                Agent
+              </th>
+              <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+                Segment
+              </th>
+              <th className="px-md py-sm text-label-md font-semibold uppercase text-won">Won MTD</th>
+              <th className="px-md py-sm text-label-md font-semibold uppercase text-activated">
+                Activated MTD
+              </th>
+              <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+                Accounts
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-outline-variant/40">
+            {team.agents.map((agent) => (
+              <tr key={agent.ownerId} className="hover:bg-surface-container-low/40">
+                <td className="px-md py-sm">
+                  <Link
+                    href={agent.accountsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-primary hover:underline"
+                  >
+                    {agent.name}
+                  </Link>
+                </td>
+                <td className="px-md py-sm">
+                  <span
+                    className={`rounded-full px-xs py-[2px] text-[11px] font-bold ${agent.segmentColor}`}
+                  >
+                    {agent.segment}
+                  </span>
+                </td>
+                <td className="px-md py-sm">
+                  <AgentMtdCell
+                    actual={agent.mtdActual}
+                    target={agent.mtdTarget}
+                    progress={agent.progress}
+                    tone="won"
+                  />
+                </td>
+                <td className="px-md py-sm">
+                  <AgentMtdCell
+                    actual={agent.activatedActual}
+                    target={agent.activatedTarget}
+                    progress={agent.activatedProgress}
+                    tone="activated"
+                  />
+                </td>
+                <td className="px-md py-sm">
+                  <Link
+                    href={agent.accountsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-xs text-label-md font-semibold text-primary hover:underline"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+                    Open
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full min-w-[520px] text-left">
+        <thead>
+          <tr className="border-b border-outline-variant/60">
+            <th className="px-sm py-xs text-label-md font-semibold uppercase text-on-surface-variant">
+              Agent
+            </th>
+            <th className="px-sm py-xs text-label-md font-semibold uppercase text-won">Won MTD</th>
+            <th className="px-sm py-xs text-label-md font-semibold uppercase text-activated">
+              Activated MTD
+            </th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-outline-variant/30">
+          {team.agents.map((agent, index) => (
+            <tr
+              key={agent.ownerId}
+              className={index % 2 === 0 ? "bg-surface-container-low/30" : undefined}
+            >
+              <td className="px-sm py-sm">
+                <div className="flex flex-wrap items-center gap-xs">
+                  <Link
+                    href={agent.accountsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-primary hover:underline"
+                  >
+                    {agent.name}
+                  </Link>
+                  <span
+                    className={`rounded-full px-xs py-[2px] text-[10px] font-bold uppercase ${agent.segmentColor}`}
+                  >
+                    {agent.segment}
+                  </span>
+                </div>
+              </td>
+              <td className="px-sm py-sm">
+                <AgentMtdCell
+                  actual={agent.mtdActual}
+                  target={agent.mtdTarget}
+                  progress={agent.progress}
+                  tone="won"
+                  compact
+                />
+              </td>
+              <td className="px-sm py-sm">
+                <AgentMtdCell
+                  actual={agent.activatedActual}
+                  target={agent.activatedTarget}
+                  progress={agent.activatedProgress}
+                  tone="activated"
+                  compact
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function TeamProgressPanel({ team, loading, variant = "overview" }: TeamProgressPanelProps) {
   const accent = team.segment === "complex" ? "complex" : "density";
   const borderColor = accent === "complex" ? "border-l-primary" : "border-l-tertiary";
   const badgeColor =
     accent === "complex"
       ? "bg-primary-container/50 text-on-primary-container"
       : "bg-tertiary-container/50 text-on-tertiary-container";
+  const detailed = variant === "detailed";
 
   return (
     <div className={`team-card glass-card rounded-xl border-l-4 ${borderColor} p-lg`}>
-      <div className="mb-lg space-y-md">
+      <header className="mb-lg space-y-md">
         <div className="flex flex-wrap items-start justify-between gap-sm">
           <div className="space-y-xs">
             <span
@@ -72,7 +291,7 @@ export function TeamProgressPanel({ team, loading }: TeamProgressPanelProps) {
             </span>
             <h3 className="text-headline-md font-extrabold text-on-background">{team.name}</h3>
             <p className="text-body-md text-on-surface-variant">
-              {team.repCount} reps · Won {team.targetPerRep}/rep · Activated{" "}
+              {team.repCount} reps · Won target {team.targetPerRep}/rep · Activated target{" "}
               {team.activatedTargetPerRep}/rep
             </p>
           </div>
@@ -82,94 +301,48 @@ export function TeamProgressPanel({ team, loading }: TeamProgressPanelProps) {
           </div>
         </div>
 
-        <div className="rounded-lg border border-outline-variant/70 bg-surface-container-low/60 p-md">
-          <div className="mb-sm flex flex-wrap items-end justify-between gap-sm">
-            <div>
-              <p className="text-label-md font-semibold uppercase tracking-wide text-won">Won MTD</p>
-              <p className="text-headline-sm font-extrabold tabular-nums text-on-surface">
-                {team.actual}{" "}
-                <span className="text-body-md font-normal text-on-surface-variant">/ {team.target}</span>
-              </p>
-            </div>
+        <div className="flex flex-col gap-sm sm:flex-row">
+          <MtdStatChip
+            label="Won MTD"
+            actual={team.actual}
+            target={team.target}
+            progress={team.progress}
+            tone="won"
+          />
+          <MtdStatChip
+            label="Activated MTD"
+            actual={team.activatedActual}
+            target={team.activatedTarget}
+            progress={team.activatedProgress}
+            tone="activated"
+          />
+        </div>
+
+        <div className="rounded-lg border border-outline-variant/50 bg-surface-container-low/40 p-sm">
+          <div className="mb-xs flex flex-wrap items-center justify-between gap-xs">
             <p className="text-label-md font-semibold text-on-surface-variant">
-              {team.progress}% of team target
+              Team Won target progress
+            </p>
+            <p className="text-label-md font-bold tabular-nums text-won">
+              {team.actual} / {team.target} · {team.progress}%
             </p>
           </div>
           {loading && !team.agents.length ? (
             <div className="h-3 animate-pulse rounded-full bg-surface-container" />
           ) : (
-            progressBar(team.progress, "won", "md")
+            progressBar(team.progress, accent, "md")
           )}
         </div>
-
-        <div className="rounded-lg border border-outline-variant/50 bg-white/50 p-md">
-          <div className="mb-xs flex flex-wrap items-end justify-between gap-sm">
-            <div>
-              <p className="text-label-md font-semibold uppercase tracking-wide text-activated">
-                Activated MTD
-              </p>
-              <p className="text-body-md font-bold tabular-nums text-on-surface">
-                {team.activatedActual}{" "}
-                <span className="font-normal text-on-surface-variant">/ {team.activatedTarget}</span>
-              </p>
-            </div>
-            <p className="text-label-md font-semibold text-on-surface-variant">
-              {team.activatedProgress}%
-            </p>
-          </div>
-          {loading && !team.agents.length ? (
-            <div className="h-1.5 animate-pulse rounded-full bg-surface-container" />
-          ) : (
-            progressBar(team.activatedProgress, "activated", "xs")
-          )}
-        </div>
-      </div>
+      </header>
 
       <div className="border-t border-outline-variant/60 pt-md">
-        <p className="mb-md text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
-          Agents · sorted by Won %
-        </p>
-        <div className="space-y-md">
-          {loading && !team.agents.length ? (
-            <p className="text-on-surface-variant">Loading agents…</p>
-          ) : (
-            team.agents.map((agent, index) => (
-              <div
-                key={agent.ownerId}
-                className={`rounded-lg px-sm py-sm ${index % 2 === 0 ? "bg-surface-container-low/40" : ""}`}
-              >
-                <div className="mb-xs flex items-center justify-between gap-sm">
-                  <Link
-                    href={agent.accountsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="truncate text-body-md font-semibold text-primary hover:underline"
-                  >
-                    {agent.name}
-                  </Link>
-                  <div className="flex shrink-0 items-center gap-sm">
-                    <span className="rounded-full badge-won px-xs py-[2px] text-label-md font-bold tabular-nums">
-                      {agent.mtdActual} / {agent.mtdTarget}
-                    </span>
-                    <span className="min-w-[3ch] text-right text-label-md font-bold tabular-nums text-won">
-                      {agent.progress}%
-                    </span>
-                  </div>
-                </div>
-                {progressBar(agent.progress, "won", "sm")}
-                <div className="mt-xs flex items-center justify-between gap-sm">
-                  <span className="text-[11px] font-semibold text-activated">
-                    Activated {agent.activatedActual}/{agent.activatedTarget}
-                  </span>
-                  <span className="text-[11px] font-semibold tabular-nums text-on-surface-variant">
-                    {agent.activatedProgress}%
-                  </span>
-                </div>
-                {progressBar(agent.activatedProgress, "activated", "xs")}
-              </div>
-            ))
-          )}
+        <div className="mb-md flex flex-wrap items-center justify-between gap-sm">
+          <p className="text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
+            Agents · MTD status
+          </p>
+          <p className="text-label-md text-on-surface-variant">Sorted by Won MTD %</p>
         </div>
+        <AgentRowsTable team={team} loading={loading} detailed={detailed} />
       </div>
     </div>
   );
@@ -179,33 +352,42 @@ type TeamProgressGridProps = {
   teams?: TeamProgressView[];
   month?: string;
   loading?: boolean;
+  variant?: "overview" | "detailed";
 };
 
-export function TeamProgressGrid({ teams, month, loading }: TeamProgressGridProps) {
+export function TeamProgressGrid({
+  teams,
+  month,
+  loading,
+  variant = "overview",
+}: TeamProgressGridProps) {
+  const detailed = variant === "detailed";
+
   return (
     <section className="space-y-sm">
       <div>
         <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
-          Team targets · MTD
+          Teams · MTD progress
         </p>
         <h2 className="text-headline-md font-extrabold text-on-surface">
-          Complex & Density — agent progress
+          {detailed ? "Complex & Density — full agent breakdown" : "Complex & Density — by team"}
         </h2>
         {month ? (
           <p className="text-body-md text-on-surface-variant">
-            {month} · Won 10/rep Complex, 30/rep Density · Activated 8/rep Complex, 25/rep Density
+            {month} · team totals first, then each agent&apos;s Won & Activated MTD (Complex Won
+            10 / Act 8 · Density Won 30 / Act 25)
           </p>
         ) : null}
       </div>
-      <div className="grid grid-cols-1 gap-md xl:grid-cols-2">
+      <div className="grid grid-cols-1 gap-lg">
         {loading && !teams?.length ? (
           <>
-            <div className="glass-card h-[28rem] animate-pulse rounded-xl" />
-            <div className="glass-card h-[28rem] animate-pulse rounded-xl" />
+            <div className="glass-card h-[32rem] animate-pulse rounded-xl" />
+            <div className="glass-card h-[32rem] animate-pulse rounded-xl" />
           </>
         ) : (
           teams?.map((team) => (
-            <TeamProgressPanel key={team.segment} team={team} loading={loading} />
+            <TeamProgressPanel key={team.segment} team={team} loading={loading} variant={variant} />
           ))
         )}
       </div>

@@ -234,6 +234,13 @@ function buildMtdOverviewMetrics(data: DashboardRawData): MetricCard[] {
   ];
 }
 
+function agentSegmentStyle(segment: "complex" | "density"): { label: string; color: string } {
+  if (segment === "complex") {
+    return { label: "Complex", color: "bg-primary-container/30 text-on-primary-container" };
+  }
+  return { label: "Density", color: "bg-tertiary-container/40 text-on-tertiary-container" };
+}
+
 function buildTeamProgress(
   agents: DashboardRawData["salesPipeline"]["agents"],
 ): TeamProgressView[] {
@@ -303,17 +310,22 @@ function buildTeamProgress(
       activatedTarget: formatInteger(activatedTarget),
       activatedActual: formatInteger(activatedActual),
       activatedProgress,
-      agents: members.map((agent) => ({
-        ownerId: agent.ownerId,
-        name: agent.name,
-        mtdTarget: formatInteger(agent.mtdTarget),
-        mtdActual: formatInteger(agent.mtdActual),
-        progress: agent.progress,
-        activatedTarget: formatInteger(agent.activatedTarget),
-        activatedActual: formatInteger(agent.activatedActual),
-        activatedProgress: agent.activatedProgress,
-        accountsUrl: agent.accountsUrl,
-      })),
+      agents: members.map((agent) => {
+        const style = agentSegmentStyle(agent.segment);
+        return {
+          ownerId: agent.ownerId,
+          name: agent.name,
+          segment: style.label,
+          segmentColor: style.color,
+          mtdTarget: formatInteger(agent.mtdTarget),
+          mtdActual: formatInteger(agent.mtdActual),
+          progress: agent.progress,
+          activatedTarget: formatInteger(agent.activatedTarget),
+          activatedActual: formatInteger(agent.activatedActual),
+          activatedProgress: agent.activatedProgress,
+          accountsUrl: agent.accountsUrl,
+        };
+      }),
     };
   };
 
@@ -330,10 +342,7 @@ function accountStatusStyle(status: AccountRow["status"]): { label: string; colo
 }
 
 function segmentStyle(segment: HitlistRow["segment"]): { label: string; color: string } {
-  if (segment === "complex") {
-    return { label: "Complex", color: "bg-primary-container/30 text-on-primary-container" };
-  }
-  return { label: "Density", color: "bg-tertiary-container/40 text-on-tertiary-container" };
+  return agentSegmentStyle(segment);
 }
 
 function buildAccountViews(accounts: AccountRow[], instanceUrl: string) {

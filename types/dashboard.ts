@@ -105,6 +105,8 @@ export type AgentViewRow = {
 export type TeamAgentProgressView = {
   ownerId: string;
   name: string;
+  segment: string;
+  segmentColor: string;
   mtdTarget: string;
   mtdActual: string;
   progress: number;
