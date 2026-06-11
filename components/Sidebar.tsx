@@ -10,7 +10,6 @@ const navItems = [
   { icon: "flag", label: "MTD & Tiers", href: "/mtd" },
   { icon: "compare_arrows", label: "WoW Reports", href: "/wow" },
   { icon: "badge", label: "Agents", href: "/agents" },
-  { icon: "groups", label: "Accounts", href: "/accounts" },
   { icon: "priority_high", label: "Hitlist", href: "/hitlist" },
 ];
 
