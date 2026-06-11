@@ -101,7 +101,8 @@ function mapAccount(opp, statusOverride) {
 // --- Load MCP exports (paths passed via env or defaults) ---
 const weeklyExport = process.env.SF_WEEKLY_EXPORT ?? join(root, "scripts/.cache/sf-weekly-2026.json");
 const pipelineExport = process.env.SF_PIPELINE_EXPORT ?? join(root, "scripts/.cache/sf-pipeline-open.json");
-const wonExport = process.env.SF_WON_EXPORT ?? join(root, "scripts/.cache/sf-won-recent.json");
+/** Full THIS_MONTH won/activated opps — not a recent-N sample (see AGENTS.md SOQL). */
+const wonExport = process.env.SF_WON_EXPORT ?? join(root, "scripts/.cache/sf-won-mtd.json");
 const weeklyData = parseSfJson(weeklyExport);
 const pipelineData = parseSfJson(pipelineExport);
 const wonData = parseSfJson(wonExport);
@@ -207,16 +208,26 @@ for (const opp of pipelineData.records ?? []) {
   agent.stageCounts[stage] = (agent.stageCounts[stage] ?? 0) + 1;
 }
 
-const juneStart = new Date("2026-06-01T00:00:00Z");
-const juneEnd = new Date("2026-06-30T23:59:59Z");
+/** MTD window — export should already use CloseDate = THIS_MONTH; filter again for safety. */
+const mtdRef = new Date();
+const mtdYear = mtdRef.getFullYear();
+const mtdMonth = mtdRef.getMonth();
+const mtdStart = new Date(Date.UTC(mtdYear, mtdMonth, 1));
+const mtdEnd = new Date(Date.UTC(mtdYear, mtdMonth + 1, 0, 23, 59, 59));
+const mtdMonthLabel = mtdRef.toLocaleString("en-GB", {
+  month: "long",
+  year: "numeric",
+  timeZone: "Europe/Bucharest",
+});
+
 for (const opp of wonData.records ?? []) {
   const agent = upsertAgent(opp);
   const closed = opp.CloseDate ? new Date(`${opp.CloseDate}T12:00:00Z`) : null;
-  if (closed && closed >= juneStart && closed <= juneEnd) {
+  if (closed && closed >= mtdStart && closed <= mtdEnd) {
     if (WON_STAGES.includes(opp.StageName)) agent.wonMtd += 1;
     if (opp.StageName === "Activated") agent.activatedMtd += 1;
   }
-  if (opp.StageName === "Activated" && closed?.getFullYear() === 2026) agent.wonYtd += 1;
+  if (opp.StageName === "Activated" && closed?.getFullYear() === mtdYear) agent.wonYtd += 1;
 }
 
 const agents = filterTeamAgents(
@@ -228,7 +239,7 @@ const agents = filterTeamAgents(
   ),
 ).sort((a, b) => b.pipelineCount - a.pipelineCount);
 
-const mtdAchievement = buildMtdAchievement(agents, "June 2026", {
+const mtdAchievement = buildMtdAchievement(agents, mtdMonthLabel, {
   leadsMtd: 173,
   qualifiedMtd: 15,
 });

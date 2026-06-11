@@ -106,6 +106,22 @@ ORDER BY COUNT(Id) DESC
 
 Exclude `Administrator` from the agents list. Map each owner to segment, set `mtdTarget`, then call `buildMtdAchievement(agents, month, { leadsMtd, qualifiedMtd })`.
 
+**MCP export for MTD counts** — save full query results to `scripts/.cache/sf-won-mtd.json` (all THIS_MONTH rows; do **not** use a recent-N sample):
+
+```sql
+SELECT Id, Name, StageName, CloseDate, OwnerId, Owner.Name, AccountId, Account.Name, Account.BillingCity
+FROM Opportunity
+WHERE RecordType.Name = 'Sales Opportunity'
+  AND CloseDate = THIS_MONTH
+  AND StageName IN (
+    'Contract sent', 'Ready to Activate', 'Onboarding',
+    'Onboarding Checklist', 'Closed Won', 'Activated'
+  )
+ORDER BY CloseDate DESC
+```
+
+`scripts/build-dashboard-data.mjs` reads this file for per-rep `wonMtd` / `activatedMtd` and global `mtdAchievement`.
+
 ## Google Sheet reference
 
 Spreadsheet: `1IW8IxEs-YCsYMlCeTfkIz-b51eStjR5uUIEpkV1akRE`
