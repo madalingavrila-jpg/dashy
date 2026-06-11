@@ -77,17 +77,15 @@ Each agent row must include `segment` (`complex` | `density`) and `mtdTarget` (W
 
 Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.mjs` and `scripts/patch-mtd-targets.mjs`). Excluded reps are defined in `EXCLUDED_OWNER_IDS`.
 
-### Won MTD per owner (Sales Opportunity)
+### Won MTD per owner
+
+Matches Slack: count opportunities with `IsWon = true` and `CloseDate = THIS_MONTH` (all record types).
 
 ```sql
 SELECT OwnerId, Owner.Name, COUNT(Id) cnt
 FROM Opportunity
-WHERE RecordType.Name = 'Sales Opportunity'
-  AND CloseDate = THIS_MONTH
-  AND StageName IN (
-    'Contract sent', 'Ready to Activate', 'Onboarding',
-    'Onboarding Checklist', 'Closed Won', 'Activated'
-  )
+WHERE CloseDate = THIS_MONTH
+  AND IsWon = true
 GROUP BY OwnerId, Owner.Name
 ORDER BY COUNT(Id) DESC
 ```
@@ -109,18 +107,14 @@ Exclude `Administrator` from the agents list. Map each owner to segment, set `mt
 **MCP export for MTD counts** — save full query results to `scripts/.cache/sf-won-mtd.json` (all THIS_MONTH rows; do **not** use a recent-N sample):
 
 ```sql
-SELECT Id, Name, StageName, CloseDate, OwnerId, Owner.Name, AccountId, Account.Name, Account.BillingCity
+SELECT Id, Name, StageName, IsWon, CloseDate, OwnerId, Owner.Name, AccountId, Account.Name, Account.BillingCity
 FROM Opportunity
-WHERE RecordType.Name = 'Sales Opportunity'
-  AND CloseDate = THIS_MONTH
-  AND StageName IN (
-    'Contract sent', 'Ready to Activate', 'Onboarding',
-    'Onboarding Checklist', 'Closed Won', 'Activated'
-  )
+WHERE CloseDate = THIS_MONTH
+  AND (IsWon = true OR StageName = 'Activated')
 ORDER BY CloseDate DESC
 ```
 
-`scripts/build-dashboard-data.mjs` reads this file for per-rep `wonMtd` / `activatedMtd` and global `mtdAchievement`.
+`scripts/build-dashboard-data.mjs` reads this file for per-rep `wonMtd` (`IsWon = true`) / `activatedMtd` (`StageName = 'Activated'`) and global `mtdAchievement`.
 
 ### Weekly production (stage transition dates)
 

@@ -12,7 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const dashboardPath = join(root, "data/dashboard.json");
 
-/** Won MTD — Sales Opportunity, CloseDate THIS_MONTH (SF 2026-06-11). */
+/** Won MTD — IsWon = true, CloseDate THIS_MONTH (SF 2026-06-11). Prefer scripts/build-dashboard-data.mjs. */
 const SF_WON_MTD = {
   "005Ts00000BtX53IAF": 45,
   "005Ts00000BtZV3IAN": 30,

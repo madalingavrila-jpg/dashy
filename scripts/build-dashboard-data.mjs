@@ -93,7 +93,7 @@ const weeklyExport = process.env.SF_WEEKLY_EXPORT ?? join(root, "scripts/.cache/
 const stageHistoryExport =
   process.env.SF_STAGE_HISTORY_EXPORT ?? join(root, "scripts/.cache/sf-stage-history-2026.json");
 const pipelineExport = process.env.SF_PIPELINE_EXPORT ?? join(root, "scripts/.cache/sf-pipeline-open.json");
-/** Full THIS_MONTH won/activated opps — not a recent-N sample (see AGENTS.md SOQL). */
+/** Full THIS_MONTH won/activated opps (IsWon or Activated stage) — see AGENTS.md SOQL. */
 const wonExport = process.env.SF_WON_EXPORT ?? join(root, "scripts/.cache/sf-won-mtd.json");
 const weeklyData = parseSfJson(weeklyExport);
 const stageHistoryData = parseSfJson(stageHistoryExport);
@@ -197,7 +197,7 @@ for (const opp of wonData.records ?? []) {
   const agent = upsertAgent(opp);
   const closed = opp.CloseDate ? new Date(`${opp.CloseDate}T12:00:00Z`) : null;
   if (closed && closed >= mtdStart && closed <= mtdEnd) {
-    if (WON_STAGES.includes(opp.StageName)) agent.wonMtd += 1;
+    if (opp.IsWon === true) agent.wonMtd += 1;
     if (opp.StageName === "Activated") agent.activatedMtd += 1;
   }
   if (opp.StageName === "Activated" && closed?.getFullYear() === mtdYear) agent.wonYtd += 1;
