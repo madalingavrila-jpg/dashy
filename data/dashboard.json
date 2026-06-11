@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-11T20:47:33.186Z",
+  "updatedAt": "2026-06-11T21:12:01.561Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -38250,7 +38250,7 @@
   },
   "mops": {
     "dashboardId": "01ZTs000000Bx9dMAC",
-    "dashboardTitle": "[MOps] Cases | High-level overview",
+    "dashboardTitle": "[MOps] Open cases",
     "dashboardUrl": "https://boltfood.lightning.force.com/lightning/r/Dashboard/01ZTs000000Bx9dMAC/view",
     "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
     "metrics": [
@@ -38258,7 +38258,7 @@
         "id": "open-cases",
         "label": "Open cases",
         "value": 92,
-        "subtitle": "All open MOps cases",
+        "subtitle": "IsClosed = false",
         "icon": "inbox"
       },
       {
@@ -38269,20 +38269,18 @@
         "icon": "support_agent"
       },
       {
-        "id": "closed-mtd",
-        "label": "Closed cases MTD",
-        "value": 114,
-        "previousValue": 268,
-        "changePercent": -57.5,
-        "subtitle": "vs prior month",
-        "icon": "task_alt"
+        "id": "open-other-cases",
+        "label": "Other open cases",
+        "value": 33,
+        "subtitle": "Menu update, self signup, expansion…",
+        "icon": "folder_open"
       },
       {
-        "id": "live-onboarding-opps",
-        "label": "Live in onboarding",
-        "value": 350,
-        "subtitle": "Team opps · Contract sent → Ready to Activate",
-        "icon": "pending_actions"
+        "id": "open-top-status",
+        "label": "Menu & Assets",
+        "value": 50,
+        "subtitle": "Largest open status bucket",
+        "icon": "pending"
       }
     ],
     "openCaseStatuses": [
@@ -41314,25 +41312,25 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-06-11T20:47:33.186Z",
+        "lastSync": "2026-06-11T21:12:01.561Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-06-11T20:47:33.186Z",
+        "lastSync": "2026-06-11T21:12:01.561Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-06-11T20:47:33.186Z",
+        "lastSync": "2026-06-11T21:12:01.561Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-06-11T20:47:33.186Z",
+        "lastSync": "2026-06-11T21:12:01.561Z",
         "icon": "dashboard"
       }
     ]

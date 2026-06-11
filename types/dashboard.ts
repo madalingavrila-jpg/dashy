@@ -259,6 +259,7 @@ export type MopsView = {
   dashboardUrl: string;
   metrics: MetricCard[];
   openCaseStatuses: Array<{ status: string; count: string }>;
+  openCaseRecordTypes: Array<{ recordType: string; count: string }>;
   onboardingPipeline: FunnelStageView[];
   totalLiveOnboarding: string;
   onboardingByAgent: MopsAgentViewRow[];

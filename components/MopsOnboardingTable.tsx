@@ -24,8 +24,8 @@ export function MopsOnboardingTable({ agents, loading }: MopsOnboardingTableProp
       <div className="border-b border-outline-variant p-lg">
         <h3 className="text-title-lg font-title-lg font-bold">Live onboarding by agent</h3>
         <p className="text-body-md text-on-surface-variant">
-          Romania team reps only — opps in Contract sent through Ready to Activate (excludes
-          Activated). Teodor Domnica & Andrei-Sebastian Caba excluded.
+          Sales opportunities (not cases) — Romania team reps only, Contract sent through Ready to
+          Activate (excludes Activated). Teodor Domnica & Andrei-Sebastian Caba excluded.
         </p>
       </div>
       <div className="overflow-x-auto">

@@ -578,6 +578,10 @@ function buildMopsView(mops: MopsData | undefined): MopsView | undefined {
       status: row.status,
       count: formatInteger(row.count),
     })),
+    openCaseRecordTypes: (mops.openCaseRecordTypes ?? []).map((row) => ({
+      recordType: row.recordType,
+      count: formatInteger(row.count),
+    })),
     onboardingPipeline,
     totalLiveOnboarding: formatInteger(mops.totalLiveOnboarding),
     onboardingByAgent: (mops.onboardingByAgent ?? []).map((agent) => {
@@ -677,6 +681,7 @@ function emptyMopsView(): MopsView {
       "https://boltfood.lightning.force.com/lightning/r/Dashboard/01ZTs000000Bx9dMAC/view",
     metrics: [],
     openCaseStatuses: [],
+    openCaseRecordTypes: [],
     onboardingPipeline: [],
     totalLiveOnboarding: "—",
     onboardingByAgent: [],

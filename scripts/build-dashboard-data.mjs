@@ -172,45 +172,49 @@ function buildMopsSection(onboardingData, casesData) {
     .filter(([, count]) => count > 0)
     .map(([stage, count]) => ({ stage, count }));
 
-  const closedMtd = casesData.closedMtd ?? 0;
-  const closedPrior = casesData.closedPriorMonth ?? 0;
+  const openCases = casesData.openCases ?? 0;
+  const openNewOnboarding = casesData.openNewOnboarding ?? 0;
+  const openOtherCases = Math.max(0, openCases - openNewOnboarding);
+  const topOpenStatus = (casesData.openByStatus ?? [])[0];
 
   return {
     dashboardId: MOPS_DASHBOARD_ID,
-    dashboardTitle: "[MOps] Cases | High-level overview",
+    dashboardTitle: "[MOps] Open cases",
     dashboardUrl: MOPS_DASHBOARD_URL,
     salesforceInstanceUrl: MOPS_SF_INSTANCE,
     metrics: [
       {
         id: "open-cases",
         label: "Open cases",
-        value: casesData.openCases ?? 0,
-        subtitle: "All open MOps cases",
+        value: openCases,
+        subtitle: "IsClosed = false",
         icon: "inbox",
       },
       {
         id: "open-new-onboarding",
         label: "Open onboarding cases",
-        value: casesData.openNewOnboarding ?? 0,
+        value: openNewOnboarding,
         subtitle: "New Onboarding record type",
         icon: "support_agent",
       },
       {
-        id: "closed-mtd",
-        label: "Closed cases MTD",
-        value: closedMtd,
-        previousValue: closedPrior,
-        changePercent: pctChange(closedMtd, closedPrior),
-        subtitle: "vs prior month",
-        icon: "task_alt",
+        id: "open-other-cases",
+        label: "Other open cases",
+        value: openOtherCases,
+        subtitle: "Menu update, self signup, expansion…",
+        icon: "folder_open",
       },
-      {
-        id: "live-onboarding-opps",
-        label: "Live in onboarding",
-        value: totalLiveOnboarding,
-        subtitle: "Team opps · Contract sent → Ready to Activate",
-        icon: "pending_actions",
-      },
+      ...(topOpenStatus
+        ? [
+            {
+              id: "open-top-status",
+              label: topOpenStatus.status,
+              value: topOpenStatus.count,
+              subtitle: "Largest open status bucket",
+              icon: "pending",
+            },
+          ]
+        : []),
     ],
     openCaseStatuses: casesData.openByStatus ?? [],
     openCaseRecordTypes: casesData.openByRecordType ?? [],
