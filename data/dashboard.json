@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-11T16:29:57.458Z",
+  "updatedAt": "2026-06-11T18:33:03.274Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -68,14 +68,14 @@
     },
     "mtdAchievement": {
       "month": "June 2026",
-      "targetWon": 320,
+      "targetWon": 260,
       "actualWon": 197,
-      "targetActivated": 265,
+      "targetActivated": 215,
       "actualActivated": 79,
       "leadsMtd": 173,
       "qualifiedMtd": 15,
       "complexRepCount": 5,
-      "densityRepCount": 9,
+      "densityRepCount": 7,
       "tiers": [
         {
           "name": "Complex",
@@ -85,7 +85,7 @@
         },
         {
           "name": "Density",
-          "target": 270,
+          "target": 210,
           "actual": 177,
           "type": "won"
         },
@@ -97,7 +97,7 @@
         },
         {
           "name": "Density",
-          "target": 225,
+          "target": 175,
           "actual": 65,
           "type": "activated"
         }
@@ -389,19 +389,6 @@
         "mtdTarget": 30
       },
       {
-        "ownerId": "005Ts000005XKgEIAW",
-        "name": "Andrei-Sebastian Caba",
-        "pipelineCount": 62,
-        "stageCounts": {
-          "New Opportunity": 62
-        },
-        "wonMtd": 0,
-        "activatedMtd": 0,
-        "wonYtd": 0,
-        "segment": "density",
-        "mtdTarget": 30
-      },
-      {
         "ownerId": "005Ts00000BtGPDIA3",
         "name": "Daniel-Alexandru Boboc",
         "pipelineCount": 57,
@@ -437,19 +424,6 @@
         "wonMtd": 30,
         "activatedMtd": 8,
         "wonYtd": 8,
-        "segment": "density",
-        "mtdTarget": 30
-      },
-      {
-        "ownerId": "005Ts00000FjJkDIAV",
-        "name": "Teodor Domnica",
-        "pipelineCount": 32,
-        "stageCounts": {
-          "New Opportunity": 32
-        },
-        "wonMtd": 0,
-        "activatedMtd": 0,
-        "wonYtd": 0,
         "segment": "density",
         "mtdTarget": 30
       },

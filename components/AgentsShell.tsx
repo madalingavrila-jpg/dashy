@@ -4,9 +4,10 @@ import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { AgentsTable } from "@/components/AgentsTable";
 import { useDashboard } from "@/lib/useDashboard";
+import { formatTargetSummary } from "@/lib/targetConfig";
 
 export function AgentsShell() {
-  const { model, error, loading, sourceHint } = useDashboard();
+  const { model, error, loading, sourceHint, targetConfig } = useDashboard();
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">
@@ -19,7 +20,11 @@ export function AgentsShell() {
 
       <DataAlert error={error} sourceHint={sourceHint} />
 
-      <AgentsTable agents={model?.agents} loading={loading} />
+      <AgentsTable
+        agents={model?.agents}
+        targetSummary={formatTargetSummary(targetConfig)}
+        loading={loading}
+      />
     </div>
   );
 }

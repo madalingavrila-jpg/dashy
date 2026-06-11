@@ -26,7 +26,7 @@ Per-rep monthly targets apply to **both Won MTD and Activated MTD** separately.
 | Segment | Reps | Target / rep / month |
 |---------|------|----------------------|
 | **Complex** | 5 named reps | **8** |
-| **Density** | 9 named reps | **25** |
+| **Density** | 7 named reps | **25** |
 
 **Complex reps only** (match by Salesforce Owner ID or fuzzy name):
 
@@ -49,10 +49,15 @@ Per-rep monthly targets apply to **both Won MTD and Activated MTD** separately.
 | Georgian | Borcaeas Georgian | `005Ts00000BtZV3IAN` |
 | Mihnea | Silviu-Mihnea Voicu | `005Ts000001Ak10IAC` |
 | Oroles | Oroles Roșu | `005Ts000006V3vpIAC` |
+
+**Excluded from team roster** (do not show in agents/MTD; same as `Administrator`):
+
+| Alias | Salesforce name | Owner ID |
+|-------|-----------------|----------|
 | Sebastian | Andrei-Sebastian Caba | `005Ts000005XKgEIAW` |
 | Teodor | Teodor Domnica | `005Ts00000FjJkDIAV` |
 
-Only these 14 reps appear in `agents`, MTD targets, and Team Progress panels. Exclude `Administrator` and any other SF owners.
+Only these 12 reps appear in `agents`, MTD targets, and Team Progress panels. Exclude `Administrator`, excluded reps above, and any other SF owners.
 
 **Global MTD targets** (sum of individual per-rep targets):
 
@@ -70,7 +75,7 @@ targetActivated = complexReps × 8 + densityReps × 25
 
 Each agent row must include `segment` (`complex` | `density`) and `mtdTarget` (Won per-rep: `10` or `30`).
 
-Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.mjs` and `scripts/patch-mtd-targets.mjs`).
+Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.mjs` and `scripts/patch-mtd-targets.mjs`). Excluded reps are defined in `EXCLUDED_OWNER_IDS`.
 
 ### Won MTD per owner (Sales Opportunity)
 

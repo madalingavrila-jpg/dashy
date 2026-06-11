@@ -5,6 +5,7 @@ import type { AgentViewRow } from "@/types/dashboard";
 
 type AgentsTableProps = {
   agents?: AgentViewRow[];
+  targetSummary?: string;
   loading?: boolean;
 };
 
@@ -20,13 +21,13 @@ function progressBar(progress: number, accent: "won" | "activated") {
   );
 }
 
-export function AgentsTable({ agents, loading }: AgentsTableProps) {
+export function AgentsTable({ agents, targetSummary, loading }: AgentsTableProps) {
   return (
     <div className="glass-card overflow-hidden rounded-xl">
       <div className="border-b border-outline-variant p-lg">
         <h3 className="text-title-lg font-title-lg font-bold">Sales Agents</h3>
         <p className="text-body-md text-on-surface-variant">
-          Romania sales owners — Won target Complex 10/rep, Density 30/rep · Activated target Complex 8/rep, Density 25/rep
+          Romania sales owners — {targetSummary ?? "Won target Complex 10/rep, Density 30/rep · Activated target Complex 8/rep, Density 25/rep"}
         </p>
       </div>
       <div className="overflow-x-auto">

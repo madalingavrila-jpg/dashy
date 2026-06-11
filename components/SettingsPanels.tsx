@@ -24,7 +24,7 @@ export function SettingsPanels({
   loading,
 }: SettingsPanelsProps) {
   return (
-    <div className="grid grid-cols-1 gap-md xl:grid-cols-2">
+    <>
       <div className="glass-card rounded-xl p-lg">
         <h3 className="text-title-lg font-title-lg font-bold">Data Source</h3>
         <p className="mb-md text-body-md text-on-surface-variant">
@@ -85,6 +85,6 @@ export function SettingsPanels({
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }

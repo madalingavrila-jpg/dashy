@@ -16,6 +16,12 @@ export const COMPLEX_OWNER_IDS = new Set([
   "005Qs00000N2Hh3IAF",
 ]);
 
+/** Reps removed from team roster — excluded from UI and MTD calculations. */
+export const EXCLUDED_OWNER_IDS = new Set([
+  "005Ts000005XKgEIAW", // Andrei-Sebastian Caba
+  "005Ts00000FjJkDIAV", // Teodor Domnica
+]);
+
 export const DENSITY_OWNER_IDS = new Set([
   "005Ts000002AX4nIAG",
   "005Ts00000BtGPDIA3",
@@ -24,15 +30,28 @@ export const DENSITY_OWNER_IDS = new Set([
   "005Ts00000BtZV3IAN",
   "005Ts000001Ak10IAC",
   "005Ts000006V3vpIAC",
-  "005Ts000005XKgEIAW",
-  "005Ts00000FjJkDIAV",
 ]);
 
 function normalizeName(name: string): string {
   return name.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
 }
 
+export function isExcludedAgent(name: string, ownerId?: string): boolean {
+  if (ownerId && EXCLUDED_OWNER_IDS.has(ownerId)) return true;
+
+  const n = normalizeName(name);
+  if (!n) return false;
+
+  if (/\bcaba\b/.test(n)) return true;
+  if (/\bdomnica\b/.test(n)) return true;
+  if (/\bteodor\b/.test(n) && !/teodorescu/.test(n)) return true;
+  if (/\bsebastian\b/.test(n) && !/patru|patr(u|a)/.test(n) && /\bcaba\b/.test(n)) return true;
+
+  return false;
+}
+
 export function isComplexAgent(name: string, ownerId?: string): boolean {
+  if (isExcludedAgent(name, ownerId)) return false;
   if (ownerId && COMPLEX_OWNER_IDS.has(ownerId)) return true;
 
   const n = normalizeName(name);
@@ -48,6 +67,7 @@ export function isComplexAgent(name: string, ownerId?: string): boolean {
 }
 
 export function isDensityAgent(name: string, ownerId?: string): boolean {
+  if (isExcludedAgent(name, ownerId)) return false;
   if (ownerId && DENSITY_OWNER_IDS.has(ownerId)) return true;
 
   const n = normalizeName(name);
@@ -60,8 +80,6 @@ export function isDensityAgent(name: string, ownerId?: string): boolean {
   if (/borcaeas/.test(n)) return true;
   if (/voicu/.test(n) || /mihnea/.test(n)) return true;
   if (/oroles/.test(n) || (/rosu/.test(n) && !/borcaeas/.test(n))) return true;
-  if (/caba/.test(n) || (/sebastian/.test(n) && !/patru|patr(u|a)/.test(n))) return true;
-  if (/domnica/.test(n) || (/teodor/.test(n) && !/teodorescu/.test(n))) return true;
 
   return false;
 }
