@@ -145,7 +145,7 @@ export function WowYtdTrendChart({ history, loading }: WowYtdTrendChartProps) {
   }
 
   return (
-    <div className="glass-card rounded-xl p-lg">
+    <div id="wow-ytd-chart" className="glass-card rounded-xl p-lg">
       <div className="mb-lg flex flex-wrap items-start justify-between gap-md">
         <div>
           <h3 className="text-title-lg font-title-lg font-bold">Closed Won &amp; Active — YTD Evolution</h3>

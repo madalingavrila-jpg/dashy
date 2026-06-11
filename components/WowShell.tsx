@@ -14,7 +14,7 @@ export function WowShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="WoW Reports"
-        subtitle="Compare any two weeks side-by-side — totals, teams, and agents for each metric."
+        subtitle="YTD Closed Won vs Active trend chart below · compare any two weeks side-by-side."
         updatedAt={model?.updatedAt}
         loading={loading}
       />
