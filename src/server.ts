@@ -5,9 +5,10 @@ import helmet from "helmet";
 import path from "node:path";
 import { config } from "./config.js";
 import { apiRouter } from "./routes/api.js";
-import { preloadDashboardModel } from "./services/dashboard.js";
+import { getPrecomputedApiPath, preloadDashboardModel } from "./services/dashboard.js";
 
 const staticIndexPath = path.join(config.staticDir, "index.html");
+const precomputedDashboardPath = getPrecomputedApiPath();
 const staticReady =
   fs.existsSync(config.staticDir) && fs.existsSync(staticIndexPath);
 
@@ -21,6 +22,23 @@ if (!staticReady) {
 const app = express();
 app.set("trust proxy", 1);
 
+let shuttingDown = false;
+let activeRequests = 0;
+
+app.use((req, res, next) => {
+  if (shuttingDown) {
+    res.setHeader("Connection", "close");
+    res.status(503).json({ error: "Server is shutting down. Retry shortly." });
+    return;
+  }
+
+  activeRequests += 1;
+  res.on("finish", () => {
+    activeRequests = Math.max(0, activeRequests - 1);
+  });
+  next();
+});
+
 app.use(
   helmet({
     contentSecurityPolicy: false,
@@ -30,13 +48,21 @@ app.use(
   compression({
     threshold: 1024,
     filter(req, res) {
-      if (req.path === "/api/dashboard") {
+      if (req.path === "/api/dashboard" || req.path === "/api/dashboard.json") {
         return false;
       }
       return compression.filter(req, res);
     },
   }),
 );
+
+if (fs.existsSync(precomputedDashboardPath)) {
+  app.get("/api/dashboard.json", (_req, res) => {
+    res.setHeader("Cache-Control", "public, max-age=3600, stale-while-revalidate=86400");
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.sendFile(precomputedDashboardPath);
+  });
+}
 
 app.use("/api", apiRouter);
 
@@ -151,8 +177,22 @@ const server = app.listen(config.port, config.host, () => {
   preloadDashboardModel();
 });
 
+server.keepAliveTimeout = 65_000;
+server.headersTimeout = 66_000;
+
+const SHUTDOWN_TIMEOUT_MS = 30_000;
+
 function shutdown(signal: string): void {
-  console.log(`[dashy] ${signal} received, closing HTTP server`);
+  if (shuttingDown) {
+    return;
+  }
+  shuttingDown = true;
+  console.log(
+    `[dashy] ${signal} received, draining ${activeRequests} active request(s)`,
+  );
+
+  server.closeIdleConnections?.();
+
   server.close((error) => {
     if (error) {
       console.error("[dashy] shutdown error:", error.message);
@@ -162,10 +202,13 @@ function shutdown(signal: string): void {
     console.log("[dashy] HTTP server closed");
     process.exit(0);
   });
+
   setTimeout(() => {
-    console.error("[dashy] forced exit after shutdown timeout");
+    console.error(
+      `[dashy] forced exit after ${SHUTDOWN_TIMEOUT_MS}ms (${activeRequests} active request(s) remaining)`,
+    );
     process.exit(1);
-  }, 10_000).unref();
+  }, SHUTDOWN_TIMEOUT_MS).unref();
 }
 
 process.on("SIGTERM", () => shutdown("SIGTERM"));

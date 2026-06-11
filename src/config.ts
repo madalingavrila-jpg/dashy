@@ -16,6 +16,5 @@ export const config = {
   port: parseInt(process.env.PORT || "8080", 10),
   host: process.env.HOST || "0.0.0.0",
   isProduction: process.env.NODE_ENV === "production",
-  cacheTtlMs: parseInt(process.env.DASHY_CACHE_TTL_MS || "300000", 10),
   dashboardSheetUrl: readEnv("DASHBOARD_SHEET_URL"),
 };

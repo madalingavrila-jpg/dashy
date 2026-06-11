@@ -17,7 +17,7 @@ function AccountsContent() {
   const ownerNameFilter = searchParams.get("ownerName") ?? undefined;
 
   const filtered = useMemo(() => {
-    const pool = model?.accounts.all ?? [
+    const pool = [
       ...(model?.accounts.won ?? []),
       ...(model?.accounts.activated ?? []),
       ...(model?.accounts.backlog ?? []),

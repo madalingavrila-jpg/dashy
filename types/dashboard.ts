@@ -322,13 +322,13 @@ export type DashboardModel = {
     fallbackMessage?: string;
   };
   agents: AgentViewRow[];
-  accountsByStage: Record<string, AccountViewRow[]>;
+  accountsByStage?: Record<string, AccountViewRow[]>;
   wowReports: WowReportView[];
   accounts: {
     won: AccountViewRow[];
     activated: AccountViewRow[];
     backlog: AccountViewRow[];
-    all: AccountViewRow[];
+    all?: AccountViewRow[];
   };
   hitlist: HitlistViewRow[];
   settings: {

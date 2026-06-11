@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { config } from "../config.js";
@@ -586,9 +587,8 @@ function placeholderModel(source: DataSourceStatus, error?: string): DashboardMo
       fallbackMessage: "Weekly data unavailable",
     },
     agents: [],
-    accountsByStage: {},
     wowReports: [],
-    accounts: { won: [], activated: [], backlog: [], all: [] },
+    accounts: { won: [], activated: [], backlog: [] },
     hitlist: [],
     settings: defaultSettings(),
   };
@@ -600,12 +600,8 @@ function toDashboardModel(
 ): DashboardModel {
   const { salesPipeline } = data;
   const instanceUrl = data.salesforceInstanceUrl ?? "https://bolt-eu.lightning.force.com";
-  const { mtdAchievement, weeklyPerformance, wowReports, accounts, hitlist, agents, accountsByStage } =
+  const { mtdAchievement, weeklyPerformance, wowReports, accounts, hitlist, agents } =
     salesPipeline;
-
-  const allAccounts =
-    accounts.all ??
-    [...accounts.won, ...accounts.activated, ...accounts.backlog];
 
   const wonProgress = mtdAchievement.targetWon
     ? Math.min(100, Math.round((mtdAchievement.actualWon / mtdAchievement.targetWon) * 100))
@@ -658,12 +654,6 @@ function toDashboardModel(
     },
     weeklyPerformance: buildWeeklyPerformanceView(weeklyPerformance, data.updatedAt),
     agents: buildAgentViews(agents),
-    accountsByStage: Object.fromEntries(
-      Object.entries(accountsByStage ?? {}).map(([stage, rows]) => [
-        stage,
-        buildAccountViews(rows, instanceUrl),
-      ]),
-    ),
     wowReports: wowReports.map((report) => ({
       id: report.id,
       title: report.title,
@@ -682,7 +672,6 @@ function toDashboardModel(
       won: buildAccountViews(accounts.won, instanceUrl),
       activated: buildAccountViews(accounts.activated, instanceUrl),
       backlog: buildAccountViews(accounts.backlog, instanceUrl),
-      all: buildAccountViews(allAccounts, instanceUrl),
     },
     hitlist: hitlist
       .slice()
@@ -706,64 +695,115 @@ function toDashboardModel(
 }
 
 type DashboardCacheEntry = {
-  expiresAt: number;
-  value: DashboardModel;
-  json: string;
+  buffer: Buffer;
+  sourcePath: string;
+  sourceMtimeMs: number;
 };
 
-let cachedModel: DashboardCacheEntry | null = null;
-let loadingPromise: Promise<DashboardModel> | null = null;
+let cachedPayload: DashboardCacheEntry | null = null;
+let loadingPromise: Promise<DashboardCacheEntry> | null = null;
 
-function storeCache(model: DashboardModel, ttlMs: number): DashboardModel {
-  const json = JSON.stringify(model);
-  cachedModel = {
-    value: model,
-    json,
-    expiresAt: Date.now() + ttlMs,
-  };
-  return model;
+export function getPrecomputedApiPath(): string {
+  return path.join(config.staticDir, "api", "dashboard.json");
 }
 
-async function refreshDashboardModel(): Promise<DashboardModel> {
+function rawDataPath(): string {
+  return path.join(config.rootDir, "data", "dashboard.json");
+}
+
+function resolveCacheSource(): { path: string; mtimeMs: number } | null {
+  const precomputed = getPrecomputedApiPath();
+  if (fs.existsSync(precomputed)) {
+    const stat = fs.statSync(precomputed);
+    return { path: precomputed, mtimeMs: stat.mtimeMs };
+  }
+
+  if (config.dashboardSheetUrl) {
+    return { path: config.dashboardSheetUrl, mtimeMs: 0 };
+  }
+
+  const raw = rawDataPath();
+  if (fs.existsSync(raw)) {
+    const stat = fs.statSync(raw);
+    return { path: raw, mtimeMs: stat.mtimeMs };
+  }
+
+  return null;
+}
+
+function cacheIsFresh(source: { path: string; mtimeMs: number }): boolean {
+  return (
+    cachedPayload !== null &&
+    cachedPayload.sourcePath === source.path &&
+    cachedPayload.sourceMtimeMs === source.mtimeMs
+  );
+}
+
+export async function serializeDashboardApi(): Promise<string> {
   try {
     const { data, source } = await loadRawData();
-    return storeCache(toDashboardModel(data, source), config.cacheTtlMs);
+    return JSON.stringify(toDashboardModel(data, source));
   } catch (error) {
     const message = error instanceof Error ? error.message : "Dashboard load failed";
-    return storeCache(
+    return JSON.stringify(
       placeholderModel({ source: "error", message }, message),
-      15_000,
     );
   }
 }
 
-export async function loadDashboardModel(): Promise<DashboardModel> {
-  const now = Date.now();
-  if (cachedModel && cachedModel.expiresAt > now) {
-    return cachedModel.value;
+async function readOrBuildPayload(
+  source: { path: string; mtimeMs: number },
+): Promise<DashboardCacheEntry> {
+  const precomputed = getPrecomputedApiPath();
+  if (source.path === precomputed) {
+    const buffer = await readFile(precomputed);
+    return { buffer, sourcePath: precomputed, sourceMtimeMs: source.mtimeMs };
+  }
+
+  const json = await serializeDashboardApi();
+  return {
+    buffer: Buffer.from(json, "utf8"),
+    sourcePath: source.path,
+    sourceMtimeMs: source.mtimeMs,
+  };
+}
+
+export async function ensureDashboardCache(): Promise<DashboardCacheEntry> {
+  const source = resolveCacheSource();
+  if (!source) {
+    throw new Error("Dashboard data file missing");
+  }
+
+  if (cacheIsFresh(source)) {
+    return cachedPayload as DashboardCacheEntry;
   }
 
   if (loadingPromise) {
     return loadingPromise;
   }
 
-  loadingPromise = refreshDashboardModel().finally(() => {
-    loadingPromise = null;
-  });
+  loadingPromise = readOrBuildPayload(source)
+    .then((entry) => {
+      cachedPayload = entry;
+      return entry;
+    })
+    .finally(() => {
+      loadingPromise = null;
+    });
 
   return loadingPromise;
 }
 
-export function getCachedDashboardJson(): string | null {
-  const now = Date.now();
-  if (!cachedModel || cachedModel.expiresAt <= now) {
+export function getCachedDashboardBuffer(): Buffer | null {
+  const source = resolveCacheSource();
+  if (!source || !cachedPayload || !cacheIsFresh(source)) {
     return null;
   }
-  return cachedModel.json;
+  return cachedPayload.buffer;
 }
 
 export function preloadDashboardModel(): void {
-  void loadDashboardModel().catch((error) => {
+  void ensureDashboardCache().catch((error) => {
     const message = error instanceof Error ? error.message : "Dashboard preload failed";
     console.error("[dashy] dashboard preload failed:", message);
   });

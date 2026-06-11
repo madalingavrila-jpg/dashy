@@ -14,6 +14,7 @@ const required = [
   "dist/lib/isoWeek.js",
   "dist/lib/salesforce.js",
   "data/dashboard.json",
+  "out/api/dashboard.json",
 ];
 
 const missing = required.filter((rel) => !fs.existsSync(path.join(root, rel)));
