@@ -1,3 +1,7 @@
+"use client";
+
+import { useId } from "react";
+
 type LogoProps = {
   /** Icon size in pixels (32–40 recommended for sidebar) */
   size?: number;
@@ -13,6 +17,8 @@ const BOLT_GREEN = "#34D186";
 const BOLT_GREEN_DARK = "#2AAF6A";
 
 export function LogoIcon({ size = 40, className }: { size?: number; className?: string }) {
+  const gradientId = useId().replace(/:/g, "");
+
   return (
     <svg
       width={size}
@@ -24,12 +30,12 @@ export function LogoIcon({ size = 40, className }: { size?: number; className?: 
       className={className}
     >
       <defs>
-        <linearGradient id="dashy-bg" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+        <linearGradient id={gradientId} x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
           <stop stopColor={BOLT_GREEN} />
           <stop offset="1" stopColor={BOLT_GREEN_DARK} />
         </linearGradient>
       </defs>
-      <rect width="40" height="40" rx="10" fill="url(#dashy-bg)" />
+      <rect width="40" height="40" rx="10" fill={`url(#${gradientId})`} />
       {/* Speed dashes — "dash" motion, delivery energy */}
       <line x1="5" y1="13" x2="11" y2="13" stroke="white" strokeWidth="2" strokeLinecap="round" opacity="0.45" />
       <line x1="4" y1="19" x2="12" y2="19" stroke="white" strokeWidth="2" strokeLinecap="round" opacity="0.65" />

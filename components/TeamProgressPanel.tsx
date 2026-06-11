@@ -417,7 +417,7 @@ export function TeamProgressGrid({
           </p>
         ) : null}
       </div>
-      <div className="team-progress-grid grid grid-cols-1 gap-lg lg:grid-cols-2 lg:items-stretch lg:gap-md">
+      <div className="team-progress-grid grid grid-cols-1 gap-lg md:grid-cols-2 md:items-stretch md:gap-md">
         {loading && !teams?.length ? (
           <>
             <div className="glass-card h-[32rem] min-w-0 animate-pulse rounded-xl" />
