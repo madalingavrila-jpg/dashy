@@ -13,8 +13,8 @@ export function PipelineShell() {
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
-        title="Pipeline & Team Progress"
-        subtitle={`${monthLabel} — Complex & Density Won MTD targets, plus stage breakdown.`}
+        title="Team Progress"
+        subtitle={`${monthLabel} — Complex & Density agents with Won and Activated MTD targets.`}
         updatedAt={model?.updatedAt}
         loading={loading}
       />
@@ -27,7 +27,18 @@ export function PipelineShell() {
         loading={loading}
       />
 
-      <StageBreakdown sales={model?.snapshot.sales} loading={loading} />
+      <section className="space-y-sm pt-sm">
+        <div>
+          <p className="text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
+            Reference
+          </p>
+          <h2 className="text-title-lg font-bold text-on-surface">Pipeline stage counts</h2>
+          <p className="text-body-md text-on-surface-variant">
+            Aggregate stage breakdown — click a stage to open filtered accounts in Salesforce.
+          </p>
+        </div>
+        <StageBreakdown sales={model?.snapshot.sales} loading={loading} />
+      </section>
     </div>
   );
 }

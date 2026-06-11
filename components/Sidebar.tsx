@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { icon: "dashboard", label: "Overview", href: "/" },
-  { icon: "filter_alt", label: "Pipeline", href: "/pipeline" },
+  { icon: "groups", label: "Teams", href: "/pipeline" },
   { icon: "calendar_view_week", label: "Weekly", href: "/weekly" },
   { icon: "flag", label: "MTD & Tiers", href: "/mtd" },
   { icon: "compare_arrows", label: "WoW Reports", href: "/wow" },
@@ -37,7 +37,7 @@ export function Sidebar() {
               URads
             </h1>
             <p className="text-label-md font-label-md text-on-surface-variant opacity-70">
-              Sales Pipeline
+              Team Performance
             </p>
           </div>
         </div>

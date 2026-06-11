@@ -36,6 +36,8 @@ import {
   activatedMtdTargetForSegment,
   COMPLEX_MTD_TARGET,
   DENSITY_MTD_TARGET,
+  COMPLEX_ACTIVATED_MTD_TARGET,
+  DENSITY_ACTIVATED_MTD_TARGET,
 } from "../../lib/agent-segments.js";
 
 function parseCsvRow(line: string): string[] {
@@ -240,9 +242,14 @@ function buildTeamProgress(
     .map((agent) => {
       const segment = agent.segment ?? agentSegment(agent.name, agent.ownerId);
       const mtdTarget = agent.mtdTarget ?? (segment ? mtdTargetForSegment(segment) : 0);
+      const activatedTarget = segment ? activatedMtdTargetForSegment(segment) : 0;
       const mtdActual = agent.wonMtd ?? 0;
+      const activatedActual = agent.activatedMtd ?? 0;
       const progress = mtdTarget
         ? Math.min(100, Math.round((mtdActual / mtdTarget) * 100))
+        : 0;
+      const activatedProgress = activatedTarget
+        ? Math.min(100, Math.round((activatedActual / activatedTarget) * 100))
         : 0;
       return {
         ownerId: agent.ownerId,
@@ -251,6 +258,9 @@ function buildTeamProgress(
         mtdTarget,
         mtdActual,
         progress,
+        activatedTarget,
+        activatedActual,
+        activatedProgress,
         accountsUrl: accountsFilterUrl({ ownerId: agent.ownerId }),
       };
     })
@@ -261,13 +271,24 @@ function buildTeamProgress(
     label: string,
     name: string,
     targetPerRep: number,
+    activatedTargetPerRep: number,
   ): TeamProgressView => {
     const members = enriched
       .filter((agent) => agent.segment === segment)
-      .sort((a, b) => b.mtdActual - a.mtdActual || a.name.localeCompare(b.name));
+      .sort(
+        (a, b) =>
+          b.progress - a.progress ||
+          b.mtdActual - a.mtdActual ||
+          a.name.localeCompare(b.name),
+      );
     const actual = members.reduce((sum, agent) => sum + agent.mtdActual, 0);
     const target = members.length * targetPerRep;
     const progress = target ? Math.min(100, Math.round((actual / target) * 100)) : 0;
+    const activatedActual = members.reduce((sum, agent) => sum + agent.activatedActual, 0);
+    const activatedTarget = members.length * activatedTargetPerRep;
+    const activatedProgress = activatedTarget
+      ? Math.min(100, Math.round((activatedActual / activatedTarget) * 100))
+      : 0;
 
     return {
       segment,
@@ -275,23 +296,30 @@ function buildTeamProgress(
       name,
       repCount: members.length,
       targetPerRep,
+      activatedTargetPerRep,
       target: formatInteger(target),
       actual: formatInteger(actual),
       progress,
+      activatedTarget: formatInteger(activatedTarget),
+      activatedActual: formatInteger(activatedActual),
+      activatedProgress,
       agents: members.map((agent) => ({
         ownerId: agent.ownerId,
         name: agent.name,
         mtdTarget: formatInteger(agent.mtdTarget),
         mtdActual: formatInteger(agent.mtdActual),
         progress: agent.progress,
+        activatedTarget: formatInteger(agent.activatedTarget),
+        activatedActual: formatInteger(agent.activatedActual),
+        activatedProgress: agent.activatedProgress,
         accountsUrl: agent.accountsUrl,
       })),
     };
   };
 
   return [
-    buildTeam("complex", "Complex", "Complex", COMPLEX_MTD_TARGET),
-    buildTeam("density", "Density", "Density", DENSITY_MTD_TARGET),
+    buildTeam("complex", "Complex", "Complex", COMPLEX_MTD_TARGET, COMPLEX_ACTIVATED_MTD_TARGET),
+    buildTeam("density", "Density", "Density", DENSITY_MTD_TARGET, DENSITY_ACTIVATED_MTD_TARGET),
   ];
 }
 

@@ -19,7 +19,7 @@ URads B2B sales pipeline dashboard. Professional, data-forward, with clear visua
 
 - Sidebar navigation (280px fixed)
 - Metric cards with trend chips
-- Dual funnel panels (sales vs onboarding)
+- Team progress panels (Complex & Density — Won + Activated MTD bars)
 - Tabbed accounts table
 - Read-only WoW report tables from JSON
 
@@ -28,7 +28,7 @@ URads B2B sales pipeline dashboard. Professional, data-forward, with clear visua
 | Stitch screen | Route | Component |
 |---------------|-------|-----------|
 | Overview Dashboard | `/` | OverviewShell |
-| Pipeline Funnel View | `/pipeline` | PipelineShell |
+| Team Progress View | `/pipeline` | PipelineShell |
 | Weekly Performance | `/weekly` | WeeklyShell |
 | MTD & Tiers Tracking | `/mtd` | MtdShell |
 | WoW Reports Builder | `/wow` | WowShell |

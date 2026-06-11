@@ -108,6 +108,9 @@ export type TeamAgentProgressView = {
   mtdTarget: string;
   mtdActual: string;
   progress: number;
+  activatedTarget: string;
+  activatedActual: string;
+  activatedProgress: number;
   accountsUrl: string;
 };
 
@@ -117,9 +120,13 @@ export type TeamProgressView = {
   name: string;
   repCount: number;
   targetPerRep: number;
+  activatedTargetPerRep: number;
   target: string;
   actual: string;
   progress: number;
+  activatedTarget: string;
+  activatedActual: string;
+  activatedProgress: number;
   agents: TeamAgentProgressView[];
 };
 
