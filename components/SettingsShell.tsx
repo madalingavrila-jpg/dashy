@@ -13,12 +13,16 @@ export function SettingsShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="Settings & Admin"
-        subtitle="Integration status and MTD target configuration."
+        subtitle="Edit MTD targets below (password required). Integration status further down."
         updatedAt={model?.updatedAt}
         loading={loading}
       />
 
       <DataAlert error={error} sourceHint={sourceHint} />
+
+      <section id="mtd-targets" aria-labelledby="mtd-targets-heading">
+        <TargetSettingsPanel agents={model?.agents} loading={loading} />
+      </section>
 
       <div className="grid grid-cols-1 gap-md xl:grid-cols-2">
         <SettingsPanels
@@ -28,7 +32,6 @@ export function SettingsShell() {
           sources={model?.sources}
           loading={loading}
         />
-        <TargetSettingsPanel agents={model?.agents} loading={loading} />
       </div>
     </div>
   );

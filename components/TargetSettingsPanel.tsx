@@ -137,10 +137,15 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
   };
 
   return (
-    <div className="glass-card rounded-xl p-lg xl:col-span-2">
+    <div className="glass-card rounded-xl border-l-4 border-l-primary p-lg shadow-md">
       <div className="mb-md flex flex-wrap items-start justify-between gap-md">
         <div>
-          <h3 className="text-title-lg font-title-lg font-bold">MTD Targets</h3>
+          <div className="mb-xs flex items-center gap-sm">
+            <span className="material-symbols-outlined text-primary">flag</span>
+            <h3 id="mtd-targets-heading" className="text-title-lg font-title-lg font-bold">
+              MTD Targets
+            </h3>
+          </div>
           <p className="text-body-md text-on-surface-variant">
             Segment defaults and per-rep overrides. Saved in this browser only — does not change{" "}
             <code className="text-sm">data/dashboard.json</code>.
