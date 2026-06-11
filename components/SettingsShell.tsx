@@ -13,7 +13,7 @@ export function SettingsShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="Settings & Admin"
-        subtitle="Edit MTD targets below (password required). Integration status further down."
+        subtitle="MTD + Weekly status targets at the top (password required). Integrations below."
         updatedAt={model?.updatedAt}
         loading={loading}
       />

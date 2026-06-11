@@ -182,9 +182,35 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
       </div>
 
       {!unlocked ? (
-        <div className="max-w-sm space-y-sm">
+        <div className="space-y-md">
+          <div className="rounded-lg border border-outline-variant/60 bg-surface-container-low/80 p-md">
+            <p className="mb-sm text-label-md font-bold uppercase tracking-wide text-on-surface-variant">
+              Weekly status targets (preview)
+            </p>
+            <p className="text-body-md text-on-surface-variant">
+              Used in Weekly tab drill-down: Qualified, Negotiations, Closed Won, Active — per rep,
+              per week.
+            </p>
+            <dl className="mt-md grid grid-cols-1 gap-sm text-body-md md:grid-cols-2">
+              <div>
+                <dt className="font-semibold text-on-surface">Complex / rep / week</dt>
+                <dd className="text-on-surface-variant">
+                  {WEEKLY_STATUS_KEYS.map((key) => draft.weekly.complex[key]).join(" · ")} (Qual ·
+                  Neg · Won · Act)
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-on-surface">Density / rep / week</dt>
+                <dd className="text-on-surface-variant">
+                  {WEEKLY_STATUS_KEYS.map((key) => draft.weekly.density[key]).join(" · ")} (Qual ·
+                  Neg · Won · Act)
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div className="max-w-sm space-y-sm">
           <p className="text-body-md text-on-surface-variant">
-            Enter the admin password to edit targets.
+            Enter the admin password to edit MTD and weekly targets.
           </p>
           <div className="flex gap-sm">
             <input
@@ -209,6 +235,7 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
             </button>
           </div>
           {passwordError && <p className="text-label-md text-error">{passwordError}</p>}
+          </div>
         </div>
       ) : (
         <div className="space-y-lg">

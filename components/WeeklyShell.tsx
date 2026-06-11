@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { WeeklyMetricsGrid, WeeklyHistoryChart } from "@/components/WeeklyCharts";
@@ -40,6 +40,7 @@ export function WeeklyShell() {
   const { model, error, loading, sourceHint, targetConfig } = useDashboard();
   const [selectedWeek, setSelectedWeek] = useState<string | null>(null);
   const [filter, setFilter] = useState<WeeklyFilter>("all");
+  const detailRef = useRef<HTMLDivElement>(null);
 
   const selectedDetail = useMemo(() => {
     if (!selectedWeek || !model?.weeklyPerformance.statusBreakdown.length) return undefined;
@@ -56,16 +57,42 @@ export function WeeklyShell() {
     setSelectedWeek((current) => (current === week ? null : week));
   };
 
+  useEffect(() => {
+    if (!selectedWeek || !selectedDetail) {
+      return;
+    }
+    detailRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [selectedWeek, selectedDetail]);
+
+  const hasBreakdown = (model?.weeklyPerformance.statusBreakdown.length ?? 0) > 0;
+
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="Weekly Performance"
-        subtitle="All ISO weeks in 2026 — click a week for team & agent status breakdown vs targets."
+        subtitle="Click any week in the chart or table below to open team & agent status drill-down (Qualified · Negotiations · Closed Won · Active)."
         updatedAt={model?.updatedAt}
         loading={loading}
       />
 
       <DataAlert error={error} sourceHint={sourceHint} />
+
+      {!selectedWeek && hasBreakdown && !loading && (
+        <div className="flex items-start gap-sm rounded-xl border border-primary/30 bg-primary-container/20 px-md py-sm">
+          <span className="material-symbols-outlined mt-[2px] text-primary">touch_app</span>
+          <p className="text-body-md text-on-surface">
+            <span className="font-semibold">New:</span> select a week row (marked{" "}
+            <span className="rounded-full bg-secondary px-xs py-[1px] text-[10px] font-bold text-on-secondary">
+              OPEN
+            </span>
+            ) to see Complex &amp; Density teams with progress vs weekly targets. Edit targets in{" "}
+            <a href="/settings/" className="font-semibold text-primary underline">
+              Settings
+            </a>
+            .
+          </p>
+        </div>
+      )}
 
       <WeeklyMetricsGrid
         metrics={model?.weeklyPerformance.metrics}
@@ -80,8 +107,20 @@ export function WeeklyShell() {
         onWeekSelect={handleWeekSelect}
       />
 
+      <WeeklyHistoryTable
+        history={model?.weeklyPerformance.history}
+        currentWeek={model?.weeklyPerformance.currentWeek}
+        selectedWeek={selectedWeek}
+        onWeekSelect={handleWeekSelect}
+        loading={loading}
+      />
+
       {selectedWeek && (
-        <div className="glass-card space-y-md rounded-xl border border-primary/20 p-lg">
+        <div
+          ref={detailRef}
+          id="weekly-detail"
+          className="glass-card space-y-md rounded-xl border-2 border-primary/40 p-lg shadow-lg ring-1 ring-primary/10"
+        >
           <div className="flex flex-wrap items-end justify-between gap-md">
             <WeeklyFilterSelect
               value={filter}
@@ -99,16 +138,14 @@ export function WeeklyShell() {
             loading={loading}
             onClose={() => setSelectedWeek(null)}
           />
+          {!loading && !selectedDetail && (
+            <p className="rounded-lg bg-surface-container-low px-md py-sm text-body-md text-on-surface-variant">
+              No status breakdown for {selectedWeek}. Refresh the page or wait for dashboard data to
+              finish loading.
+            </p>
+          )}
         </div>
       )}
-
-      <WeeklyHistoryTable
-        history={model?.weeklyPerformance.history}
-        currentWeek={model?.weeklyPerformance.currentWeek}
-        selectedWeek={selectedWeek}
-        onWeekSelect={handleWeekSelect}
-        loading={loading}
-      />
     </div>
   );
 }
