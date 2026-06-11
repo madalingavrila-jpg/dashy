@@ -63,13 +63,35 @@ export type AccountRow = {
   name: string;
   city: string;
   owner: string;
+  ownerId?: string;
   tier: string;
   stage: string;
+  segment?: "complex" | "density";
   status: "won" | "activated" | "backlog";
   closedDate?: string;
   activatedDate?: string;
   sfAccountId?: string;
   sfOpportunityId?: string;
+};
+
+export type AgentRow = {
+  ownerId: string;
+  name: string;
+  pipelineCount: number;
+  stageCounts: Record<string, number>;
+  wonMtd: number;
+  activatedMtd: number;
+  wonYtd?: number;
+};
+
+export type AgentViewRow = {
+  ownerId: string;
+  name: string;
+  pipelineCount: string;
+  stageSummary: string;
+  wonMtd: string;
+  activatedMtd: string;
+  accountsUrl: string;
 };
 
 export type HitlistRow = {
@@ -93,6 +115,7 @@ export type IntegrationSetting = {
 
 export type DashboardRawData = {
   updatedAt: string;
+  salesforceInstanceUrl?: string;
   salesPipeline: {
     totals: {
       won: PipelineTotal;
@@ -108,18 +131,24 @@ export type DashboardRawData = {
       actualWon: number;
       targetActivated: number;
       actualActivated: number;
+      leadsMtd?: number;
+      qualifiedMtd?: number;
       tiers: TierRow[];
     };
     weeklyPerformance: {
       weekLabel: string;
+      currentWeek?: string;
       metrics: WeeklyMetric[];
       history: WeeklyHistoryRow[];
     };
+    agents?: AgentRow[];
+    accountsByStage?: Record<string, AccountRow[]>;
     wowReports: WowReport[];
     accounts: {
       won: AccountRow[];
       activated: AccountRow[];
       backlog: AccountRow[];
+      all?: AccountRow[];
     };
     hitlist: HitlistRow[];
   };
@@ -189,12 +218,15 @@ export type AccountViewRow = {
   name: string;
   city: string;
   owner: string;
+  ownerId?: string;
   tier: string;
   stage: string;
   statusLabel: string;
   statusColor: string;
   dateLabel: string;
   dateValue: string;
+  sfAccountId?: string;
+  sfAccountUrl?: string | null;
 };
 
 export type HitlistViewRow = {
@@ -211,6 +243,7 @@ export type HitlistViewRow = {
 
 export type DashboardModel = {
   updatedAt: string;
+  salesforceInstanceUrl: string;
   sources: DataSourceStatus;
   overviewMetrics: MetricCard[];
   totals: {
@@ -229,18 +262,24 @@ export type DashboardModel = {
     actualWon: string;
     targetActivated: string;
     actualActivated: string;
+    leadsMtd: string;
+    qualifiedMtd: string;
     tiers: TierView[];
   };
   weeklyPerformance: {
     weekLabel: string;
+    currentWeek: string;
     metrics: WeeklyMetricView[];
     history: WeeklyHistoryView[];
   };
+  agents: AgentViewRow[];
+  accountsByStage: Record<string, AccountViewRow[]>;
   wowReports: WowReportView[];
   accounts: {
     won: AccountViewRow[];
     activated: AccountViewRow[];
     backlog: AccountViewRow[];
+    all: AccountViewRow[];
   };
   hitlist: HitlistViewRow[];
   settings: {

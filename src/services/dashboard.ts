@@ -17,6 +17,7 @@ import {
   pctChange,
   trendDirection,
 } from "../../lib/format.js";
+import { accountsFilterUrl, salesforceAccountUrl } from "../../lib/salesforce.js";
 
 function parseCsvRow(line: string): string[] {
   const values: string[] = [];
@@ -201,7 +202,7 @@ function segmentStyle(segment: HitlistRow["segment"]): { label: string; color: s
   return { label: "Density", color: "bg-tertiary-container/40 text-on-tertiary-container" };
 }
 
-function buildAccountViews(accounts: AccountRow[]) {
+function buildAccountViews(accounts: AccountRow[], instanceUrl: string) {
   return accounts.map((account) => {
     const status = accountStatusStyle(account.status);
     const dateValue =
@@ -215,12 +216,36 @@ function buildAccountViews(accounts: AccountRow[]) {
       name: account.name,
       city: account.city,
       owner: account.owner,
+      ownerId: account.ownerId,
       tier: account.tier,
       stage: account.stage,
       statusLabel: status.label,
       statusColor: status.color,
       dateLabel,
       dateValue,
+      sfAccountId: account.sfAccountId,
+      sfAccountUrl: salesforceAccountUrl(account.sfAccountId, instanceUrl),
+    };
+  });
+}
+
+function buildAgentViews(
+  agents: DashboardRawData["salesPipeline"]["agents"],
+): DashboardModel["agents"] {
+  return (agents ?? []).map((agent) => {
+    const topStages = Object.entries(agent.stageCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 4)
+      .map(([stage, count]) => `${stage} ${count}`)
+      .join(" · ");
+    return {
+      ownerId: agent.ownerId,
+      name: agent.name,
+      pipelineCount: formatInteger(agent.pipelineCount),
+      stageSummary: topStages || "—",
+      wonMtd: formatInteger(agent.wonMtd),
+      activatedMtd: formatInteger(agent.activatedMtd),
+      accountsUrl: accountsFilterUrl({ ownerId: agent.ownerId }),
     };
   });
 }
@@ -252,6 +277,7 @@ function placeholderModel(source: DataSourceStatus, error?: string): DashboardMo
 
   return {
     updatedAt: new Date().toISOString(),
+    salesforceInstanceUrl: "https://bolt-eu.lightning.force.com",
     sources: source,
     overviewMetrics: [
       emptyMetric("Total Won"),
@@ -272,11 +298,15 @@ function placeholderModel(source: DataSourceStatus, error?: string): DashboardMo
       actualWon: "—",
       targetActivated: "—",
       actualActivated: "—",
+      leadsMtd: "—",
+      qualifiedMtd: "—",
       tiers: [],
     },
-    weeklyPerformance: { weekLabel: "—", metrics: [], history: [] },
+    weeklyPerformance: { weekLabel: "—", currentWeek: "—", metrics: [], history: [] },
+    agents: [],
+    accountsByStage: {},
     wowReports: [],
-    accounts: { won: [], activated: [], backlog: [] },
+    accounts: { won: [], activated: [], backlog: [], all: [] },
     hitlist: [],
     settings: defaultSettings(),
   };
@@ -287,7 +317,13 @@ function toDashboardModel(
   source: DataSourceStatus,
 ): DashboardModel {
   const { salesPipeline } = data;
-  const { mtdAchievement, weeklyPerformance, wowReports, accounts, hitlist } = salesPipeline;
+  const instanceUrl = data.salesforceInstanceUrl ?? "https://bolt-eu.lightning.force.com";
+  const { mtdAchievement, weeklyPerformance, wowReports, accounts, hitlist, agents, accountsByStage } =
+    salesPipeline;
+
+  const allAccounts =
+    accounts.all ??
+    [...accounts.won, ...accounts.activated, ...accounts.backlog];
 
   const wonProgress = mtdAchievement.targetWon
     ? Math.min(100, Math.round((mtdAchievement.actualWon / mtdAchievement.targetWon) * 100))
@@ -301,6 +337,7 @@ function toDashboardModel(
 
   return {
     updatedAt: data.updatedAt,
+    salesforceInstanceUrl: instanceUrl,
     sources: source,
     overviewMetrics: buildOverviewMetrics(data),
     totals: {
@@ -324,6 +361,8 @@ function toDashboardModel(
       actualWon: formatInteger(mtdAchievement.actualWon),
       targetActivated: formatInteger(mtdAchievement.targetActivated),
       actualActivated: formatInteger(mtdAchievement.actualActivated),
+      leadsMtd: formatInteger(mtdAchievement.leadsMtd ?? 0),
+      qualifiedMtd: formatInteger(mtdAchievement.qualifiedMtd ?? 0),
       tiers: mtdAchievement.tiers.map((tier) => ({
         name: tier.name,
         target: formatInteger(tier.target),
@@ -335,6 +374,7 @@ function toDashboardModel(
     },
     weeklyPerformance: {
       weekLabel: weeklyPerformance.weekLabel,
+      currentWeek: weeklyPerformance.currentWeek ?? weeklyPerformance.weekLabel.split("·")[0]?.trim() ?? "—",
       metrics: weeklyPerformance.metrics.map((metric) => ({
         label: metric.label,
         value: formatInteger(metric.value),
@@ -343,6 +383,13 @@ function toDashboardModel(
       })),
       history: weeklyPerformance.history,
     },
+    agents: buildAgentViews(agents),
+    accountsByStage: Object.fromEntries(
+      Object.entries(accountsByStage ?? {}).map(([stage, rows]) => [
+        stage,
+        buildAccountViews(rows, instanceUrl),
+      ]),
+    ),
     wowReports: wowReports.map((report) => ({
       id: report.id,
       title: report.title,
@@ -358,9 +405,10 @@ function toDashboardModel(
       })),
     })),
     accounts: {
-      won: buildAccountViews(accounts.won),
-      activated: buildAccountViews(accounts.activated),
-      backlog: buildAccountViews(accounts.backlog),
+      won: buildAccountViews(accounts.won, instanceUrl),
+      activated: buildAccountViews(accounts.activated, instanceUrl),
+      backlog: buildAccountViews(accounts.backlog, instanceUrl),
+      all: buildAccountViews(allAccounts, instanceUrl),
     },
     hitlist: hitlist
       .slice()

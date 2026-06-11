@@ -9,6 +9,7 @@ const navItems = [
   { icon: "calendar_view_week", label: "Weekly", href: "/weekly" },
   { icon: "flag", label: "MTD & Tiers", href: "/mtd" },
   { icon: "compare_arrows", label: "WoW Reports", href: "/wow" },
+  { icon: "badge", label: "Agents", href: "/agents" },
   { icon: "groups", label: "Accounts", href: "/accounts" },
   { icon: "priority_high", label: "Hitlist", href: "/hitlist" },
 ];

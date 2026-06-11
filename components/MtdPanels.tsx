@@ -1,5 +1,38 @@
 import type { TierView } from "@/types/dashboard";
 
+type MtdSummaryProps = {
+  month?: string;
+  leadsMtd?: string;
+  qualifiedMtd?: string;
+  loading?: boolean;
+};
+
+export function MtdSummaryCards({ month, leadsMtd, qualifiedMtd, loading }: MtdSummaryProps) {
+  if (loading) {
+    return (
+      <div className="grid grid-cols-1 gap-md md:grid-cols-2">
+        <div className="glass-card animate-pulse rounded-xl p-lg h-28" />
+        <div className="glass-card animate-pulse rounded-xl p-lg h-28" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 gap-md md:grid-cols-2">
+      <div className="glass-card rounded-xl border-l-4 border-l-primary p-lg">
+        <p className="text-label-md text-on-surface-variant">{month} · MTD only</p>
+        <h3 className="text-title-lg font-bold">Leads MTD</h3>
+        <p className="mt-sm text-headline-md font-extrabold">{leadsMtd}</p>
+      </div>
+      <div className="glass-card rounded-xl border-l-4 border-l-secondary p-lg">
+        <p className="text-label-md text-on-surface-variant">{month} · MTD only</p>
+        <h3 className="text-title-lg font-bold">Qualified MTD</h3>
+        <p className="mt-sm text-headline-md font-extrabold">{qualifiedMtd}</p>
+      </div>
+    </div>
+  );
+}
+
 type MtdProgressProps = {
   month?: string;
   wonProgress?: number;
@@ -70,7 +103,7 @@ function ProgressCard({
   const barColor = accent === "won" ? "bg-won" : "bg-activated";
   return (
     <div className={`glass-card rounded-xl p-lg border-l-4 ${accent === "won" ? "border-l-won" : "border-l-activated"}`}>
-      <p className="text-label-md font-label-md text-on-surface-variant">{month}</p>
+      <p className="text-label-md font-label-md text-on-surface-variant">{month} · June MTD only</p>
       <h3 className="text-title-lg font-title-lg font-bold">{title}</h3>
       <p className="mt-sm text-headline-md font-headline-md font-extrabold">
         {actual} <span className="text-body-md font-normal text-on-surface-variant">/ {target}</span>

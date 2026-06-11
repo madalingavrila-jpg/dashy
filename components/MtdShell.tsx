@@ -2,7 +2,7 @@
 
 import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
-import { MtdProgressCards, TierTrackingTable } from "@/components/MtdPanels";
+import { MtdProgressCards, TierTrackingTable, MtdSummaryCards } from "@/components/MtdPanels";
 import { useDashboard } from "@/lib/useDashboard";
 
 export function MtdShell() {
@@ -12,12 +12,19 @@ export function MtdShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="MTD & Tiers Tracking"
-        subtitle="Month-to-date achievement vs targets, broken down by tier."
+        subtitle="June 2026 only — month-to-date production, not year-to-date."
         updatedAt={model?.updatedAt}
         loading={loading}
       />
 
       <DataAlert error={error} sourceHint={sourceHint} />
+
+      <MtdSummaryCards
+        month={model?.mtdAchievement.month}
+        leadsMtd={model?.mtdAchievement.leadsMtd}
+        qualifiedMtd={model?.mtdAchievement.qualifiedMtd}
+        loading={loading}
+      />
 
       <MtdProgressCards
         month={model?.mtdAchievement.month}

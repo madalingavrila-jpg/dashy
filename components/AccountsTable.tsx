@@ -7,6 +7,8 @@ type AccountsTableProps = {
   won?: AccountViewRow[];
   activated?: AccountViewRow[];
   backlog?: AccountViewRow[];
+  filtered?: AccountViewRow[];
+  filterMode?: boolean;
   loading?: boolean;
 };
 
@@ -18,11 +20,79 @@ const tabs: { id: Tab; label: string; icon: string }[] = [
   { id: "backlog", label: "Backlog", icon: "pending_actions" },
 ];
 
-export function AccountsTable({ won, activated, backlog, loading }: AccountsTableProps) {
+function AccountRows({ data, loading }: { data?: AccountViewRow[]; loading?: boolean }) {
+  return (
+    <>
+      {loading && !data?.length ? (
+        <tr>
+          <td colSpan={7} className="px-lg py-xl text-center text-on-surface-variant">
+            Loading accounts…
+          </td>
+        </tr>
+      ) : !data?.length ? (
+        <tr>
+          <td colSpan={7} className="px-lg py-xl text-center text-on-surface-variant">
+            No accounts match this filter.
+          </td>
+        </tr>
+      ) : (
+        data.map((account) => (
+          <tr key={account.id} className="hover:bg-surface-container-low">
+            <td className="px-lg py-md">
+              <div className="font-semibold">{account.name}</div>
+              <span
+                className={`rounded-full px-xs py-[2px] text-[10px] font-bold ${account.statusColor}`}
+              >
+                {account.statusLabel}
+              </span>
+            </td>
+            <td className="px-lg py-md">{account.city}</td>
+            <td className="px-lg py-md text-on-surface-variant">{account.owner}</td>
+            <td className="px-lg py-md">{account.tier}</td>
+            <td className="px-lg py-md">{account.stage}</td>
+            <td className="px-lg py-md">
+              <span className="text-label-md text-on-surface-variant">{account.dateLabel}: </span>
+              {account.dateValue}
+            </td>
+            <td className="px-lg py-md">
+              {account.sfAccountUrl ? (
+                <a
+                  href={account.sfAccountUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-xs rounded-lg bg-primary px-sm py-xs text-label-md font-semibold text-on-primary transition hover:opacity-90"
+                >
+                  <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+                  Salesforce
+                </a>
+              ) : (
+                <span className="text-on-surface-variant">—</span>
+              )}
+            </td>
+          </tr>
+        ))
+      )}
+    </>
+  );
+}
+
+export function AccountsTable({
+  won,
+  activated,
+  backlog,
+  filtered,
+  filterMode,
+  loading,
+}: AccountsTableProps) {
   const [tab, setTab] = useState<Tab>("won");
 
-  const data =
-    tab === "won" ? won : tab === "activated" ? activated : backlog;
+  const data = filterMode
+    ? filtered
+    : tab === "won"
+      ? won
+      : tab === "activated"
+        ? activated
+        : backlog;
 
   return (
     <div className="glass-card overflow-hidden rounded-xl">
@@ -30,33 +100,37 @@ export function AccountsTable({ won, activated, backlog, loading }: AccountsTabl
         <div>
           <h3 className="text-title-lg font-title-lg font-bold">Accounts Management</h3>
           <p className="text-body-md text-on-surface-variant">
-            Won, Activated, and onboarding backlog — never merged
+            {filterMode
+              ? "Drill-down view — open each account in Salesforce"
+              : "Won, Activated, and onboarding backlog — never merged"}
           </p>
         </div>
-        <div className="flex gap-1 rounded-lg bg-surface-container-low p-1">
-          {tabs.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => setTab(item.id)}
-              className={
-                tab === item.id
-                  ? "flex items-center gap-xs rounded-md bg-white px-sm py-xs text-label-md font-bold text-primary shadow-sm"
-                  : "flex items-center gap-xs rounded-md px-sm py-xs text-label-md text-on-surface-variant hover:bg-white/50"
-              }
-            >
-              <span className="material-symbols-outlined text-[16px]">{item.icon}</span>
-              {item.label}
-              <span className="rounded-full bg-surface-container px-1 text-[10px]">
-                {item.id === "won"
-                  ? (won?.length ?? 0)
-                  : item.id === "activated"
-                    ? (activated?.length ?? 0)
-                    : (backlog?.length ?? 0)}
-              </span>
-            </button>
-          ))}
-        </div>
+        {!filterMode && (
+          <div className="flex gap-1 rounded-lg bg-surface-container-low p-1">
+            {tabs.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setTab(item.id)}
+                className={
+                  tab === item.id
+                    ? "flex items-center gap-xs rounded-md bg-white px-sm py-xs text-label-md font-bold text-primary shadow-sm"
+                    : "flex items-center gap-xs rounded-md px-sm py-xs text-label-md text-on-surface-variant hover:bg-white/50"
+                }
+              >
+                <span className="material-symbols-outlined text-[16px]">{item.icon}</span>
+                {item.label}
+                <span className="rounded-full bg-surface-container px-1 text-[10px]">
+                  {item.id === "won"
+                    ? (won?.length ?? 0)
+                    : item.id === "activated"
+                      ? (activated?.length ?? 0)
+                      : (backlog?.length ?? 0)}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-left">
@@ -80,43 +154,13 @@ export function AccountsTable({ won, activated, backlog, loading }: AccountsTabl
               <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
                 Date
               </th>
+              <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
+                SF Link
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-outline-variant">
-            {loading && !data?.length ? (
-              <tr>
-                <td colSpan={6} className="px-lg py-xl text-center text-on-surface-variant">
-                  Loading accounts…
-                </td>
-              </tr>
-            ) : !data?.length ? (
-              <tr>
-                <td colSpan={6} className="px-lg py-xl text-center text-on-surface-variant">
-                  No accounts in this tab.
-                </td>
-              </tr>
-            ) : (
-              data.map((account) => (
-                <tr key={account.id} className="hover:bg-surface-container-low">
-                  <td className="px-lg py-md">
-                    <div className="font-semibold">{account.name}</div>
-                    <span
-                      className={`rounded-full px-xs py-[2px] text-[10px] font-bold ${account.statusColor}`}
-                    >
-                      {account.statusLabel}
-                    </span>
-                  </td>
-                  <td className="px-lg py-md">{account.city}</td>
-                  <td className="px-lg py-md text-on-surface-variant">{account.owner}</td>
-                  <td className="px-lg py-md">{account.tier}</td>
-                  <td className="px-lg py-md">{account.stage}</td>
-                  <td className="px-lg py-md">
-                    <span className="text-label-md text-on-surface-variant">{account.dateLabel}: </span>
-                    {account.dateValue}
-                  </td>
-                </tr>
-              ))
-            )}
+            <AccountRows data={data} loading={loading} />
           </tbody>
         </table>
       </div>

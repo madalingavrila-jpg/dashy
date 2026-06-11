@@ -71,10 +71,13 @@ export function WeeklyHistoryChart({ history, loading }: WeeklyHistoryChartProps
 
   return (
     <div className="glass-card rounded-xl p-lg">
-      <h3 className="mb-lg text-title-lg font-title-lg font-bold">5-Week Trend</h3>
-      <div className="flex items-end justify-between gap-sm" style={{ minHeight: 180 }}>
-        {history?.map((row) => (
-          <div key={row.week} className="flex flex-1 flex-col items-center gap-xs">
+      <h3 className="mb-lg text-title-lg font-title-lg font-bold">2026 Trend (Won vs Activated)</h3>
+      <div className="overflow-x-auto pb-sm">
+      <div className="flex items-end justify-between gap-sm min-w-[960px]" style={{ minHeight: 180 }}>
+        {history?.map((row) => {
+          const isMany = (history?.length ?? 0) > 8;
+          return (
+          <div key={row.week} className={`flex flex-col items-center gap-xs ${isMany ? "min-w-[36px] flex-1" : "flex-1"}`}>
             <div className="flex w-full items-end justify-center gap-1" style={{ height: 140 }}>
               <div
                 className="w-4 rounded-t bg-won"
@@ -92,7 +95,9 @@ export function WeeklyHistoryChart({ history, loading }: WeeklyHistoryChartProps
               L{row.leads} · W{row.won} · A{row.activated}
             </span>
           </div>
-        ))}
+          );
+        })}
+      </div>
       </div>
       <div className="mt-md flex gap-md text-label-md">
         <span className="flex items-center gap-xs">

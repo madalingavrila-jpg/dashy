@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { MetricCards } from "@/components/MetricCards";
 import { DualFunnelGrid } from "@/components/FunnelPanel";
+import { StageBreakdown } from "@/components/StageBreakdown";
 import { useDashboard } from "@/lib/useDashboard";
 
 export function PipelineShell() {
@@ -34,6 +35,8 @@ export function PipelineShell() {
         onboarding={model?.snapshot.onboarding}
         loading={loading}
       />
+
+      <StageBreakdown sales={model?.snapshot.sales} loading={loading} />
     </div>
   );
 }
