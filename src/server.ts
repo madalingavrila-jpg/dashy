@@ -132,9 +132,29 @@ process.on("uncaughtException", (error) => {
   console.error("[uncaughtException]", error);
 });
 
-app.listen(config.port, config.host, () => {
+const server = app.listen(config.port, config.host, () => {
   console.log(
     `dashy listening on http://${config.host}:${config.port}` +
       (staticReady ? "" : " (static export unavailable)"),
   );
 });
+
+function shutdown(signal: string): void {
+  console.log(`[dashy] ${signal} received, closing HTTP server`);
+  server.close((error) => {
+    if (error) {
+      console.error("[dashy] shutdown error:", error.message);
+      process.exit(1);
+      return;
+    }
+    console.log("[dashy] HTTP server closed");
+    process.exit(0);
+  });
+  setTimeout(() => {
+    console.error("[dashy] forced exit after shutdown timeout");
+    process.exit(1);
+  }, 10_000).unref();
+}
+
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT", () => shutdown("SIGINT"));

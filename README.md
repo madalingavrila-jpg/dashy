@@ -65,6 +65,12 @@ Paketo runs `npm run build` and starts `npm start` (Express serves `out/` + `/ap
 
 Config files: `project.toml`, `Procfile`.
 
+**Auto-update:** every `git push` to the Boltable remote triggers a full rebuild and restart. Expect **~1–2 minutes of 503** (“Application is not responding”) while Paketo builds Next.js and swaps the container — this is normal redeploy downtime, not a crash.
+
+**Health check:** `GET /api/health` is lightweight (no dashboard load). It reports `staticReady` and `uptime` for debugging.
+
+**Tips to avoid repeated downtime:** batch commits before pushing; data-only updates (`data/dashboard.json`) still trigger a full rebuild on Boltable.
+
 ## Scripts
 
 | Script | Description |

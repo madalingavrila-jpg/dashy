@@ -1,4 +1,6 @@
 import { Router } from "express";
+import fs from "node:fs";
+import path from "node:path";
 import { config } from "../config.js";
 import { loadDashboardModel } from "../services/dashboard.js";
 
@@ -7,7 +9,14 @@ export const apiRouter = Router();
 const API_CACHE = "public, max-age=60, stale-while-revalidate=120";
 
 apiRouter.get("/health", (_req, res) => {
-  res.json({ ok: true, app: "dashy", time: new Date().toISOString() });
+  const staticIndex = path.join(config.staticDir, "index.html");
+  res.json({
+    ok: true,
+    app: "dashy",
+    time: new Date().toISOString(),
+    uptime: Math.round(process.uptime()),
+    staticReady: fs.existsSync(staticIndex),
+  });
 });
 
 apiRouter.get("/status", (_req, res) => {
