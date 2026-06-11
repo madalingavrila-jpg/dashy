@@ -7,6 +7,8 @@ type TeamProgressPanelProps = {
   team: TeamProgressView;
   loading?: boolean;
   variant?: "overview" | "detailed";
+  /** Side-by-side column layout — tighter padding and compact agent table */
+  parallel?: boolean;
 };
 
 function progressBar(
@@ -122,16 +124,18 @@ function AgentRowsTable({
   team,
   loading,
   detailed,
+  parallel,
 }: {
   team: TeamProgressView;
   loading?: boolean;
   detailed?: boolean;
+  parallel?: boolean;
 }) {
   if (loading && !team.agents.length) {
     return <p className="px-sm py-md text-on-surface-variant">Loading agents…</p>;
   }
 
-  if (detailed) {
+  if (detailed && !parallel) {
     return (
       <div className="overflow-x-auto">
         <table className="w-full min-w-[640px] text-left">
@@ -207,16 +211,24 @@ function AgentRowsTable({
     );
   }
 
+  const tableMinWidth = parallel ? "min-w-[240px]" : "min-w-[520px]";
+  const cellPad = parallel ? "px-xs py-xs" : "px-sm py-sm";
+  const headPad = parallel ? "px-xs py-[2px]" : "px-sm py-xs";
+
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[520px] text-left">
-        <thead>
+    <div className={parallel ? "max-h-[28rem] overflow-auto" : "overflow-x-auto"}>
+      <table className={`w-full ${tableMinWidth} text-left ${parallel ? "text-[11px]" : ""}`}>
+        <thead className={parallel ? "sticky top-0 z-10 bg-white/95 backdrop-blur-sm" : undefined}>
           <tr className="border-b border-outline-variant/60">
-            <th className="px-sm py-xs text-label-md font-semibold uppercase text-on-surface-variant">
+            <th
+              className={`${headPad} text-label-md font-semibold uppercase text-on-surface-variant`}
+            >
               Agent
             </th>
-            <th className="px-sm py-xs text-label-md font-semibold uppercase text-won">Won MTD</th>
-            <th className="px-sm py-xs text-label-md font-semibold uppercase text-activated">
+            <th className={`${headPad} text-label-md font-semibold uppercase text-won`}>Won MTD</th>
+            <th
+              className={`${headPad} text-label-md font-semibold uppercase text-activated`}
+            >
               Activated MTD
             </th>
           </tr>
@@ -227,7 +239,7 @@ function AgentRowsTable({
               key={agent.ownerId}
               className={index % 2 === 0 ? "bg-surface-container-low/30" : undefined}
             >
-              <td className="px-sm py-sm">
+              <td className={cellPad}>
                 <div className="flex flex-wrap items-center gap-xs">
                   <Link
                     href={agent.accountsUrl}
@@ -244,7 +256,7 @@ function AgentRowsTable({
                   </span>
                 </div>
               </td>
-              <td className="px-sm py-sm">
+              <td className={cellPad}>
                 <AgentMtdCell
                   actual={agent.mtdActual}
                   target={agent.mtdTarget}
@@ -253,7 +265,7 @@ function AgentRowsTable({
                   compact
                 />
               </td>
-              <td className="px-sm py-sm">
+              <td className={cellPad}>
                 <AgentMtdCell
                   actual={agent.activatedActual}
                   target={agent.activatedTarget}
@@ -270,7 +282,12 @@ function AgentRowsTable({
   );
 }
 
-export function TeamProgressPanel({ team, loading, variant = "overview" }: TeamProgressPanelProps) {
+export function TeamProgressPanel({
+  team,
+  loading,
+  variant = "overview",
+  parallel = false,
+}: TeamProgressPanelProps) {
   const accent = team.segment === "complex" ? "complex" : "density";
   const borderColor = accent === "complex" ? "border-l-primary" : "border-l-tertiary";
   const cardAccent = accent === "complex" ? "team-card--complex" : "team-card--density";
@@ -282,30 +299,34 @@ export function TeamProgressPanel({ team, loading, variant = "overview" }: TeamP
 
   return (
     <div
-      className={`team-card ${cardAccent} glass-card rounded-xl border-l-4 ${borderColor} p-lg`}
+      className={`team-card ${cardAccent} glass-card min-w-0 rounded-xl border-l-4 ${borderColor} ${parallel ? "p-md" : "p-lg"}`}
       id={team.segment === "complex" ? "complex-team" : "density-team"}
     >
-      <header className="mb-lg space-y-md">
+      <header className={`space-y-md ${parallel ? "mb-md" : "mb-lg"}`}>
         <div className="flex flex-wrap items-start justify-between gap-sm">
-          <div className="space-y-xs">
+          <div className="min-w-0 space-y-xs">
             <span
               className={`inline-flex rounded-full px-sm py-[2px] text-[11px] font-bold uppercase tracking-wide ${badgeColor}`}
             >
               {team.segmentLabel}
             </span>
-            <h3 className="text-headline-md font-extrabold text-on-background">{team.name}</h3>
-            <p className="text-body-md text-on-surface-variant">
+            <h3
+              className={`font-extrabold text-on-background ${parallel ? "text-title-lg" : "text-headline-md"}`}
+            >
+              {team.name}
+            </h3>
+            <p className={`text-on-surface-variant ${parallel ? "text-label-md" : "text-body-md"}`}>
               {team.repCount} reps · Won target {team.targetPerRep}/rep · Activated target{" "}
               {team.activatedTargetPerRep}/rep
             </p>
           </div>
-          <div className="flex flex-col items-end gap-xs">
+          <div className="flex shrink-0 flex-col items-end gap-xs">
             {progressBadge(team.progress, "won")}
             <p className="text-label-md font-semibold text-on-surface-variant">Team Won MTD</p>
           </div>
         </div>
 
-        <div className="flex flex-col gap-sm sm:flex-row">
+        <div className={`flex flex-col gap-sm ${parallel ? "" : "sm:flex-row"}`}>
           <MtdStatChip
             label="Won MTD"
             actual={team.actual}
@@ -346,7 +367,12 @@ export function TeamProgressPanel({ team, loading, variant = "overview" }: TeamP
           </p>
           <p className="text-label-md text-on-surface-variant">Sorted by Won MTD %</p>
         </div>
-        <AgentRowsTable team={team} loading={loading} detailed={detailed} />
+        <AgentRowsTable
+          team={team}
+          loading={loading}
+          detailed={detailed}
+          parallel={parallel}
+        />
       </div>
     </div>
   );
@@ -391,15 +417,21 @@ export function TeamProgressGrid({
           </p>
         ) : null}
       </div>
-      <div className="grid grid-cols-1 gap-lg">
+      <div className="team-progress-grid grid grid-cols-1 gap-lg lg:grid-cols-2 lg:items-start lg:gap-md">
         {loading && !teams?.length ? (
           <>
-            <div className="glass-card h-[32rem] animate-pulse rounded-xl" />
-            <div className="glass-card h-[32rem] animate-pulse rounded-xl" />
+            <div className="glass-card h-[32rem] min-w-0 animate-pulse rounded-xl" />
+            <div className="glass-card h-[32rem] min-w-0 animate-pulse rounded-xl" />
           </>
         ) : (
           teams?.map((team) => (
-            <TeamProgressPanel key={team.segment} team={team} loading={loading} variant={variant} />
+            <TeamProgressPanel
+              key={team.segment}
+              team={team}
+              loading={loading}
+              variant={variant}
+              parallel
+            />
           ))
         )}
       </div>

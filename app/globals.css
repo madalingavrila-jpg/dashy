@@ -32,6 +32,11 @@ body {
     0 8px 24px rgba(124, 58, 237, 0.08);
 }
 
+/* Complex Team | Density Team — parallel columns on lg+, stack below */
+.team-progress-grid > .team-card {
+  width: 100%;
+}
+
 .trend-up {
   color: #059669;
   background: rgba(5, 150, 105, 0.1);
