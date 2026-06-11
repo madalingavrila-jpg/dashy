@@ -44,6 +44,8 @@ app.use(
     contentSecurityPolicy: false,
   }),
 );
+app.use(express.json({ limit: "256kb" }));
+
 app.use(
   compression({
     threshold: 1024,

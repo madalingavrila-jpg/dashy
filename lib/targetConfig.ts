@@ -1,4 +1,4 @@
-/** MTD target configuration — persisted in localStorage per browser. */
+/** MTD target configuration — shared via /api/target-config (localStorage fallback for migration). */
 
 import type { DashboardModel, MetricCard, TeamProgressView } from "@/types/dashboard";
 import {
@@ -14,6 +14,7 @@ import {
   type WeeklyStatusKey,
 } from "@/lib/weekly-stages";
 import { formatInteger, trendDirection } from "@/lib/format";
+import { currentMonthKey } from "@/lib/mtdMonth";
 
 export const TARGET_CONFIG_STORAGE_KEY = "dashy-target-config";
 export const TARGET_UNLOCK_SESSION_KEY = "dashy-targets-unlocked";
@@ -26,6 +27,18 @@ export type SegmentTargets = {
 
 export type WeeklyStatusTargets = WeeklyStatusCounts;
 
+export type PerRepMtdOverride = {
+  won?: number;
+  activated?: number;
+  /** ISO month key (YYYY-MM). When set, override applies only to that month. */
+  monthKey?: string;
+};
+
+export type PerRepWeeklyOverride = Partial<WeeklyStatusTargets> & {
+  /** Week code (e.g. W24). When set, override applies only to that week. */
+  week?: string;
+};
+
 export type TargetConfig = {
   segment: {
     complex: SegmentTargets;
@@ -35,8 +48,8 @@ export type TargetConfig = {
     complex: WeeklyStatusTargets;
     density: WeeklyStatusTargets;
   };
-  perRep: Record<string, { won?: number; activated?: number }>;
-  weeklyPerRep: Record<string, Partial<WeeklyStatusTargets>>;
+  perRep: Record<string, PerRepMtdOverride>;
+  weeklyPerRep: Record<string, PerRepWeeklyOverride>;
   /** Reps excluded from team target math (still shown with actuals). */
   pausedAgentIds: string[];
 };
@@ -78,41 +91,108 @@ export function formatTargetSummary(config: TargetConfig): string {
   return `Won target Complex ${complex.won}/rep, Density ${density.won}/rep · Activated target Complex ${complex.activated}/rep, Density ${density.activated}/rep · Weekly Complex Q${wc.qualified}/N${wc.negotiations}/W${wc.closedWon}/A${wc.active} · Density Q${wd.qualified}/N${wd.negotiations}/W${wd.closedWon}/A${wd.active}`;
 }
 
-export function loadTargetConfig(): TargetConfig {
+export function mergeTargetConfig(parsed: Partial<TargetConfig>): TargetConfig {
+  const defaults = defaultTargetConfig();
+  return {
+    segment: {
+      complex: { ...defaults.segment.complex, ...parsed.segment?.complex },
+      density: { ...defaults.segment.density, ...parsed.segment?.density },
+    },
+    weekly: {
+      complex: { ...defaults.weekly.complex, ...parsed.weekly?.complex },
+      density: { ...defaults.weekly.density, ...parsed.weekly?.density },
+    },
+    perRep: parsed.perRep ?? {},
+    weeklyPerRep: parsed.weeklyPerRep ?? {},
+    pausedAgentIds: Array.isArray(parsed.pausedAgentIds) ? parsed.pausedAgentIds : [],
+  };
+}
+
+function loadTargetConfigFromLocalStorage(): TargetConfig {
   if (typeof window === "undefined") return defaultTargetConfig();
   try {
     const raw = localStorage.getItem(TARGET_CONFIG_STORAGE_KEY);
     if (!raw) return defaultTargetConfig();
-    const parsed = JSON.parse(raw) as Partial<TargetConfig>;
-    const defaults = defaultTargetConfig();
-    return {
-      segment: {
-        complex: { ...defaults.segment.complex, ...parsed.segment?.complex },
-        density: { ...defaults.segment.density, ...parsed.segment?.density },
-      },
-      weekly: {
-        complex: { ...defaults.weekly.complex, ...parsed.weekly?.complex },
-        density: { ...defaults.weekly.density, ...parsed.weekly?.density },
-      },
-      perRep: parsed.perRep ?? {},
-      weeklyPerRep: parsed.weeklyPerRep ?? {},
-      pausedAgentIds: Array.isArray(parsed.pausedAgentIds) ? parsed.pausedAgentIds : [],
-    };
+    return mergeTargetConfig(JSON.parse(raw) as Partial<TargetConfig>);
   } catch {
     return defaultTargetConfig();
   }
 }
 
-export function saveTargetConfig(config: TargetConfig): void {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(TARGET_CONFIG_STORAGE_KEY, JSON.stringify(config));
-  dispatchTargetConfigUpdated();
+export function hasTargetOverrides(config: TargetConfig): boolean {
+  const defaults = defaultTargetConfig();
+  if (config.pausedAgentIds.length > 0) return true;
+  if (Object.keys(config.perRep).length > 0) return true;
+  if (Object.keys(config.weeklyPerRep).length > 0) return true;
+  return JSON.stringify(config.segment) !== JSON.stringify(defaults.segment)
+    || JSON.stringify(config.weekly) !== JSON.stringify(defaults.weekly);
 }
 
-export function clearTargetConfig(): void {
-  if (typeof window === "undefined") return;
-  localStorage.removeItem(TARGET_CONFIG_STORAGE_KEY);
-  dispatchTargetConfigUpdated();
+export function loadTargetConfig(): TargetConfig {
+  return loadTargetConfigFromLocalStorage();
+}
+
+export async function fetchTargetConfig(signal?: AbortSignal): Promise<TargetConfig> {
+  const { fetchTargetConfigFromApi } = await import("@/lib/api");
+  try {
+    const payload = await fetchTargetConfigFromApi(signal);
+    const merged = mergeTargetConfig(payload);
+    const local = loadTargetConfigFromLocalStorage();
+    if (hasTargetOverrides(local) && !hasTargetOverrides(merged)) {
+      try {
+        await saveTargetConfigToServer(local);
+        if (typeof window !== "undefined") {
+          localStorage.removeItem(TARGET_CONFIG_STORAGE_KEY);
+        }
+        return local;
+      } catch {
+        return local;
+      }
+    }
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(TARGET_CONFIG_STORAGE_KEY);
+    }
+    return merged;
+  } catch {
+    return loadTargetConfigFromLocalStorage();
+  }
+}
+
+async function saveTargetConfigToServer(config: TargetConfig): Promise<void> {
+  const { saveTargetConfigToApi } = await import("@/lib/api");
+  await saveTargetConfigToApi(config);
+}
+
+export async function saveTargetConfig(config: TargetConfig): Promise<void> {
+  try {
+    await saveTargetConfigToServer(config);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(TARGET_CONFIG_STORAGE_KEY);
+    }
+    dispatchTargetConfigUpdated();
+  } catch (error) {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(TARGET_CONFIG_STORAGE_KEY, JSON.stringify(config));
+      dispatchTargetConfigUpdated();
+    }
+    throw error;
+  }
+}
+
+export async function clearTargetConfig(): Promise<void> {
+  const defaults = defaultTargetConfig();
+  try {
+    await saveTargetConfigToServer(defaults);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(TARGET_CONFIG_STORAGE_KEY);
+    }
+    dispatchTargetConfigUpdated();
+  } catch {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(TARGET_CONFIG_STORAGE_KEY);
+      dispatchTargetConfigUpdated();
+    }
+  }
 }
 
 export function isTargetSettingsUnlocked(): boolean {
@@ -135,16 +215,47 @@ export function dispatchTargetConfigUpdated(): void {
   }
 }
 
-function wonTargetFor(config: TargetConfig, ownerId: string, segment: "complex" | "density"): number {
-  return config.perRep[ownerId]?.won ?? config.segment[segment].won;
+function resolveMtdOverrideValue(
+  override: PerRepMtdOverride | undefined,
+  field: "won" | "activated",
+  segmentDefault: number,
+  contextMonthKey?: string,
+): number {
+  const value = override?.[field];
+  if (value == null) return segmentDefault;
+  if (override?.monthKey) {
+    if (contextMonthKey && override.monthKey === contextMonthKey) return value;
+    return segmentDefault;
+  }
+  return value;
+}
+
+function wonTargetFor(
+  config: TargetConfig,
+  ownerId: string,
+  segment: "complex" | "density",
+  contextMonthKey?: string,
+): number {
+  return resolveMtdOverrideValue(
+    config.perRep[ownerId],
+    "won",
+    config.segment[segment].won,
+    contextMonthKey,
+  );
 }
 
 function activatedTargetFor(
   config: TargetConfig,
   ownerId: string,
   segment: "complex" | "density",
+  contextMonthKey?: string,
 ): number {
-  return config.perRep[ownerId]?.activated ?? config.segment[segment].activated;
+  return resolveMtdOverrideValue(
+    config.perRep[ownerId],
+    "activated",
+    config.segment[segment].activated,
+    contextMonthKey,
+  );
 }
 
 /** Per-rep weekly status target; blank override → segment default. */
@@ -153,8 +264,16 @@ export function getRepWeeklyStatusTarget(
   ownerId: string,
   segment: "complex" | "density",
   status: WeeklyStatusKey,
+  contextWeek?: string,
 ): number {
-  return config.weeklyPerRep[ownerId]?.[status] ?? config.weekly[segment][status];
+  const override = config.weeklyPerRep[ownerId];
+  const value = override?.[status];
+  if (value == null) return config.weekly[segment][status];
+  if (override?.week) {
+    if (contextWeek && override.week === contextWeek) return value;
+    return config.weekly[segment][status];
+  }
+  return value;
 }
 
 /** Sum weekly status targets for active reps (respects per-rep overrides). */
@@ -163,10 +282,15 @@ export function teamWeeklyStatusTarget(
   agents: Array<{ ownerId: string }>,
   segment: "complex" | "density",
   status: WeeklyStatusKey,
+  contextWeek?: string,
 ): number {
   return agents
     .filter((agent) => !isPausedAgent(agent.ownerId, config))
-    .reduce((sum, agent) => sum + getRepWeeklyStatusTarget(config, agent.ownerId, segment, status), 0);
+    .reduce(
+      (sum, agent) =>
+        sum + getRepWeeklyStatusTarget(config, agent.ownerId, segment, status, contextWeek),
+      0,
+    );
 }
 
 function updateOverviewMetrics(
@@ -213,6 +337,7 @@ function updateOverviewMetrics(
 export function applyTargetConfig(model: DashboardModel, config: TargetConfig): DashboardModel {
   const teamProgress = model.teamProgress ?? [];
   const overviewMetrics = model.overviewMetrics ?? [];
+  const contextMonthKey = model.mtdMonthKey ?? currentMonthKey();
 
   const updatedTeams: TeamProgressView[] = teamProgress.map((team) => {
     const segment = team.segment;
@@ -222,8 +347,8 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
     const agents = team.agents
       .map((agent) => {
         const paused = isPausedAgent(agent.ownerId, config);
-        const wonTarget = wonTargetFor(config, agent.ownerId, segment);
-        const activatedTarget = activatedTargetFor(config, agent.ownerId, segment);
+        const wonTarget = wonTargetFor(config, agent.ownerId, segment, contextMonthKey);
+        const activatedTarget = activatedTargetFor(config, agent.ownerId, segment, contextMonthKey);
         const wonActual = parseFormattedInt(agent.mtdActual);
         const activatedActual = parseFormattedInt(agent.activatedActual);
 
@@ -308,8 +433,8 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
       ownerSegment.get(agent.ownerId) ??
       (agent.segment === "Complex" ? "complex" : "density");
     const paused = isPausedAgent(agent.ownerId, config);
-    const wonTarget = wonTargetFor(config, agent.ownerId, segment);
-    const activatedTarget = activatedTargetFor(config, agent.ownerId, segment);
+    const wonTarget = wonTargetFor(config, agent.ownerId, segment, contextMonthKey);
+    const activatedTarget = activatedTargetFor(config, agent.ownerId, segment, contextMonthKey);
     const wonActual = parseFormattedInt(agent.wonMtd);
     const activatedActual = parseFormattedInt(agent.activatedMtd);
 

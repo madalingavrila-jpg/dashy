@@ -1,13 +1,38 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { TeamProgressGrid } from "@/components/TeamProgressPanel";
 import { StageBreakdown } from "@/components/StageBreakdown";
 import { useDashboard } from "@/lib/useDashboard";
+import { applyTargetConfig } from "@/lib/targetConfig";
+import {
+  applyMtdMonthToModel,
+  mtdMonthOptions,
+  resolveDefaultMonthKey,
+} from "@/lib/mtdMonth";
 
 export function PipelineShell() {
-  const { model, error, loading, sourceHint } = useDashboard();
+  const { baseModel, error, loading, sourceHint, targetConfig } = useDashboard();
+  const [selectedMonthKey, setSelectedMonthKey] = useState("");
+
+  const defaultMonthKey = useMemo(() => resolveDefaultMonthKey(baseModel), [baseModel]);
+  const monthOptions = useMemo(() => mtdMonthOptions(baseModel?.mtdHistory), [baseModel?.mtdHistory]);
+
+  useEffect(() => {
+    if (defaultMonthKey && !selectedMonthKey) {
+      setSelectedMonthKey(defaultMonthKey);
+    }
+  }, [defaultMonthKey, selectedMonthKey]);
+
+  const model = useMemo(() => {
+    if (!baseModel) return null;
+    const monthKey = selectedMonthKey || defaultMonthKey;
+    const withMonth = monthKey ? applyMtdMonthToModel(baseModel, monthKey) : baseModel;
+    return applyTargetConfig(withMonth, targetConfig);
+  }, [baseModel, defaultMonthKey, selectedMonthKey, targetConfig]);
+
   const monthLabel = model?.mtdMonthLabel ?? "Current month";
 
   return (
@@ -21,11 +46,40 @@ export function PipelineShell() {
 
       <DataAlert error={error} sourceHint={sourceHint} />
 
+      <div className="flex flex-col gap-xs sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
+            Month
+          </p>
+          <p className="text-body-md text-on-surface-variant">
+            Defaults to the current month on first open. Past months use cached Salesforce won exports.
+          </p>
+        </div>
+        <label className="flex min-w-[min(100%,280px)] flex-col gap-xs sm:max-w-xs">
+          <span className="text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
+            MTD month
+          </span>
+          <select
+            value={selectedMonthKey || defaultMonthKey}
+            onChange={(event) => setSelectedMonthKey(event.target.value)}
+            disabled={loading || !monthOptions.length}
+            className="w-full rounded-lg border-2 border-primary/30 bg-white px-md py-2.5 text-body-md font-medium text-on-surface shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/30 disabled:opacity-60"
+          >
+            {monthOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
       <TeamProgressGrid
         teams={model?.teamProgress}
         month={monthLabel}
         loading={loading}
         variant="detailed"
+        salesforceUrl={model?.salesforceInstanceUrl}
       />
 
       <details className="group rounded-xl border border-outline-variant/60 bg-surface-container-low/30">

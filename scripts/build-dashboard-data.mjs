@@ -3,7 +3,7 @@
  * Builds data/dashboard.json from Salesforce MCP query exports.
  * Run after refreshing MCP query output files (see scripts/sf-export-paths.json).
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -13,6 +13,10 @@ import {
   agentSegment,
   enrichAgent,
 } from "../lib/agent-segments.mjs";
+import {
+  buildMtdHistoryFromRecords,
+  mergeWonExportRecords,
+} from "../lib/mtd-history.mjs";
 import {
   accumulateWeeklyStatusFromHistory,
   accumulateNewOpportunityFallback,
@@ -104,12 +108,20 @@ const stageHistoryExport =
 const pipelineExport = process.env.SF_PIPELINE_EXPORT ?? join(root, "scripts/.cache/sf-pipeline-open.json");
 /** Full THIS_MONTH won/activated opps (IsWon or Activated stage) — see AGENTS.md SOQL. */
 const wonExport = process.env.SF_WON_EXPORT ?? join(root, "scripts/.cache/sf-won-mtd.json");
+const wonRecentExport = join(root, "scripts/.cache/sf-won-recent.json");
+const wonCacheDir = join(root, "scripts/.cache");
 const mopsCasesExport =
   process.env.SF_MOPS_CASES_EXPORT ?? join(root, "scripts/.cache/sf-mops-cases.json");
 const weeklyData = parseSfJson(weeklyExport);
 const stageHistoryData = parseSfJson(stageHistoryExport);
 const pipelineData = parseSfJson(pipelineExport);
 const wonData = parseSfJson(wonExport);
+const wonRecentData = existsSync(wonRecentExport) ? parseSfJson(wonRecentExport) : { records: [] };
+const extraWonExports = readdirSync(wonCacheDir)
+  .filter((name) => /^sf-won-\d{4}-\d{2}\.json$/.test(name))
+  .map((name) => parseSfJson(join(wonCacheDir, name)));
+const mergedWonRecords = mergeWonExportRecords([wonData, wonRecentData, ...extraWonExports]);
+const mtdHistory = buildMtdHistoryFromRecords(mergedWonRecords);
 const mopsCasesData = parseSfJson(mopsCasesExport);
 
 function buildMopsSection(casesData) {
@@ -267,7 +279,7 @@ const mtdMonthLabel = mtdRef.toLocaleString("en-GB", {
   timeZone: "Europe/Bucharest",
 });
 
-for (const opp of wonData.records ?? []) {
+for (const opp of mergedWonRecords) {
   const agent = upsertAgent(opp);
   const closed = opp.CloseDate ? new Date(`${opp.CloseDate}T12:00:00Z`) : null;
   if (closed && closed >= mtdStart && closed <= mtdEnd) {
@@ -293,11 +305,11 @@ const mtdAchievement = buildMtdAchievement(agents, mtdMonthLabel, {
 
 // Pipeline accounts by stage
 const pipelineAccounts = (pipelineData.records ?? []).map((o) => mapAccount(o, "backlog"));
-const wonAccounts = (wonData.records ?? [])
+const wonAccounts = mergedWonRecords
   .filter((o) => o.StageName === "Activated")
   .slice(0, 50)
   .map((o) => mapAccount(o, "activated"));
-const recentWon = (wonData.records ?? [])
+const recentWon = mergedWonRecords
   .filter((o) => o.StageName !== "Activated")
   .slice(0, 20)
   .map((o) => mapAccount(o, "won"));
@@ -376,6 +388,7 @@ const dashboard = {
       },
     ],
     agents,
+    mtdHistory,
     accountsByStage,
     accounts: {
       won: recentWon.slice(0, 20),
@@ -399,4 +412,9 @@ const dashboard = {
 };
 
 writeFileSync(join(root, "data/dashboard.json"), `${JSON.stringify(dashboard, null, 2)}\n`);
-console.log("Wrote data/dashboard.json", { agents: agents.length, history: history.length, weeks: history.map((h) => h.week).join(", ") });
+console.log("Wrote data/dashboard.json", {
+  agents: agents.length,
+  history: history.length,
+  mtdHistoryMonths: mtdHistory.map((m) => m.monthKey).join(", "),
+  weeks: history.map((h) => h.week).join(", "),
+});

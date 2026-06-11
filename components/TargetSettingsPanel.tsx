@@ -1,11 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { AgentViewRow } from "@/types/dashboard";
+import type { AgentViewRow, MtdHistoryMonth, WeeklyHistoryRow } from "@/types/dashboard";
 import {
   TARGET_SETTINGS_PASSWORD,
   clearTargetConfig,
   defaultTargetConfig,
+  fetchTargetConfig,
   formatTargetSummary,
   isTargetSettingsUnlocked,
   loadTargetConfig,
@@ -14,11 +15,16 @@ import {
   type TargetConfig,
   type WeeklyStatusTargets,
 } from "@/lib/targetConfig";
+import { currentMonthKey, mtdMonthOptions } from "@/lib/mtdMonth";
+import { weekOptionsFromHistory } from "@/lib/wowCompare";
 import { WEEKLY_STATUS_KEYS, WEEKLY_STATUS_LABELS } from "@/lib/weekly-stages";
 
 type TargetSettingsPanelProps = {
   agents?: AgentViewRow[];
   loading?: boolean;
+  mtdHistory?: MtdHistoryMonth[];
+  weeklyHistory?: WeeklyHistoryRow[];
+  currentWeek?: string;
 };
 
 function NumberField({
@@ -48,19 +54,33 @@ function NumberField({
   );
 }
 
-export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProps) {
+export function TargetSettingsPanel({
+  agents,
+  loading,
+  mtdHistory,
+  weeklyHistory,
+  currentWeek,
+}: TargetSettingsPanelProps) {
   const [unlocked, setUnlocked] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [draft, setDraft] = useState<TargetConfig>(defaultTargetConfig());
   const [savedSummary, setSavedSummary] = useState(formatTargetSummary(defaultTargetConfig()));
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     setUnlocked(isTargetSettingsUnlocked());
-    const config = loadTargetConfig();
-    setDraft(config);
-    setSavedSummary(formatTargetSummary(config));
+    void fetchTargetConfig()
+      .then((config) => {
+        setDraft(config);
+        setSavedSummary(formatTargetSummary(config));
+      })
+      .catch(() => {
+        const config = loadTargetConfig();
+        setDraft(config);
+        setSavedSummary(formatTargetSummary(config));
+      });
   }, []);
 
   const sortedAgents = useMemo(
@@ -70,6 +90,25 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
         .sort((a, b) => a.segment.localeCompare(b.segment) || a.name.localeCompare(b.name)),
     [agents],
   );
+
+  const defaultMonthKey = useMemo(() => currentMonthKey(), []);
+  const monthOptions = useMemo(() => {
+    const options = mtdMonthOptions(mtdHistory);
+    if (options.length) return options;
+    if (!defaultMonthKey) return [];
+    return [{ value: defaultMonthKey, label: defaultMonthKey }];
+  }, [mtdHistory, defaultMonthKey]);
+  const weekOptions = useMemo(
+    () => weekOptionsFromHistory(weeklyHistory),
+    [weeklyHistory],
+  );
+  const defaultWeek = useMemo(
+    () => currentWeek ?? weekOptions.at(-1) ?? "",
+    [currentWeek, weekOptions],
+  );
+
+  const selectClass =
+    "min-w-[6.5rem] rounded-lg border border-outline-variant/60 bg-surface-container px-sm py-1 text-[11px] font-medium text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/30 disabled:opacity-50";
 
   const handleUnlock = useCallback(() => {
     if (password === TARGET_SETTINGS_PASSWORD) {
@@ -89,20 +128,37 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
     setPasswordError(null);
   }, []);
 
-  const handleSave = useCallback(() => {
-    saveTargetConfig(draft);
-    setSavedSummary(formatTargetSummary(draft));
-    setSaveMessage("Targets saved — dashboard updated in this browser.");
-    window.setTimeout(() => setSaveMessage(null), 4000);
+  const handleSave = useCallback(async () => {
+    setSaving(true);
+    setSaveMessage(null);
+    try {
+      await saveTargetConfig(draft);
+      setSavedSummary(formatTargetSummary(draft));
+      setSaveMessage("Targets saved — visible to all users.");
+    } catch {
+      setSaveMessage("Saved locally only — server unavailable. Retry when online.");
+    } finally {
+      setSaving(false);
+      window.setTimeout(() => setSaveMessage(null), 5000);
+    }
   }, [draft]);
 
-  const handleReset = useCallback(() => {
+  const handleReset = useCallback(async () => {
+    setSaving(true);
+    setSaveMessage(null);
     const defaults = defaultTargetConfig();
     setDraft(defaults);
-    clearTargetConfig();
-    setSavedSummary(formatTargetSummary(defaults));
-    setSaveMessage("Reset to defaults.");
-    window.setTimeout(() => setSaveMessage(null), 4000);
+    try {
+      await clearTargetConfig();
+      setSavedSummary(formatTargetSummary(defaults));
+      setSaveMessage("Reset to defaults — visible to all users.");
+    } catch {
+      setSavedSummary(formatTargetSummary(defaults));
+      setSaveMessage("Reset locally — server unavailable.");
+    } finally {
+      setSaving(false);
+      window.setTimeout(() => setSaveMessage(null), 5000);
+    }
   }, []);
 
   const updateSegment = (
@@ -142,13 +198,30 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
         delete existing[field];
       } else {
         existing[field] = parsed;
+        if (!existing.monthKey) {
+          existing.monthKey = defaultMonthKey;
+        }
       }
-      if (Object.keys(existing).length === 0) {
+      if (existing.won == null && existing.activated == null) {
         delete nextPerRep[ownerId];
       } else {
         nextPerRep[ownerId] = existing;
       }
       return { ...prev, perRep: nextPerRep };
+    });
+  };
+
+  const updatePerRepMonth = (ownerId: string, monthKey: string) => {
+    setDraft((prev) => {
+      const existing = prev.perRep[ownerId];
+      if (!existing) return prev;
+      return {
+        ...prev,
+        perRep: {
+          ...prev.perRep,
+          [ownerId]: { ...existing, monthKey },
+        },
+      };
     });
   };
 
@@ -161,13 +234,31 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
         delete existing[field];
       } else {
         existing[field] = parsed;
+        if (!existing.week) {
+          existing.week = defaultWeek;
+        }
       }
-      if (Object.keys(existing).length === 0) {
+      const hasWeeklyValues = WEEKLY_STATUS_KEYS.some((key) => existing[key] != null);
+      if (!hasWeeklyValues) {
         delete nextWeeklyPerRep[ownerId];
       } else {
         nextWeeklyPerRep[ownerId] = existing;
       }
       return { ...prev, weeklyPerRep: nextWeeklyPerRep };
+    });
+  };
+
+  const updateWeeklyPerRepWeek = (ownerId: string, week: string) => {
+    setDraft((prev) => {
+      const existing = prev.weeklyPerRep[ownerId];
+      if (!existing) return prev;
+      return {
+        ...prev,
+        weeklyPerRep: {
+          ...prev.weeklyPerRep,
+          [ownerId]: { ...existing, week },
+        },
+      };
     });
   };
 
@@ -193,8 +284,8 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
             </h3>
           </div>
           <p className="text-body-md text-on-surface-variant">
-            Segment defaults and per-rep overrides. Saved in this browser only — does not change{" "}
-            <code className="text-sm">data/dashboard.json</code>.
+            Segment defaults and per-rep overrides. Saved to the shared server config — all users
+            see the same targets. Does not change <code className="text-sm">data/dashboard.json</code>.
           </p>
           <p className="mt-xs text-label-md text-on-surface-variant">
             Active: {savedSummary}
@@ -400,14 +491,14 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
               Per-rep overrides
             </h4>
             <p className="mb-md text-body-md text-on-surface-variant">
-              Leave blank to use the segment default for that rep — applies to MTD and weekly status
-              targets.
+              Leave blank to use the segment default. When you enter a number, pick the month (MTD)
+              or week (weekly status) it applies to.
             </p>
             {loading && !sortedAgents.length ? (
               <p className="text-on-surface-variant">Loading agents…</p>
             ) : (
               <div className="overflow-x-auto rounded-lg border border-outline-variant/60">
-                <table className="w-full min-w-[960px] text-left text-body-md">
+                <table className="w-full min-w-[1100px] text-left text-body-md">
                   <thead className="bg-surface-container-low">
                     <tr>
                       <th
@@ -423,13 +514,13 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                         Segment
                       </th>
                       <th
-                        colSpan={2}
+                        colSpan={3}
                         className="border-b border-outline-variant/40 px-md py-xs text-center text-label-md font-semibold uppercase text-on-surface-variant"
                       >
                         MTD / month
                       </th>
                       <th
-                        colSpan={4}
+                        colSpan={5}
                         className="border-b border-outline-variant/40 px-md py-xs text-center text-label-md font-semibold uppercase text-on-surface-variant"
                       >
                         Weekly / rep
@@ -442,6 +533,9 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                       <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
                         Activated
                       </th>
+                      <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+                        Month
+                      </th>
                       {WEEKLY_STATUS_KEYS.map((key) => (
                         <th
                           key={key}
@@ -451,6 +545,9 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                           {key === "closedWon" ? "Won" : key === "negotiations" ? "Neg" : key === "qualified" ? "Qual" : "Act"}
                         </th>
                       ))}
+                      <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+                        Week
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -458,6 +555,13 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                       const segmentKey = agent.segment === "Complex" ? "complex" : "density";
                       const mtdDefaults = draft.segment[segmentKey];
                       const weeklyDefaults = draft.weekly[segmentKey];
+                      const mtdOverride = draft.perRep[agent.ownerId];
+                      const weeklyOverride = draft.weeklyPerRep[agent.ownerId];
+                      const hasMtdOverride =
+                        mtdOverride?.won != null || mtdOverride?.activated != null;
+                      const hasWeeklyOverride = WEEKLY_STATUS_KEYS.some(
+                        (key) => weeklyOverride?.[key] != null,
+                      );
                       const inputClass =
                         "w-16 rounded-lg border-none bg-surface-container px-sm py-1 text-body-md font-data-mono focus:ring-2 focus:ring-primary";
                       return (
@@ -470,7 +574,7 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                               min={0}
                               step={1}
                               placeholder={String(mtdDefaults.won)}
-                              value={draft.perRep[agent.ownerId]?.won ?? ""}
+                              value={mtdOverride?.won ?? ""}
                               onChange={(event) =>
                                 updatePerRep(agent.ownerId, "won", event.target.value)
                               }
@@ -484,13 +588,30 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                               min={0}
                               step={1}
                               placeholder={String(mtdDefaults.activated)}
-                              value={draft.perRep[agent.ownerId]?.activated ?? ""}
+                              value={mtdOverride?.activated ?? ""}
                               onChange={(event) =>
                                 updatePerRep(agent.ownerId, "activated", event.target.value)
                               }
                               className={inputClass}
                               title={`Default: ${mtdDefaults.activated}`}
                             />
+                          </td>
+                          <td className="px-md py-sm">
+                            <select
+                              value={mtdOverride?.monthKey ?? defaultMonthKey}
+                              onChange={(event) =>
+                                updatePerRepMonth(agent.ownerId, event.target.value)
+                              }
+                              disabled={!hasMtdOverride || !monthOptions.length}
+                              className={selectClass}
+                              title="Month this MTD override applies to"
+                            >
+                              {monthOptions.map((option) => (
+                                <option key={option.value} value={option.value}>
+                                  {option.label}
+                                </option>
+                              ))}
+                            </select>
                           </td>
                           {WEEKLY_STATUS_KEYS.map((key) => (
                             <td key={key} className="px-md py-sm">
@@ -499,7 +620,7 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                                 min={0}
                                 step={1}
                                 placeholder={String(weeklyDefaults[key])}
-                                value={draft.weeklyPerRep[agent.ownerId]?.[key] ?? ""}
+                                value={weeklyOverride?.[key] ?? ""}
                                 onChange={(event) =>
                                   updateWeeklyPerRep(agent.ownerId, key, event.target.value)
                                 }
@@ -508,6 +629,23 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                               />
                             </td>
                           ))}
+                          <td className="px-md py-sm">
+                            <select
+                              value={weeklyOverride?.week ?? defaultWeek}
+                              onChange={(event) =>
+                                updateWeeklyPerRepWeek(agent.ownerId, event.target.value)
+                              }
+                              disabled={!hasWeeklyOverride || !weekOptions.length}
+                              className={selectClass}
+                              title="Week this weekly override applies to"
+                            >
+                              {weekOptions.map((week) => (
+                                <option key={week} value={week}>
+                                  {week}
+                                </option>
+                              ))}
+                            </select>
+                          </td>
                         </tr>
                       );
                     })}
@@ -520,15 +658,17 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
           <div className="flex flex-wrap items-center gap-sm">
             <button
               type="button"
-              onClick={handleSave}
-              className="rounded-lg bg-primary px-lg py-2 text-label-md font-bold text-on-primary transition-opacity hover:opacity-90"
+              onClick={() => void handleSave()}
+              disabled={saving}
+              className="rounded-lg bg-primary px-lg py-2 text-label-md font-bold text-on-primary transition-opacity hover:opacity-90 disabled:opacity-60"
             >
-              Save targets
+              {saving ? "Saving…" : "Save targets"}
             </button>
             <button
               type="button"
-              onClick={handleReset}
-              className="rounded-lg bg-surface-container px-lg py-2 text-label-md font-semibold text-on-surface-variant transition-colors hover:bg-surface-container-high"
+              onClick={() => void handleReset()}
+              disabled={saving}
+              className="rounded-lg bg-surface-container px-lg py-2 text-label-md font-semibold text-on-surface-variant transition-colors hover:bg-surface-container-high disabled:opacity-60"
             >
               Reset to defaults
             </button>

@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import type { TeamProgressView } from "@/types/dashboard";
+import { useEffect, useRef, useState } from "react";
+import type { MtdItem, TeamProgressView } from "@/types/dashboard";
+import { salesforceOpportunityUrl } from "@/lib/salesforce";
 
 type TeamProgressPanelProps = {
   team: TeamProgressView;
@@ -95,6 +97,126 @@ function MtdStatChip({
   );
 }
 
+function MtdItemList({
+  items,
+  tone,
+  salesforceUrl,
+}: {
+  items: MtdItem[];
+  tone: "won" | "activated";
+  salesforceUrl?: string;
+}) {
+  const labelColor = tone === "won" ? "text-won" : "text-activated";
+
+  return (
+    <ul className="max-h-56 divide-y divide-outline-variant/30 overflow-y-auto">
+      {items.map((item) => {
+        const href = salesforceOpportunityUrl(item.sfOpportunityId, salesforceUrl);
+        return (
+          <li key={item.id} className="flex flex-wrap items-center justify-between gap-sm px-sm py-xs text-[11px]">
+            <div className="min-w-0">
+              {href ? (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-primary hover:underline"
+                >
+                  {item.name}
+                </a>
+              ) : (
+                <span className="font-semibold text-on-surface">{item.name}</span>
+              )}
+              <p className="text-on-surface-variant">
+                {item.city} · {item.closeDate}
+              </p>
+            </div>
+            {href ? (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-xs text-primary hover:underline"
+              >
+                <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+                SF
+              </a>
+            ) : null}
+          </li>
+        );
+      })}
+      <li className={`px-sm py-xs text-[10px] font-bold uppercase ${labelColor}`}>
+        {items.length} {tone === "won" ? "won" : "activated"}
+      </li>
+    </ul>
+  );
+}
+
+function MtdCountPopover({
+  actual,
+  items,
+  tone,
+  label,
+  salesforceUrl,
+  compact,
+}: {
+  actual: string;
+  items?: MtdItem[];
+  tone: "won" | "activated";
+  label: string;
+  salesforceUrl?: string;
+  compact?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const count = Number.parseInt(actual.replace(/[^\d]/g, ""), 10) || 0;
+  const hasItems = count > 0 && (items?.length ?? 0) > 0;
+  const chipClass = tone === "won" ? "badge-won" : "badge-activated";
+
+  useEffect(() => {
+    if (!open) return;
+    function onPointerDown(event: MouseEvent) {
+      if (!rootRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onPointerDown);
+    return () => document.removeEventListener("mousedown", onPointerDown);
+  }, [open]);
+
+  if (!hasItems) {
+    return (
+      <span className={`rounded-full px-xs py-[2px] text-label-md font-bold tabular-nums ${chipClass}`}>
+        {compact ? `${tone === "won" ? "Won" : "Act"} ${actual}` : actual}
+      </span>
+    );
+  }
+
+  return (
+    <div ref={rootRef} className="relative inline-flex">
+      <button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        className={`rounded-full px-xs py-[2px] text-label-md font-bold tabular-nums underline-offset-2 hover:underline ${chipClass}`}
+        aria-expanded={open}
+        aria-label={`Show ${label} list (${actual})`}
+      >
+        {compact ? `${tone === "won" ? "Won" : "Act"} ${actual}` : actual}
+      </button>
+      {open ? (
+        <div className="absolute left-0 top-full z-30 mt-xs min-w-[min(100vw-2rem,18rem)] rounded-lg border border-outline-variant/60 bg-white shadow-lg">
+          <div className="border-b border-outline-variant/40 px-sm py-xs">
+            <p className={`text-[10px] font-bold uppercase ${tone === "won" ? "text-won" : "text-activated"}`}>
+              {label} · {actual}
+            </p>
+          </div>
+          <MtdItemList items={items ?? []} tone={tone} salesforceUrl={salesforceUrl} />
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function AgentMtdCell({
   actual,
   target,
@@ -102,6 +224,8 @@ function AgentMtdCell({
   tone,
   compact,
   paused,
+  items,
+  salesforceUrl,
 }: {
   actual: string;
   target: string;
@@ -109,9 +233,11 @@ function AgentMtdCell({
   tone: "won" | "activated";
   compact?: boolean;
   paused?: boolean;
+  items?: MtdItem[];
+  salesforceUrl?: string;
 }) {
-  const chipClass = tone === "won" ? "badge-won" : "badge-activated";
   const barSize = compact ? "xs" : "sm";
+  const label = tone === "won" ? "Won MTD" : "Activated MTD";
 
   if (paused) {
     return (
@@ -125,9 +251,15 @@ function AgentMtdCell({
   return (
     <div className="space-y-xs">
       <div className="flex flex-wrap items-center gap-xs">
-        <span className={`rounded-full px-xs py-[2px] text-label-md font-bold tabular-nums ${chipClass}`}>
-          {tone === "won" ? "Won" : "Act"} {actual}/{target}
-        </span>
+        <MtdCountPopover
+          actual={actual}
+          items={items}
+          tone={tone}
+          label={label}
+          salesforceUrl={salesforceUrl}
+          compact={compact}
+        />
+        <span className="text-label-md tabular-nums text-on-surface-variant">/ {target}</span>
         <span
           className={`text-label-md font-bold tabular-nums ${tone === "won" ? "text-won" : "text-activated"}`}
         >
@@ -144,11 +276,13 @@ function AgentRowsTable({
   loading,
   detailed,
   parallel,
+  salesforceUrl,
 }: {
   team: TeamProgressView;
   loading?: boolean;
   detailed?: boolean;
   parallel?: boolean;
+  salesforceUrl?: string;
 }) {
   if (loading && !team.agents.length) {
     return <p className="px-sm py-md text-on-surface-variant">Loading agents…</p>;
@@ -208,6 +342,8 @@ function AgentRowsTable({
                     progress={agent.progress}
                     tone="won"
                     paused={agent.targetPaused}
+                    items={agent.wonItems}
+                    salesforceUrl={salesforceUrl}
                   />
                 </td>
                 <td className="px-md py-sm">
@@ -217,6 +353,8 @@ function AgentRowsTable({
                     progress={agent.activatedProgress}
                     tone="activated"
                     paused={agent.targetPaused}
+                    items={agent.activatedItems}
+                    salesforceUrl={salesforceUrl}
                   />
                 </td>
                 <td className="px-md py-sm">
@@ -292,6 +430,8 @@ function AgentRowsTable({
                   tone="won"
                   compact
                   paused={agent.targetPaused}
+                  items={agent.wonItems}
+                  salesforceUrl={salesforceUrl}
                 />
               </td>
               <td className={cellPad}>
@@ -302,6 +442,8 @@ function AgentRowsTable({
                   tone="activated"
                   compact
                   paused={agent.targetPaused}
+                  items={agent.activatedItems}
+                  salesforceUrl={salesforceUrl}
                 />
               </td>
             </tr>
@@ -317,7 +459,8 @@ export function TeamProgressPanel({
   loading,
   variant = "overview",
   parallel = false,
-}: TeamProgressPanelProps) {
+  salesforceUrl,
+}: TeamProgressPanelProps & { salesforceUrl?: string }) {
   const accent = team.segment === "complex" ? "complex" : "density";
   const borderColor = accent === "complex" ? "border-l-primary" : "border-l-tertiary";
   const cardAccent = accent === "complex" ? "team-card--complex" : "team-card--density";
@@ -402,6 +545,7 @@ export function TeamProgressPanel({
           loading={loading}
           detailed={detailed}
           parallel={parallel}
+          salesforceUrl={salesforceUrl}
         />
       </div>
     </div>
@@ -415,6 +559,7 @@ type TeamProgressGridProps = {
   loading?: boolean;
   variant?: "overview" | "detailed";
   hero?: boolean;
+  salesforceUrl?: string;
 };
 
 export function TeamProgressGrid({
@@ -424,6 +569,7 @@ export function TeamProgressGrid({
   loading,
   variant = "overview",
   hero = false,
+  salesforceUrl,
 }: TeamProgressGridProps) {
   const detailed = variant === "detailed";
 
@@ -461,6 +607,7 @@ export function TeamProgressGrid({
               loading={loading}
               variant={variant}
               parallel
+              salesforceUrl={salesforceUrl}
             />
           ))
         )}

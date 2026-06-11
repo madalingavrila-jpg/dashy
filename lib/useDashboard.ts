@@ -5,6 +5,7 @@ import type { DashboardModel } from "@/types/dashboard";
 import { fetchDashboard } from "@/lib/api";
 import {
   applyTargetConfig,
+  fetchTargetConfig,
   loadTargetConfig,
   type TargetConfig,
 } from "@/lib/targetConfig";
@@ -15,8 +16,13 @@ export function useDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const refreshTargetConfig = useCallback(() => {
-    setTargetConfig(loadTargetConfig());
+  const refreshTargetConfig = useCallback(async () => {
+    try {
+      const config = await fetchTargetConfig();
+      setTargetConfig(config);
+    } catch {
+      setTargetConfig(loadTargetConfig());
+    }
   }, []);
 
   useEffect(() => {
@@ -26,9 +32,13 @@ export function useDashboard() {
       try {
         setLoading(true);
         setError(null);
-        const payload = await fetchDashboard(controller.signal);
+        const [payload, config] = await Promise.all([
+          fetchDashboard(controller.signal),
+          fetchTargetConfig(controller.signal),
+        ]);
         if (!controller.signal.aborted) {
           setBaseModel(payload);
+          setTargetConfig(config);
         }
       } catch (fetchError) {
         if (controller.signal.aborted) {
@@ -53,8 +63,9 @@ export function useDashboard() {
   }, []);
 
   useEffect(() => {
-    refreshTargetConfig();
-    const onUpdated = () => refreshTargetConfig();
+    const onUpdated = () => {
+      void refreshTargetConfig();
+    };
     window.addEventListener("dashy-targets-updated", onUpdated);
     return () => window.removeEventListener("dashy-targets-updated", onUpdated);
   }, [refreshTargetConfig]);
@@ -73,5 +84,5 @@ export function useDashboard() {
       ? (model.sources.message ?? "Dashboard data could not be loaded.")
       : null;
 
-  return { model, error, loading, sourceHint, targetConfig };
+  return { model, baseModel, error, loading, sourceHint, targetConfig };
 }

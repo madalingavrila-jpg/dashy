@@ -60,13 +60,19 @@ function buildStatusViews(
   counts: Record<WeeklyStatusKey, number>,
   segment: "complex" | "density",
   config: WeeklyTargetConfig,
-  options: { ownerId?: string; activeAgents?: AgentRow[] },
+  options: { ownerId?: string; activeAgents?: AgentRow[]; week?: string },
 ): WeeklyStatusProgressView[] {
   const targetConfig = asTargetConfig(config);
   return WEEKLY_STATUS_KEYS.map((key) => {
     const target = options.ownerId
-      ? getRepWeeklyStatusTarget(targetConfig, options.ownerId, segment, key)
-      : teamWeeklyStatusTarget(targetConfig, options.activeAgents ?? [], segment, key);
+      ? getRepWeeklyStatusTarget(targetConfig, options.ownerId, segment, key, options.week)
+      : teamWeeklyStatusTarget(
+          targetConfig,
+          options.activeAgents ?? [],
+          segment,
+          key,
+          options.week,
+        );
     const actual = counts[key] ?? 0;
     return {
       key,
@@ -109,7 +115,7 @@ export function buildWeeklyDetailViews(
       segment: segment === "complex" ? "Complex" : "Density",
       segmentColor: style,
       targetPaused: paused,
-      statuses: buildStatusViews(counts, segment, config, { ownerId: agent.ownerId }),
+      statuses: buildStatusViews(counts, segment, config, { ownerId: agent.ownerId, week: breakdownRow.week }),
       accounts: agentBreakdown?.accounts,
     };
   }
@@ -146,6 +152,7 @@ export function buildWeeklyDetailViews(
         repCount: activeComplex.length,
         statuses: buildStatusViews(row.teams.complex, "complex", config, {
           activeAgents: activeComplex,
+          week: row.week,
         }),
         agents: complexAgents,
       },
@@ -156,6 +163,7 @@ export function buildWeeklyDetailViews(
         repCount: activeDensity.length,
         statuses: buildStatusViews(row.teams.density, "density", config, {
           activeAgents: activeDensity,
+          week: row.week,
         }),
         agents: densityAgents,
       },
@@ -193,6 +201,7 @@ export function applyWeeklyTargetsToBreakdown(
             activeAgents,
             team.segment,
             status.key,
+            row.week,
           );
           return {
             ...status,
@@ -210,6 +219,7 @@ export function applyWeeklyTargetsToBreakdown(
                 agent.ownerId,
                 segment,
                 status.key,
+                row.week,
               );
               return {
                 ...status,
@@ -231,6 +241,7 @@ export function applyWeeklyTargetsToBreakdown(
             agent.ownerId,
             segment,
             status.key,
+            row.week,
           );
           return {
             ...status,

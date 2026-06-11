@@ -7,6 +7,12 @@ import {
   getCachedDashboardBuffer,
   getPrecomputedApiPath,
 } from "../services/dashboard.js";
+import {
+  mergeTargetConfig,
+  readTargetConfig,
+  writeTargetConfig,
+  type TargetConfigPayload,
+} from "../services/targetConfig.js";
 
 export const apiRouter = Router();
 
@@ -50,6 +56,38 @@ apiRouter.get("/status", (_req, res) => {
     dataFlow:
       "Cursor (Salesforce MCP + Bolt Sheet MCP) → data/dashboard.json → build precompute → /api/dashboard",
   });
+});
+
+apiRouter.get("/target-config", async (_req, res) => {
+  try {
+    const payload = await readTargetConfig();
+    res.setHeader("Cache-Control", "no-store");
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.json(payload);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Target config load failed";
+    console.error("[api/target-config]", message);
+    res.status(500).json({ error: message });
+  }
+});
+
+apiRouter.put("/target-config", async (req, res) => {
+  try {
+    const body = req.body as Partial<TargetConfigPayload> | undefined;
+    if (!body || typeof body !== "object") {
+      res.status(400).json({ error: "Request body must be a JSON object" });
+      return;
+    }
+
+    const payload = await writeTargetConfig(mergeTargetConfig(body));
+    res.setHeader("Cache-Control", "no-store");
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.json(payload);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Target config save failed";
+    console.error("[api/target-config PUT]", message);
+    res.status(500).json({ error: message });
+  }
 });
 
 apiRouter.get("/dashboard", async (_req, res) => {

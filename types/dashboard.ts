@@ -166,6 +166,32 @@ export type AgentViewRow = {
   targetPaused?: boolean;
 };
 
+export type MtdItem = {
+  id: string;
+  name: string;
+  city: string;
+  closeDate: string;
+  sfOpportunityId?: string;
+  sfAccountId?: string;
+};
+
+export type MtdAgentHistoryRow = {
+  ownerId: string;
+  name: string;
+  segment: "complex" | "density";
+  wonMtd: number;
+  activatedMtd: number;
+  wonItems: MtdItem[];
+  activatedItems: MtdItem[];
+};
+
+export type MtdHistoryMonth = {
+  monthKey: string;
+  monthLabel: string;
+  agents: MtdAgentHistoryRow[];
+  mtdAchievement: DashboardRawData["salesPipeline"]["mtdAchievement"];
+};
+
 export type TeamAgentProgressView = {
   ownerId: string;
   name: string;
@@ -178,6 +204,8 @@ export type TeamAgentProgressView = {
   activatedActual: string;
   activatedProgress: number;
   accountsUrl: string;
+  wonItems?: MtdItem[];
+  activatedItems?: MtdItem[];
   /** Excluded from team target math when true. */
   targetPaused?: boolean;
 };
@@ -316,6 +344,7 @@ export type DashboardRawData = {
       all?: AccountRow[];
     };
     hitlist: HitlistRow[];
+    mtdHistory?: MtdHistoryMonth[];
   };
   settings?: {
     timezone: string;
@@ -414,6 +443,9 @@ export type DashboardModel = {
   salesforceInstanceUrl: string;
   sources: DataSourceStatus;
   mtdMonthLabel: string;
+  /** ISO month key (YYYY-MM) for the MTD slice shown in team progress. */
+  mtdMonthKey?: string;
+  mtdHistory: MtdHistoryMonth[];
   overviewMetrics: MetricCard[];
   teamProgress: TeamProgressView[];
   totals: {

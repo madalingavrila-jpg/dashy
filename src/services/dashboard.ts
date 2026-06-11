@@ -48,6 +48,19 @@ import {
   DENSITY_ACTIVATED_MTD_TARGET,
 } from "../../lib/agent-segments.js";
 
+const BUCHAREST = "Europe/Bucharest";
+
+function currentMonthKey(ref = new Date()): string {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: BUCHAREST,
+    year: "numeric",
+    month: "2-digit",
+  }).formatToParts(ref);
+  const year = parts.find((part) => part.type === "year")?.value;
+  const month = parts.find((part) => part.type === "month")?.value;
+  return year && month ? `${year}-${month}` : "";
+}
+
 function parseCsvRow(line: string): string[] {
   const values: string[] = [];
   let current = "";
@@ -615,6 +628,8 @@ function placeholderModel(source: DataSourceStatus, error?: string): DashboardMo
     salesforceInstanceUrl: "https://bolt-eu.lightning.force.com",
     sources: source,
     mtdMonthLabel: "—",
+    mtdMonthKey: currentMonthKey(),
+    mtdHistory: [],
     overviewMetrics: [
       emptyMetric("Won MTD"),
       emptyMetric("Activated MTD"),
@@ -697,6 +712,8 @@ function toDashboardModel(
     salesforceInstanceUrl: instanceUrl,
     sources: source,
     mtdMonthLabel: mtdAchievement.month,
+    mtdMonthKey: currentMonthKey(new Date(data.updatedAt)),
+    mtdHistory: salesPipeline.mtdHistory ?? [],
     overviewMetrics: buildMtdOverviewMetrics(data),
     teamProgress: buildTeamProgress(agents),
     totals: {

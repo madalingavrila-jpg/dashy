@@ -21,7 +21,13 @@ export function SettingsShell() {
       <DataAlert error={error} sourceHint={sourceHint} />
 
       <section id="mtd-targets" aria-labelledby="mtd-targets-heading">
-        <TargetSettingsPanel agents={model?.agents} loading={loading} />
+        <TargetSettingsPanel
+          agents={model?.agents}
+          loading={loading}
+          mtdHistory={model?.mtdHistory}
+          weeklyHistory={model?.weeklyPerformance.history}
+          currentWeek={model?.weeklyPerformance.currentWeek}
+        />
       </section>
 
       <div className="grid grid-cols-1 gap-md xl:grid-cols-2">
