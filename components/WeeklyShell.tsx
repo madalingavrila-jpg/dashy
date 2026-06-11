@@ -68,10 +68,12 @@ export function WeeklyShell() {
   };
 
   useEffect(() => {
-    if (!selectedWeek || !selectedDetail) {
+    if (!selectedWeek) {
       return;
     }
-    detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const row = document.getElementById(`week-row-${selectedWeek}`);
+    const target = detailRef.current ?? row;
+    target?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [selectedWeek, selectedDetail]);
 
   const hasBreakdown = (model?.weeklyPerformance.statusBreakdown.length ?? 0) > 0;
@@ -81,11 +83,33 @@ export function WeeklyShell() {
     segment: agent.segment,
   }));
 
+  const expandedContent =
+    selectedWeek &&
+    (loading && !selectedDetail ? (
+      <div className="glass-card h-48 animate-pulse rounded-xl" />
+    ) : selectedDetail ? (
+      <WeeklyDetailPanel
+        detail={selectedDetail}
+        filter={filter}
+        onFilterChange={setFilter}
+        agents={agentOptions}
+        loading={loading}
+        onClose={() => setSelectedWeek(null)}
+        salesforceUrl={model?.salesforceInstanceUrl}
+        agentTimeline={agentTimeline}
+      />
+    ) : (
+      <p className="rounded-lg bg-surface-container-low px-md py-sm text-body-md text-on-surface-variant">
+        No status breakdown for {selectedWeek}. Refresh the page or wait for dashboard data to finish
+        loading.
+      </p>
+    ));
+
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="Weekly Performance"
-        subtitle="Click any week in the chart or table below to open Complex & Density team cards with per-agent status drill-down."
+        subtitle="Click any week row (chevron) or chart bar to expand Complex & Density team cards inline — click agent rows inside to see accounts."
         updatedAt={model?.updatedAt}
         loading={loading}
       />
@@ -96,17 +120,10 @@ export function WeeklyShell() {
         <div className="flex items-start gap-sm rounded-xl border border-primary/30 bg-primary-container/20 px-md py-sm">
           <span className="material-symbols-outlined mt-[2px] text-primary">touch_app</span>
           <p className="text-body-md text-on-surface">
-            <span className="font-semibold">Tip:</span> select a week row (marked{" "}
-            <span className="rounded-full bg-secondary px-xs py-[1px] text-[10px] font-bold text-on-secondary">
-              OPEN
-            </span>
-            ) to see team cards with agent rows — same layout as Overview. Use the{" "}
-            <span className="font-semibold">Filter view</span> dropdown for a single team or agent.
-            Edit targets in{" "}
-            <a href="/settings/" className="font-semibold text-primary underline">
-              Settings
-            </a>
-            .
+            <span className="font-semibold">Tip:</span> click any week row — the{" "}
+            <span className="material-symbols-outlined align-middle text-[16px]">chevron_right</span>{" "}
+            expands team cards right below that week. Click an agent name inside to expand their
+            accounts. Use <span className="font-semibold">Filter view</span> for one team or agent.
           </p>
         </div>
       )}
@@ -130,32 +147,9 @@ export function WeeklyShell() {
         selectedWeek={selectedWeek}
         onWeekSelect={handleWeekSelect}
         loading={loading}
+        expandedContent={expandedContent || undefined}
+        detailRef={detailRef}
       />
-
-      {selectedWeek && (
-        <div
-          ref={detailRef}
-          id="weekly-detail"
-          className="glass-card overflow-hidden rounded-xl border-2 border-primary/40 p-lg shadow-lg ring-1 ring-primary/10"
-        >
-          <WeeklyDetailPanel
-            detail={selectedDetail}
-            filter={filter}
-            onFilterChange={setFilter}
-            agents={agentOptions}
-            loading={loading}
-            onClose={() => setSelectedWeek(null)}
-            salesforceUrl={model?.salesforceInstanceUrl}
-            agentTimeline={agentTimeline}
-          />
-          {!loading && !selectedDetail && (
-            <p className="rounded-lg bg-surface-container-low px-md py-sm text-body-md text-on-surface-variant">
-              No status breakdown for {selectedWeek}. Refresh the page or wait for dashboard data to
-              finish loading.
-            </p>
-          )}
-        </div>
-      )}
     </div>
   );
 }
