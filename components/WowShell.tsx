@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { WowComparisonBuilder } from "@/components/WowComparisonBuilder";
 import { WowReportsList } from "@/components/WowReportsList";
+import { WowYtdTrendChart } from "@/components/WowYtdTrendChart";
 import { useDashboard } from "@/lib/useDashboard";
 
 export function WowShell() {
@@ -19,6 +20,8 @@ export function WowShell() {
       />
 
       <DataAlert error={error} sourceHint={sourceHint} />
+
+      <WowYtdTrendChart history={model?.weeklyPerformance.history} loading={loading} />
 
       <WowComparisonBuilder
         history={model?.weeklyPerformance.history}
