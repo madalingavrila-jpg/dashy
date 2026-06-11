@@ -16,12 +16,14 @@ export function OverviewShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="Overview Dashboard"
-        subtitle={`${monthLabel} MTD metrics, Complex & Density team progress, then current ISO week status.`}
+        subtitle={`Current ISO week status, ${monthLabel} MTD metrics, and Complex & Density team progress.`}
         updatedAt={model?.updatedAt}
         loading={loading}
       />
 
       <DataAlert error={error} sourceHint={sourceHint} />
+
+      <CurrentWeekStatus weekly={model?.weeklyPerformance} loading={loading} />
 
       <section className="space-y-sm">
         <div className="flex flex-wrap items-end justify-between gap-sm">
@@ -49,8 +51,6 @@ export function OverviewShell() {
         variant="detailed"
         hero
       />
-
-      <CurrentWeekStatus weekly={model?.weeklyPerformance} loading={loading} />
     </div>
   );
 }

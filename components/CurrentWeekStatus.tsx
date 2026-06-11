@@ -17,27 +17,29 @@ export function CurrentWeekStatus({ weekly, loading }: CurrentWeekStatusProps) {
 
   return (
     <section className="space-y-sm">
-      <div className="flex flex-wrap items-end justify-between gap-sm">
-        <div>
-          <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
-            Current week · ISO status
-          </p>
-          <h2 className="text-title-lg font-bold text-on-surface">
-            {loading && !weekly?.weekTitle ? "Loading…" : weekly?.weekTitle ?? "—"}
-          </h2>
-          <p className="text-body-md text-on-surface-variant">
-            {weekly?.dateRange ?? "—"}
-            {weekly?.priorWeek && weekly.priorWeek !== "—" && (
-              <> · vs {weekly.priorWeek}</>
-            )}
-          </p>
+      <div className="sticky top-0 z-20 -mx-lg border-b-2 border-primary/25 bg-surface/95 px-lg py-md shadow-sm backdrop-blur-md">
+        <div className="flex flex-wrap items-end justify-between gap-sm">
+          <div>
+            <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
+              Current week · ISO status
+            </p>
+            <h2 className="text-headline-md font-extrabold text-on-surface">
+              {loading && !weekly?.weekTitle ? "Loading…" : weekly?.weekTitle ?? "—"}
+            </h2>
+            <p className="text-body-md text-on-surface-variant">
+              {weekly?.dateRange ?? "—"}
+              {weekly?.priorWeek && weekly.priorWeek !== "—" && (
+                <> · vs {weekly.priorWeek}</>
+              )}
+            </p>
+          </div>
+          <Link
+            href="/weekly"
+            className="text-label-md font-medium text-primary hover:underline"
+          >
+            Full weekly history →
+          </Link>
         </div>
-        <Link
-          href="/weekly"
-          className="text-label-md font-medium text-primary hover:underline"
-        >
-          Full weekly history →
-        </Link>
       </div>
 
       {weekly?.fallbackMessage && (
