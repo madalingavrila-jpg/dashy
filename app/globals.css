@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f4f6fb;
+  font-feature-settings: "tnum";
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid #e2e8f0;
+}
+
+.trend-up {
+  color: #059669;
+  background: rgba(5, 150, 105, 0.1);
+}
+
+.trend-down {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.trend-neutral {
+  color: #475569;
+  background: rgba(71, 85, 105, 0.1);
+}
+
+.badge-won {
+  color: #047857;
+  background: rgba(5, 150, 105, 0.12);
+}
+
+.badge-activated {
+  color: #6d28d9;
+  background: rgba(124, 58, 237, 0.12);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+}
+
+.funnel-bar {
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -1,0 +1,613 @@
+{
+  "updatedAt": "2026-06-11T14:31:19.000Z",
+  "salesPipeline": {
+    "totals": {
+      "won": {
+        "value": 1513,
+        "previousValue": 947,
+        "changePercent": 59.8,
+        "period": "YTD"
+      },
+      "activated": {
+        "value": 1426,
+        "previousValue": 940,
+        "changePercent": 51.7,
+        "period": "YTD"
+      }
+    },
+    "snapshot": {
+      "sales": [
+        {
+          "stage": "New Opportunity",
+          "count": 1443
+        },
+        {
+          "stage": "Contacting Decision Maker",
+          "count": 10
+        },
+        {
+          "stage": "1st Pitch",
+          "count": 5
+        },
+        {
+          "stage": "Negotiation",
+          "count": 110
+        },
+        {
+          "stage": "Contract Sent",
+          "count": 159
+        },
+        {
+          "stage": "Signed / Onb Checklist",
+          "count": 5
+        },
+        {
+          "stage": "Won",
+          "count": 94
+        }
+      ],
+      "onboarding": [
+        {
+          "stage": "Onboarding",
+          "count": 36
+        },
+        {
+          "stage": "Ready for TA",
+          "count": 53
+        },
+        {
+          "stage": "Activated",
+          "count": 2366
+        }
+      ]
+    },
+    "mtdAchievement": {
+      "month": "June 2026",
+      "targetWon": 180,
+      "actualWon": 156,
+      "targetActivated": 120,
+      "actualActivated": 80,
+      "tiers": [
+        {
+          "name": "Enterprise (1A/1B/1C)",
+          "target": 25,
+          "actual": 12,
+          "type": "won"
+        },
+        {
+          "name": "Growth (2A)",
+          "target": 60,
+          "actual": 35,
+          "type": "won"
+        },
+        {
+          "name": "Standard (2B/2C)",
+          "target": 95,
+          "actual": 109,
+          "type": "won"
+        },
+        {
+          "name": "Enterprise (1A/1B/1C)",
+          "target": 15,
+          "actual": 8,
+          "type": "activated"
+        },
+        {
+          "name": "Growth (2A)",
+          "target": 40,
+          "actual": 28,
+          "type": "activated"
+        },
+        {
+          "name": "Standard (2B/2C)",
+          "target": 65,
+          "actual": 44,
+          "type": "activated"
+        }
+      ]
+    },
+    "weeklyPerformance": {
+      "weekLabel": "W24 · 9–15 Jun 2026",
+      "metrics": [
+        {
+          "label": "Leads",
+          "value": 65,
+          "previousValue": 3,
+          "changePercent": 2066.7
+        },
+        {
+          "label": "Qualified",
+          "value": 3,
+          "previousValue": 0,
+          "changePercent": 100.0
+        },
+        {
+          "label": "Contract Sent",
+          "value": 14,
+          "previousValue": 4,
+          "changePercent": 250.0
+        },
+        {
+          "label": "Won",
+          "value": 30,
+          "previousValue": 51,
+          "changePercent": -41.2
+        },
+        {
+          "label": "Activated",
+          "value": 29,
+          "previousValue": 51,
+          "changePercent": -43.1
+        }
+      ],
+      "history": [
+        {
+          "week": "W20",
+          "leads": 12,
+          "qualified": 2,
+          "contractSent": 6,
+          "won": 38,
+          "activated": 35
+        },
+        {
+          "week": "W21",
+          "leads": 18,
+          "qualified": 4,
+          "contractSent": 8,
+          "won": 42,
+          "activated": 40
+        },
+        {
+          "week": "W22",
+          "leads": 22,
+          "qualified": 5,
+          "contractSent": 10,
+          "won": 45,
+          "activated": 44
+        },
+        {
+          "week": "W23",
+          "leads": 3,
+          "qualified": 0,
+          "contractSent": 4,
+          "won": 51,
+          "activated": 51
+        },
+        {
+          "week": "W24",
+          "leads": 65,
+          "qualified": 3,
+          "contractSent": 14,
+          "won": 30,
+          "activated": 29
+        }
+      ]
+    },
+    "wowReports": [
+      {
+        "id": "prod-default",
+        "title": "Sales Production — WoW",
+        "description": "Romania URads week-over-week production (Sales Opportunity record type).",
+        "currentWeek": "W24",
+        "priorWeek": "W23",
+        "rows": [
+          {
+            "metric": "Leads",
+            "current": 65,
+            "prior": 3,
+            "changePercent": 2066.7
+          },
+          {
+            "metric": "Qualified",
+            "current": 3,
+            "prior": 0,
+            "changePercent": 100.0
+          },
+          {
+            "metric": "Contract Sent",
+            "current": 14,
+            "prior": 4,
+            "changePercent": 250.0
+          },
+          {
+            "metric": "Won",
+            "current": 30,
+            "prior": 51,
+            "changePercent": -41.2
+          },
+          {
+            "metric": "Activated",
+            "current": 29,
+            "prior": 51,
+            "changePercent": -43.1
+          }
+        ]
+      },
+      {
+        "id": "complex-tier",
+        "title": "Complex Segment — WoW Won",
+        "description": "Complex hitlist accounts — contract sent movement.",
+        "currentWeek": "W24",
+        "priorWeek": "W23",
+        "rows": [
+          {
+            "metric": "Won (Complex)",
+            "current": 14,
+            "prior": 4,
+            "changePercent": 250.0
+          },
+          {
+            "metric": "Activated (Complex)",
+            "current": 8,
+            "prior": 12,
+            "changePercent": -33.3
+          },
+          {
+            "metric": "Pipeline (Complex)",
+            "current": 159,
+            "prior": 145,
+            "changePercent": 9.7
+          }
+        ]
+      }
+    ],
+    "accounts": {
+      "won": [
+        {
+          "id": "006Qs00000j0ADaIAM",
+          "name": "Diamond kebab",
+          "city": "Alba Iulia",
+          "owner": "Catalin Corbeanu",
+          "tier": "Standard",
+          "stage": "Contract sent",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pIEASIA4",
+          "sfOpportunityId": "006Qs00000j0ADaIAM"
+        },
+        {
+          "id": "006Qs00000izrAwIAI",
+          "name": "Coba",
+          "city": "Bucharest",
+          "owner": "Oroles Roșu",
+          "tier": "Standard",
+          "stage": "Contract sent",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pNHCTIA4",
+          "sfOpportunityId": "006Qs00000izrAwIAI"
+        },
+        {
+          "id": "006Qs00000iI9puIAC",
+          "name": "Matinee",
+          "city": "Bucharest",
+          "owner": "Daniel-Marian Toltică",
+          "tier": "Standard",
+          "stage": "Contract sent",
+          "status": "won",
+          "closedDate": "2026-06-04",
+          "sfAccountId": "001Ts00000GqfikIAB",
+          "sfOpportunityId": "006Qs00000iI9puIAC"
+        },
+        {
+          "id": "006Qs00000hxte3IAA",
+          "name": "Chicken Boom",
+          "city": "Craiova",
+          "owner": "Daniel-Marian Toltică",
+          "tier": "Standard",
+          "stage": "Contract sent",
+          "status": "won",
+          "closedDate": "2026-05-18",
+          "sfAccountId": "001Qs00000myposIAA",
+          "sfOpportunityId": "006Qs00000hxte3IAA"
+        },
+        {
+          "id": "006Qs00000hDObeIAG",
+          "name": "Wok and Noodles",
+          "city": "Galati",
+          "owner": "Daniel-Alexandru Boboc",
+          "tier": "Standard",
+          "stage": "Contract sent",
+          "status": "won",
+          "closedDate": "2026-04-30",
+          "sfAccountId": "001Ts000005nvBlIAI",
+          "sfOpportunityId": "006Qs00000hDObeIAG"
+        }
+      ],
+      "activated": [
+        {
+          "id": "006Qs00000itdUDIAY",
+          "name": "The Fisher by Chef Daian",
+          "city": "Timisoara",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-11",
+          "activatedDate": "2026-06-11",
+          "sfAccountId": "001Qs00000pD9nnIAC",
+          "sfOpportunityId": "006Qs00000itdUDIAY"
+        },
+        {
+          "id": "006Qs00000ifQrgIAE",
+          "name": "La Scarpetta",
+          "city": "Timisoara",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-11",
+          "activatedDate": "2026-06-11",
+          "sfAccountId": "001Qs00000ossjUIAQ",
+          "sfOpportunityId": "006Qs00000ifQrgIAE"
+        },
+        {
+          "id": "006Qs00000iBhxyIAC",
+          "name": "Casa Goia Street",
+          "city": "Cluj-Napoca",
+          "owner": "Borcaeas Georgian",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-11",
+          "activatedDate": "2026-06-11",
+          "sfAccountId": "001Qs00000oBpQbIAK",
+          "sfOpportunityId": "006Qs00000iBhxyIAC"
+        },
+        {
+          "id": "006Qs00000ienyRIAQ",
+          "name": "Dong Fang",
+          "city": "Slatina",
+          "owner": "Daniel-Marian Toltică",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-11",
+          "activatedDate": "2026-06-11",
+          "sfAccountId": "001Qs00000osFTeIAM",
+          "sfOpportunityId": "006Qs00000ienyRIAQ"
+        },
+        {
+          "id": "006Qs00000ieeS3IAI",
+          "name": "La Turcu",
+          "city": "Bucharest",
+          "owner": "Daniel-Marian Toltică",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-11",
+          "activatedDate": "2026-06-11",
+          "sfAccountId": "001Qs00000orsgiIAA",
+          "sfOpportunityId": "006Qs00000ieeS3IAI"
+        },
+        {
+          "id": "006Qs00000iTIMpIAO",
+          "name": "Proper Pizza & Pasta Craiova",
+          "city": "Craiova",
+          "owner": "Corneliu-Ștefan Radu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-11",
+          "activatedDate": "2026-06-11",
+          "sfAccountId": "001Qs00000obOZhIAM",
+          "sfOpportunityId": "006Qs00000iTIMpIAO"
+        },
+        {
+          "id": "006Qs00000hpASpIAM",
+          "name": "La Saveur du Levain",
+          "city": "Bucharest",
+          "owner": "Borcaeas Georgian",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-10",
+          "activatedDate": "2026-06-10",
+          "sfAccountId": "001Qs00000kjI9aIAE",
+          "sfOpportunityId": "006Qs00000hpASpIAM"
+        },
+        {
+          "id": "006Qs00000ihjJuIAI",
+          "name": "Tokyo Ramen",
+          "city": "Timisoara",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-10",
+          "activatedDate": "2026-06-10",
+          "sfAccountId": "001Qs00000owMOMIA2",
+          "sfOpportunityId": "006Qs00000ihjJuIAI"
+        }
+      ],
+      "backlog": [
+        {
+          "id": "006Qs00000hg63SIAQ",
+          "name": "Liberty Smash Bucurestii Noi",
+          "city": "Bucharest",
+          "owner": "Ana-Maria Preda",
+          "tier": "Standard",
+          "stage": "Ready to Activate",
+          "status": "backlog",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000nRXLUIA4",
+          "sfOpportunityId": "006Qs00000hg63SIAQ"
+        },
+        {
+          "id": "006Qs00000hygjbIAA",
+          "name": "Rawberry Atelier",
+          "city": "Bucharest",
+          "owner": "Catalin Corbeanu",
+          "tier": "Standard",
+          "stage": "Ready to Activate",
+          "status": "backlog",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000nqIeBIAU",
+          "sfOpportunityId": "006Qs00000hygjbIAA"
+        },
+        {
+          "id": "006Qs00000gCybNIAS",
+          "name": "Atelierul de tarte - Foisor",
+          "city": "Bucharest",
+          "owner": "Ionut-Mădălin Gavrilă",
+          "tier": "Growth",
+          "stage": "Ready to Activate",
+          "status": "backlog",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000laP6VIAU",
+          "sfOpportunityId": "006Qs00000gCybNIAS"
+        },
+        {
+          "id": "006Qs00000gfmRuIAI",
+          "name": "Grannymaletto",
+          "city": "Bucharest",
+          "owner": "Ana-Maria Preda",
+          "tier": "Standard",
+          "stage": "Onboarding Checklist",
+          "status": "backlog",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000mB2alIAC",
+          "sfOpportunityId": "006Qs00000gfmRuIAI"
+        },
+        {
+          "id": "006Qs00000gybICIAY",
+          "name": "Crazy Schnitzel",
+          "city": "Timisoara",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "backlog",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000mYe5zIAC",
+          "sfOpportunityId": "006Qs00000gybICIAY"
+        },
+        {
+          "id": "006Qs00000h2MwaIAE",
+          "name": "Market Grill",
+          "city": "Craiova",
+          "owner": "Daniel-Marian Toltică",
+          "tier": "Standard",
+          "stage": "Ready to Activate",
+          "status": "backlog",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000md1a7IAA",
+          "sfOpportunityId": "006Qs00000h2MwaIAE"
+        }
+      ]
+    },
+    "hitlist": [
+      {
+        "id": "hit-001",
+        "priority": 1,
+        "company": "Fendi Kebap",
+        "city": "Bucharest",
+        "segment": "complex",
+        "owner": "Ionut-Mădălin Gavrilă",
+        "stage": "New Opportunity",
+        "sfOpportunityId": "001Ts000005nwEPIAY",
+        "notes": "Complex tier 1A · market rank #2"
+      },
+      {
+        "id": "hit-002",
+        "priority": 2,
+        "company": "Zen Sushi",
+        "city": "Bucharest",
+        "segment": "complex",
+        "owner": "Ionut-Mădălin Gavrilă",
+        "stage": "New Opportunity",
+        "sfOpportunityId": "0017Q000018iaDDQAY",
+        "notes": "Complex tier 1A · market rank #4"
+      },
+      {
+        "id": "hit-003",
+        "priority": 3,
+        "company": "Jerry's Pizza",
+        "city": "Bucharest",
+        "segment": "complex",
+        "owner": "Ionut-Mădălin Gavrilă",
+        "stage": "New Opportunity",
+        "sfOpportunityId": "001Ts00000JIIl2IAH",
+        "notes": "Complex tier 1A · market rank #5"
+      },
+      {
+        "id": "hit-004",
+        "priority": 4,
+        "company": "Boom Burger",
+        "city": "Bucharest",
+        "segment": "complex",
+        "owner": "Ionut-Mădălin Gavrilă",
+        "stage": "New Opportunity",
+        "sfOpportunityId": "001Ts00000HMMTfIAP",
+        "notes": "Complex tier 1A · market rank #6"
+      },
+      {
+        "id": "hit-005",
+        "priority": 5,
+        "company": "Andos",
+        "city": "Brasov",
+        "segment": "complex",
+        "owner": "Ionut-Mădălin Gavrilă",
+        "stage": "Contacting Decision Maker",
+        "sfOpportunityId": "001Ts000004j3HIIAY",
+        "notes": "Stage 2 - Contacted"
+      },
+      {
+        "id": "hit-006",
+        "priority": 6,
+        "company": "Kronburger",
+        "city": "Brasov",
+        "segment": "complex",
+        "owner": "Ionut-Mădălin Gavrilă",
+        "stage": "Negotiation",
+        "sfOpportunityId": "001Ts00000785wcIAA",
+        "notes": "Stage 3 - Negotiation in progress"
+      },
+      {
+        "id": "hit-007",
+        "priority": 7,
+        "company": "Log Out",
+        "city": "Baia Mare",
+        "segment": "complex",
+        "owner": "Ionut-Mădălin Gavrilă",
+        "stage": "New Opportunity",
+        "sfOpportunityId": "001Ts00000788NzIAI",
+        "notes": "Not yet started"
+      },
+      {
+        "id": "hit-008",
+        "priority": 8,
+        "company": "Sandwich La Juma' de Kil",
+        "city": "Brasov",
+        "segment": "density",
+        "owner": "Ionut-Mădălin Gavrilă",
+        "stage": "Contacting Decision Maker",
+        "sfOpportunityId": "001Ts000005U9HeIAK",
+        "notes": "Stage 2 - Contacted"
+      }
+    ]
+  },
+  "settings": {
+    "timezone": "Europe/Bucharest",
+    "locale": "en-GB",
+    "integrations": [
+      {
+        "name": "Salesforce",
+        "status": "connected",
+        "lastSync": "2026-06-11T14:31:19.000Z",
+        "icon": "cloud"
+      },
+      {
+        "name": "Google Sheet (Hitlist)",
+        "status": "connected",
+        "lastSync": "2026-06-11T14:31:19.000Z",
+        "icon": "table_chart"
+      },
+      {
+        "name": "Boltable Deploy",
+        "status": "connected",
+        "lastSync": "2026-06-11T14:31:19.000Z",
+        "icon": "deployed_code"
+      }
+    ]
+  }
+}

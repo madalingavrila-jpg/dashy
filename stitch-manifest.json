@@ -1,0 +1,55 @@
+{
+  "project": {
+    "id": "6890101916617207787",
+    "title": "URads Sales Pipeline Dashboard",
+    "deviceType": "DESKTOP"
+  },
+  "screens": [
+    {
+      "id": "asset-stub-assets_ac9b5fb2522a4e8a8828dffc465cf39c",
+      "title": "Design System",
+      "exportAttempt": "SPA shell only — auth required for HTML export"
+    },
+    {
+      "id": "eb3d1823c02a493aab277fd547d59e2d",
+      "title": "Pipeline Funnel View",
+      "exportAttempt": "SPA shell only"
+    },
+    {
+      "id": "08e8f41a65e04de395a311fb77c0f38f",
+      "title": "Overview Dashboard",
+      "exportAttempt": "SPA shell only"
+    },
+    {
+      "id": "cfa9c5c067ea405eb051ded57ed2f234",
+      "title": "Weekly Performance",
+      "exportAttempt": "SPA shell only"
+    },
+    {
+      "id": "de84ae1284d14ed8a3a1a46527e934",
+      "title": "MTD & Tiers Tracking",
+      "exportAttempt": "SPA shell only"
+    },
+    {
+      "id": "5182f7225efc421785d76cb3d8844885",
+      "title": "WoW Reports Builder",
+      "exportAttempt": "SPA shell only"
+    },
+    {
+      "id": "dea056c3038e411e905c3d1b6e57e8bf",
+      "title": "Accounts Management",
+      "exportAttempt": "SPA shell only"
+    },
+    {
+      "id": "599ee1ead49346d19a6babc59612d5b1",
+      "title": "Hitlist Priority List",
+      "exportAttempt": "SPA shell only"
+    },
+    {
+      "id": "f2446fec25654ab98855a3f562c179a2",
+      "title": "Settings & Admin",
+      "exportAttempt": "SPA shell only"
+    }
+  ],
+  "note": "Stitch /export/html URLs return the Stitch app shell (~24KB), not rendered screen HTML. UI implemented from architecture spec + Velocity Grid tokens."
+}

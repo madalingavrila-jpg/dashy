@@ -1,0 +1,9 @@
+# Force Paketo Node.js buildpack (prevents Go buildpack false-positive on empty/new repos).
+[_]
+schema-version = "0.2"
+
+[[io.buildpacks.group]]
+id = "paketo-buildpacks/nodejs"
+
+[processes]
+  web = "npm start"

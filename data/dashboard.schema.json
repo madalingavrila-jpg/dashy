@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dashy.boltable.eu/data/dashboard.schema.json",
+  "title": "Dashy URads Sales Pipeline Data",
+  "description": "Static dashboard payload updated via Cursor (Salesforce MCP + Bolt Sheet MCP) and committed to the repo.",
+  "type": "object",
+  "required": ["updatedAt", "salesPipeline"],
+  "properties": {
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp when this snapshot was generated."
+    },
+    "salesPipeline": {
+      "type": "object",
+      "required": [
+        "totals",
+        "snapshot",
+        "mtdAchievement",
+        "weeklyPerformance",
+        "wowReports",
+        "accounts",
+        "hitlist"
+      ],
+      "properties": {
+        "totals": {
+          "type": "object",
+          "required": ["won", "activated"],
+          "properties": {
+            "won": {
+              "type": "object",
+              "required": ["value", "changePercent", "period"],
+              "properties": {
+                "value": { "type": "number" },
+                "previousValue": { "type": "number" },
+                "changePercent": { "type": "number" },
+                "period": { "type": "string", "example": "YTD" }
+              }
+            },
+            "activated": {
+              "type": "object",
+              "required": ["value", "changePercent", "period"],
+              "properties": {
+                "value": { "type": "number" },
+                "previousValue": { "type": "number" },
+                "changePercent": { "type": "number" },
+                "period": { "type": "string", "example": "YTD" }
+              }
+            }
+          }
+        },
+        "snapshot": {
+          "type": "object",
+          "required": ["sales", "onboarding"],
+          "properties": {
+            "sales": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["stage", "count"],
+                "properties": {
+                  "stage": { "type": "string" },
+                  "count": { "type": "number" },
+                  "changePercent": { "type": "number" }
+                }
+              }
+            },
+            "onboarding": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["stage", "count"],
+                "properties": {
+                  "stage": { "type": "string" },
+                  "count": { "type": "number" },
+                  "changePercent": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "mtdAchievement": {
+          "type": "object",
+          "required": [
+            "month",
+            "targetWon",
+            "actualWon",
+            "targetActivated",
+            "actualActivated",
+            "tiers"
+          ],
+          "properties": {
+            "month": { "type": "string" },
+            "targetWon": { "type": "number" },
+            "actualWon": { "type": "number" },
+            "targetActivated": { "type": "number" },
+            "actualActivated": { "type": "number" },
+            "tiers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["name", "target", "actual", "type"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "target": { "type": "number" },
+                  "actual": { "type": "number" },
+                  "type": { "type": "string", "enum": ["won", "activated"] }
+                }
+              }
+            }
+          }
+        },
+        "weeklyPerformance": {
+          "type": "object",
+          "required": ["weekLabel", "metrics", "history"],
+          "properties": {
+            "weekLabel": { "type": "string" },
+            "metrics": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["label", "value"],
+                "properties": {
+                  "label": { "type": "string" },
+                  "value": { "type": "number" },
+                  "previousValue": { "type": "number" },
+                  "changePercent": { "type": "number" }
+                }
+              }
+            },
+            "history": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["week", "leads", "qualified", "contractSent", "won", "activated"],
+                "properties": {
+                  "week": { "type": "string" },
+                  "leads": { "type": "number" },
+                  "qualified": { "type": "number" },
+                  "contractSent": { "type": "number" },
+                  "won": { "type": "number" },
+                  "activated": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "wowReports": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "title", "currentWeek", "priorWeek", "rows"],
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "currentWeek": { "type": "string" },
+              "priorWeek": { "type": "string" },
+              "rows": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["metric", "current", "prior", "changePercent"],
+                  "properties": {
+                    "metric": { "type": "string" },
+                    "current": { "type": "number" },
+                    "prior": { "type": "number" },
+                    "changePercent": { "type": "number" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "accounts": {
+          "type": "object",
+          "required": ["won", "activated", "backlog"],
+          "properties": {
+            "won": { "$ref": "#/$defs/accountList" },
+            "activated": { "$ref": "#/$defs/accountList" },
+            "backlog": { "$ref": "#/$defs/accountList" }
+          }
+        },
+        "hitlist": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "priority", "company", "city", "segment", "owner", "stage"],
+            "properties": {
+              "id": { "type": "string" },
+              "priority": { "type": "integer" },
+              "company": { "type": "string" },
+              "city": { "type": "string" },
+              "segment": { "type": "string", "enum": ["complex", "density"] },
+              "owner": { "type": "string" },
+              "stage": { "type": "string" },
+              "sfOpportunityId": { "type": "string" },
+              "notes": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "timezone": { "type": "string" },
+        "locale": { "type": "string" },
+        "integrations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "status", "lastSync", "icon"],
+            "properties": {
+              "name": { "type": "string" },
+              "status": { "type": "string", "enum": ["connected", "warning", "disconnected"] },
+              "lastSync": { "type": "string", "format": "date-time" },
+              "icon": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "accountList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "city", "owner", "tier", "stage", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "city": { "type": "string" },
+          "owner": { "type": "string" },
+          "tier": { "type": "string" },
+          "stage": { "type": "string" },
+          "status": { "type": "string", "enum": ["won", "activated", "backlog"] },
+          "closedDate": { "type": "string", "format": "date" },
+          "activatedDate": { "type": "string", "format": "date" },
+          "sfAccountId": { "type": "string" },
+          "sfOpportunityId": { "type": "string" }
+        }
+      }
+    }
+  }
+}
