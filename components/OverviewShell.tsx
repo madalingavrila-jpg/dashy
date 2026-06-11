@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { MetricCards } from "@/components/MetricCards";
 import { TeamProgressGrid } from "@/components/TeamProgressPanel";
-import { WeeklyMetricsGrid } from "@/components/WeeklyCharts";
+import { CurrentWeekStatus } from "@/components/CurrentWeekStatus";
 import { useDashboard } from "@/lib/useDashboard";
 
 export function OverviewShell() {
@@ -16,7 +16,7 @@ export function OverviewShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="Overview Dashboard"
-        subtitle={`${monthLabel} month-to-date status — Won and Activated tracked separately.`}
+        subtitle={`${monthLabel} month-to-date at top; current ISO week status at bottom with week-over-week change.`}
         updatedAt={model?.updatedAt}
         loading={loading}
       />
@@ -47,11 +47,7 @@ export function OverviewShell() {
         loading={loading}
       />
 
-      <WeeklyMetricsGrid
-        metrics={model?.weeklyPerformance.metrics}
-        weekLabel={model?.weeklyPerformance.weekLabel}
-        loading={loading}
-      />
+      <CurrentWeekStatus weekly={model?.weeklyPerformance} loading={loading} />
     </div>
   );
 }

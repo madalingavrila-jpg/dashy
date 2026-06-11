@@ -11,13 +11,23 @@ import type {
   MetricCard,
   TeamProgressView,
   TrendDirection,
+  WeeklyMetric,
+  WeeklyMetricView,
 } from "../../types/dashboard.js";
 import {
   formatInteger,
+  formatSignedDelta,
   formatSignedPct,
   pctChange,
   trendDirection,
 } from "../../lib/format.js";
+import {
+  formatIsoWeekDateRange,
+  formatWeekCode,
+  formatWeekTitle,
+  getIsoWeek,
+  priorWeekCode,
+} from "../../lib/isoWeek.js";
 import { accountsFilterUrl, salesforceAccountUrl } from "../../lib/salesforce.js";
 import {
   agentSegment,
@@ -371,6 +381,113 @@ function defaultSettings(): DashboardModel["settings"] {
   };
 }
 
+function mapWeeklyMetricViews(metrics: WeeklyMetric[]): WeeklyMetricView[] {
+  return metrics.map((metric) => {
+    const changePercent = metric.changePercent ?? pctChange(metric.value, metric.previousValue ?? 0);
+    return {
+      label: metric.label,
+      value: formatInteger(metric.value),
+      priorValue: formatInteger(metric.previousValue ?? 0),
+      delta: formatSignedDelta(metric.value, metric.previousValue ?? 0),
+      change: formatSignedPct(changePercent),
+      trend: trendDirection(changePercent),
+    };
+  });
+}
+
+const WEEKLY_METRIC_KEYS = [
+  { label: "Leads", key: "leads" as const },
+  { label: "Qualified", key: "qualified" as const },
+  { label: "Contract Sent", key: "contractSent" as const },
+  { label: "Won", key: "won" as const },
+  { label: "Activated", key: "activated" as const },
+];
+
+function buildWeeklyPerformanceView(
+  weeklyPerformance: DashboardRawData["salesPipeline"]["weeklyPerformance"],
+  updatedAt: string,
+) {
+  const refDate = new Date(updatedAt);
+  const { year, week } = getIsoWeek(refDate);
+  const currentWeek = formatWeekCode(week);
+  const priorWeek = priorWeekCode(currentWeek) ?? "—";
+  const weekTitle = formatWeekTitle(week, year);
+  const dateRange = formatIsoWeekDateRange(year, week);
+  const history = weeklyPerformance.history ?? [];
+
+  const historyRow = history.find((row) => row.week === currentWeek);
+  const historyIdx = history.findIndex((row) => row.week === currentWeek);
+  const priorHistoryRow = historyIdx > 0 ? history[historyIdx - 1] : undefined;
+
+  const storedMatchesCurrent =
+    weeklyPerformance.currentWeek === currentWeek && weeklyPerformance.metrics.length > 0;
+
+  if (storedMatchesCurrent) {
+    return {
+      weekLabel: weeklyPerformance.weekLabel || `${currentWeek} · ${dateRange}`,
+      weekTitle,
+      dateRange,
+      currentWeek,
+      priorWeek: priorWeekCode(weeklyPerformance.currentWeek ?? currentWeek) ?? priorWeek,
+      metrics: mapWeeklyMetricViews(weeklyPerformance.metrics),
+      history,
+      dataAvailable: true,
+    };
+  }
+
+  if (historyRow) {
+    const metrics: WeeklyMetric[] = WEEKLY_METRIC_KEYS.map(({ label, key }) => {
+      const value = historyRow[key];
+      const previousValue = priorHistoryRow?.[key] ?? 0;
+      return {
+        label,
+        value,
+        previousValue,
+        changePercent: pctChange(value, previousValue),
+      };
+    });
+
+    return {
+      weekLabel: `${currentWeek} · ${dateRange}`,
+      weekTitle,
+      dateRange,
+      currentWeek,
+      priorWeek: priorHistoryRow?.week ?? priorWeek,
+      metrics: mapWeeklyMetricViews(metrics),
+      history,
+      dataAvailable: true,
+    };
+  }
+
+  if (weeklyPerformance.metrics.length > 0) {
+    return {
+      weekLabel: weeklyPerformance.weekLabel,
+      weekTitle: weeklyPerformance.weekLabel.split("·")[0]?.trim() ?? weekTitle,
+      dateRange: weeklyPerformance.weekLabel.includes("·")
+        ? weeklyPerformance.weekLabel.split("·").slice(1).join("·").trim()
+        : dateRange,
+      currentWeek: weeklyPerformance.currentWeek ?? currentWeek,
+      priorWeek,
+      metrics: mapWeeklyMetricViews(weeklyPerformance.metrics),
+      history,
+      dataAvailable: true,
+      fallbackMessage: `No history row for ${currentWeek}; showing last synced metrics.`,
+    };
+  }
+
+  return {
+    weekLabel: `${currentWeek} · ${dateRange}`,
+    weekTitle,
+    dateRange,
+    currentWeek,
+    priorWeek,
+    metrics: [],
+    history,
+    dataAvailable: false,
+    fallbackMessage: `No weekly data for ${currentWeek} yet. Run the Salesforce refresh workflow.`,
+  };
+}
+
 function placeholderModel(source: DataSourceStatus, error?: string): DashboardModel {
   const message =
     error ??
@@ -417,7 +534,17 @@ function placeholderModel(source: DataSourceStatus, error?: string): DashboardMo
       qualifiedMtd: "—",
       tiers: [],
     },
-    weeklyPerformance: { weekLabel: "—", currentWeek: "—", metrics: [], history: [] },
+    weeklyPerformance: {
+      weekLabel: "—",
+      weekTitle: "—",
+      dateRange: "—",
+      currentWeek: "—",
+      priorWeek: "—",
+      metrics: [],
+      history: [],
+      dataAvailable: false,
+      fallbackMessage: "Weekly data unavailable",
+    },
     agents: [],
     accountsByStage: {},
     wowReports: [],
@@ -489,17 +616,7 @@ function toDashboardModel(
         typeLabel: tier.type === "won" ? "Won" : "Activated",
       })),
     },
-    weeklyPerformance: {
-      weekLabel: weeklyPerformance.weekLabel,
-      currentWeek: weeklyPerformance.currentWeek ?? weeklyPerformance.weekLabel.split("·")[0]?.trim() ?? "—",
-      metrics: weeklyPerformance.metrics.map((metric) => ({
-        label: metric.label,
-        value: formatInteger(metric.value),
-        change: formatSignedPct(metric.changePercent ?? 0),
-        trend: trendDirection(metric.changePercent ?? 0),
-      })),
-      history: weeklyPerformance.history,
-    },
+    weeklyPerformance: buildWeeklyPerformanceView(weeklyPerformance, data.updatedAt),
     agents: buildAgentViews(agents),
     accountsByStage: Object.fromEntries(
       Object.entries(accountsByStage ?? {}).map(([stage, rows]) => [

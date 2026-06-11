@@ -7,6 +7,13 @@ export function formatSignedPct(value: number): string {
   return `${sign}${value.toFixed(1)}%`;
 }
 
+export function formatSignedDelta(current: number, previous: number): string {
+  const delta = current - previous;
+  if (delta === 0) return "0";
+  const sign = delta > 0 ? "+" : "−";
+  return `${sign}${formatInteger(Math.abs(delta))}`;
+}
+
 export function pctChange(current: number, previous: number): number {
   if (previous <= 0) return current > 0 ? 100 : 0;
   return ((current - previous) / previous) * 100;

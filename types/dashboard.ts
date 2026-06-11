@@ -213,6 +213,8 @@ export type FunnelStageView = {
 export type WeeklyMetricView = {
   label: string;
   value: string;
+  priorValue: string;
+  delta: string;
   change: string;
   trend: TrendDirection;
 };
@@ -300,9 +302,14 @@ export type DashboardModel = {
   };
   weeklyPerformance: {
     weekLabel: string;
+    weekTitle: string;
+    dateRange: string;
     currentWeek: string;
+    priorWeek: string;
     metrics: WeeklyMetricView[];
     history: WeeklyHistoryView[];
+    dataAvailable: boolean;
+    fallbackMessage?: string;
   };
   agents: AgentViewRow[];
   accountsByStage: Record<string, AccountViewRow[]>;
