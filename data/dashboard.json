@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-11T19:46:55.443Z",
+  "updatedAt": "2026-06-11T20:00:13.004Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -109,33 +109,33 @@
       "metrics": [
         {
           "label": "Leads",
-          "value": 61,
+          "value": 65,
           "previousValue": 3,
-          "changePercent": 1933.3
+          "changePercent": 2066.7
         },
         {
           "label": "Qualified",
-          "value": 3,
+          "value": 57,
           "previousValue": 0,
           "changePercent": 100
         },
         {
           "label": "Contract Sent",
-          "value": 20,
+          "value": 49,
           "previousValue": 9,
-          "changePercent": 122.2
+          "changePercent": 444.4
         },
         {
           "label": "Won",
-          "value": 29,
-          "previousValue": 52,
-          "changePercent": -44.2
+          "value": 30,
+          "previousValue": 53,
+          "changePercent": -43.4
         },
         {
           "label": "Activated",
           "value": 29,
-          "previousValue": 51,
-          "changePercent": -43.1
+          "previousValue": 52,
+          "changePercent": -44.2
         }
       ],
       "history": [
@@ -150,138 +150,138 @@
         {
           "week": "W02",
           "leads": 2,
-          "qualified": 0,
-          "contractSent": 1,
-          "won": 19,
-          "activated": 19
+          "qualified": 1,
+          "contractSent": 2,
+          "won": 22,
+          "activated": 22
         },
         {
           "week": "W03",
           "leads": 0,
-          "qualified": 0,
-          "contractSent": 1,
-          "won": 33,
-          "activated": 33
+          "qualified": 1,
+          "contractSent": 2,
+          "won": 43,
+          "activated": 43
         },
         {
           "week": "W04",
           "leads": 9,
-          "qualified": 1,
-          "contractSent": 1,
-          "won": 51,
-          "activated": 51
+          "qualified": 2,
+          "contractSent": 3,
+          "won": 56,
+          "activated": 56
         },
         {
           "week": "W05",
           "leads": 3,
           "qualified": 1,
           "contractSent": 0,
-          "won": 77,
-          "activated": 76
+          "won": 96,
+          "activated": 95
         },
         {
           "week": "W06",
           "leads": 2,
-          "qualified": 2,
-          "contractSent": 3,
-          "won": 49,
-          "activated": 49
+          "qualified": 3,
+          "contractSent": 6,
+          "won": 52,
+          "activated": 52
         },
         {
           "week": "W07",
           "leads": 13,
-          "qualified": 3,
+          "qualified": 4,
           "contractSent": 1,
-          "won": 53,
-          "activated": 53
+          "won": 61,
+          "activated": 61
         },
         {
           "week": "W08",
           "leads": 7,
-          "qualified": 3,
+          "qualified": 7,
           "contractSent": 4,
-          "won": 84,
-          "activated": 83
+          "won": 88,
+          "activated": 87
         },
         {
           "week": "W09",
           "leads": 1,
-          "qualified": 1,
+          "qualified": 2,
           "contractSent": 1,
-          "won": 108,
-          "activated": 108
+          "won": 115,
+          "activated": 115
         },
         {
           "week": "W10",
           "leads": 3,
           "qualified": 0,
-          "contractSent": 0,
-          "won": 51,
-          "activated": 50
+          "contractSent": 1,
+          "won": 55,
+          "activated": 54
         },
         {
           "week": "W11",
           "leads": 3,
           "qualified": 1,
-          "contractSent": 0,
-          "won": 75,
-          "activated": 73
+          "contractSent": 1,
+          "won": 83,
+          "activated": 81
         },
         {
           "week": "W12",
           "leads": 3,
-          "qualified": 0,
-          "contractSent": 3,
-          "won": 72,
-          "activated": 71
+          "qualified": 2,
+          "contractSent": 6,
+          "won": 75,
+          "activated": 74
         },
         {
           "week": "W13",
           "leads": 3,
-          "qualified": 2,
+          "qualified": 3,
           "contractSent": 1,
-          "won": 72,
-          "activated": 72
+          "won": 76,
+          "activated": 76
         },
         {
           "week": "W14",
           "leads": 0,
           "qualified": 1,
           "contractSent": 1,
-          "won": 73,
-          "activated": 46
+          "won": 77,
+          "activated": 50
         },
         {
           "week": "W15",
           "leads": 0,
-          "qualified": 2,
+          "qualified": 3,
           "contractSent": 1,
-          "won": 26,
-          "activated": 26
+          "won": 28,
+          "activated": 28
         },
         {
           "week": "W16",
           "leads": 6,
-          "qualified": 0,
-          "contractSent": 5,
-          "won": 30,
-          "activated": 30
+          "qualified": 1,
+          "contractSent": 6,
+          "won": 34,
+          "activated": 34
         },
         {
           "week": "W17",
           "leads": 20,
-          "qualified": 7,
-          "contractSent": 14,
-          "won": 73,
-          "activated": 71
+          "qualified": 8,
+          "contractSent": 15,
+          "won": 74,
+          "activated": 72
         },
         {
           "week": "W18",
           "leads": 4,
           "qualified": 1,
           "contractSent": 7,
-          "won": 145,
-          "activated": 141
+          "won": 152,
+          "activated": 148
         },
         {
           "week": "W19",
@@ -294,41 +294,41 @@
         {
           "week": "W20",
           "leads": 22,
-          "qualified": 1,
+          "qualified": 13,
           "contractSent": 7,
-          "won": 42,
-          "activated": 41
+          "won": 43,
+          "activated": 42
         },
         {
           "week": "W21",
           "leads": 10,
           "qualified": 5,
           "contractSent": 11,
-          "won": 62,
-          "activated": 61
+          "won": 65,
+          "activated": 64
         },
         {
           "week": "W22",
           "leads": 4,
-          "qualified": 0,
-          "contractSent": 5,
-          "won": 135,
-          "activated": 134
+          "qualified": 3,
+          "contractSent": 6,
+          "won": 140,
+          "activated": 139
         },
         {
           "week": "W23",
           "leads": 3,
           "qualified": 0,
           "contractSent": 9,
-          "won": 52,
-          "activated": 51
+          "won": 53,
+          "activated": 52
         },
         {
           "week": "W24",
-          "leads": 61,
-          "qualified": 3,
-          "contractSent": 20,
-          "won": 29,
+          "leads": 65,
+          "qualified": 57,
+          "contractSent": 49,
+          "won": 30,
           "activated": 29
         }
       ],
@@ -365,21 +365,33 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 0
+              "active": 2
             },
             "density": {
               "qualified": 0,
-              "negotiations": 0,
+              "negotiations": 1,
               "closedWon": 0,
-              "active": 1
+              "active": 2
             }
           },
           "agents": {
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
             "005Ts000002AX4nIAG": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 1
+              "active": 2
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 0
             }
           }
         },
@@ -390,70 +402,27 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 4
+              "active": 8
             },
             "density": {
               "qualified": 0,
-              "negotiations": 0,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 6
+            }
+          },
+          "agents": {
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 1,
               "closedWon": 0,
               "active": 3
-            }
-          },
-          "agents": {
-            "005Ts000005c4hFIAQ": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 4
-            },
-            "005Ts00000BtX53IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 1
-            },
-            "005Ts00000BtZV3IAN": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 2
-            }
-          }
-        },
-        {
-          "week": "W04",
-          "teams": {
-            "complex": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 2
-            },
-            "density": {
-              "qualified": 8,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 12
-            }
-          },
-          "agents": {
-            "005Ts000002AX4nIAG": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 2
-            },
-            "005Ts00000BtZV3IAN": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 1
             },
             "005Ts000005c4hFIAQ": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 1
+              "active": 7
             },
             "005Ts0000060ICnIAM": {
               "qualified": 0,
@@ -465,16 +434,83 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 9
+              "active": 1
             },
             "005Ts000006V3vpIAC": {
-              "qualified": 1,
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          }
+        },
+        {
+          "week": "W04",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "density": {
+              "qualified": 8,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 13
+            }
+          },
+          "agents": {
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 7,
               "negotiations": 0,
               "closedWon": 0,
               "active": 0
             },
-            "005Ts000002AWIQIA4": {
-              "qualified": 7,
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 1,
               "negotiations": 0,
               "closedWon": 0,
               "active": 0
@@ -494,47 +530,47 @@
               "qualified": 0,
               "negotiations": 1,
               "closedWon": 0,
-              "active": 33
+              "active": 44
             }
           },
           "agents": {
-            "005Ts000002AWIQIA4": {
+            "005Ts00000BtZV3IAN": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 7
+              "active": 6
             },
             "005Ts00000BtX53IAF": {
               "qualified": 0,
               "negotiations": 1,
               "closedWon": 0,
-              "active": 4
-            },
-            "005Ts00000BtZV3IAN": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 5
-            },
-            "005Ts000006V3vpIAC": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
               "active": 8
-            },
-            "005Ts00000BtGPDIA3": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 1
             },
             "005Ts000002AX4nIAG": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 8
+              "active": 10
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
             },
             "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 10
+            },
+            "005Ts00000BtGPDIA3": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
@@ -549,13 +585,13 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 0
+              "active": 2
             },
             "density": {
               "qualified": 0,
-              "negotiations": 2,
+              "negotiations": 3,
               "closedWon": 0,
-              "active": 17
+              "active": 18
             }
           },
           "agents": {
@@ -563,19 +599,19 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 6
+              "active": 7
             },
-            "005Ts000006V3vpIAC": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 4
-            },
-            "005Ts000002AWIQIA4": {
+            "005Ts0000060ICnIAM": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 1
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
             },
             "005Ts00000BtZV3IAN": {
               "qualified": 0,
@@ -583,17 +619,29 @@
               "closedWon": 0,
               "active": 2
             },
-            "005Ts00000BtX53IAF": {
-              "qualified": 0,
-              "negotiations": 2,
-              "closedWon": 0,
-              "active": 2
-            },
-            "005Ts000002AX4nIAG": {
+            "005Ts000005c4hFIAQ": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 3,
+              "closedWon": 0,
               "active": 2
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
             }
           }
         },
@@ -608,20 +656,14 @@
             },
             "density": {
               "qualified": 9,
-              "negotiations": 1,
+              "negotiations": 2,
               "closedWon": 0,
-              "active": 23
+              "active": 28
             }
           },
           "agents": {
-            "005Ts000002AWIQIA4": {
-              "qualified": 1,
-              "negotiations": 1,
-              "closedWon": 0,
-              "active": 3
-            },
-            "005Ts000006V3vpIAC": {
-              "qualified": 2,
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 3
@@ -630,19 +672,7 @@
               "qualified": 3,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 8
-            },
-            "005Ts00000BtGPDIA3": {
-              "qualified": 3,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 3
-            },
-            "005Ts00000BtX53IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 4
+              "active": 10
             },
             "005Ts0000060ICnIAM": {
               "qualified": 1,
@@ -650,11 +680,29 @@
               "closedWon": 0,
               "active": 0
             },
-            "005Ts00000BtZV3IAN": {
+            "005Ts000006V3vpIAC": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 1,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 3,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts00000BtX53IAF": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 2
+              "active": 5
             }
           }
         },
@@ -665,45 +713,45 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 15
+              "active": 16
             },
             "density": {
-              "qualified": 4,
-              "negotiations": 2,
+              "qualified": 6,
+              "negotiations": 3,
               "closedWon": 0,
-              "active": 33
+              "active": 36
             }
           },
           "agents": {
+            "005Ts000002AWIQIA4": {
+              "qualified": 4,
+              "negotiations": 3,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 15
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 6
+            },
             "005Ts000006V3vpIAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 6
             },
-            "005Ts000002AWIQIA4": {
-              "qualified": 2,
-              "negotiations": 2,
-              "closedWon": 0,
-              "active": 3
-            },
-            "005Ts000005c4hFIAQ": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 14
-            },
             "005Ts00000BtX53IAF": {
               "qualified": 1,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 9
-            },
-            "005Ts0000060ICnIAM": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 1
+              "active": 11
             },
             "005Ts00000BtZV3IAN": {
               "qualified": 0,
@@ -717,13 +765,13 @@
               "closedWon": 0,
               "active": 1
             },
-            "005Ts00000BtGPDIA3": {
+            "005Ts000001Ak10IAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 6
+              "active": 1
             },
-            "005Ts000001Ak10IAC": {
+            "005Ts0000060ICnIAM": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
@@ -742,17 +790,17 @@
             },
             "density": {
               "qualified": 0,
-              "negotiations": 0,
+              "negotiations": 1,
               "closedWon": 0,
-              "active": 41
+              "active": 43
             }
           },
           "agents": {
-            "005Ts00000BtZV3IAN": {
+            "005Ts000006V3vpIAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 8
+              "active": 9
             },
             "005Ts0000060ICnIAM": {
               "qualified": 0,
@@ -760,13 +808,25 @@
               "closedWon": 0,
               "active": 3
             },
-            "005Ts00000BtX53IAF": {
+            "005Ts000002AWIQIA4": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 3
+              "active": 10
             },
             "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts00000BtZV3IAN": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
@@ -777,18 +837,6 @@
               "negotiations": 0,
               "closedWon": 0,
               "active": 1
-            },
-            "005Ts000002AWIQIA4": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 10
-            },
-            "005Ts000006V3vpIAC": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 9
             },
             "005Ts000001Ak10IAC": {
               "qualified": 0,
@@ -811,23 +859,11 @@
               "qualified": 1,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 21
+              "active": 25
             }
           },
           "agents": {
-            "005Ts00000BtGPDIA3": {
-              "qualified": 1,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 7
-            },
-            "005Ts000006V3vpIAC": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 2
-            },
-            "005Ts000002AWIQIA4": {
+            "005Ts00000BtZV3IAN": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
@@ -837,7 +873,19 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 5
+              "active": 6
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
             },
             "005Ts000002AX4nIAG": {
               "qualified": 0,
@@ -845,11 +893,11 @@
               "closedWon": 0,
               "active": 1
             },
-            "005Ts00000BtZV3IAN": {
+            "005Ts000006V3vpIAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 3
+              "active": 4
             }
           }
         },
@@ -860,35 +908,41 @@
               "qualified": 1,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 2
+              "active": 3
             },
             "density": {
               "qualified": 2,
               "negotiations": 1,
               "closedWon": 0,
-              "active": 28
+              "active": 33
             }
           },
           "agents": {
-            "005Ts000005c4hFIAQ": {
-              "qualified": 1,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 2
-            },
             "005Ts000002AWIQIA4": {
               "qualified": 0,
               "negotiations": 1,
               "closedWon": 0,
-              "active": 9
+              "active": 11
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
             },
             "005Ts00000BtZV3IAN": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 10
+              "active": 11
             },
-            "005Ts00000BtX53IAF": {
+            "005Ts00000BtGPDIA3": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Ts000006V3vpIAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
@@ -900,17 +954,11 @@
               "closedWon": 0,
               "active": 3
             },
-            "005Ts00000BtGPDIA3": {
-              "qualified": 2,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 4
-            },
-            "005Ts000006V3vpIAC": {
+            "005Ts00000BtX53IAF": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 1
+              "active": 2
             }
           }
         },
@@ -925,18 +973,12 @@
             },
             "density": {
               "qualified": 2,
-              "negotiations": 0,
+              "negotiations": 1,
               "closedWon": 0,
-              "active": 25
+              "active": 26
             }
           },
           "agents": {
-            "005Ts000002AX4nIAG": {
-              "qualified": 1,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 6
-            },
             "005Ts000006V3vpIAC": {
               "qualified": 0,
               "negotiations": 0,
@@ -949,17 +991,11 @@
               "closedWon": 0,
               "active": 5
             },
-            "005Ts00000BtGPDIA3": {
+            "005Ts000005c4hFIAQ": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 4
-            },
-            "005Ts00000BtX53IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 7
+              "active": 2
             },
             "005Qs00000N2Hh3IAF": {
               "qualified": 0,
@@ -967,17 +1003,29 @@
               "closedWon": 0,
               "active": 2
             },
-            "005Ts000005c4hFIAQ": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 2
-            },
-            "005Ts000002AWIQIA4": {
+            "005Ts000002AX4nIAG": {
               "qualified": 1,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 1
+              "active": 6
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 7
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 1,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
             }
           }
         },
@@ -992,41 +1040,23 @@
             },
             "density": {
               "qualified": 4,
-              "negotiations": 0,
+              "negotiations": 1,
               "closedWon": 0,
-              "active": 36
+              "active": 40
             }
           },
           "agents": {
-            "005Ts00000BtX53IAF": {
+            "005Ts000006V3vpIAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 4
+              "active": 9
             },
             "005Ts00000BtGPDIA3": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 4
-            },
-            "005Ts000002AWIQIA4": {
-              "qualified": 4,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 4
-            },
-            "005Ts00000BtZV3IAN": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 7
-            },
-            "005Ts000006V3vpIAC": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 9
             },
             "005Ts000005c4hFIAQ": {
               "qualified": 0,
@@ -1040,17 +1070,41 @@
               "closedWon": 0,
               "active": 5
             },
-            "005Ts000002AX4nIAG": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 8
-            },
             "005Ts0000060ICnIAM": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 2
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 4,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 10
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 7
             }
           }
         },
@@ -1061,21 +1115,39 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 8
+              "active": 10
             },
             "density": {
               "qualified": 0,
               "negotiations": 1,
               "closedWon": 0,
-              "active": 15
+              "active": 17
             }
           },
           "agents": {
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
             "005Ts00000BtZV3IAN": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 3
+              "active": 4
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 6
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
             },
             "005Ts00000BtX53IAF": {
               "qualified": 0,
@@ -1089,31 +1161,13 @@
               "closedWon": 0,
               "active": 5
             },
-            "005Ts000002AX4nIAG": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 1
-            },
-            "005Ts0000060ICnIAM": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 4
-            },
-            "005Qs00000N2Hh3IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 4
-            },
             "005Ts000002AWIQIA4": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 1
             },
-            "005Ts00000BtGPDIA3": {
+            "005Ts000002AX4nIAG": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
@@ -1128,27 +1182,21 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 4
+              "active": 5
             },
             "density": {
               "qualified": 0,
               "negotiations": 2,
               "closedWon": 0,
-              "active": 12
+              "active": 13
             }
           },
           "agents": {
-            "005Ts000002AWIQIA4": {
-              "qualified": 0,
-              "negotiations": 2,
-              "closedWon": 0,
-              "active": 4
-            },
-            "005Ts000002AX4nIAG": {
+            "005Qs00000Mxc6EIAR": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 2
+              "active": 1
             },
             "005Ts0000060ICnIAM": {
               "qualified": 0,
@@ -1162,17 +1210,35 @@
               "closedWon": 0,
               "active": 2
             },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 4
+            },
             "005Ts00000BtZV3IAN": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 2
             },
-            "005Ts00000BtX53IAF": {
+            "005Ts000002AX4nIAG": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 4
+              "active": 2
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
             }
           }
         },
@@ -1183,31 +1249,43 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 3
+              "active": 4
             },
             "density": {
               "qualified": 4,
-              "negotiations": 0,
+              "negotiations": 1,
               "closedWon": 0,
-              "active": 10
+              "active": 13
             }
           },
           "agents": {
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
             "005Ts00000BtZV3IAN": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 3
             },
-            "005Ts00000BtX53IAF": {
+            "005Ts000006V3vpIAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 1
+              "active": 2
             },
             "005Ts00000BtGPDIA3": {
               "qualified": 1,
               "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 1,
+              "negotiations": 1,
               "closedWon": 0,
               "active": 2
             },
@@ -1217,19 +1295,7 @@
               "closedWon": 0,
               "active": 1
             },
-            "005Qs00000N2Hh3IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 3
-            },
-            "005Ts000002AX4nIAG": {
-              "qualified": 1,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 2
-            },
-            "005Ts000006V3vpIAC": {
+            "005Ts00000BtX53IAF": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
@@ -1242,7 +1308,7 @@
           "teams": {
             "complex": {
               "qualified": 6,
-              "negotiations": 1,
+              "negotiations": 2,
               "closedWon": 0,
               "active": 2
             },
@@ -1254,26 +1320,8 @@
             }
           },
           "agents": {
-            "005Ts00000BtX53IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 8
-            },
-            "005Ts000002AWIQIA4": {
-              "qualified": 0,
-              "negotiations": 2,
-              "closedWon": 0,
-              "active": 3
-            },
             "005Ts000001Ak10IAC": {
               "qualified": 1,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 4
-            },
-            "005Ts000006V3vpIAC": {
-              "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 4
@@ -1284,11 +1332,11 @@
               "closedWon": 0,
               "active": 13
             },
-            "005Ts00000BtZV3IAN": {
+            "005Ts0000060ICnIAM": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 8
+              "active": 1
             },
             "005Qs00000N2Hh3IAF": {
               "qualified": 0,
@@ -1296,11 +1344,23 @@
               "closedWon": 0,
               "active": 1
             },
-            "005Ts000005c4hFIAQ": {
-              "qualified": 6,
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 0
+              "active": 8
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
             },
             "005Ts00000BtGPDIA3": {
               "qualified": 2,
@@ -1308,14 +1368,20 @@
               "closedWon": 0,
               "active": 2
             },
-            "005Ts0000060ICnIAM": {
+            "005Ts000006V3vpIAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 1
+              "active": 4
             },
             "005Qs00000Mxc6EIAR": {
               "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 0
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 6,
               "negotiations": 1,
               "closedWon": 0,
               "active": 0
@@ -1335,10 +1401,22 @@
               "qualified": 1,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 106
+              "active": 111
             }
           },
           "agents": {
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 16
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 13
+            },
             "005Ts000005c4hFIAQ": {
               "qualified": 3,
               "negotiations": 1,
@@ -1349,33 +1427,21 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 10
+              "active": 13
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 18
             },
             "005Ts000002AX4nIAG": {
               "qualified": 1,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 9
-            },
-            "005Ts000006V3vpIAC": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 16
+              "active": 10
             },
             "005Ts00000BtGPDIA3": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 17
-            },
-            "005Ts00000BtZV3IAN": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 13
-            },
-            "005Ts000002AWIQIA4": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
@@ -1406,37 +1472,19 @@
             }
           },
           "agents": {
-            "005Ts000002AWIQIA4": {
-              "qualified": 2,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 1
-            },
-            "005Ts0000060ICnIAM": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 1
-            },
             "005Ts000005c4hFIAQ": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 2
             },
-            "005Ts00000BtGPDIA3": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 3
-            },
-            "005Ts000001Ak10IAC": {
-              "qualified": 0,
+            "005Ts000002AWIQIA4": {
+              "qualified": 2,
               "negotiations": 0,
               "closedWon": 0,
               "active": 1
             },
-            "005Qs00000Mxc6EIAR": {
+            "005Ts000001Ak10IAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
@@ -1447,6 +1495,24 @@
               "negotiations": 0,
               "closedWon": 0,
               "active": 0
+            },
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
             }
           }
         },
@@ -1460,24 +1526,48 @@
               "active": 4
             },
             "density": {
-              "qualified": 8,
+              "qualified": 20,
               "negotiations": 1,
               "closedWon": 0,
-              "active": 21
+              "active": 22
             }
           },
           "agents": {
             "005Ts000002AWIQIA4": {
-              "qualified": 4,
+              "qualified": 16,
               "negotiations": 1,
               "closedWon": 0,
               "active": 4
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
             },
             "005Ts00000BtX53IAF": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 3
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
             },
             "005Qs00000Mxc6EIAR": {
               "qualified": 9,
@@ -1489,31 +1579,7 @@
               "qualified": 3,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 3
-            },
-            "005Ts000002AX4nIAG": {
-              "qualified": 1,
-              "negotiations": 0,
-              "closedWon": 0,
               "active": 4
-            },
-            "005Ts00000BtZV3IAN": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 4
-            },
-            "005Ts000001Ak10IAC": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 3
-            },
-            "005Qs00000N2Hh3IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 2
             },
             "005Ts000005c4hFIAQ": {
               "qualified": 2,
@@ -1536,15 +1602,15 @@
               "qualified": 6,
               "negotiations": 3,
               "closedWon": 0,
-              "active": 52
+              "active": 55
             }
           },
           "agents": {
-            "005Ts00000BtX53IAF": {
-              "qualified": 0,
-              "negotiations": 0,
+            "005Ts000005c4hFIAQ": {
+              "qualified": 1,
+              "negotiations": 1,
               "closedWon": 0,
-              "active": 10
+              "active": 0
             },
             "005Ts000002AWIQIA4": {
               "qualified": 3,
@@ -1552,17 +1618,11 @@
               "closedWon": 0,
               "active": 10
             },
-            "005Ts000002AX4nIAG": {
-              "qualified": 2,
-              "negotiations": 1,
-              "closedWon": 0,
-              "active": 7
-            },
-            "005Ts000006V3vpIAC": {
-              "qualified": 1,
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 3
+              "active": 12
             },
             "005Ts00000BtGPDIA3": {
               "qualified": 0,
@@ -1570,11 +1630,17 @@
               "closedWon": 0,
               "active": 9
             },
+            "005Ts000002AX4nIAG": {
+              "qualified": 2,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 7
+            },
             "005Ts00000BtZV3IAN": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 8
+              "active": 9
             },
             "005Ts000001Ak10IAC": {
               "qualified": 0,
@@ -1582,23 +1648,23 @@
               "closedWon": 0,
               "active": 5
             },
-            "005Qs00000N2Hh3IAF": {
-              "qualified": 0,
+            "005Ts000006V3vpIAC": {
+              "qualified": 1,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 1
-            },
-            "005Ts000005c4hFIAQ": {
-              "qualified": 1,
-              "negotiations": 1,
-              "closedWon": 0,
-              "active": 0
+              "active": 3
             },
             "005Qs00000Pr1HKIAZ": {
               "qualified": 2,
               "negotiations": 0,
               "closedWon": 0,
               "active": 0
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
             }
           }
         },
@@ -1613,53 +1679,17 @@
             },
             "density": {
               "qualified": 2,
-              "negotiations": 0,
+              "negotiations": 2,
               "closedWon": 0,
-              "active": 102
+              "active": 106
             }
           },
           "agents": {
-            "005Ts000002AX4nIAG": {
-              "qualified": 1,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 14
-            },
-            "005Ts000001Ak10IAC": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 16
-            },
-            "005Ts0000060ICnIAM": {
+            "005Qs00000N2Hh3IAF": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 3
-            },
-            "005Ts00000BtGPDIA3": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 13
-            },
-            "005Ts000002AWIQIA4": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 10
-            },
-            "005Ts00000BtX53IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 11
-            },
-            "005Qs00000Mxc6EIAR": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 15
             },
             "005Ts00000BtZV3IAN": {
               "qualified": 1,
@@ -1667,17 +1697,53 @@
               "closedWon": 0,
               "active": 14
             },
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 15
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 12
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 13
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 16
+            },
             "005Ts000006V3vpIAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 24
             },
-            "005Qs00000N2Hh3IAF": {
-              "qualified": 0,
+            "005Ts000002AX4nIAG": {
+              "qualified": 1,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 3
+              "active": 15
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 12
             }
           }
         },
@@ -1694,39 +1760,15 @@
               "qualified": 1,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 42
+              "active": 43
             }
           },
           "agents": {
-            "005Ts00000BtX53IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 4
-            },
-            "005Ts000002AWIQIA4": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 4
-            },
             "005Ts00000BtGPDIA3": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 14
-            },
-            "005Ts000005c4hFIAQ": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 5
-            },
-            "005Qs00000Mxc6EIAR": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 1
             },
             "005Ts00000BtZV3IAN": {
               "qualified": 1,
@@ -1746,11 +1788,29 @@
               "closedWon": 0,
               "active": 2
             },
-            "005Ts000006V3vpIAC": {
+            "005Ts000005c4hFIAQ": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 1
+              "active": 5
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
             },
             "005Ts0000060ICnIAM": {
               "qualified": 0,
@@ -1758,11 +1818,17 @@
               "closedWon": 0,
               "active": 1
             },
-            "005Ts000001Ak10IAC": {
+            "005Ts000006V3vpIAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 8
+              "active": 1
+            },
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
             }
           }
         },
@@ -1770,14 +1836,14 @@
           "week": "W24",
           "teams": {
             "complex": {
-              "qualified": 4,
+              "qualified": 5,
               "negotiations": 0,
               "closedWon": 0,
               "active": 5
             },
             "density": {
-              "qualified": 45,
-              "negotiations": 3,
+              "qualified": 47,
+              "negotiations": 7,
               "closedWon": 0,
               "active": 22
             }
@@ -1789,37 +1855,31 @@
               "closedWon": 0,
               "active": 5
             },
-            "005Ts00000BtX53IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 5
-            },
-            "005Qs00000Mxc6EIAR": {
-              "qualified": 4,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 2
-            },
-            "005Ts0000060ICnIAM": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 0,
-              "active": 1
-            },
             "005Ts00000BtZV3IAN": {
-              "qualified": 2,
+              "qualified": 3,
               "negotiations": 0,
               "closedWon": 0,
               "active": 6
             },
-            "005Ts000005c4hFIAQ": {
-              "qualified": 0,
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 5,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 1
+              "active": 2
             },
-            "005Qs00000N2Hh3IAF": {
+            "005Ts000002AWIQIA4": {
+              "qualified": 39,
+              "negotiations": 3,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 4,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Ts000005c4hFIAQ": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
@@ -1831,14 +1891,20 @@
               "closedWon": 0,
               "active": 2
             },
-            "005Ts000002AWIQIA4": {
-              "qualified": 38,
-              "negotiations": 3,
-              "closedWon": 0,
-              "active": 3
-            },
             "005Ts000001Ak10IAC": {
               "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
               "active": 1
@@ -1857,33 +1923,33 @@
         "rows": [
           {
             "metric": "Leads",
-            "current": 61,
+            "current": 65,
             "prior": 3,
-            "changePercent": 1933.3
+            "changePercent": 2066.7
           },
           {
             "metric": "Qualified",
-            "current": 3,
+            "current": 57,
             "prior": 0,
             "changePercent": 100
           },
           {
             "metric": "Contract Sent",
-            "current": 20,
+            "current": 49,
             "prior": 9,
-            "changePercent": 122.2
+            "changePercent": 444.4
           },
           {
             "metric": "Won",
-            "current": 29,
-            "prior": 52,
-            "changePercent": -44.2
+            "current": 30,
+            "prior": 53,
+            "changePercent": -43.4
           },
           {
             "metric": "Activated",
             "current": 29,
-            "prior": 51,
-            "changePercent": -43.1
+            "prior": 52,
+            "changePercent": -44.2
           }
         ]
       }
@@ -19624,19 +19690,19 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-06-11T19:46:55.443Z",
+        "lastSync": "2026-06-11T20:00:13.004Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-06-11T19:46:55.443Z",
+        "lastSync": "2026-06-11T20:00:13.004Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-06-11T19:46:55.443Z",
+        "lastSync": "2026-06-11T20:00:13.004Z",
         "icon": "deployed_code"
       }
     ]

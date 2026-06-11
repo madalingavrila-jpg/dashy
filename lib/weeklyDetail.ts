@@ -1,5 +1,6 @@
 import type {
   AgentRow,
+  WeeklyAgentStatusView,
   WeeklyBreakdownRow,
   WeeklyDetailView,
   WeeklyStatusKey,
@@ -83,7 +84,46 @@ export function buildWeeklyDetailViews(
     density: agents.filter((agent) => agent.segment === "density"),
   };
 
+  function buildAgentView(
+    agent: AgentRow,
+    breakdownRow: WeeklyBreakdownRow,
+  ): WeeklyAgentStatusView {
+    const counts = breakdownRow.agents[agent.ownerId] ?? emptyWeeklyStatusCounts();
+    const segment = agent.segment;
+    const style =
+      segment === "complex"
+        ? "bg-primary-container/50 text-on-primary-container"
+        : "bg-tertiary-container/50 text-on-tertiary-container";
+    return {
+      ownerId: agent.ownerId,
+      name: agent.name,
+      segment: segment === "complex" ? "Complex" : "Density",
+      segmentColor: style,
+      statuses: buildStatusViews(counts, segment, 1, config, agent.ownerId),
+    };
+  }
+
+  function agentActivityTotal(view: WeeklyAgentStatusView): number {
+    return view.statuses.reduce((sum, status) => sum + status.actual, 0);
+  }
+
+  function sortAgents(views: WeeklyAgentStatusView[]): WeeklyAgentStatusView[] {
+    return [...views].sort(
+      (a, b) =>
+        agentActivityTotal(b) - agentActivityTotal(a) ||
+        a.name.localeCompare(b.name),
+    );
+  }
+
   return breakdown.map((row) => {
+    const agentViews = agents.map((agent) => buildAgentView(agent, row));
+    const complexAgents = sortAgents(
+      agentViews.filter((agent) => agent.segment === "Complex"),
+    );
+    const densityAgents = sortAgents(
+      agentViews.filter((agent) => agent.segment === "Density"),
+    );
+
     const teams: WeeklyTeamStatusView[] = [
       {
         segment: "complex",
@@ -96,6 +136,7 @@ export function buildWeeklyDetailViews(
           teamAgents.complex.length,
           config,
         ),
+        agents: complexAgents,
       },
       {
         segment: "density",
@@ -108,24 +149,9 @@ export function buildWeeklyDetailViews(
           teamAgents.density.length,
           config,
         ),
+        agents: densityAgents,
       },
     ];
-
-    const agentViews = agents.map((agent) => {
-      const counts = row.agents[agent.ownerId] ?? emptyWeeklyStatusCounts();
-      const segment = agent.segment;
-      const style =
-        segment === "complex"
-          ? "bg-primary-container/50 text-on-primary-container"
-          : "bg-tertiary-container/50 text-on-tertiary-container";
-      return {
-        ownerId: agent.ownerId,
-        name: agent.name,
-        segment: segment === "complex" ? "Complex" : "Density",
-        segmentColor: style,
-        statuses: buildStatusViews(counts, segment, 1, config, agent.ownerId),
-      };
-    });
 
     return { week: row.week, teams, agents: agentViews };
   });
@@ -146,6 +172,20 @@ export function applyWeeklyTargetsToBreakdown(
           ...status,
           target,
           progress: progressPercent(status.actual, target),
+        };
+      }),
+      agents: team.agents.map((agent) => {
+        const segment = agent.segment === "Complex" ? "complex" : "density";
+        return {
+          ...agent,
+          statuses: agent.statuses.map((status) => {
+            const target = weeklyTargetForRep(config, agent.ownerId, segment, status.key);
+            return {
+              ...status,
+              target,
+              progress: progressPercent(status.actual, target),
+            };
+          }),
         };
       }),
     })),

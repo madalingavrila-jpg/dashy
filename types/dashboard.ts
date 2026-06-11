@@ -63,6 +63,7 @@ export type WeeklyTeamStatusView = {
   name: string;
   repCount: number;
   statuses: WeeklyStatusProgressView[];
+  agents: WeeklyAgentStatusView[];
 };
 
 export type WeeklyAgentStatusView = {

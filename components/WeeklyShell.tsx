@@ -7,7 +7,6 @@ import { WeeklyMetricsGrid, WeeklyHistoryChart } from "@/components/WeeklyCharts
 import { WeeklyHistoryTable } from "@/components/WeeklyHistoryTable";
 import {
   WeeklyDetailPanel,
-  WeeklyFilterSelect,
   type WeeklyFilter,
 } from "@/components/WeeklyDetailPanel";
 import { useDashboard } from "@/lib/useDashboard";
@@ -54,6 +53,7 @@ export function WeeklyShell() {
   }, [model, selectedWeek, targetConfig]);
 
   const handleWeekSelect = (week: string) => {
+    setFilter("all");
     setSelectedWeek((current) => (current === week ? null : week));
   };
 
@@ -61,16 +61,21 @@ export function WeeklyShell() {
     if (!selectedWeek || !selectedDetail) {
       return;
     }
-    detailRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [selectedWeek, selectedDetail]);
 
   const hasBreakdown = (model?.weeklyPerformance.statusBreakdown.length ?? 0) > 0;
+  const agentOptions = model?.agents.map((agent) => ({
+    ownerId: agent.ownerId,
+    name: agent.name,
+    segment: agent.segment,
+  }));
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="Weekly Performance"
-        subtitle="Click any week in the chart or table below to open team & agent status drill-down (Qualified · Negotiations · Closed Won · Active)."
+        subtitle="Click any week in the chart or table below to open Complex & Density team cards with per-agent status drill-down."
         updatedAt={model?.updatedAt}
         loading={loading}
       />
@@ -81,11 +86,13 @@ export function WeeklyShell() {
         <div className="flex items-start gap-sm rounded-xl border border-primary/30 bg-primary-container/20 px-md py-sm">
           <span className="material-symbols-outlined mt-[2px] text-primary">touch_app</span>
           <p className="text-body-md text-on-surface">
-            <span className="font-semibold">New:</span> select a week row (marked{" "}
+            <span className="font-semibold">Tip:</span> select a week row (marked{" "}
             <span className="rounded-full bg-secondary px-xs py-[1px] text-[10px] font-bold text-on-secondary">
               OPEN
             </span>
-            ) to see Complex &amp; Density teams with progress vs weekly targets. Edit targets in{" "}
+            ) to see team cards with agent rows — same layout as Overview. Use the{" "}
+            <span className="font-semibold">Filter view</span> dropdown for a single team or agent.
+            Edit targets in{" "}
             <a href="/settings/" className="font-semibold text-primary underline">
               Settings
             </a>
@@ -119,22 +126,13 @@ export function WeeklyShell() {
         <div
           ref={detailRef}
           id="weekly-detail"
-          className="glass-card space-y-md rounded-xl border-2 border-primary/40 p-lg shadow-lg ring-1 ring-primary/10"
+          className="glass-card overflow-hidden rounded-xl border-2 border-primary/40 p-lg shadow-lg ring-1 ring-primary/10"
         >
-          <div className="flex flex-wrap items-end justify-between gap-md">
-            <WeeklyFilterSelect
-              value={filter}
-              onChange={setFilter}
-              agents={model?.agents.map((agent) => ({
-                ownerId: agent.ownerId,
-                name: agent.name,
-                segment: agent.segment,
-              }))}
-            />
-          </div>
           <WeeklyDetailPanel
             detail={selectedDetail}
             filter={filter}
+            onFilterChange={setFilter}
+            agents={agentOptions}
             loading={loading}
             onClose={() => setSelectedWeek(null)}
           />
