@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-11T21:29:50.751Z",
+  "updatedAt": "2026-06-11T21:54:44.020Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -40807,25 +40807,25 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-06-11T21:29:50.751Z",
+        "lastSync": "2026-06-11T21:54:44.020Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-06-11T21:29:50.751Z",
+        "lastSync": "2026-06-11T21:54:44.020Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-06-11T21:29:50.751Z",
+        "lastSync": "2026-06-11T21:54:44.020Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-06-11T21:29:50.751Z",
+        "lastSync": "2026-06-11T21:54:44.020Z",
         "icon": "dashboard"
       }
     ]
