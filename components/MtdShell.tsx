@@ -12,7 +12,7 @@ export function MtdShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="MTD & Tiers Tracking"
-        subtitle="June 2026 only — month-to-date production, not year-to-date."
+        subtitle={`${model?.mtdAchievement.month ?? "Current month"} only — month-to-date production, not year-to-date.`}
         updatedAt={model?.updatedAt}
         loading={loading}
       />

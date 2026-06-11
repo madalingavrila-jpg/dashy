@@ -103,7 +103,7 @@ function ProgressCard({
   const barColor = accent === "won" ? "bg-won" : "bg-activated";
   return (
     <div className={`glass-card rounded-xl p-lg border-l-4 ${accent === "won" ? "border-l-won" : "border-l-activated"}`}>
-      <p className="text-label-md font-label-md text-on-surface-variant">{month} · June MTD only</p>
+      <p className="text-label-md font-label-md text-on-surface-variant">{month} · MTD only</p>
       <h3 className="text-title-lg font-title-lg font-bold">{title}</h3>
       <p className="mt-sm text-headline-md font-headline-md font-extrabold">
         {actual} <span className="text-body-md font-normal text-on-surface-variant">/ {target}</span>

@@ -125,67 +125,99 @@ function buildFunnelStages(stages: DashboardRawData["salesPipeline"]["snapshot"]
   });
 }
 
-function buildOverviewMetrics(data: DashboardRawData): MetricCard[] {
-  const { totals, weeklyPerformance, mtdAchievement } = data.salesPipeline;
-  const week = weeklyPerformance.metrics;
+function mtdProgressPercent(actual: number, target: number): number {
+  if (target <= 0) return actual > 0 ? 100 : 0;
+  return Math.round((actual / target) * 100);
+}
 
-  const leads = week.find((m) => m.label.toLowerCase().includes("lead"));
-  const qualified = week.find((m) => m.label.toLowerCase().includes("qualif"));
-
-  const wonPct = mtdAchievement.targetWon
-    ? pctChange(mtdAchievement.actualWon, mtdAchievement.targetWon)
-    : 0;
-  const activatedPct = mtdAchievement.targetActivated
-    ? pctChange(mtdAchievement.actualActivated, mtdAchievement.targetActivated)
-    : 0;
+function buildMtdOverviewMetrics(data: DashboardRawData): MetricCard[] {
+  const { mtdAchievement } = data.salesPipeline;
+  const month = mtdAchievement.month;
+  const wonProgress = mtdProgressPercent(mtdAchievement.actualWon, mtdAchievement.targetWon);
+  const activatedProgress = mtdProgressPercent(
+    mtdAchievement.actualActivated,
+    mtdAchievement.targetActivated,
+  );
 
   return [
-    buildTotalMetric("Total Won", totals.won, "emoji_events", "won"),
-    buildTotalMetric("Total Activated", totals.activated, "rocket_launch", "activated"),
+    {
+      icon: "emoji_events",
+      iconBg: "bg-won-container",
+      iconColor: "text-won",
+      trend: trendDirection(wonProgress - 100),
+      trendIcon: wonProgress >= 100 ? "trending_up" : "trending_down",
+      trendValue: `${wonProgress}%`,
+      label: "Won MTD",
+      value: formatInteger(mtdAchievement.actualWon),
+      subtitle: `Target ${formatInteger(mtdAchievement.targetWon)} · ${month}`,
+      variant: "won",
+    },
+    {
+      icon: "rocket_launch",
+      iconBg: "bg-activated-container",
+      iconColor: "text-activated",
+      trend: trendDirection(activatedProgress - 100),
+      trendIcon: activatedProgress >= 100 ? "trending_up" : "trending_down",
+      trendValue: `${activatedProgress}%`,
+      label: "Activated MTD",
+      value: formatInteger(mtdAchievement.actualActivated),
+      subtitle: `Target ${formatInteger(mtdAchievement.targetActivated)} · ${month}`,
+      variant: "activated",
+    },
     {
       icon: "person_add",
       iconBg: "bg-primary-container/30",
       iconColor: "text-primary",
-      trend: trendDirection(leads?.changePercent ?? 0),
-      trendIcon: "trending_up",
-      trendValue: formatSignedPct(leads?.changePercent ?? 0),
-      label: "Leads (This Week)",
-      value: formatInteger(leads?.value ?? 0),
-      subtitle: weeklyPerformance.weekLabel,
-    },
-    {
-      icon: "flag",
-      iconBg: "bg-secondary-container/30",
-      iconColor: "text-secondary",
-      trend: trendDirection(wonPct),
-      trendIcon: wonPct >= 0 ? "trending_up" : "trending_down",
-      trendValue: formatSignedPct(wonPct),
-      label: "MTD Won vs Target",
-      value: `${formatInteger(mtdAchievement.actualWon)} / ${formatInteger(mtdAchievement.targetWon)}`,
-      subtitle: mtdAchievement.month,
+      trend: "neutral",
+      trendIcon: "calendar_month",
+      trendValue: "MTD",
+      label: "Leads MTD",
+      value: formatInteger(mtdAchievement.leadsMtd ?? 0),
+      subtitle: `${month} · month-to-date only`,
     },
     {
       icon: "verified",
-      iconBg: "bg-activated-container",
-      iconColor: "text-activated",
-      trend: trendDirection(qualified?.changePercent ?? 0),
-      trendIcon: "trending_up",
-      trendValue: formatSignedPct(qualified?.changePercent ?? 0),
-      label: "Qualified (This Week)",
-      value: formatInteger(qualified?.value ?? 0),
-      subtitle: "Sales production",
+      iconBg: "bg-secondary-container/30",
+      iconColor: "text-secondary",
+      trend: "neutral",
+      trendIcon: "calendar_month",
+      trendValue: "MTD",
+      label: "Qualified MTD",
+      value: formatInteger(mtdAchievement.qualifiedMtd ?? 0),
+      subtitle: `${month} · month-to-date only`,
+    },
+    {
+      icon: "flag",
+      iconBg: "bg-won-container/60",
+      iconColor: "text-won",
+      trend: trendDirection(wonProgress - 100),
+      trendIcon: wonProgress >= 100 ? "check_circle" : "pending",
+      trendValue: `${wonProgress}%`,
+      label: "Won Achievement",
+      value: `${wonProgress}% of target`,
+      subtitle: `${formatInteger(mtdAchievement.actualWon)} / ${formatInteger(mtdAchievement.targetWon)} · ${month}`,
+      variant: "won",
     },
     {
       icon: "speed",
-      iconBg: "bg-surface-container-high",
-      iconColor: "text-on-surface",
-      trend: trendDirection(activatedPct),
-      trendIcon: activatedPct >= 0 ? "trending_up" : "trending_down",
-      trendValue: formatSignedPct(activatedPct),
-      label: "MTD Activated vs Target",
-      value: `${formatInteger(mtdAchievement.actualActivated)} / ${formatInteger(mtdAchievement.targetActivated)}`,
-      subtitle: mtdAchievement.month,
+      iconBg: "bg-activated-container/60",
+      iconColor: "text-activated",
+      trend: trendDirection(activatedProgress - 100),
+      trendIcon: activatedProgress >= 100 ? "check_circle" : "pending",
+      trendValue: `${activatedProgress}%`,
+      label: "Activated Achievement",
+      value: `${activatedProgress}% of target`,
+      subtitle: `${formatInteger(mtdAchievement.actualActivated)} / ${formatInteger(mtdAchievement.targetActivated)} · ${month}`,
+      variant: "activated",
     },
+  ];
+}
+
+function buildYtdOverviewMetrics(data: DashboardRawData): MetricCard[] {
+  const { totals } = data.salesPipeline;
+  return [
+    buildTotalMetric("Total Won (YTD)", totals.won, "emoji_events", "won"),
+    buildTotalMetric("Total Activated (YTD)", totals.activated, "rocket_launch", "activated"),
   ];
 }
 
@@ -279,12 +311,14 @@ function placeholderModel(source: DataSourceStatus, error?: string): DashboardMo
     updatedAt: new Date().toISOString(),
     salesforceInstanceUrl: "https://bolt-eu.lightning.force.com",
     sources: source,
+    mtdMonthLabel: "—",
     overviewMetrics: [
-      emptyMetric("Total Won"),
-      emptyMetric("Total Activated"),
-      emptyMetric("Leads (This Week)"),
-      emptyMetric("MTD Won vs Target"),
+      emptyMetric("Won MTD"),
+      emptyMetric("Activated MTD"),
+      emptyMetric("Leads MTD"),
+      emptyMetric("Qualified MTD"),
     ],
+    overviewYtdMetrics: [emptyMetric("Total Won (YTD)"), emptyMetric("Total Activated (YTD)")],
     totals: {
       won: emptyMetric("Total Won"),
       activated: emptyMetric("Total Activated"),
@@ -339,7 +373,9 @@ function toDashboardModel(
     updatedAt: data.updatedAt,
     salesforceInstanceUrl: instanceUrl,
     sources: source,
-    overviewMetrics: buildOverviewMetrics(data),
+    mtdMonthLabel: mtdAchievement.month,
+    overviewMetrics: buildMtdOverviewMetrics(data),
+    overviewYtdMetrics: buildYtdOverviewMetrics(data),
     totals: {
       won: buildTotalMetric("Total Won", salesPipeline.totals.won, "emoji_events", "won"),
       activated: buildTotalMetric(

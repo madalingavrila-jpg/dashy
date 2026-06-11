@@ -245,7 +245,9 @@ export type DashboardModel = {
   updatedAt: string;
   salesforceInstanceUrl: string;
   sources: DataSourceStatus;
+  mtdMonthLabel: string;
   overviewMetrics: MetricCard[];
+  overviewYtdMetrics: MetricCard[];
   totals: {
     won: MetricCard;
     activated: MetricCard;
