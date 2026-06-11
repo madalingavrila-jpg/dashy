@@ -152,6 +152,25 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
     });
   };
 
+  const updateWeeklyPerRep = (ownerId: string, field: keyof WeeklyStatusTargets, value: string) => {
+    const parsed = value === "" ? undefined : Math.max(0, Number.parseInt(value, 10) || 0);
+    setDraft((prev) => {
+      const nextWeeklyPerRep = { ...prev.weeklyPerRep };
+      const existing = { ...nextWeeklyPerRep[ownerId] };
+      if (parsed === undefined) {
+        delete existing[field];
+      } else {
+        existing[field] = parsed;
+      }
+      if (Object.keys(existing).length === 0) {
+        delete nextWeeklyPerRep[ownerId];
+      } else {
+        nextWeeklyPerRep[ownerId] = existing;
+      }
+      return { ...prev, weeklyPerRep: nextWeeklyPerRep };
+    });
+  };
+
   const toggleAgentPause = (ownerId: string, paused: boolean) => {
     setDraft((prev) => ({
       ...prev,
@@ -381,33 +400,66 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
               Per-rep overrides
             </h4>
             <p className="mb-md text-body-md text-on-surface-variant">
-              Leave blank to use the segment default for that rep.
+              Leave blank to use the segment default for that rep — applies to MTD and weekly status
+              targets.
             </p>
             {loading && !sortedAgents.length ? (
               <p className="text-on-surface-variant">Loading agents…</p>
             ) : (
               <div className="overflow-x-auto rounded-lg border border-outline-variant/60">
-                <table className="w-full min-w-[640px] text-left text-body-md">
+                <table className="w-full min-w-[960px] text-left text-body-md">
                   <thead className="bg-surface-container-low">
                     <tr>
-                      <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+                      <th
+                        rowSpan={2}
+                        className="border-b border-outline-variant/40 px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant"
+                      >
                         Agent
                       </th>
-                      <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+                      <th
+                        rowSpan={2}
+                        className="border-b border-outline-variant/40 px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant"
+                      >
                         Segment
                       </th>
+                      <th
+                        colSpan={2}
+                        className="border-b border-outline-variant/40 px-md py-xs text-center text-label-md font-semibold uppercase text-on-surface-variant"
+                      >
+                        MTD / month
+                      </th>
+                      <th
+                        colSpan={4}
+                        className="border-b border-outline-variant/40 px-md py-xs text-center text-label-md font-semibold uppercase text-on-surface-variant"
+                      >
+                        Weekly / rep
+                      </th>
+                    </tr>
+                    <tr>
                       <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
-                        Won override
+                        Won
                       </th>
                       <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
-                        Activated override
+                        Activated
                       </th>
+                      {WEEKLY_STATUS_KEYS.map((key) => (
+                        <th
+                          key={key}
+                          className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant"
+                          title={WEEKLY_STATUS_LABELS[key]}
+                        >
+                          {key === "closedWon" ? "Won" : key === "negotiations" ? "Neg" : key === "qualified" ? "Qual" : "Act"}
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
                     {sortedAgents.map((agent) => {
                       const segmentKey = agent.segment === "Complex" ? "complex" : "density";
-                      const defaults = draft.segment[segmentKey];
+                      const mtdDefaults = draft.segment[segmentKey];
+                      const weeklyDefaults = draft.weekly[segmentKey];
+                      const inputClass =
+                        "w-16 rounded-lg border-none bg-surface-container px-sm py-1 text-body-md font-data-mono focus:ring-2 focus:ring-primary";
                       return (
                         <tr key={agent.ownerId} className="border-t border-outline-variant/40">
                           <td className="px-md py-sm font-semibold">{agent.name}</td>
@@ -417,12 +469,13 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                               type="number"
                               min={0}
                               step={1}
-                              placeholder={String(defaults.won)}
+                              placeholder={String(mtdDefaults.won)}
                               value={draft.perRep[agent.ownerId]?.won ?? ""}
                               onChange={(event) =>
                                 updatePerRep(agent.ownerId, "won", event.target.value)
                               }
-                              className="w-24 rounded-lg border-none bg-surface-container px-sm py-1 text-body-md font-data-mono focus:ring-2 focus:ring-primary"
+                              className={inputClass}
+                              title={`Default: ${mtdDefaults.won}`}
                             />
                           </td>
                           <td className="px-md py-sm">
@@ -430,14 +483,31 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                               type="number"
                               min={0}
                               step={1}
-                              placeholder={String(defaults.activated)}
+                              placeholder={String(mtdDefaults.activated)}
                               value={draft.perRep[agent.ownerId]?.activated ?? ""}
                               onChange={(event) =>
                                 updatePerRep(agent.ownerId, "activated", event.target.value)
                               }
-                              className="w-24 rounded-lg border-none bg-surface-container px-sm py-1 text-body-md font-data-mono focus:ring-2 focus:ring-primary"
+                              className={inputClass}
+                              title={`Default: ${mtdDefaults.activated}`}
                             />
                           </td>
+                          {WEEKLY_STATUS_KEYS.map((key) => (
+                            <td key={key} className="px-md py-sm">
+                              <input
+                                type="number"
+                                min={0}
+                                step={1}
+                                placeholder={String(weeklyDefaults[key])}
+                                value={draft.weeklyPerRep[agent.ownerId]?.[key] ?? ""}
+                                onChange={(event) =>
+                                  updateWeeklyPerRep(agent.ownerId, key, event.target.value)
+                                }
+                                className={inputClass}
+                                title={`${WEEKLY_STATUS_LABELS[key]} default: ${weeklyDefaults[key]}`}
+                              />
+                            </td>
+                          ))}
                         </tr>
                       );
                     })}

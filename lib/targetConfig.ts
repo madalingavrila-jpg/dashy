@@ -11,6 +11,7 @@ import {
   COMPLEX_WEEKLY_TARGETS,
   DENSITY_WEEKLY_TARGETS,
   type WeeklyStatusCounts,
+  type WeeklyStatusKey,
 } from "@/lib/weekly-stages";
 import { formatInteger, trendDirection } from "@/lib/format";
 
@@ -144,6 +145,28 @@ function activatedTargetFor(
   segment: "complex" | "density",
 ): number {
   return config.perRep[ownerId]?.activated ?? config.segment[segment].activated;
+}
+
+/** Per-rep weekly status target; blank override → segment default. */
+export function getRepWeeklyStatusTarget(
+  config: TargetConfig,
+  ownerId: string,
+  segment: "complex" | "density",
+  status: WeeklyStatusKey,
+): number {
+  return config.weeklyPerRep[ownerId]?.[status] ?? config.weekly[segment][status];
+}
+
+/** Sum weekly status targets for active reps (respects per-rep overrides). */
+export function teamWeeklyStatusTarget(
+  config: TargetConfig,
+  agents: Array<{ ownerId: string }>,
+  segment: "complex" | "density",
+  status: WeeklyStatusKey,
+): number {
+  return agents
+    .filter((agent) => !isPausedAgent(agent.ownerId, config))
+    .reduce((sum, agent) => sum + getRepWeeklyStatusTarget(config, agent.ownerId, segment, status), 0);
 }
 
 function updateOverviewMetrics(

@@ -8,6 +8,11 @@ import type {
   WeeklyTeamStatusView,
 } from "@/types/dashboard";
 import {
+  getRepWeeklyStatusTarget,
+  teamWeeklyStatusTarget,
+  type TargetConfig,
+} from "@/lib/targetConfig";
+import {
   emptyWeeklyStatusCounts,
   WEEKLY_STATUS_KEYS,
   WEEKLY_STATUS_LABELS,
@@ -16,14 +21,7 @@ import {
   DENSITY_WEEKLY_TARGETS,
 } from "@/lib/weekly-stages";
 
-type WeeklyTargetConfig = {
-  weekly: {
-    complex: typeof COMPLEX_WEEKLY_TARGETS;
-    density: typeof DENSITY_WEEKLY_TARGETS;
-  };
-  weeklyPerRep: Record<string, Partial<typeof COMPLEX_WEEKLY_TARGETS>>;
-  pausedAgentIds?: string[];
-};
+type WeeklyTargetConfig = Pick<TargetConfig, "weekly" | "weeklyPerRep" | "pausedAgentIds">;
 
 function isPausedAgent(ownerId: string, config: WeeklyTargetConfig): boolean {
   return config.pausedAgentIds?.includes(ownerId) ?? false;
@@ -40,32 +38,35 @@ function defaultWeeklyTargetConfig(): WeeklyTargetConfig {
   };
 }
 
+function asTargetConfig(config: WeeklyTargetConfig): TargetConfig {
+  return {
+    segment: {
+      complex: { won: 0, activated: 0 },
+      density: { won: 0, activated: 0 },
+    },
+    weekly: config.weekly,
+    perRep: {},
+    weeklyPerRep: config.weeklyPerRep,
+    pausedAgentIds: config.pausedAgentIds ?? [],
+  };
+}
+
 function progressPercent(actual: number, target: number): number {
   if (target <= 0) return actual > 0 ? 100 : 0;
   return Math.min(100, Math.round((actual / target) * 100));
 }
 
-function weeklyTargetForRep(
-  config: WeeklyTargetConfig,
-  ownerId: string,
-  segment: "complex" | "density",
-  key: WeeklyStatusKey,
-): number {
-  return config.weeklyPerRep[ownerId]?.[key] ?? config.weekly[segment][key];
-}
-
 function buildStatusViews(
   counts: Record<WeeklyStatusKey, number>,
   segment: "complex" | "density",
-  repCount: number,
   config: WeeklyTargetConfig,
-  ownerId?: string,
+  options: { ownerId?: string; activeAgents?: AgentRow[] },
 ): WeeklyStatusProgressView[] {
+  const targetConfig = asTargetConfig(config);
   return WEEKLY_STATUS_KEYS.map((key) => {
-    const perRepTarget = ownerId
-      ? weeklyTargetForRep(config, ownerId, segment, key)
-      : config.weekly[segment][key];
-    const target = ownerId ? perRepTarget : perRepTarget * Math.max(repCount, 1);
+    const target = options.ownerId
+      ? getRepWeeklyStatusTarget(targetConfig, options.ownerId, segment, key)
+      : teamWeeklyStatusTarget(targetConfig, options.activeAgents ?? [], segment, key);
     const actual = counts[key] ?? 0;
     return {
       key,
@@ -108,7 +109,7 @@ export function buildWeeklyDetailViews(
       segment: segment === "complex" ? "Complex" : "Density",
       segmentColor: style,
       targetPaused: paused,
-      statuses: buildStatusViews(counts, segment, 1, config, agent.ownerId),
+      statuses: buildStatusViews(counts, segment, config, { ownerId: agent.ownerId }),
       accounts: agentBreakdown?.accounts,
     };
   }
@@ -143,12 +144,9 @@ export function buildWeeklyDetailViews(
         segmentLabel: "Complex",
         name: "Complex Team",
         repCount: activeComplex.length,
-        statuses: buildStatusViews(
-          row.teams.complex,
-          "complex",
-          activeComplex.length,
-          config,
-        ),
+        statuses: buildStatusViews(row.teams.complex, "complex", config, {
+          activeAgents: activeComplex,
+        }),
         agents: complexAgents,
       },
       {
@@ -156,12 +154,9 @@ export function buildWeeklyDetailViews(
         segmentLabel: "Density",
         name: "Density Team",
         repCount: activeDensity.length,
-        statuses: buildStatusViews(
-          row.teams.density,
-          "density",
-          activeDensity.length,
-          config,
-        ),
+        statuses: buildStatusViews(row.teams.density, "density", config, {
+          activeAgents: activeDensity,
+        }),
         agents: densityAgents,
       },
     ];
@@ -174,40 +169,69 @@ export function applyWeeklyTargetsToBreakdown(
   breakdown: WeeklyDetailView[],
   config: WeeklyTargetConfig,
 ): WeeklyDetailView[] {
+  const targetConfig = asTargetConfig(config);
   return breakdown.map((row) => ({
     week: row.week,
-    teams: row.teams.map((team) => ({
-      ...team,
-      statuses: team.statuses.map((status) => {
-        const perRep = config.weekly[team.segment][status.key];
-        const target = perRep * Math.max(team.repCount, 1);
-        return {
-          ...status,
-          target,
-          progress: progressPercent(status.actual, target),
-        };
-      }),
-      agents: team.agents.map((agent) => {
-        const segment = agent.segment === "Complex" ? "complex" : "density";
-        return {
-          ...agent,
-          statuses: agent.statuses.map((status) => {
-            const target = weeklyTargetForRep(config, agent.ownerId, segment, status.key);
-            return {
-              ...status,
-              target,
-              progress: progressPercent(status.actual, target),
-            };
-          }),
-        };
-      }),
-    })),
+    teams: row.teams.map((team) => {
+      const activeAgents = team.agents
+        .filter((agent) => !agent.targetPaused)
+        .map((agent) => ({
+          ownerId: agent.ownerId,
+          name: agent.name,
+          segment: team.segment,
+          mtdTarget: 0,
+          pipelineCount: 0,
+          stageCounts: {},
+          wonMtd: 0,
+          activatedMtd: 0,
+        }));
+      return {
+        ...team,
+        statuses: team.statuses.map((status) => {
+          const target = teamWeeklyStatusTarget(
+            targetConfig,
+            activeAgents,
+            team.segment,
+            status.key,
+          );
+          return {
+            ...status,
+            target,
+            progress: progressPercent(status.actual, target),
+          };
+        }),
+        agents: team.agents.map((agent) => {
+          const segment = agent.segment === "Complex" ? "complex" : "density";
+          return {
+            ...agent,
+            statuses: agent.statuses.map((status) => {
+              const target = getRepWeeklyStatusTarget(
+                targetConfig,
+                agent.ownerId,
+                segment,
+                status.key,
+              );
+              return {
+                ...status,
+                target,
+                progress: progressPercent(status.actual, target),
+              };
+            }),
+          };
+        }),
+      };
+    }),
     agents: row.agents.map((agent) => {
       const segment = agent.segment === "Complex" ? "complex" : "density";
       return {
         ...agent,
         statuses: agent.statuses.map((status) => {
-          const target = weeklyTargetForRep(config, agent.ownerId, segment, status.key);
+          const target = getRepWeeklyStatusTarget(
+            targetConfig,
+            agent.ownerId,
+            segment,
+            status.key,
+          );
           return {
             ...status,
             target,
