@@ -26,7 +26,7 @@ Per-rep monthly targets apply to **both Won MTD and Activated MTD** separately.
 | Segment | Reps | Target / rep / month |
 |---------|------|----------------------|
 | **Complex** | 5 named reps | **8** |
-| **Density** | All other active reps | **25** |
+| **Density** | 9 named reps | **25** |
 
 **Complex reps only** (match by Salesforce Owner ID or fuzzy name):
 
@@ -38,7 +38,21 @@ Per-rep monthly targets apply to **both Won MTD and Activated MTD** separately.
 | Vlad Popa | Vlad-Bogdan Popa | `005Qs00000Pr1HKIAZ` |
 | Andrei Patru | Andrei-Georgian Pătru | `005Qs00000N2Hh3IAF` |
 
-Everyone else on the agents table = **Density**.
+**Density reps only** (from RO-Sales Planning sheet tab *Sales Individual Performance - All*):
+
+| Alias | Salesforce name | Owner ID |
+|-------|-----------------|----------|
+| Ciprian | Ciprian Teodorescu | `005Ts000002AX4nIAG` |
+| Daniel Boboc | Daniel-Alexandru Boboc | `005Ts00000BtGPDIA3` |
+| Daniel Toltică | Daniel-Marian Toltică | `005Ts00000BtX53IAF` |
+| Eusebiu | Eusebiu Hanganu | `005Ts000002AWIQIA4` |
+| Georgian | Borcaeas Georgian | `005Ts00000BtZV3IAN` |
+| Mihnea | Silviu-Mihnea Voicu | `005Ts000001Ak10IAC` |
+| Oroles | Oroles Roșu | `005Ts000006V3vpIAC` |
+| Sebastian | Andrei-Sebastian Caba | `005Ts000005XKgEIAW` |
+| Teodor | Teodor Domnica | `005Ts00000FjJkDIAV` |
+
+Only these 14 reps appear in `agents`, MTD targets, and Team Progress panels. Exclude `Administrator` and any other SF owners.
 
 **Global MTD targets** (sum of individual targets):
 

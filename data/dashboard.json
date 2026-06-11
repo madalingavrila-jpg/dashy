@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-11T16:16:47.196Z",
+  "updatedAt": "2026-06-11T16:26:05.423Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -68,14 +68,14 @@
     },
     "mtdAchievement": {
       "month": "June 2026",
-      "targetWon": 540,
-      "actualWon": 220,
-      "targetActivated": 540,
-      "actualActivated": 81,
+      "targetWon": 265,
+      "actualWon": 197,
+      "targetActivated": 265,
+      "actualActivated": 79,
       "leadsMtd": 173,
       "qualifiedMtd": 15,
       "complexRepCount": 5,
-      "densityRepCount": 20,
+      "densityRepCount": 9,
       "tiers": [
         {
           "name": "Complex",
@@ -85,8 +85,8 @@
         },
         {
           "name": "Density",
-          "target": 500,
-          "actual": 200,
+          "target": 225,
+          "actual": 177,
           "type": "won"
         },
         {
@@ -97,8 +97,8 @@
         },
         {
           "name": "Density",
-          "target": 500,
-          "actual": 67,
+          "target": 225,
+          "actual": 65,
           "type": "activated"
         }
       ]
@@ -480,19 +480,6 @@
         "mtdTarget": 25
       },
       {
-        "ownerId": "005Qs00000OLyBRIA1",
-        "name": "Catalin Corbeanu",
-        "pipelineCount": 15,
-        "stageCounts": {
-          "New Opportunity": 15
-        },
-        "wonMtd": 11,
-        "activatedMtd": 2,
-        "wonYtd": 2,
-        "segment": "density",
-        "mtdTarget": 25
-      },
-      {
         "ownerId": "005Qs00000Mxc6EIAR",
         "name": "Paul-Daniel Rîngheanu",
         "pipelineCount": 14,
@@ -515,32 +502,6 @@
         "wonMtd": 17,
         "activatedMtd": 1,
         "wonYtd": 6,
-        "segment": "density",
-        "mtdTarget": 25
-      },
-      {
-        "ownerId": "005Ts0000055yDZIAY",
-        "name": "Elena Bianca Pavel",
-        "pipelineCount": 8,
-        "stageCounts": {
-          "New Opportunity": 8
-        },
-        "wonMtd": 0,
-        "activatedMtd": 0,
-        "wonYtd": 0,
-        "segment": "density",
-        "mtdTarget": 25
-      },
-      {
-        "ownerId": "005Ts00000BtHpvIAF",
-        "name": "Ana-Maria Preda",
-        "pipelineCount": 6,
-        "stageCounts": {
-          "New Opportunity": 6
-        },
-        "wonMtd": 12,
-        "activatedMtd": 0,
-        "wonYtd": 2,
         "segment": "density",
         "mtdTarget": 25
       },
@@ -571,45 +532,6 @@
         "mtdTarget": 25
       },
       {
-        "ownerId": "005Ts00000DzMwzIAF",
-        "name": "Bophana Ros",
-        "pipelineCount": 3,
-        "stageCounts": {
-          "New Opportunity": 3
-        },
-        "wonMtd": 0,
-        "activatedMtd": 0,
-        "wonYtd": 0,
-        "segment": "density",
-        "mtdTarget": 25
-      },
-      {
-        "ownerId": "005Qs00000Lwa8hIAB",
-        "name": "Bogdan Nerpii",
-        "pipelineCount": 2,
-        "stageCounts": {
-          "New Opportunity": 2
-        },
-        "wonMtd": 0,
-        "activatedMtd": 0,
-        "wonYtd": 0,
-        "segment": "density",
-        "mtdTarget": 25
-      },
-      {
-        "ownerId": "005Qs00000LwW55IAF",
-        "name": "Razvan Save",
-        "pipelineCount": 2,
-        "stageCounts": {
-          "New Opportunity": 2
-        },
-        "wonMtd": 0,
-        "activatedMtd": 0,
-        "wonYtd": 0,
-        "segment": "density",
-        "mtdTarget": 25
-      },
-      {
         "ownerId": "005Qs00000Pr1HKIAZ",
         "name": "Vlad-Bogdan Popa",
         "pipelineCount": 2,
@@ -621,71 +543,6 @@
         "wonYtd": 0,
         "segment": "complex",
         "mtdTarget": 8
-      },
-      {
-        "ownerId": "005Qs00000MjMxOIAV",
-        "name": "Petru Avornicesei",
-        "pipelineCount": 1,
-        "stageCounts": {
-          "New Opportunity": 1
-        },
-        "wonMtd": 0,
-        "activatedMtd": 0,
-        "wonYtd": 0,
-        "segment": "density",
-        "mtdTarget": 25
-      },
-      {
-        "ownerId": "0057Q000004S4bFQAS",
-        "name": "Adrian Anin",
-        "pipelineCount": 1,
-        "stageCounts": {
-          "New Opportunity": 1
-        },
-        "wonMtd": 0,
-        "activatedMtd": 0,
-        "wonYtd": 0,
-        "segment": "density",
-        "mtdTarget": 25
-      },
-      {
-        "ownerId": "005Qs00000JckTVIAZ",
-        "name": "Radu-Corneliu Iorgulescu",
-        "pipelineCount": 1,
-        "stageCounts": {
-          "New Opportunity": 1
-        },
-        "wonMtd": 0,
-        "activatedMtd": 0,
-        "wonYtd": 0,
-        "segment": "density",
-        "mtdTarget": 25
-      },
-      {
-        "ownerId": "005Ts000001Rq5BIAS",
-        "name": "Vadim Grecu",
-        "pipelineCount": 1,
-        "stageCounts": {
-          "New Opportunity": 1
-        },
-        "wonMtd": 0,
-        "activatedMtd": 0,
-        "wonYtd": 0,
-        "segment": "density",
-        "mtdTarget": 25
-      },
-      {
-        "ownerId": "005Ts00000H5rpuIAB",
-        "name": "Bianca-Andreea Ionescu",
-        "pipelineCount": 1,
-        "stageCounts": {
-          "New Opportunity": 1
-        },
-        "wonMtd": 0,
-        "activatedMtd": 0,
-        "wonYtd": 0,
-        "segment": "density",
-        "mtdTarget": 25
       },
       {
         "ownerId": "005Qs00000N2Hh3IAF",

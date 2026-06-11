@@ -6,7 +6,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { enrichAgent, buildMtdAchievement } from "../lib/agent-segments.mjs";
+import { filterTeamAgents, buildMtdAchievement } from "../lib/agent-segments.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -219,10 +219,11 @@ for (const opp of wonData.records ?? []) {
   if (opp.StageName === "Activated" && closed?.getFullYear() === 2026) agent.wonYtd += 1;
 }
 
-const agents = [...agentMap.values()]
-  .filter((a) => a.name !== "Administrator" && (a.pipelineCount > 0 || a.wonMtd > 0 || a.activatedMtd > 0))
-  .map(enrichAgent)
-  .sort((a, b) => b.pipelineCount - a.pipelineCount);
+const agents = filterTeamAgents(
+  [...agentMap.values()].filter(
+    (a) => a.name !== "Administrator" && (a.pipelineCount > 0 || a.wonMtd > 0 || a.activatedMtd > 0),
+  ),
+).sort((a, b) => b.pipelineCount - a.pipelineCount);
 
 const mtdAchievement = buildMtdAchievement(agents, "June 2026", {
   leadsMtd: 173,

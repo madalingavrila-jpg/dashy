@@ -6,7 +6,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { enrichAgent, buildMtdAchievement } from "../lib/agent-segments.mjs";
+import { filterTeamAgents, buildMtdAchievement } from "../lib/agent-segments.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -48,11 +48,13 @@ const SF_ACTIVATED_MTD = {
 const dashboard = JSON.parse(readFileSync(dashboardPath, "utf8"));
 const { mtdAchievement: prevMtd } = dashboard.salesPipeline;
 
-const agents = (dashboard.salesPipeline.agents ?? []).map((agent) => {
-  const wonMtd = SF_WON_MTD[agent.ownerId] ?? agent.wonMtd ?? 0;
-  const activatedMtd = SF_ACTIVATED_MTD[agent.ownerId] ?? agent.activatedMtd ?? 0;
-  return enrichAgent({ ...agent, wonMtd, activatedMtd });
-});
+const agents = filterTeamAgents(
+  (dashboard.salesPipeline.agents ?? []).map((agent) => ({
+    ...agent,
+    wonMtd: SF_WON_MTD[agent.ownerId] ?? agent.wonMtd ?? 0,
+    activatedMtd: SF_ACTIVATED_MTD[agent.ownerId] ?? agent.activatedMtd ?? 0,
+  })),
+);
 
 const mtdAchievement = buildMtdAchievement(agents, prevMtd.month ?? "June 2026", {
   leadsMtd: prevMtd.leadsMtd ?? 173,

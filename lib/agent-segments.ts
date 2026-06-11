@@ -11,6 +11,18 @@ export const COMPLEX_OWNER_IDS = new Set([
   "005Qs00000N2Hh3IAF",
 ]);
 
+export const DENSITY_OWNER_IDS = new Set([
+  "005Ts000002AX4nIAG",
+  "005Ts00000BtGPDIA3",
+  "005Ts00000BtX53IAF",
+  "005Ts000002AWIQIA4",
+  "005Ts00000BtZV3IAN",
+  "005Ts000001Ak10IAC",
+  "005Ts000006V3vpIAC",
+  "005Ts000005XKgEIAW",
+  "005Ts00000FjJkDIAV",
+]);
+
 function normalizeName(name: string): string {
   return name.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
 }
@@ -30,8 +42,33 @@ export function isComplexAgent(name: string, ownerId?: string): boolean {
   return false;
 }
 
-export function agentSegment(name: string, ownerId?: string): "complex" | "density" {
-  return isComplexAgent(name, ownerId) ? "complex" : "density";
+export function isDensityAgent(name: string, ownerId?: string): boolean {
+  if (ownerId && DENSITY_OWNER_IDS.has(ownerId)) return true;
+
+  const n = normalizeName(name);
+  if (!n) return false;
+
+  if (/teodorescu/.test(n)) return true;
+  if (/boboc/.test(n)) return true;
+  if (/toltic/.test(n)) return true;
+  if (/hanganu/.test(n)) return true;
+  if (/borcaeas/.test(n)) return true;
+  if (/voicu/.test(n) || /mihnea/.test(n)) return true;
+  if (/oroles/.test(n) || (/rosu/.test(n) && !/borcaeas/.test(n))) return true;
+  if (/caba/.test(n) || (/sebastian/.test(n) && !/patru|patr(u|a)/.test(n))) return true;
+  if (/domnica/.test(n) || (/teodor/.test(n) && !/teodorescu/.test(n))) return true;
+
+  return false;
+}
+
+export function isTeamAgent(name: string, ownerId?: string): boolean {
+  return isComplexAgent(name, ownerId) || isDensityAgent(name, ownerId);
+}
+
+export function agentSegment(name: string, ownerId?: string): "complex" | "density" | null {
+  if (isComplexAgent(name, ownerId)) return "complex";
+  if (isDensityAgent(name, ownerId)) return "density";
+  return null;
 }
 
 export function mtdTargetForSegment(segment: "complex" | "density"): number {
