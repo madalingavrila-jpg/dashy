@@ -13,7 +13,16 @@ typography:
 
 ## Brand
 
-URads B2B sales pipeline dashboard. Professional, data-forward, with clear visual separation between **Won** (green) and **Activated** (purple).
+**Dashy** — URads B2B sales pipeline dashboard. Professional, data-forward, with clear visual separation between **Won** (green) and **Activated** (purple).
+
+### Logo (custom SVG)
+
+Stitch project `6890101916617207787` exports SPA shells only (auth required) — no standalone logo asset. Custom **Dashy** mark:
+
+- Bolt Food green gradient (`#34D186` → `#2AAF6A`)
+- Stylized **D** with speed dashes (delivery / “dash” energy)
+- Ascending bar chart + trend arrow (sales pipeline growth)
+- Files: `components/Logo.tsx`, `public/logo.svg`, `app/icon.svg` (favicon)
 
 ## Key UI patterns
 

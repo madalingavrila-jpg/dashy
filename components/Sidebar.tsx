@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Logo } from "@/components/Logo";
 
 const navItems = [
   { icon: "dashboard", label: "Overview", href: "/" },
@@ -28,19 +29,7 @@ export function Sidebar() {
   return (
     <nav className="fixed left-0 top-0 z-50 flex h-full w-[280px] flex-col border-r border-outline-variant bg-surface-container-lowest py-md px-xs">
       <div className="mb-lg px-sm">
-        <div className="flex items-center gap-xs">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-on-primary">
-            <span className="material-symbols-outlined">analytics</span>
-          </div>
-          <div>
-            <h1 className="text-title-lg font-title-lg font-black text-on-surface">
-              URads
-            </h1>
-            <p className="text-label-md font-label-md text-on-surface-variant opacity-70">
-              Team Performance
-            </p>
-          </div>
-        </div>
+        <Logo size={40} subtitle="URads Sales" />
       </div>
 
       <div className="mb-md mx-xs rounded-lg border border-outline-variant bg-surface-container-low px-sm py-xs">
