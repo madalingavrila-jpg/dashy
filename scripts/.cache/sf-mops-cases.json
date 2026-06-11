@@ -15,16 +15,6 @@
       "count": 11
     }
   ],
-  "newOnboardingOpenByStatus": [
-    {
-      "status": "Menu & Assets",
-      "count": 32
-    },
-    {
-      "status": "Onboarding Qualify",
-      "count": 27
-    }
-  ],
   "openByRecordType": [
     {
       "recordType": "New Onboarding",
@@ -49,6 +39,903 @@
     {
       "recordType": "Reactivation",
       "count": 2
+    }
+  ],
+  "openByOwner": [
+    {
+      "ownerId": "0057Q000004S4bFQAS",
+      "name": "Adrian Anin",
+      "count": 19
+    },
+    {
+      "ownerId": "005Ts00000C6g2TIAR",
+      "name": "shanelei abelende",
+      "count": 14
+    },
+    {
+      "ownerId": "00GTs000000wXy5MAE",
+      "name": "Romania",
+      "count": 12
+    },
+    {
+      "ownerId": "005Ts000009HhGHIA0",
+      "name": "Elaine Cris Bobadilla",
+      "count": 8
+    },
+    {
+      "ownerId": "005Ts00000FDPj8IAH",
+      "name": "JericoAngelo Marcelo",
+      "count": 7
+    },
+    {
+      "ownerId": "005Ts00000FDUu5IAH",
+      "name": "MarkLouie Lumio",
+      "count": 7
+    },
+    {
+      "ownerId": "005Ts00000C6gIeIAJ",
+      "name": "javi javier",
+      "count": 7
+    },
+    {
+      "ownerId": "005Qs00000LaNYHIA3",
+      "name": "MariAnn Ignacio",
+      "count": 5
+    },
+    {
+      "ownerId": "005Qs00000L3GXBIA3",
+      "name": "MohammadOmar HadjiTaha",
+      "count": 5
+    },
+    {
+      "ownerId": "005Ts000001Ak10IAC",
+      "name": "Silviu-Mihnea Voicu",
+      "count": 4
+    },
+    {
+      "ownerId": "005Qs00000LaMKUIA3",
+      "name": "Vhictoria Inton",
+      "count": 2
+    },
+    {
+      "ownerId": "005Ts00000C6gIbIAJ",
+      "name": "andrea espinocilla",
+      "count": 1
+    },
+    {
+      "ownerId": "005Ts00000C6gIcIAJ",
+      "name": "laurence dizon",
+      "count": 1
+    }
+  ],
+  "records": [
+    {
+      "id": "500Qs00000lsMRuIAM",
+      "caseNumber": "00067356",
+      "subject": "Neo Napoletana Pizzeria Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDPj8IAH",
+      "ownerName": "JericoAngelo Marcelo",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Qs00000ls2TGIAY",
+      "caseNumber": "00067340",
+      "subject": "Tut Amun Coffee Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lqlQ5IAI",
+      "caseNumber": "00067293",
+      "subject": "Nook Food2Go Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDUu5IAH",
+      "ownerName": "MarkLouie Lumio",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Qs00000lrF13IAE",
+      "caseNumber": "00067289",
+      "subject": "Panini Station Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDUu5IAH",
+      "ownerName": "MarkLouie Lumio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lr00aIAA",
+      "caseNumber": "00067285",
+      "subject": "Pizza Epic Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDPj8IAH",
+      "ownerName": "JericoAngelo Marcelo",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lqkmsIAA",
+      "caseNumber": "00067278",
+      "subject": "Ca la mama by 100% Original Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lomL6IAI",
+      "caseNumber": "00067253",
+      "subject": "La Cratita Vesela Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDUu5IAH",
+      "ownerName": "MarkLouie Lumio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lov06IAA",
+      "caseNumber": "00067247",
+      "subject": "Mazzo Timisoara Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDUu5IAH",
+      "ownerName": "MarkLouie Lumio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000loRFHIA2",
+      "caseNumber": "00067234",
+      "subject": "Kong Burger Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000LaNYHIA3",
+      "ownerName": "MariAnn Ignacio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000loEhVIAU",
+      "caseNumber": "00067218",
+      "subject": "Shaorma la Chef Duran Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000L3GXBIA3",
+      "ownerName": "MohammadOmar HadjiTaha",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lnPjqIAE",
+      "caseNumber": "00067164",
+      "subject": "Lavish Orient Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDUu5IAH",
+      "ownerName": "MarkLouie Lumio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lmrTdIAI",
+      "caseNumber": "00067142",
+      "subject": "La Habib Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000C6gIbIAJ",
+      "ownerName": "andrea espinocilla",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000ljqkMIAQ",
+      "caseNumber": "00067047",
+      "subject": "Pizza TIME - Menu Update",
+      "status": "Menu Update",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "Menu Update"
+    },
+    {
+      "id": "500Qs00000ljIh4IAE",
+      "caseNumber": "00067028",
+      "subject": "Korean corn dog Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000LaNYHIA3",
+      "ownerName": "MariAnn Ignacio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lj9diIAA",
+      "caseNumber": "00067001",
+      "subject": "Koko Loko Burgers Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000FDPj8IAH",
+      "ownerName": "JericoAngelo Marcelo",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000ljEwnIAE",
+      "caseNumber": "00066999",
+      "subject": "Mofticios by Koko Loko Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6gIeIAJ",
+      "ownerName": "javi javier",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lfWXFIA2",
+      "caseNumber": "00066922",
+      "subject": "Focado Express Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000L3GXBIA3",
+      "ownerName": "MohammadOmar HadjiTaha",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lfwUqIAI",
+      "caseNumber": "00066921",
+      "subject": "Focado Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000L3GXBIA3",
+      "ownerName": "MohammadOmar HadjiTaha",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lVBSMIA4",
+      "caseNumber": "00066693",
+      "subject": "Cofetaria Collage Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000LaMKUIA3",
+      "ownerName": "Vhictoria Inton",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lU1VCIA0",
+      "caseNumber": "00066635",
+      "subject": "New ozone source Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000L3GXBIA3",
+      "ownerName": "MohammadOmar HadjiTaha",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Qs00000lUCK3IAO",
+      "caseNumber": "00066633",
+      "subject": "THE FLOWERS HUB SRL Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Qs00000lQl22IAC",
+      "caseNumber": "00066552",
+      "subject": "Beef Up Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000LaNYHIA3",
+      "ownerName": "MariAnn Ignacio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lMAX7IAO",
+      "caseNumber": "00066391",
+      "subject": "Sweets by Barrels Mamaia Sat Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000LaMKUIA3",
+      "ownerName": "Vhictoria Inton",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000l554CIAQ",
+      "caseNumber": "00066053",
+      "subject": "AMO PIZZA&PANINI Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "Expansion"
+    },
+    {
+      "id": "500Qs00000ktQHpIAM",
+      "caseNumber": "00065772",
+      "subject": "Waffle House Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6gIeIAJ",
+      "ownerName": "javi javier",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000ktinVIAQ",
+      "caseNumber": "00065770",
+      "subject": "Gains Eat like a pro Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6gIeIAJ",
+      "ownerName": "javi javier",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000kt7LAIAY",
+      "caseNumber": "00065759",
+      "subject": "Chicken express Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDUu5IAH",
+      "ownerName": "MarkLouie Lumio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000kt0V0IAI",
+      "caseNumber": "00065756",
+      "subject": "Brunch House Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6gIeIAJ",
+      "ownerName": "javi javier",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000ktVWvIAM",
+      "caseNumber": "00065753",
+      "subject": "Egg & Smash House Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6gIeIAJ",
+      "ownerName": "javi javier",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000kbCw2IAE",
+      "caseNumber": "00065197",
+      "subject": "BOWLD HIM – Family Fresh Meals Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDUu5IAH",
+      "ownerName": "MarkLouie Lumio",
+      "recordType": "New Merchant Venue"
+    },
+    {
+      "id": "500Qs00000kS70tIAC",
+      "caseNumber": "00064832",
+      "subject": "Trattoria 64 - Menu Update",
+      "status": "Menu Update",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "Menu Update"
+    },
+    {
+      "id": "500Qs00000kLTr8IAG",
+      "caseNumber": "00064696",
+      "subject": "Cofetaria Claus Crangasi - Menu Update",
+      "status": "Menu Update",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "Menu Update"
+    },
+    {
+      "id": "500Qs00000kLd7IIAS",
+      "caseNumber": "00064695",
+      "subject": "Cofetaria Claus - Menu Update",
+      "status": "Menu Update",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "Menu Update"
+    },
+    {
+      "id": "500Qs00000jXrrdIAC",
+      "caseNumber": "00063096",
+      "subject": "Full House Galati Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000LaNYHIA3",
+      "ownerName": "MariAnn Ignacio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000jXnMcIAK",
+      "caseNumber": "00063094",
+      "subject": "Full House Galati Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000LaNYHIA3",
+      "ownerName": "MariAnn Ignacio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000jWajNIAS",
+      "caseNumber": "00063059",
+      "subject": "Full House Galati Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000jWjWRIA0",
+      "caseNumber": "00063057",
+      "subject": "Full House Galati Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000jXFBIIA4",
+      "caseNumber": "00063056",
+      "subject": "Full House Galati Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000jX0afIAC",
+      "caseNumber": "00063054",
+      "subject": "Full House Galati Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000jXGbyIAG",
+      "caseNumber": "00063053",
+      "subject": "Full House Galati Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000jWR9sIAG",
+      "caseNumber": "00063052",
+      "subject": "Full House Galati Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000jWk5vIAC",
+      "caseNumber": "00063051",
+      "subject": "Full House Galati Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000jXBkcIAG",
+      "caseNumber": "00063049",
+      "subject": "Full House Galati Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000jWBHpIAO",
+      "caseNumber": "00063018",
+      "subject": "La Draft Tineretului Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000L3GXBIA3",
+      "ownerName": "MohammadOmar HadjiTaha",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Qs00000ijVbBIAU",
+      "caseNumber": "00061062",
+      "subject": "Sex Shop Naked - Menu Update",
+      "status": "Menu Update",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "Menu Update"
+    },
+    {
+      "id": "500Qs00000hnZryIAE",
+      "caseNumber": "00059133",
+      "subject": "Le Tacos - Menu Update",
+      "status": "Menu Update",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "Menu Update"
+    },
+    {
+      "id": "500Qs00000hbOvTIAU",
+      "caseNumber": "00058854",
+      "subject": "Justinn Burger Store Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000FDPj8IAH",
+      "ownerName": "JericoAngelo Marcelo",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000hYvazIAC",
+      "caseNumber": "00058730",
+      "subject": "Hookie Charles de Gaulle Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDPj8IAH",
+      "ownerName": "JericoAngelo Marcelo",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000fTO62IAG",
+      "caseNumber": "00053772",
+      "subject": "Agora - Menu Update",
+      "status": "Menu Update",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "Menu Update"
+    },
+    {
+      "id": "500Qs00000em9EzIAI",
+      "caseNumber": "00051862",
+      "subject": "Papa Gyros Diham Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6gIeIAJ",
+      "ownerName": "javi javier",
+      "recordType": "New Merchant Venue"
+    },
+    {
+      "id": "500Qs00000elUoTIAU",
+      "caseNumber": "00051831",
+      "subject": "Pokka Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDPj8IAH",
+      "ownerName": "JericoAngelo Marcelo",
+      "recordType": "Reactivation"
+    },
+    {
+      "id": "500Qs00000eYWbRIAW",
+      "caseNumber": "00051353",
+      "subject": "Lucky Noodles Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000FDPj8IAH",
+      "ownerName": "JericoAngelo Marcelo",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000dTjXzIAK",
+      "caseNumber": "00049716",
+      "subject": "Zaki Turkish Doner Kebab Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000d3vUjIAI",
+      "caseNumber": "00048718",
+      "subject": "BIOfresh - Menu Update",
+      "status": "Menu Update",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "Menu Update"
+    },
+    {
+      "id": "500Qs00000ckYvGIAU",
+      "caseNumber": "00048222",
+      "subject": "Cartuf Centru Vechi Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000C6gIeIAJ",
+      "ownerName": "javi javier",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000bo2CcIAI",
+      "caseNumber": "00046612",
+      "subject": "Restaurant Serenity - Menu Update",
+      "status": "Menu Update",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "Menu Update"
+    },
+    {
+      "id": "500Ts00000WXt9mIAD",
+      "caseNumber": "00036197",
+      "subject": "Dorobanți Doner - Menu Update",
+      "status": "Menu Update",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "Menu Update"
+    },
+    {
+      "id": "500Ts00000V4U2UIAV",
+      "caseNumber": "00034397",
+      "subject": "Classic Food Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Ts00000UKb2GIAT",
+      "caseNumber": "00033403",
+      "subject": "Oliv Bistro Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts000009HhGHIA0",
+      "ownerName": "Elaine Cris Bobadilla",
+      "recordType": "Reactivation"
+    },
+    {
+      "id": "500Ts00000U6YsFIAV",
+      "caseNumber": "00033046",
+      "subject": "Tomis Clatite Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts00000C6gIcIAJ",
+      "ownerName": "laurence dizon",
+      "recordType": "New Merchant Venue"
+    },
+    {
+      "id": "500Ts00000OkJLEIA3",
+      "caseNumber": "00025569",
+      "subject": "Strudel Retes Haus Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts000009HhGHIA0",
+      "ownerName": "Elaine Cris Bobadilla",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Ts00000NMElbIAH",
+      "caseNumber": "00023831",
+      "subject": "Gelateria GIOELIA Craiova Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts000009HhGHIA0",
+      "ownerName": "Elaine Cris Bobadilla",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000NM1eeIAD",
+      "caseNumber": "00023820",
+      "subject": "Gelateria GIOELIA Otopeni Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts000009HhGHIA0",
+      "ownerName": "Elaine Cris Bobadilla",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000NG9YNIA1",
+      "caseNumber": "00023660",
+      "subject": "Patiseria LUCA Suceava George Enescu Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts000009HhGHIA0",
+      "ownerName": "Elaine Cris Bobadilla",
+      "recordType": "Expansion"
+    },
+    {
+      "id": "500Ts00000MmYsUIAV",
+      "caseNumber": "00023021",
+      "subject": "Iskender Kebab Satu Mare Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts000009HhGHIA0",
+      "ownerName": "Elaine Cris Bobadilla",
+      "recordType": "Expansion"
+    },
+    {
+      "id": "500Ts00000LY6a5IAD",
+      "caseNumber": "00021281",
+      "subject": "Grapado Cornisa Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts000009HhGHIA0",
+      "ownerName": "Elaine Cris Bobadilla",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000LQkzIIAT",
+      "caseNumber": "00021093",
+      "subject": "Parfum de Grătar Cotroceni Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000KyQYpIAN",
+      "caseNumber": "00020259",
+      "subject": "Configuratorul de Pizza Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "Expansion"
+    },
+    {
+      "id": "500Ts00000KrXvJIAV",
+      "caseNumber": "00020036",
+      "subject": "McDonald's Sibiu Centru Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000KZBDLIA5",
+      "caseNumber": "00019520",
+      "subject": "Moft & Sweets  Design Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts000009HhGHIA0",
+      "ownerName": "Elaine Cris Bobadilla",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000K4QgMIAV",
+      "caseNumber": "00018716",
+      "subject": "Darayava by Viky Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000JouU4IAJ",
+      "caseNumber": "00018492",
+      "subject": "Healthy Don Buritto Floresti Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000J4GhfIAF",
+      "caseNumber": "00017359",
+      "subject": "Victoriei Brooklyn Drinks Market",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts000001Ak10IAC",
+      "ownerName": "Silviu-Mihnea Voicu",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000HzLFbIAN",
+      "caseNumber": "00016299",
+      "subject": "Hora Bucatariei Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000HnajiIAB",
+      "caseNumber": "00015967",
+      "subject": "NAZARETH Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Ts00000HbwWLIAZ",
+      "caseNumber": "00015734",
+      "subject": "CTW Bubble Tea Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000H0jzeIAB",
+      "caseNumber": "00014896",
+      "subject": "Saniour - Decebal Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000GvuYxIAJ",
+      "caseNumber": "00014857",
+      "subject": "Lădița Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Ts000001Ak10IAC",
+      "ownerName": "Silviu-Mihnea Voicu",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Ts00000GvFixIAF",
+      "caseNumber": "00014817",
+      "subject": "Atelierul lui Radu Darie Cotroceni Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts000001Ak10IAC",
+      "ownerName": "Silviu-Mihnea Voicu",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000Gp3CLIAZ",
+      "caseNumber": "00014676",
+      "subject": "Iuliu Maniu Brooklyn Drinks Market",
+      "status": "Menu & Assets",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000Goj3TIAR",
+      "caseNumber": "00014675",
+      "subject": "Tulnici Brooklyn Drinks Market",
+      "status": "Menu & Assets",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000FKfeQIAT",
+      "caseNumber": "00011898",
+      "subject": "Sandy's Diner Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Ts00000EmmSEIAZ",
+      "caseNumber": "00010912",
+      "subject": "Restaurant Prima Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts000001Ak10IAC",
+      "ownerName": "Silviu-Mihnea Voicu",
+      "recordType": "Expansion"
+    },
+    {
+      "id": "500Ts00000EfgxoIAB",
+      "caseNumber": "00010661",
+      "subject": "Cofetaria La Creme Cora Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000ESQJ6IAP",
+      "caseNumber": "00010326",
+      "subject": "La Babi Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Ts00000EQJF6IAP",
+      "caseNumber": "00010231",
+      "subject": "Student's Pub - Menu Update",
+      "status": "Menu Update",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "Menu Update"
+    },
+    {
+      "id": "500Ts00000EIZbzIAH",
+      "caseNumber": "00009887",
+      "subject": "Vegan Desserts Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Ts00000DtFjyIAF",
+      "caseNumber": "00009489",
+      "subject": "Ben’s Chickery Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000DtRY4IAN",
+      "caseNumber": "00009488",
+      "subject": "Wingaria Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000DtSx4IAF",
+      "caseNumber": "00009487",
+      "subject": "Smashburg Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000DtGpfIAF",
+      "caseNumber": "00009485",
+      "subject": "Fries Lord Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Ts00000DBAfmIAH",
+      "caseNumber": "00008362",
+      "subject": "Noo'vo Resto Lounge Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "0057Q000004S4bFQAS",
+      "ownerName": "Adrian Anin",
+      "recordType": "New Onboarding"
     }
   ]
 }

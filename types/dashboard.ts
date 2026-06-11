@@ -198,22 +198,20 @@ export type TeamProgressView = {
   agents: TeamAgentProgressView[];
 };
 
-export type MopsAccountRow = {
+export type MopsCaseRow = {
   id: string;
-  name: string;
-  city: string;
-  stage: string;
-  sfOpportunityId?: string;
-  sfAccountId?: string;
+  caseNumber: string;
+  subject: string;
+  status: string;
+  ownerId: string;
+  ownerName: string;
+  recordType: string;
 };
 
-export type MopsAgentRow = {
+export type MopsOwnerRow = {
   ownerId: string;
   name: string;
-  segment: "complex" | "density";
   count: number;
-  stageCounts?: Record<string, number>;
-  accounts?: MopsAccountRow[];
 };
 
 export type MopsMetric = {
@@ -231,27 +229,21 @@ export type MopsData = {
   dashboardTitle: string;
   dashboardUrl: string;
   salesforceInstanceUrl?: string;
-  totalLiveOnboarding: number;
   metrics: MopsMetric[];
   openCaseStatuses?: Array<{ status: string; count: number }>;
   openCaseRecordTypes?: Array<{ recordType: string; count: number }>;
-  onboardingPipeline?: PipelineStage[];
-  onboardingByAgent: MopsAgentRow[];
+  openByOwner?: MopsOwnerRow[];
+  openCasesList?: MopsCaseRow[];
 };
 
-export type MopsAccountViewRow = MopsAccountRow & {
-  sfAccountUrl?: string | null;
-  sfOpportunityUrl?: string | null;
+export type MopsCaseViewRow = MopsCaseRow & {
+  sfCaseUrl?: string | null;
 };
 
-export type MopsAgentViewRow = {
+export type MopsOwnerViewRow = {
   ownerId: string;
   name: string;
-  segment: string;
-  segmentColor: string;
   count: string;
-  stageSummary: string;
-  accounts: MopsAccountViewRow[];
 };
 
 export type MopsView = {
@@ -260,9 +252,8 @@ export type MopsView = {
   metrics: MetricCard[];
   openCaseStatuses: Array<{ status: string; count: string }>;
   openCaseRecordTypes: Array<{ recordType: string; count: string }>;
-  onboardingPipeline: FunnelStageView[];
-  totalLiveOnboarding: string;
-  onboardingByAgent: MopsAgentViewRow[];
+  openByOwner: MopsOwnerViewRow[];
+  openCasesList: MopsCaseViewRow[];
 };
 
 export type HitlistRow = {

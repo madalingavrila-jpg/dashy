@@ -34,6 +34,7 @@ import {
 import {
   accountsFilterUrl,
   salesforceAccountUrl,
+  salesforceCaseUrl,
   salesforceOpportunityUrl,
 } from "../../lib/salesforce.js";
 import {
@@ -568,8 +569,6 @@ function buildMopsView(mops: MopsData | undefined): MopsView | undefined {
     };
   });
 
-  const onboardingPipeline = buildFunnelStages(mops.onboardingPipeline ?? []);
-
   return {
     dashboardTitle: mops.dashboardTitle,
     dashboardUrl: mops.dashboardUrl,
@@ -582,28 +581,15 @@ function buildMopsView(mops: MopsData | undefined): MopsView | undefined {
       recordType: row.recordType,
       count: formatInteger(row.count),
     })),
-    onboardingPipeline,
-    totalLiveOnboarding: formatInteger(mops.totalLiveOnboarding),
-    onboardingByAgent: (mops.onboardingByAgent ?? []).map((agent) => {
-      const segment = segmentStyle(agent.segment);
-      const stageSummary = Object.entries(agent.stageCounts ?? {})
-        .sort((a, b) => b[1] - a[1])
-        .map(([stage, count]) => `${stage} (${count})`)
-        .join(" · ");
-      return {
-        ownerId: agent.ownerId,
-        name: agent.name,
-        segment: segment.label,
-        segmentColor: segment.color,
-        count: formatInteger(agent.count),
-        stageSummary,
-        accounts: (agent.accounts ?? []).map((account) => ({
-          ...account,
-          sfAccountUrl: salesforceAccountUrl(account.sfAccountId, instanceUrl),
-          sfOpportunityUrl: salesforceOpportunityUrl(account.sfOpportunityId, instanceUrl),
-        })),
-      };
-    }),
+    openByOwner: (mops.openByOwner ?? []).map((row) => ({
+      ownerId: row.ownerId,
+      name: row.name,
+      count: formatInteger(row.count),
+    })),
+    openCasesList: (mops.openCasesList ?? []).map((row) => ({
+      ...row,
+      sfCaseUrl: salesforceCaseUrl(row.id, instanceUrl),
+    })),
   };
 }
 
@@ -682,9 +668,8 @@ function emptyMopsView(): MopsView {
     metrics: [],
     openCaseStatuses: [],
     openCaseRecordTypes: [],
-    onboardingPipeline: [],
-    totalLiveOnboarding: "—",
-    onboardingByAgent: [],
+    openByOwner: [],
+    openCasesList: [],
   };
 }
 

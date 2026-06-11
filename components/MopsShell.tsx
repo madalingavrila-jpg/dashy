@@ -3,8 +3,7 @@
 import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { MetricCards } from "@/components/MetricCards";
-import { StageBreakdown } from "@/components/StageBreakdown";
-import { MopsOnboardingTable } from "@/components/MopsOnboardingTable";
+import { MopsCasesTable } from "@/components/MopsCasesTable";
 import { useDashboard } from "@/lib/useDashboard";
 
 const SF_DASHBOARD_URL =
@@ -18,7 +17,7 @@ export function MopsShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="MOps"
-        subtitle="Open case workload — non-closed MOps cases only. Onboarding pipeline below is sales opportunities, not cases."
+        subtitle="Open case workload — non-closed MOps cases only."
         updatedAt={model?.updatedAt}
         loading={loading}
         actions={
@@ -84,22 +83,24 @@ export function MopsShell() {
         </div>
       ) : null}
 
-      {mops?.onboardingPipeline?.length ? (
-        <div className="glass-card rounded-xl p-lg border border-outline-variant/40">
-          <p className="mb-xs text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
-            Sales opportunities · not cases
-          </p>
-          <h3 className="mb-xs text-title-md font-bold text-on-surface">
-            Onboarding pipeline ({mops.totalLiveOnboarding ?? "—"} team opps)
-          </h3>
-          <p className="mb-md text-body-md text-on-surface-variant">
-            Romania team opps in Contract sent through Ready to Activate — excludes Activated.
-          </p>
-          <StageBreakdown sales={mops.onboardingPipeline} loading={loading} />
+      {mops?.openByOwner?.length ? (
+        <div className="glass-card rounded-xl p-lg">
+          <h3 className="mb-md text-title-md font-bold text-on-surface">Open cases by owner</h3>
+          <div className="flex flex-wrap gap-sm">
+            {mops.openByOwner.map((row) => (
+              <div
+                key={row.ownerId}
+                className="rounded-lg border border-outline-variant/60 bg-surface-container-low px-md py-sm"
+              >
+                <p className="text-label-md text-on-surface-variant">{row.name}</p>
+                <p className="text-title-lg font-bold text-on-surface">{row.count}</p>
+              </div>
+            ))}
+          </div>
         </div>
       ) : null}
 
-      <MopsOnboardingTable agents={mops?.onboardingByAgent} loading={loading} />
+      <MopsCasesTable cases={mops?.openCasesList} loading={loading} />
     </div>
   );
 }

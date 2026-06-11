@@ -277,16 +277,13 @@
         "dashboardId",
         "dashboardTitle",
         "dashboardUrl",
-        "metrics",
-        "onboardingByAgent",
-        "totalLiveOnboarding"
+        "metrics"
       ],
       "properties": {
         "dashboardId": { "type": "string" },
         "dashboardTitle": { "type": "string" },
         "dashboardUrl": { "type": "string" },
         "salesforceInstanceUrl": { "type": "string" },
-        "totalLiveOnboarding": { "type": "number" },
         "metrics": {
           "type": "array",
           "items": {
@@ -325,46 +322,31 @@
             }
           }
         },
-        "onboardingPipeline": {
+        "openByOwner": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["stage", "count"],
+            "required": ["ownerId", "name", "count"],
             "properties": {
-              "stage": { "type": "string" },
+              "ownerId": { "type": "string" },
+              "name": { "type": "string" },
               "count": { "type": "number" }
             }
           }
         },
-        "onboardingByAgent": {
+        "openCasesList": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["ownerId", "name", "segment", "count"],
+            "required": ["id", "caseNumber", "subject", "status", "ownerId", "ownerName", "recordType"],
             "properties": {
+              "id": { "type": "string" },
+              "caseNumber": { "type": "string" },
+              "subject": { "type": "string" },
+              "status": { "type": "string" },
               "ownerId": { "type": "string" },
-              "name": { "type": "string" },
-              "segment": { "type": "string", "enum": ["complex", "density"] },
-              "count": { "type": "number" },
-              "stageCounts": {
-                "type": "object",
-                "additionalProperties": { "type": "number" }
-              },
-              "accounts": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "required": ["id", "name", "stage"],
-                  "properties": {
-                    "id": { "type": "string" },
-                    "name": { "type": "string" },
-                    "city": { "type": "string" },
-                    "stage": { "type": "string" },
-                    "sfOpportunityId": { "type": "string" },
-                    "sfAccountId": { "type": "string" }
-                  }
-                }
-              }
+              "ownerName": { "type": "string" },
+              "recordType": { "type": "string" }
             }
           }
         }

@@ -18,6 +18,15 @@ export function salesforceOpportunityUrl(
   return `${base}/lightning/r/Opportunity/${opportunityId}/view`;
 }
 
+export function salesforceCaseUrl(
+  caseId: string | undefined,
+  instanceUrl = DEFAULT_INSTANCE,
+): string | null {
+  if (!caseId) return null;
+  const base = instanceUrl.replace(/\/$/, "");
+  return `${base}/lightning/r/Case/${caseId}/view`;
+}
+
 export function accountsFilterUrl(params: {
   stage?: string;
   owner?: string;
