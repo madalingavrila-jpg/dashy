@@ -32,9 +32,16 @@ body {
     0 8px 24px rgba(124, 58, 237, 0.08);
 }
 
-/* Complex Team | Density Team — parallel columns on lg+, stack below */
+/* Complex Team | Density Team — parallel equal columns on lg+, stack below */
+@media (min-width: 1024px) {
+  .team-progress-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
 .team-progress-grid > .team-card {
   width: 100%;
+  min-width: 0;
 }
 
 .trend-up {

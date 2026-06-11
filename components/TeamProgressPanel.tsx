@@ -299,7 +299,7 @@ export function TeamProgressPanel({
 
   return (
     <div
-      className={`team-card ${cardAccent} glass-card min-w-0 rounded-xl border-l-4 ${borderColor} ${parallel ? "p-md" : "p-lg"}`}
+      className={`team-card ${cardAccent} glass-card flex h-full min-w-0 flex-col rounded-xl border-l-4 ${borderColor} ${parallel ? "p-md" : "p-lg"}`}
       id={team.segment === "complex" ? "complex-team" : "density-team"}
     >
       <header className={`space-y-md ${parallel ? "mb-md" : "mb-lg"}`}>
@@ -417,7 +417,7 @@ export function TeamProgressGrid({
           </p>
         ) : null}
       </div>
-      <div className="team-progress-grid grid grid-cols-1 gap-lg lg:grid-cols-2 lg:items-start lg:gap-md">
+      <div className="team-progress-grid grid grid-cols-1 gap-lg lg:grid-cols-2 lg:items-stretch lg:gap-md">
         {loading && !teams?.length ? (
           <>
             <div className="glass-card h-[32rem] min-w-0 animate-pulse rounded-xl" />
