@@ -127,7 +127,7 @@ export function TierTrackingTable({ tiers, loading }: TierTableProps) {
       <div className="border-b border-outline-variant p-lg">
         <h3 className="text-title-lg font-title-lg font-bold">Segment Breakdown</h3>
         <p className="text-body-md text-on-surface-variant">
-          MTD achievement by segment — Complex (8/rep) vs Density (25/rep), Won and Activated tracked separately
+          MTD achievement by segment — Won: Complex 10/rep, Density 30/rep · Activated: Complex 8/rep, Density 25/rep
         </p>
       </div>
       <div className="overflow-x-auto">

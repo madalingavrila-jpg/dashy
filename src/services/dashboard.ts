@@ -33,6 +33,7 @@ import {
   agentSegment,
   isTeamAgent,
   mtdTargetForSegment,
+  activatedMtdTargetForSegment,
   COMPLEX_MTD_TARGET,
   DENSITY_MTD_TARGET,
 } from "../../lib/agent-segments.js";
@@ -343,6 +344,7 @@ function buildAgentViews(
       const segment = agent.segment ?? agentSegment(agent.name, agent.ownerId);
       if (!segment) return null;
       const mtdTarget = agent.mtdTarget ?? mtdTargetForSegment(segment);
+      const activatedMtdTarget = activatedMtdTargetForSegment(segment);
       const segmentMeta = segmentStyle(segment);
       const topStages = Object.entries(agent.stageCounts)
         .sort((a, b) => b[1] - a[1])
@@ -352,8 +354,8 @@ function buildAgentViews(
       const wonProgress = mtdTarget
         ? Math.min(100, Math.round((agent.wonMtd / mtdTarget) * 100))
         : 0;
-      const activatedProgress = mtdTarget
-        ? Math.min(100, Math.round((agent.activatedMtd / mtdTarget) * 100))
+      const activatedProgress = activatedMtdTarget
+        ? Math.min(100, Math.round((agent.activatedMtd / activatedMtdTarget) * 100))
         : 0;
       return {
         ownerId: agent.ownerId,
@@ -361,6 +363,7 @@ function buildAgentViews(
         segment: segmentMeta.label,
         segmentColor: segmentMeta.color,
         mtdTarget: formatInteger(mtdTarget),
+        activatedMtdTarget: formatInteger(activatedMtdTarget),
         pipelineCount: formatInteger(agent.pipelineCount),
         stageSummary: topStages || "—",
         wonMtd: formatInteger(agent.wonMtd),

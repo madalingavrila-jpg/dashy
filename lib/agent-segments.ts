@@ -1,7 +1,12 @@
 /** Complex vs Density rep classification and MTD per-rep targets (Romania URads). */
 
-export const COMPLEX_MTD_TARGET = 8;
-export const DENSITY_MTD_TARGET = 25;
+/** Per-rep Won MTD targets (Romania URads). */
+export const COMPLEX_MTD_TARGET = 10;
+export const DENSITY_MTD_TARGET = 30;
+
+/** Per-rep Activated MTD targets (unchanged). */
+export const COMPLEX_ACTIVATED_MTD_TARGET = 8;
+export const DENSITY_ACTIVATED_MTD_TARGET = 25;
 
 export const COMPLEX_OWNER_IDS = new Set([
   "005Ts0000060ICnIAM",
@@ -73,4 +78,8 @@ export function agentSegment(name: string, ownerId?: string): "complex" | "densi
 
 export function mtdTargetForSegment(segment: "complex" | "density"): number {
   return segment === "complex" ? COMPLEX_MTD_TARGET : DENSITY_MTD_TARGET;
+}
+
+export function activatedMtdTargetForSegment(segment: "complex" | "density"): number {
+  return segment === "complex" ? COMPLEX_ACTIVATED_MTD_TARGET : DENSITY_ACTIVATED_MTD_TARGET;
 }

@@ -54,21 +54,21 @@ Per-rep monthly targets apply to **both Won MTD and Activated MTD** separately.
 
 Only these 14 reps appear in `agents`, MTD targets, and Team Progress panels. Exclude `Administrator` and any other SF owners.
 
-**Global MTD targets** (sum of individual targets):
+**Global MTD targets** (sum of individual per-rep targets):
 
 ```
-targetWon       = complexReps × 8 + densityReps × 25
+targetWon       = complexReps × 10 + densityReps × 30
 targetActivated = complexReps × 8 + densityReps × 25
 ```
 
 **Segment breakdown** in `mtdAchievement.tiers` (replaces old tier targets):
 
-- Complex / Won — target `complexReps × 8`, actual = sum of complex reps' `wonMtd`
-- Density / Won — target `densityReps × 25`, actual = sum of density reps' `wonMtd`
-- Complex / Activated — same target formula, actual = sum of `activatedMtd`
-- Density / Activated — same target formula, actual = sum of `activatedMtd`
+- Complex / Won — target `complexReps × 10`, actual = sum of complex reps' `wonMtd`
+- Density / Won — target `densityReps × 30`, actual = sum of density reps' `wonMtd`
+- Complex / Activated — target `complexReps × 8`, actual = sum of `activatedMtd`
+- Density / Activated — target `densityReps × 25`, actual = sum of `activatedMtd`
 
-Each agent row must include `segment` (`complex` | `density`) and `mtdTarget` (`8` or `25`).
+Each agent row must include `segment` (`complex` | `density`) and `mtdTarget` (Won per-rep: `10` or `30`).
 
 Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.mjs` and `scripts/patch-mtd-targets.mjs`).
 

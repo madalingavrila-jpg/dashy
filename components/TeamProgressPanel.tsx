@@ -109,7 +109,7 @@ export function TeamProgressGrid({ teams, month, loading }: TeamProgressGridProp
           Complex & Density — Won MTD progress
         </h2>
         {month ? (
-          <p className="text-body-md text-on-surface-variant">{month} · 8/rep Complex, 25/rep Density</p>
+          <p className="text-body-md text-on-surface-variant">{month} · 10/rep Complex, 30/rep Density (Won MTD)</p>
         ) : null}
       </div>
       <div className="grid grid-cols-1 gap-md xl:grid-cols-2">

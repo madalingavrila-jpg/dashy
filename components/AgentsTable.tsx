@@ -26,7 +26,7 @@ export function AgentsTable({ agents, loading }: AgentsTableProps) {
       <div className="border-b border-outline-variant p-lg">
         <h3 className="text-title-lg font-title-lg font-bold">Sales Agents</h3>
         <p className="text-body-md text-on-surface-variant">
-          Romania URads owners — Complex target 8/rep, Density target 25/rep (MTD Won & Activated)
+          Romania URads owners — Won target Complex 10/rep, Density 30/rep · Activated target Complex 8/rep, Density 25/rep
         </p>
       </div>
       <div className="overflow-x-auto">
@@ -40,7 +40,7 @@ export function AgentsTable({ agents, loading }: AgentsTableProps) {
                 Segment
               </th>
               <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
-                Target
+                Won target
               </th>
               <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
                 Pipeline
@@ -112,7 +112,7 @@ export function AgentsTable({ agents, loading }: AgentsTableProps) {
                   <td className="px-lg py-md">
                     <div className="space-y-xs">
                       <span className="rounded-full badge-activated px-xs py-[2px] text-label-md font-bold">
-                        {agent.activatedMtd} / {agent.mtdTarget}
+                        {agent.activatedMtd} / {agent.activatedMtdTarget}
                       </span>
                       {progressBar(agent.activatedMtdProgress, "activated")}
                     </div>

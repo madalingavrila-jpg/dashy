@@ -92,6 +92,7 @@ export type AgentViewRow = {
   segment: string;
   segmentColor: string;
   mtdTarget: string;
+  activatedMtdTarget: string;
   pipelineCount: string;
   stageSummary: string;
   wonMtd: string;
