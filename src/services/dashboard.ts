@@ -9,6 +9,7 @@ import type {
   FunnelStageView,
   HitlistRow,
   MetricCard,
+  TeamProgressView,
   TrendDirection,
 } from "../../types/dashboard.js";
 import {
@@ -18,7 +19,7 @@ import {
   trendDirection,
 } from "../../lib/format.js";
 import { accountsFilterUrl, salesforceAccountUrl } from "../../lib/salesforce.js";
-import { agentSegment, mtdTargetForSegment } from "../../lib/agent-segments.js";
+import { agentSegment, mtdTargetForSegment, COMPLEX_MTD_TARGET, DENSITY_MTD_TARGET } from "../../lib/agent-segments.js";
 
 function parseCsvRow(line: string): string[] {
   const values: string[] = [];
@@ -214,11 +215,63 @@ function buildMtdOverviewMetrics(data: DashboardRawData): MetricCard[] {
   ];
 }
 
-function buildYtdOverviewMetrics(data: DashboardRawData): MetricCard[] {
-  const { totals } = data.salesPipeline;
+function buildTeamProgress(
+  agents: DashboardRawData["salesPipeline"]["agents"],
+): TeamProgressView[] {
+  const enriched = (agents ?? []).map((agent) => {
+    const segment = agent.segment ?? agentSegment(agent.name, agent.ownerId);
+    const mtdTarget = agent.mtdTarget ?? mtdTargetForSegment(segment);
+    const mtdActual = agent.wonMtd ?? 0;
+    const progress = mtdTarget
+      ? Math.min(100, Math.round((mtdActual / mtdTarget) * 100))
+      : 0;
+    return {
+      ownerId: agent.ownerId,
+      name: agent.name,
+      segment,
+      mtdTarget,
+      mtdActual,
+      progress,
+      accountsUrl: accountsFilterUrl({ ownerId: agent.ownerId }),
+    };
+  });
+
+  const buildTeam = (
+    segment: "complex" | "density",
+    label: string,
+    name: string,
+    targetPerRep: number,
+  ): TeamProgressView => {
+    const members = enriched
+      .filter((agent) => agent.segment === segment)
+      .sort((a, b) => b.mtdActual - a.mtdActual || a.name.localeCompare(b.name));
+    const actual = members.reduce((sum, agent) => sum + agent.mtdActual, 0);
+    const target = members.length * targetPerRep;
+    const progress = target ? Math.min(100, Math.round((actual / target) * 100)) : 0;
+
+    return {
+      segment,
+      segmentLabel: label,
+      name,
+      repCount: members.length,
+      targetPerRep,
+      target: formatInteger(target),
+      actual: formatInteger(actual),
+      progress,
+      agents: members.map((agent) => ({
+        ownerId: agent.ownerId,
+        name: agent.name,
+        mtdTarget: formatInteger(agent.mtdTarget),
+        mtdActual: formatInteger(agent.mtdActual),
+        progress: agent.progress,
+        accountsUrl: agent.accountsUrl,
+      })),
+    };
+  };
+
   return [
-    buildTotalMetric("Total Won (YTD)", totals.won, "emoji_events", "won"),
-    buildTotalMetric("Total Activated (YTD)", totals.activated, "rocket_launch", "activated"),
+    buildTeam("complex", "Complex", "Complex", COMPLEX_MTD_TARGET),
+    buildTeam("density", "Density", "Density", DENSITY_MTD_TARGET),
   ];
 }
 
@@ -333,7 +386,7 @@ function placeholderModel(source: DataSourceStatus, error?: string): DashboardMo
       emptyMetric("Leads MTD"),
       emptyMetric("Qualified MTD"),
     ],
-    overviewYtdMetrics: [emptyMetric("Total Won (YTD)"), emptyMetric("Total Activated (YTD)")],
+    teamProgress: [],
     totals: {
       won: emptyMetric("Total Won"),
       activated: emptyMetric("Total Activated"),
@@ -390,7 +443,7 @@ function toDashboardModel(
     sources: source,
     mtdMonthLabel: mtdAchievement.month,
     overviewMetrics: buildMtdOverviewMetrics(data),
-    overviewYtdMetrics: buildYtdOverviewMetrics(data),
+    teamProgress: buildTeamProgress(agents),
     totals: {
       won: buildTotalMetric("Total Won", salesPipeline.totals.won, "emoji_events", "won"),
       activated: buildTotalMetric(

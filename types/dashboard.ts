@@ -101,6 +101,27 @@ export type AgentViewRow = {
   accountsUrl: string;
 };
 
+export type TeamAgentProgressView = {
+  ownerId: string;
+  name: string;
+  mtdTarget: string;
+  mtdActual: string;
+  progress: number;
+  accountsUrl: string;
+};
+
+export type TeamProgressView = {
+  segment: "complex" | "density";
+  segmentLabel: string;
+  name: string;
+  repCount: number;
+  targetPerRep: number;
+  target: string;
+  actual: string;
+  progress: number;
+  agents: TeamAgentProgressView[];
+};
+
 export type HitlistRow = {
   id: string;
   priority: number;
@@ -256,7 +277,7 @@ export type DashboardModel = {
   sources: DataSourceStatus;
   mtdMonthLabel: string;
   overviewMetrics: MetricCard[];
-  overviewYtdMetrics: MetricCard[];
+  teamProgress: TeamProgressView[];
   totals: {
     won: MetricCard;
     activated: MetricCard;

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { MetricCards } from "@/components/MetricCards";
-import { DualFunnelGrid } from "@/components/FunnelPanel";
+import { TeamProgressGrid } from "@/components/TeamProgressPanel";
 import { WeeklyMetricsGrid } from "@/components/WeeklyCharts";
 import { useDashboard } from "@/lib/useDashboard";
 
@@ -41,24 +41,9 @@ export function OverviewShell() {
         <MetricCards metrics={model?.overviewMetrics} loading={loading} columns={6} />
       </section>
 
-      <section className="space-y-sm">
-        <div>
-          <p className="text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
-            Year to date
-          </p>
-          <h2 className="text-body-lg text-on-surface-variant">Cumulative YTD totals</h2>
-        </div>
-        <MetricCards
-          metrics={model?.overviewYtdMetrics}
-          loading={loading}
-          columns={2}
-          compact
-        />
-      </section>
-
-      <DualFunnelGrid
-        sales={model?.snapshot.sales}
-        onboarding={model?.snapshot.onboarding}
+      <TeamProgressGrid
+        teams={model?.teamProgress}
+        month={monthLabel}
         loading={loading}
       />
 
