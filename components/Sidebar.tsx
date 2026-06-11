@@ -28,7 +28,7 @@ export function Sidebar() {
   return (
     <nav className="fixed left-0 top-0 z-50 flex h-full w-[280px] flex-col border-r border-outline-variant bg-surface-container-lowest py-md px-xs">
       <div className="mb-lg px-sm">
-        <Logo size={40} subtitle="URads Sales" />
+        <Logo size={40} subtitle="Ultimate Sales Dashboard" />
       </div>
 
       <div className="mb-md mx-xs rounded-lg border border-outline-variant bg-surface-container-low px-sm py-xs">

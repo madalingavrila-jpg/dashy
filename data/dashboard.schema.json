@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://dashy.boltable.eu/data/dashboard.schema.json",
-  "title": "Dashy URads Sales Pipeline Data",
+  "title": "Dashy Ultimate Sales Dashboard Data",
   "description": "Static dashboard payload updated via Cursor (Salesforce MCP + Bolt Sheet MCP) and committed to the repo.",
   "type": "object",
   "required": ["updatedAt", "salesPipeline"],

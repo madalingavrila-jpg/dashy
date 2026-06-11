@@ -337,7 +337,7 @@
       {
         "id": "prod-default",
         "title": "Sales Production — WoW",
-        "description": "Romania URads week-over-week production (Sales Opportunity record type).",
+        "description": "Romania week-over-week production (Sales Opportunity record type).",
         "currentWeek": "W24",
         "priorWeek": "W23",
         "rows": [

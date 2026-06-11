@@ -12,7 +12,7 @@ export function AgentsShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="Sales Agents"
-        subtitle="All URads Romania opportunity owners — drill down to accounts in a new tab."
+        subtitle="All Romania opportunity owners — drill down to accounts in a new tab."
         updatedAt={model?.updatedAt}
         loading={loading}
       />

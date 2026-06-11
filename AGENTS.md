@@ -19,7 +19,7 @@ Optional: publish full JSON to Google Sheet and set `DASHBOARD_SHEET_URL` on Bol
 
 Never merge these metrics. Every section must keep them separate.
 
-## MTD targets (Romania URads reps)
+## MTD targets (Romania reps)
 
 Per-rep monthly targets apply to **both Won MTD and Activated MTD** separately.
 

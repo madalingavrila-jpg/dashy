@@ -301,7 +301,7 @@ const dashboard = {
       {
         id: "prod-default",
         title: "Sales Production — WoW",
-        description: "Romania URads week-over-week production (Sales Opportunity record type).",
+        description: "Romania week-over-week production (Sales Opportunity record type).",
         currentWeek: curWeek.week,
         priorWeek: prevWeek.week,
         rows: ["Leads", "Qualified", "Contract Sent", "Won", "Activated"].map((metric, i) => {

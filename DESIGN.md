@@ -1,5 +1,5 @@
 ---
-name: URads Pipeline Grid
+name: Dashy Pipeline Grid
 colors:
   primary: '#1d4ed8'
   won: '#059669'
@@ -13,7 +13,7 @@ typography:
 
 ## Brand
 
-**Dashy** — URads B2B sales pipeline dashboard. Professional, data-forward, with clear visual separation between **Won** (green) and **Activated** (purple).
+**Dashy** — Ultimate B2B sales pipeline dashboard. Professional, data-forward, with clear visual separation between **Won** (green) and **Activated** (purple).
 
 ### Logo (custom SVG)
 

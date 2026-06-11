@@ -26,7 +26,7 @@ export function AgentsTable({ agents, loading }: AgentsTableProps) {
       <div className="border-b border-outline-variant p-lg">
         <h3 className="text-title-lg font-title-lg font-bold">Sales Agents</h3>
         <p className="text-body-md text-on-surface-variant">
-          Romania URads owners — Won target Complex 10/rep, Density 30/rep · Activated target Complex 8/rep, Density 25/rep
+          Romania sales owners — Won target Complex 10/rep, Density 30/rep · Activated target Complex 8/rep, Density 25/rep
         </p>
       </div>
       <div className="overflow-x-auto">

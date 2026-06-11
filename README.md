@@ -1,6 +1,6 @@
-# dashy — URads Sales Pipeline Dashboard
+# Dashy — Ultimate Sales Dashboard
 
-Sales pipeline visibility for URads Romania — **Won** and **Activated** tracked separately. Next.js UI + Express API, deployed on Boltable via Paketo.
+Sales pipeline visibility for Romania — **Won** and **Activated** tracked separately. Next.js UI + Express API, deployed on Boltable via Paketo.
 
 ## Architecture
 
@@ -76,7 +76,7 @@ Config files: `project.toml`, `Procfile`.
 
 ## Design reference
 
-- `DESIGN.md` — URads design tokens (blue/green Won, purple Activated)
+- `DESIGN.md` — Dashy design tokens (blue/green Won, purple Activated)
 - `stitch-manifest.json` — Stitch project screen IDs
 - `screens/` — Stitch export attempts (SPA shells only)
 - `AGENTS.md` — Cursor agent data refresh workflow
@@ -84,6 +84,6 @@ Config files: `project.toml`, `Procfile`.
 ## Stitch project
 
 - **Project ID:** 6890101916617207787
-- **Title:** URads Sales Pipeline Dashboard
+- **Title:** Dashy - Ultimate Sales Dashboard
 
 Stitch `/export/html` URLs require Google auth and return the Stitch app shell, not rendered screen HTML. UI was implemented from the architecture spec and design tokens.

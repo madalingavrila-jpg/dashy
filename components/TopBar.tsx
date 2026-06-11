@@ -38,7 +38,7 @@ export function TopBar() {
               Sales Manager
             </p>
             <p className="text-label-md font-label-md text-on-surface-variant opacity-60">
-              URads Romania
+              Romania
             </p>
           </div>
         </div>

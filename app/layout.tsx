@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Dashy · URads Sales",
-  description: "Dashy — URads sales pipeline visibility. Won vs Activated, weekly performance, MTD tiers.",
+  title: "Dashy - Ultimate Sales Dashboard",
+  description: "Dashy — Ultimate sales pipeline visibility. Won vs Activated, weekly performance, MTD tiers.",
 };
 
 export default function RootLayout({

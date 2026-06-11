@@ -57,7 +57,7 @@ export function LogoIcon({ size = 40, className }: { size?: number; className?: 
 export function Logo({
   size = 40,
   showWordmark = true,
-  subtitle = "URads Sales",
+  subtitle = "Ultimate Sales Dashboard",
   className = "",
 }: LogoProps) {
   if (!showWordmark) {
