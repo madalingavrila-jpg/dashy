@@ -271,6 +271,105 @@
         }
       }
     },
+    "mops": {
+      "type": "object",
+      "required": [
+        "dashboardId",
+        "dashboardTitle",
+        "dashboardUrl",
+        "metrics",
+        "onboardingByAgent",
+        "totalLiveOnboarding"
+      ],
+      "properties": {
+        "dashboardId": { "type": "string" },
+        "dashboardTitle": { "type": "string" },
+        "dashboardUrl": { "type": "string" },
+        "salesforceInstanceUrl": { "type": "string" },
+        "totalLiveOnboarding": { "type": "number" },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "value"],
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "value": { "type": "number" },
+              "previousValue": { "type": "number" },
+              "changePercent": { "type": "number" },
+              "subtitle": { "type": "string" },
+              "icon": { "type": "string" }
+            }
+          }
+        },
+        "openCaseStatuses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["status", "count"],
+            "properties": {
+              "status": { "type": "string" },
+              "count": { "type": "number" }
+            }
+          }
+        },
+        "openCaseRecordTypes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["recordType", "count"],
+            "properties": {
+              "recordType": { "type": "string" },
+              "count": { "type": "number" }
+            }
+          }
+        },
+        "onboardingPipeline": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["stage", "count"],
+            "properties": {
+              "stage": { "type": "string" },
+              "count": { "type": "number" }
+            }
+          }
+        },
+        "onboardingByAgent": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["ownerId", "name", "segment", "count"],
+            "properties": {
+              "ownerId": { "type": "string" },
+              "name": { "type": "string" },
+              "segment": { "type": "string", "enum": ["complex", "density"] },
+              "count": { "type": "number" },
+              "stageCounts": {
+                "type": "object",
+                "additionalProperties": { "type": "number" }
+              },
+              "accounts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["id", "name", "stage"],
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "city": { "type": "string" },
+                    "stage": { "type": "string" },
+                    "sfOpportunityId": { "type": "string" },
+                    "sfAccountId": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "settings": {
       "type": "object",
       "properties": {

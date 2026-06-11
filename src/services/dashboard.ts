@@ -10,6 +10,8 @@ import type {
   FunnelStageView,
   HitlistRow,
   MetricCard,
+  MopsData,
+  MopsView,
   TeamProgressView,
   TrendDirection,
   WeeklyMetric,
@@ -29,7 +31,11 @@ import {
   getIsoWeek,
   priorWeekCode,
 } from "../../lib/isoWeek.js";
-import { accountsFilterUrl, salesforceAccountUrl } from "../../lib/salesforce.js";
+import {
+  accountsFilterUrl,
+  salesforceAccountUrl,
+  salesforceOpportunityUrl,
+} from "../../lib/salesforce.js";
 import {
   agentSegment,
   isTeamAgent,
@@ -535,6 +541,68 @@ function buildWeeklyPerformanceView(
   };
 }
 
+function buildMopsView(mops: MopsData | undefined): MopsView | undefined {
+  if (!mops) return undefined;
+
+  const instanceUrl = mops.salesforceInstanceUrl ?? "https://boltfood.lightning.force.com";
+
+  const metrics: MetricCard[] = (mops.metrics ?? []).map((metric) => {
+    const change = metric.changePercent ?? 0;
+    const trend = metric.changePercent !== undefined ? trendDirection(change) : "neutral";
+    return {
+      icon: metric.icon ?? "analytics",
+      iconBg: "bg-primary-container/30",
+      iconColor: "text-primary",
+      trend,
+      trendIcon:
+        trend === "up" ? "trending_up" : trend === "down" ? "trending_down" : "remove",
+      trendValue:
+        metric.changePercent !== undefined
+          ? formatSignedPct(metric.changePercent)
+          : metric.subtitle?.includes("MTD")
+            ? "MTD"
+            : "Live",
+      label: metric.label,
+      value: formatInteger(metric.value),
+      subtitle: metric.subtitle ?? "",
+    };
+  });
+
+  const onboardingPipeline = buildFunnelStages(mops.onboardingPipeline ?? []);
+
+  return {
+    dashboardTitle: mops.dashboardTitle,
+    dashboardUrl: mops.dashboardUrl,
+    metrics,
+    openCaseStatuses: (mops.openCaseStatuses ?? []).map((row) => ({
+      status: row.status,
+      count: formatInteger(row.count),
+    })),
+    onboardingPipeline,
+    totalLiveOnboarding: formatInteger(mops.totalLiveOnboarding),
+    onboardingByAgent: (mops.onboardingByAgent ?? []).map((agent) => {
+      const segment = segmentStyle(agent.segment);
+      const stageSummary = Object.entries(agent.stageCounts ?? {})
+        .sort((a, b) => b[1] - a[1])
+        .map(([stage, count]) => `${stage} (${count})`)
+        .join(" · ");
+      return {
+        ownerId: agent.ownerId,
+        name: agent.name,
+        segment: segment.label,
+        segmentColor: segment.color,
+        count: formatInteger(agent.count),
+        stageSummary,
+        accounts: (agent.accounts ?? []).map((account) => ({
+          ...account,
+          sfAccountUrl: salesforceAccountUrl(account.sfAccountId, instanceUrl),
+          sfOpportunityUrl: salesforceOpportunityUrl(account.sfOpportunityId, instanceUrl),
+        })),
+      };
+    }),
+  };
+}
+
 function placeholderModel(source: DataSourceStatus, error?: string): DashboardModel {
   const message =
     error ??
@@ -597,7 +665,21 @@ function placeholderModel(source: DataSourceStatus, error?: string): DashboardMo
     wowReports: [],
     accounts: { won: [], activated: [], backlog: [] },
     hitlist: [],
+    mops: emptyMopsView(),
     settings: defaultSettings(),
+  };
+}
+
+function emptyMopsView(): MopsView {
+  return {
+    dashboardTitle: "MOps",
+    dashboardUrl:
+      "https://boltfood.lightning.force.com/lightning/r/Dashboard/01ZTs000000Bx9dMAC/view",
+    metrics: [],
+    openCaseStatuses: [],
+    onboardingPipeline: [],
+    totalLiveOnboarding: "—",
+    onboardingByAgent: [],
   };
 }
 
@@ -697,6 +779,7 @@ function toDashboardModel(
           notes: row.notes,
         };
       }),
+    mops: buildMopsView(data.mops) ?? emptyMopsView(),
     settings: data.settings ?? defaultSettings(),
   };
 }

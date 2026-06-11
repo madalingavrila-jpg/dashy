@@ -1,0 +1,56 @@
+{
+  "openCases": 92,
+  "openNewOnboarding": 59,
+  "closedMtd": 114,
+  "closedPriorMonth": 268,
+  "openByStatus": [
+    {
+      "status": "Menu & Assets",
+      "count": 50
+    },
+    {
+      "status": "Onboarding Qualify",
+      "count": 31
+    },
+    {
+      "status": "Menu Update",
+      "count": 11
+    }
+  ],
+  "newOnboardingOpenByStatus": [
+    {
+      "status": "Menu & Assets",
+      "count": 32
+    },
+    {
+      "status": "Onboarding Qualify",
+      "count": 27
+    }
+  ],
+  "openByRecordType": [
+    {
+      "recordType": "New Onboarding",
+      "count": 59
+    },
+    {
+      "recordType": "Self Signup",
+      "count": 12
+    },
+    {
+      "recordType": "Menu Update",
+      "count": 11
+    },
+    {
+      "recordType": "Expansion",
+      "count": 5
+    },
+    {
+      "recordType": "New Merchant Venue",
+      "count": 3
+    },
+    {
+      "recordType": "Reactivation",
+      "count": 2
+    }
+  ]
+}

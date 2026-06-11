@@ -56,6 +56,7 @@ Per-rep monthly targets apply to **both Won MTD and Activated MTD** separately.
 |-------|-----------------|----------|
 | Sebastian | Andrei-Sebastian Caba | `005Ts000005XKgEIAW` |
 | Teodor | Teodor Domnica | `005Ts00000FjJkDIAV` |
+| Cezar | Cezar-Mihai Voicu | `0057Q000004SL7qQAG` |
 
 Only these 12 reps appear in `agents`, MTD targets, and Team Progress panels. Exclude `Administrator`, excluded reps above, and any other SF owners.
 

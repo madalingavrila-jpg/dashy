@@ -20,6 +20,7 @@ export const COMPLEX_OWNER_IDS = new Set([
 export const EXCLUDED_OWNER_IDS = new Set([
   "005Ts000005XKgEIAW", // Andrei-Sebastian Caba
   "005Ts00000FjJkDIAV", // Teodor Domnica
+  "0057Q000004SL7qQAG", // Cezar-Mihai Voicu (not on 12-rep roster)
 ]);
 
 export const DENSITY_OWNER_IDS = new Set([
@@ -46,6 +47,7 @@ export function isExcludedAgent(name: string, ownerId?: string): boolean {
   if (/\bdomnica\b/.test(n)) return true;
   if (/\bteodor\b/.test(n) && !/teodorescu/.test(n)) return true;
   if (/\bsebastian\b/.test(n) && !/patru|patr(u|a)/.test(n) && /\bcaba\b/.test(n)) return true;
+  if (/\bcezar\b/.test(n) && /voicu/.test(n)) return true;
 
   return false;
 }
@@ -78,7 +80,7 @@ export function isDensityAgent(name: string, ownerId?: string): boolean {
   if (/toltic/.test(n)) return true;
   if (/hanganu/.test(n)) return true;
   if (/borcaeas/.test(n)) return true;
-  if (/voicu/.test(n) || /mihnea/.test(n)) return true;
+  if (/mihnea/.test(n)) return true;
   if (/oroles/.test(n) || (/rosu/.test(n) && !/borcaeas/.test(n))) return true;
 
   return false;

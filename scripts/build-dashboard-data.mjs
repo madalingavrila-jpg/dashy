@@ -6,7 +6,13 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { filterTeamAgents, buildMtdAchievement, isExcludedAgent, agentSegment } from "../lib/agent-segments.mjs";
+import {
+  filterTeamAgents,
+  buildMtdAchievement,
+  isExcludedAgent,
+  agentSegment,
+  enrichAgent,
+} from "../lib/agent-segments.mjs";
 import {
   accumulateWeeklyStatusFromHistory,
   accumulateNewOpportunityFallback,
@@ -32,6 +38,17 @@ const SALES_STAGES = [
   "Closed Won",
 ];
 const ONBOARDING_STAGES = ["Onboarding Checklist", "Onboarding", "Ready to Activate", "Activated"];
+/** Opps live in onboarding pipeline (not yet Activated). */
+const LIVE_ONBOARDING_STAGES = [
+  "Contract sent",
+  "Closed Won",
+  "Onboarding Checklist",
+  "Onboarding",
+  "Ready to Activate",
+];
+const MOPS_DASHBOARD_ID = "01ZTs000000Bx9dMAC";
+const MOPS_DASHBOARD_URL = `https://boltfood.lightning.force.com/lightning/r/Dashboard/${MOPS_DASHBOARD_ID}/view`;
+const MOPS_SF_INSTANCE = "https://boltfood.lightning.force.com";
 const WON_STAGES = ["Contract sent", "Ready to Activate", "Onboarding", "Onboarding Checklist", "Closed Won", "Activated"];
 function pctChange(current, previous) {
   if (!previous) return current ? 100 : 0;
@@ -95,10 +112,115 @@ const stageHistoryExport =
 const pipelineExport = process.env.SF_PIPELINE_EXPORT ?? join(root, "scripts/.cache/sf-pipeline-open.json");
 /** Full THIS_MONTH won/activated opps (IsWon or Activated stage) — see AGENTS.md SOQL. */
 const wonExport = process.env.SF_WON_EXPORT ?? join(root, "scripts/.cache/sf-won-mtd.json");
+const mopsOnboardingExport =
+  process.env.SF_MOPS_ONBOARDING_EXPORT ?? join(root, "scripts/.cache/sf-mops-onboarding.json");
+const mopsCasesExport =
+  process.env.SF_MOPS_CASES_EXPORT ?? join(root, "scripts/.cache/sf-mops-cases.json");
 const weeklyData = parseSfJson(weeklyExport);
 const stageHistoryData = parseSfJson(stageHistoryExport);
 const pipelineData = parseSfJson(pipelineExport);
 const wonData = parseSfJson(wonExport);
+const mopsOnboardingData = parseSfJson(mopsOnboardingExport);
+const mopsCasesData = parseSfJson(mopsCasesExport);
+
+function buildMopsSection(onboardingData, casesData) {
+  const byAgent = new Map();
+
+  for (const opp of onboardingData.records ?? []) {
+    const ownerId = opp.OwnerId;
+    const ownerName = opp.Owner?.Name ?? "Unknown";
+    const enriched = enrichAgent({ ownerId, name: ownerName });
+    if (!enriched) continue;
+
+    if (!byAgent.has(ownerId)) {
+      byAgent.set(ownerId, {
+        ownerId,
+        name: ownerName,
+        segment: enriched.segment,
+        count: 0,
+        stageCounts: {},
+        accounts: [],
+      });
+    }
+
+    const agent = byAgent.get(ownerId);
+    const stage = stageDisplay(opp.StageName);
+    agent.count += 1;
+    agent.stageCounts[stage] = (agent.stageCounts[stage] ?? 0) + 1;
+    agent.accounts.push({
+      id: opp.Id,
+      name: opp.Account?.Name ?? opp.Name,
+      city: opp.Account?.BillingCity ?? "—",
+      stage,
+      sfOpportunityId: opp.Id,
+      sfAccountId: opp.AccountId,
+    });
+  }
+
+  const onboardingByAgent = [...byAgent.values()].sort((a, b) => b.count - a.count);
+  const totalLiveOnboarding = onboardingByAgent.reduce((sum, row) => sum + row.count, 0);
+
+  const pipelineCounts = {};
+  for (const stage of LIVE_ONBOARDING_STAGES) {
+    pipelineCounts[stageDisplay(stage)] = 0;
+  }
+  for (const opp of onboardingData.records ?? []) {
+    const stage = stageDisplay(opp.StageName);
+    pipelineCounts[stage] = (pipelineCounts[stage] ?? 0) + 1;
+  }
+  const onboardingPipeline = Object.entries(pipelineCounts)
+    .filter(([, count]) => count > 0)
+    .map(([stage, count]) => ({ stage, count }));
+
+  const closedMtd = casesData.closedMtd ?? 0;
+  const closedPrior = casesData.closedPriorMonth ?? 0;
+
+  return {
+    dashboardId: MOPS_DASHBOARD_ID,
+    dashboardTitle: "[MOps] Cases | High-level overview",
+    dashboardUrl: MOPS_DASHBOARD_URL,
+    salesforceInstanceUrl: MOPS_SF_INSTANCE,
+    metrics: [
+      {
+        id: "open-cases",
+        label: "Open cases",
+        value: casesData.openCases ?? 0,
+        subtitle: "All open MOps cases",
+        icon: "inbox",
+      },
+      {
+        id: "open-new-onboarding",
+        label: "Open onboarding cases",
+        value: casesData.openNewOnboarding ?? 0,
+        subtitle: "New Onboarding record type",
+        icon: "support_agent",
+      },
+      {
+        id: "closed-mtd",
+        label: "Closed cases MTD",
+        value: closedMtd,
+        previousValue: closedPrior,
+        changePercent: pctChange(closedMtd, closedPrior),
+        subtitle: "vs prior month",
+        icon: "task_alt",
+      },
+      {
+        id: "live-onboarding-opps",
+        label: "Live in onboarding",
+        value: totalLiveOnboarding,
+        subtitle: "Team opps · Contract sent → Ready to Activate",
+        icon: "pending_actions",
+      },
+    ],
+    openCaseStatuses: casesData.openByStatus ?? [],
+    openCaseRecordTypes: casesData.openByRecordType ?? [],
+    onboardingPipeline,
+    totalLiveOnboarding,
+    onboardingByAgent,
+  };
+}
+
+const mops = buildMopsSection(mopsOnboardingData, mopsCasesData);
 
 const now = new Date().toISOString();
 const currentWeekKey = weekKey(new Date("2026-06-11"));
@@ -311,6 +433,7 @@ const dashboard = {
     },
     hitlist,
   },
+  mops,
   settings: {
     timezone: "Europe/Bucharest",
     locale: "en-GB",
@@ -318,6 +441,7 @@ const dashboard = {
       { name: "Salesforce", status: "connected", lastSync: now, icon: "cloud" },
       { name: "Google Sheet (Hitlist)", status: "connected", lastSync: now, icon: "table_chart" },
       { name: "Boltable Deploy", status: "connected", lastSync: now, icon: "deployed_code" },
+      { name: "MOps Dashboard (SF)", status: "connected", lastSync: now, icon: "dashboard" },
     ],
   },
 };

@@ -198,6 +198,72 @@ export type TeamProgressView = {
   agents: TeamAgentProgressView[];
 };
 
+export type MopsAccountRow = {
+  id: string;
+  name: string;
+  city: string;
+  stage: string;
+  sfOpportunityId?: string;
+  sfAccountId?: string;
+};
+
+export type MopsAgentRow = {
+  ownerId: string;
+  name: string;
+  segment: "complex" | "density";
+  count: number;
+  stageCounts?: Record<string, number>;
+  accounts?: MopsAccountRow[];
+};
+
+export type MopsMetric = {
+  id: string;
+  label: string;
+  value: number;
+  previousValue?: number;
+  changePercent?: number;
+  subtitle?: string;
+  icon?: string;
+};
+
+export type MopsData = {
+  dashboardId: string;
+  dashboardTitle: string;
+  dashboardUrl: string;
+  salesforceInstanceUrl?: string;
+  totalLiveOnboarding: number;
+  metrics: MopsMetric[];
+  openCaseStatuses?: Array<{ status: string; count: number }>;
+  openCaseRecordTypes?: Array<{ recordType: string; count: number }>;
+  onboardingPipeline?: PipelineStage[];
+  onboardingByAgent: MopsAgentRow[];
+};
+
+export type MopsAccountViewRow = MopsAccountRow & {
+  sfAccountUrl?: string | null;
+  sfOpportunityUrl?: string | null;
+};
+
+export type MopsAgentViewRow = {
+  ownerId: string;
+  name: string;
+  segment: string;
+  segmentColor: string;
+  count: string;
+  stageSummary: string;
+  accounts: MopsAccountViewRow[];
+};
+
+export type MopsView = {
+  dashboardTitle: string;
+  dashboardUrl: string;
+  metrics: MetricCard[];
+  openCaseStatuses: Array<{ status: string; count: string }>;
+  onboardingPipeline: FunnelStageView[];
+  totalLiveOnboarding: string;
+  onboardingByAgent: MopsAgentViewRow[];
+};
+
 export type HitlistRow = {
   id: string;
   priority: number;
@@ -264,6 +330,7 @@ export type DashboardRawData = {
     locale: string;
     integrations: IntegrationSetting[];
   };
+  mops?: MopsData;
 };
 
 export type MetricCard = {
@@ -399,6 +466,7 @@ export type DashboardModel = {
     all?: AccountViewRow[];
   };
   hitlist: HitlistViewRow[];
+  mops?: MopsView;
   settings: {
     timezone: string;
     locale: string;
