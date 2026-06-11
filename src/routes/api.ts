@@ -12,14 +12,28 @@ export const apiRouter = Router();
 
 const API_CACHE = "public, max-age=3600, stale-while-revalidate=86400";
 
+type BuildInfo = { gitSha: string; builtAt: string };
+
+function readBuildInfo(): BuildInfo | null {
+  try {
+    const raw = fs.readFileSync(path.join(config.rootDir, "dist", "build-info.json"), "utf8");
+    return JSON.parse(raw) as BuildInfo;
+  } catch {
+    return null;
+  }
+}
+
 apiRouter.get("/health", (_req, res) => {
   const staticIndex = path.join(config.staticDir, "index.html");
   const precomputed = getPrecomputedApiPath();
+  const buildInfo = readBuildInfo();
   res.json({
     ok: true,
     app: "dashy",
     time: new Date().toISOString(),
     uptime: Math.round(process.uptime()),
+    gitSha: buildInfo?.gitSha ?? null,
+    builtAt: buildInfo?.builtAt ?? null,
     staticReady: fs.existsSync(staticIndex),
     dashboardCacheReady: getCachedDashboardBuffer() !== null,
     dashboardPrecomputed: fs.existsSync(precomputed),
