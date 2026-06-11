@@ -36,6 +36,8 @@ export type TargetConfig = {
   };
   perRep: Record<string, { won?: number; activated?: number }>;
   weeklyPerRep: Record<string, Partial<WeeklyStatusTargets>>;
+  /** Reps excluded from team target math (still shown with actuals). */
+  pausedAgentIds: string[];
 };
 
 export function defaultTargetConfig(): TargetConfig {
@@ -50,7 +52,12 @@ export function defaultTargetConfig(): TargetConfig {
     },
     perRep: {},
     weeklyPerRep: {},
+    pausedAgentIds: [],
   };
+}
+
+export function isPausedAgent(ownerId: string, config: TargetConfig): boolean {
+  return config.pausedAgentIds.includes(ownerId);
 }
 
 function parseFormattedInt(value: string): number {
@@ -88,6 +95,7 @@ export function loadTargetConfig(): TargetConfig {
       },
       perRep: parsed.perRep ?? {},
       weeklyPerRep: parsed.weeklyPerRep ?? {},
+      pausedAgentIds: Array.isArray(parsed.pausedAgentIds) ? parsed.pausedAgentIds : [],
     };
   } catch {
     return defaultTargetConfig();
@@ -190,6 +198,7 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
 
     const agents = team.agents
       .map((agent) => {
+        const paused = isPausedAgent(agent.ownerId, config);
         const wonTarget = wonTargetFor(config, agent.ownerId, segment);
         const activatedTarget = activatedTargetFor(config, agent.ownerId, segment);
         const wonActual = parseFormattedInt(agent.mtdActual);
@@ -197,10 +206,11 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
 
         return {
           ...agent,
+          targetPaused: paused,
           mtdTarget: formatInteger(wonTarget),
           activatedTarget: formatInteger(activatedTarget),
-          progress: progressPercent(wonActual, wonTarget),
-          activatedProgress: progressPercent(activatedActual, activatedTarget),
+          progress: paused ? 0 : progressPercent(wonActual, wonTarget),
+          activatedProgress: paused ? 0 : progressPercent(activatedActual, activatedTarget),
         };
       })
       .sort(
@@ -210,19 +220,24 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
           a.name.localeCompare(b.name),
       );
 
+    const activeAgents = agents.filter((agent) => !agent.targetPaused);
     const wonActual = agents.reduce((sum, agent) => sum + parseFormattedInt(agent.mtdActual), 0);
-    const wonTarget = agents.reduce((sum, agent) => sum + parseFormattedInt(agent.mtdTarget), 0);
+    const wonTarget = activeAgents.reduce(
+      (sum, agent) => sum + parseFormattedInt(agent.mtdTarget),
+      0,
+    );
     const activatedActual = agents.reduce(
       (sum, agent) => sum + parseFormattedInt(agent.activatedActual),
       0,
     );
-    const activatedTarget = agents.reduce(
+    const activatedTarget = activeAgents.reduce(
       (sum, agent) => sum + parseFormattedInt(agent.activatedTarget),
       0,
     );
 
     return {
       ...team,
+      repCount: activeAgents.length,
       targetPerRep: defaultWon,
       activatedTargetPerRep: defaultActivated,
       target: formatInteger(wonTarget),
@@ -269,6 +284,7 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
     const segment =
       ownerSegment.get(agent.ownerId) ??
       (agent.segment === "Complex" ? "complex" : "density");
+    const paused = isPausedAgent(agent.ownerId, config);
     const wonTarget = wonTargetFor(config, agent.ownerId, segment);
     const activatedTarget = activatedTargetFor(config, agent.ownerId, segment);
     const wonActual = parseFormattedInt(agent.wonMtd);
@@ -276,10 +292,11 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
 
     return {
       ...agent,
+      targetPaused: paused,
       mtdTarget: formatInteger(wonTarget),
       activatedMtdTarget: formatInteger(activatedTarget),
-      wonMtdProgress: progressPercent(wonActual, wonTarget),
-      activatedMtdProgress: progressPercent(activatedActual, activatedTarget),
+      wonMtdProgress: paused ? 0 : progressPercent(wonActual, wonTarget),
+      activatedMtdProgress: paused ? 0 : progressPercent(activatedActual, activatedTarget),
     };
   });
 

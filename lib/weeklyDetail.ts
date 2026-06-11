@@ -22,7 +22,12 @@ type WeeklyTargetConfig = {
     density: typeof DENSITY_WEEKLY_TARGETS;
   };
   weeklyPerRep: Record<string, Partial<typeof COMPLEX_WEEKLY_TARGETS>>;
+  pausedAgentIds?: string[];
 };
+
+function isPausedAgent(ownerId: string, config: WeeklyTargetConfig): boolean {
+  return config.pausedAgentIds?.includes(ownerId) ?? false;
+}
 
 function defaultWeeklyTargetConfig(): WeeklyTargetConfig {
   return {
@@ -31,6 +36,7 @@ function defaultWeeklyTargetConfig(): WeeklyTargetConfig {
       density: { ...DENSITY_WEEKLY_TARGETS },
     },
     weeklyPerRep: {},
+    pausedAgentIds: [],
   };
 }
 
@@ -91,6 +97,7 @@ export function buildWeeklyDetailViews(
     const counts = breakdownRow.agents[agent.ownerId] ?? emptyWeeklyStatusCounts();
     const agentBreakdown = breakdownRow.agents[agent.ownerId];
     const segment = agent.segment;
+    const paused = isPausedAgent(agent.ownerId, config);
     const style =
       segment === "complex"
         ? "bg-primary-container/50 text-on-primary-container"
@@ -100,6 +107,7 @@ export function buildWeeklyDetailViews(
       name: agent.name,
       segment: segment === "complex" ? "Complex" : "Density",
       segmentColor: style,
+      targetPaused: paused,
       statuses: buildStatusViews(counts, segment, 1, config, agent.ownerId),
       accounts: agentBreakdown?.accounts,
     };
@@ -126,16 +134,19 @@ export function buildWeeklyDetailViews(
       agentViews.filter((agent) => agent.segment === "Density"),
     );
 
+    const activeComplex = teamAgents.complex.filter((agent) => !isPausedAgent(agent.ownerId, config));
+    const activeDensity = teamAgents.density.filter((agent) => !isPausedAgent(agent.ownerId, config));
+
     const teams: WeeklyTeamStatusView[] = [
       {
         segment: "complex",
         segmentLabel: "Complex",
         name: "Complex Team",
-        repCount: teamAgents.complex.length,
+        repCount: activeComplex.length,
         statuses: buildStatusViews(
           row.teams.complex,
           "complex",
-          teamAgents.complex.length,
+          activeComplex.length,
           config,
         ),
         agents: complexAgents,
@@ -144,11 +155,11 @@ export function buildWeeklyDetailViews(
         segment: "density",
         segmentLabel: "Density",
         name: "Density Team",
-        repCount: teamAgents.density.length,
+        repCount: activeDensity.length,
         statuses: buildStatusViews(
           row.teams.density,
           "density",
-          teamAgents.density.length,
+          activeDensity.length,
           config,
         ),
         agents: densityAgents,

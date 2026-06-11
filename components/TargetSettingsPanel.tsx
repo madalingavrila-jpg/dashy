@@ -152,6 +152,17 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
     });
   };
 
+  const toggleAgentPause = (ownerId: string, paused: boolean) => {
+    setDraft((prev) => ({
+      ...prev,
+      pausedAgentIds: paused
+        ? [...new Set([...prev.pausedAgentIds, ownerId])]
+        : prev.pausedAgentIds.filter((id) => id !== ownerId),
+    }));
+  };
+
+  const pausedCount = draft.pausedAgentIds.length;
+
   return (
     <div className="glass-card rounded-xl border-l-4 border-l-primary p-lg shadow-md">
       <div className="mb-md flex flex-wrap items-start justify-between gap-md">
@@ -302,6 +313,67 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                 </div>
               ))}
             </div>
+          </div>
+
+          <div>
+            <h4 className="mb-sm text-label-md font-bold uppercase tracking-wide text-on-surface-variant">
+              Paused agents
+            </h4>
+            <p className="mb-md text-body-md text-on-surface-variant">
+              Paused reps stay visible with their actual MTD and weekly counts, but are excluded
+              from team target totals and rep-count denominators
+              {pausedCount > 0 ? ` (${pausedCount} paused)` : ""}.
+            </p>
+            {loading && !sortedAgents.length ? (
+              <p className="text-on-surface-variant">Loading agents…</p>
+            ) : (
+              <div className="overflow-x-auto rounded-lg border border-outline-variant/60">
+                <table className="w-full min-w-[480px] text-left text-body-md">
+                  <thead className="bg-surface-container-low">
+                    <tr>
+                      <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+                        Agent
+                      </th>
+                      <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+                        Segment
+                      </th>
+                      <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+                        On pause
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sortedAgents.map((agent) => {
+                      const paused = draft.pausedAgentIds.includes(agent.ownerId);
+                      return (
+                        <tr
+                          key={agent.ownerId}
+                          className={`border-t border-outline-variant/40 ${paused ? "bg-surface-container-low/80" : ""}`}
+                        >
+                          <td className="px-md py-sm font-semibold">{agent.name}</td>
+                          <td className="px-md py-sm text-on-surface-variant">{agent.segment}</td>
+                          <td className="px-md py-sm">
+                            <label className="inline-flex cursor-pointer items-center gap-sm">
+                              <input
+                                type="checkbox"
+                                checked={paused}
+                                onChange={(event) =>
+                                  toggleAgentPause(agent.ownerId, event.target.checked)
+                                }
+                                className="h-4 w-4 rounded border-outline-variant text-primary focus:ring-primary"
+                              />
+                              <span className="text-label-md text-on-surface-variant">
+                                {paused ? "Paused — excluded from targets" : "Active"}
+                              </span>
+                            </label>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
 
           <div>

@@ -48,6 +48,7 @@ export function WeeklyShell() {
     const built = buildWeeklyDetailViews([row], agentsForWeeklyBuild(model.agents), {
       weekly: targetConfig.weekly,
       weeklyPerRep: targetConfig.weeklyPerRep,
+      pausedAgentIds: targetConfig.pausedAgentIds,
     });
     return built[0];
   }, [model, selectedWeek, targetConfig]);
@@ -58,7 +59,7 @@ export function WeeklyShell() {
     return buildWeeklyDetailViews(
       model.weeklyPerformance.statusBreakdown,
       agentsForWeeklyBuild(model.agents),
-      { weekly: targetConfig.weekly, weeklyPerRep: targetConfig.weeklyPerRep },
+      { weekly: targetConfig.weekly, weeklyPerRep: targetConfig.weeklyPerRep, pausedAgentIds: targetConfig.pausedAgentIds },
     );
   }, [model, filter, targetConfig]);
 

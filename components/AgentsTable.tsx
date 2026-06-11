@@ -75,16 +75,26 @@ export function AgentsTable({ agents, targetSummary, loading }: AgentsTableProps
               </tr>
             ) : (
               agents.map((agent) => (
-                <tr key={agent.ownerId} className="hover:bg-surface-container-low">
+                <tr
+                  key={agent.ownerId}
+                  className={`hover:bg-surface-container-low ${agent.targetPaused ? "opacity-75" : ""}`}
+                >
                   <td className="px-lg py-md">
-                    <Link
-                      href={agent.accountsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-semibold text-primary hover:underline"
-                    >
-                      {agent.name}
-                    </Link>
+                    <div className="flex flex-wrap items-center gap-xs">
+                      <Link
+                        href={agent.accountsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-primary hover:underline"
+                      >
+                        {agent.name}
+                      </Link>
+                      {agent.targetPaused ? (
+                        <span className="rounded-full bg-surface-container-high px-xs py-[2px] text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">
+                          On pause
+                        </span>
+                      ) : null}
+                    </div>
                   </td>
                   <td className="px-lg py-md">
                     <span
@@ -94,7 +104,7 @@ export function AgentsTable({ agents, targetSummary, loading }: AgentsTableProps
                     </span>
                   </td>
                   <td className="px-lg py-md text-data-mono font-data-mono font-bold">
-                    {agent.mtdTarget}
+                    {agent.targetPaused ? "—" : agent.mtdTarget}
                   </td>
                   <td className="px-lg py-md text-data-mono font-data-mono font-bold">
                     {agent.pipelineCount}
@@ -103,20 +113,38 @@ export function AgentsTable({ agents, targetSummary, loading }: AgentsTableProps
                     {agent.stageSummary}
                   </td>
                   <td className="px-lg py-md">
-                    <div className="space-y-xs">
-                      <span className="rounded-full badge-won px-xs py-[2px] text-label-md font-bold">
-                        {agent.wonMtd} / {agent.mtdTarget}
-                      </span>
-                      {progressBar(agent.wonMtdProgress, "won")}
-                    </div>
+                    {agent.targetPaused ? (
+                      <div className="space-y-xs opacity-80">
+                        <span className="text-label-md font-bold tabular-nums text-on-surface">
+                          {agent.wonMtd}
+                        </span>
+                        <span className="text-[10px] text-on-surface-variant">excluded from target</span>
+                      </div>
+                    ) : (
+                      <div className="space-y-xs">
+                        <span className="rounded-full badge-won px-xs py-[2px] text-label-md font-bold">
+                          {agent.wonMtd} / {agent.mtdTarget}
+                        </span>
+                        {progressBar(agent.wonMtdProgress, "won")}
+                      </div>
+                    )}
                   </td>
                   <td className="px-lg py-md">
-                    <div className="space-y-xs">
-                      <span className="rounded-full badge-activated px-xs py-[2px] text-label-md font-bold">
-                        {agent.activatedMtd} / {agent.activatedMtdTarget}
-                      </span>
-                      {progressBar(agent.activatedMtdProgress, "activated")}
-                    </div>
+                    {agent.targetPaused ? (
+                      <div className="space-y-xs opacity-80">
+                        <span className="text-label-md font-bold tabular-nums text-on-surface">
+                          {agent.activatedMtd}
+                        </span>
+                        <span className="text-[10px] text-on-surface-variant">excluded from target</span>
+                      </div>
+                    ) : (
+                      <div className="space-y-xs">
+                        <span className="rounded-full badge-activated px-xs py-[2px] text-label-md font-bold">
+                          {agent.activatedMtd} / {agent.activatedMtdTarget}
+                        </span>
+                        {progressBar(agent.activatedMtdProgress, "activated")}
+                      </div>
+                    )}
                   </td>
                   <td className="px-lg py-md">
                     <Link

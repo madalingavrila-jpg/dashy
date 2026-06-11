@@ -87,6 +87,8 @@ export type WeeklyAgentStatusView = {
   segmentColor: string;
   statuses: WeeklyStatusProgressView[];
   accounts?: Partial<Record<WeeklyStatusKey, WeeklyAccountEvent[]>>;
+  /** Excluded from team weekly target math when true. */
+  targetPaused?: boolean;
 };
 
 export type WeeklyDetailView = {
@@ -160,6 +162,8 @@ export type AgentViewRow = {
   wonMtdProgress: number;
   activatedMtdProgress: number;
   accountsUrl: string;
+  /** Excluded from team target math when true. */
+  targetPaused?: boolean;
 };
 
 export type TeamAgentProgressView = {
@@ -174,6 +178,8 @@ export type TeamAgentProgressView = {
   activatedActual: string;
   activatedProgress: number;
   accountsUrl: string;
+  /** Excluded from team target math when true. */
+  targetPaused?: boolean;
 };
 
 export type TeamProgressView = {

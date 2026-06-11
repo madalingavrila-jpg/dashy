@@ -55,6 +55,14 @@ function progressBadge(progress: number, tone: "won" | "activated") {
   );
 }
 
+function PauseBadge() {
+  return (
+    <span className="rounded-full bg-surface-container-high px-xs py-[2px] text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">
+      On pause
+    </span>
+  );
+}
+
 function MtdStatChip({
   label,
   actual,
@@ -93,15 +101,26 @@ function AgentMtdCell({
   progress,
   tone,
   compact,
+  paused,
 }: {
   actual: string;
   target: string;
   progress: number;
   tone: "won" | "activated";
   compact?: boolean;
+  paused?: boolean;
 }) {
   const chipClass = tone === "won" ? "badge-won" : "badge-activated";
   const barSize = compact ? "xs" : "sm";
+
+  if (paused) {
+    return (
+      <div className="space-y-xs opacity-70">
+        <span className="text-label-md font-bold tabular-nums text-on-surface">{actual}</span>
+        <span className="ml-xs text-[10px] text-on-surface-variant">excluded from target</span>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-xs">
@@ -158,16 +177,22 @@ function AgentRowsTable({
           </thead>
           <tbody className="divide-y divide-outline-variant/40">
             {team.agents.map((agent) => (
-              <tr key={agent.ownerId} className="hover:bg-surface-container-low/40">
+              <tr
+                key={agent.ownerId}
+                className={`hover:bg-surface-container-low/40 ${agent.targetPaused ? "opacity-75" : ""}`}
+              >
                 <td className="px-md py-sm">
-                  <Link
-                    href={agent.accountsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-primary hover:underline"
-                  >
-                    {agent.name}
-                  </Link>
+                  <div className="flex flex-wrap items-center gap-xs">
+                    <Link
+                      href={agent.accountsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-primary hover:underline"
+                    >
+                      {agent.name}
+                    </Link>
+                    {agent.targetPaused ? <PauseBadge /> : null}
+                  </div>
                 </td>
                 <td className="px-md py-sm">
                   <span
@@ -182,6 +207,7 @@ function AgentRowsTable({
                     target={agent.mtdTarget}
                     progress={agent.progress}
                     tone="won"
+                    paused={agent.targetPaused}
                   />
                 </td>
                 <td className="px-md py-sm">
@@ -190,6 +216,7 @@ function AgentRowsTable({
                     target={agent.activatedTarget}
                     progress={agent.activatedProgress}
                     tone="activated"
+                    paused={agent.targetPaused}
                   />
                 </td>
                 <td className="px-md py-sm">
@@ -237,7 +264,7 @@ function AgentRowsTable({
           {team.agents.map((agent, index) => (
             <tr
               key={agent.ownerId}
-              className={index % 2 === 0 ? "bg-surface-container-low/30" : undefined}
+              className={`${index % 2 === 0 ? "bg-surface-container-low/30" : ""} ${agent.targetPaused ? "opacity-75" : ""}`}
             >
               <td className={cellPad}>
                 <div className="flex flex-wrap items-center gap-xs">
@@ -254,6 +281,7 @@ function AgentRowsTable({
                   >
                     {agent.segment}
                   </span>
+                  {agent.targetPaused ? <PauseBadge /> : null}
                 </div>
               </td>
               <td className={cellPad}>
@@ -263,6 +291,7 @@ function AgentRowsTable({
                   progress={agent.progress}
                   tone="won"
                   compact
+                  paused={agent.targetPaused}
                 />
               </td>
               <td className={cellPad}>
@@ -272,6 +301,7 @@ function AgentRowsTable({
                   progress={agent.activatedProgress}
                   tone="activated"
                   compact
+                  paused={agent.targetPaused}
                 />
               </td>
             </tr>

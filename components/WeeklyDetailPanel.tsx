@@ -281,7 +281,7 @@ function AgentWeeklyRows({
                   }}
                   className={`cursor-pointer transition-colors hover:bg-surface-container-low/50 ${
                     isExpanded ? "bg-primary-container/20" : index % 2 === 0 ? "bg-surface-container-low/20" : ""
-                  }`}
+                  } ${agent.targetPaused ? "opacity-75" : ""}`}
                 >
                   <td className={cellPad}>
                     <div className="flex items-center gap-xs">
@@ -294,6 +294,11 @@ function AgentWeeklyRows({
                           <span className={`rounded-full px-xs py-[2px] text-[10px] font-bold uppercase ${agent.segmentColor}`}>
                             {agent.segment}
                           </span>
+                          {agent.targetPaused ? (
+                            <span className="rounded-full bg-surface-container-high px-xs py-[2px] text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">
+                              On pause
+                            </span>
+                          ) : null}
                         </div>
                         <p className="text-[10px] text-on-surface-variant">{activityTotal} events · click to expand</p>
                       </div>
@@ -454,6 +459,11 @@ function AgentWeeklyCard({ agent, salesforceUrl }: { agent: WeeklyAgentStatusVie
         <span className={`rounded-full px-xs py-[2px] text-[11px] font-bold ${agent.segmentColor}`}>
           {agent.segment}
         </span>
+        {agent.targetPaused ? (
+          <span className="rounded-full bg-surface-container-high px-xs py-[2px] text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">
+            On pause
+          </span>
+        ) : null}
       </div>
       <div className="grid grid-cols-1 gap-sm sm:grid-cols-2">
         {agent.statuses.map((status) => (
