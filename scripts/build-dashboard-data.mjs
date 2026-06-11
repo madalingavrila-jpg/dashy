@@ -10,6 +10,8 @@ import { filterTeamAgents, buildMtdAchievement, isExcludedAgent, agentSegment } 
 import {
   accumulateWeeklyStatus,
   breakdownStoreToHistory,
+  countWeeklyLeads,
+  deriveWeeklyHistory,
   initWeeklyBreakdownStore,
   weekKey,
   weekLabel,
@@ -30,9 +32,6 @@ const SALES_STAGES = [
 ];
 const ONBOARDING_STAGES = ["Onboarding Checklist", "Onboarding", "Ready to Activate", "Activated"];
 const WON_STAGES = ["Contract sent", "Ready to Activate", "Onboarding", "Onboarding Checklist", "Closed Won", "Activated"];
-const QUALIFIED_STAGES = ["Contacting DCM", "First Pitch", "Negotiations"];
-
-
 function pctChange(current, previous) {
   if (!previous) return current ? 100 : 0;
   return Math.round(((current - previous) / previous) * 1000) / 10;
@@ -100,50 +99,14 @@ const wonData = parseSfJson(wonExport);
 const now = new Date().toISOString();
 const currentWeekKey = weekKey(new Date("2026-06-11"));
 
-// Weekly aggregation W01–W24 (2026)
-const weekBuckets = {};
-for (let w = 1; w <= 24; w += 1) {
-  const key = `2026-W${String(w).padStart(2, "0")}`;
-  weekBuckets[key] = { week: weekLabel(key), leads: 0, qualified: 0, contractSent: 0, won: 0, activated: 0 };
-}
-
-for (const rec of weeklyData.records ?? []) {
-  const created = rec.CreatedDate ? new Date(rec.CreatedDate) : null;
-  const closed = rec.CloseDate ? new Date(`${rec.CloseDate}T12:00:00Z`) : null;
-  const modified = rec.LastModifiedDate ? new Date(rec.LastModifiedDate) : null;
-  const stage = rec.StageName;
-
-  if (created && created.getFullYear() === 2026) {
-    const k = weekKey(created);
-    if (weekBuckets[k] && stage === "New Opportunity") weekBuckets[k].leads += 1;
-  }
-  if (modified && modified.getFullYear() === 2026) {
-    const k = weekKey(modified);
-    if (weekBuckets[k]) {
-      if (QUALIFIED_STAGES.includes(stage)) weekBuckets[k].qualified += 1;
-      if (stage === "Contract sent") weekBuckets[k].contractSent += 1;
-    }
-  }
-  if (closed && closed.getFullYear() === 2026) {
-    const k = weekKey(closed);
-    if (weekBuckets[k]) {
-      if (WON_STAGES.includes(stage)) weekBuckets[k].won += 1;
-      if (stage === "Activated") weekBuckets[k].activated += 1;
-    }
-  }
-}
-
-const history = Object.keys(weekBuckets)
-  .sort()
-  .slice(0, 24)
-  .map((k) => weekBuckets[k]);
-
 // Weekly status breakdown by team + agent (Qualified / Negotiations / Closed Won / Active)
 const weeklyBreakdownStore = initWeeklyBreakdownStore(24);
 for (const rec of weeklyData.records ?? []) {
   accumulateWeeklyStatus(rec, weeklyBreakdownStore, agentSegment, isExcludedAgent);
 }
 const weeklyBreakdown = breakdownStoreToHistory(weeklyBreakdownStore);
+const leadsByWeek = countWeeklyLeads(weeklyData.records, agentSegment, isExcludedAgent);
+const history = deriveWeeklyHistory(weeklyBreakdown, leadsByWeek);
 
 const currentIdx = history.findIndex((h) => `2026-${h.week.replace("W", "W")}` === currentWeekKey || h.week === weekLabel(currentWeekKey));
 const curWeek = history.find((h) => h.week === weekLabel(currentWeekKey)) ?? history[history.length - 1];
@@ -263,12 +226,9 @@ for (const acc of [...pipelineAccounts, ...wonAccounts, ...recentWon]) {
 const hitlist = [
   { id: "hit-001", priority: 1, company: "Fendi Kebap", city: "Bucharest", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "New Opportunity", sfOpportunityId: "001Ts000005nwEPIAY", notes: "Complex tier 1A · market rank #2" },
   { id: "hit-002", priority: 2, company: "Zen Sushi", city: "Bucharest", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "New Opportunity", sfOpportunityId: "0017Q000018iaDDQAY", notes: "Complex tier 1A · market rank #4" },
-  { id: "hit-003", priority: 3, company: "Jerry's Pizza", city: "Bucharest", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "New Opportunity", sfOpportunityId: "001Ts00000JIIl2IAH", notes: "Complex tier 1A · market rank #5" },
-  { id: "hit-004", priority: 4, company: "Boom Burger", city: "Bucharest", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "New Opportunity", sfOpportunityId: "001Ts00000HMMTfIAP", notes: "Complex tier 1A · market rank #6" },
-  { id: "hit-005", priority: 5, company: "Andos", city: "Brasov", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "Contacting Decision Maker", sfOpportunityId: "001Ts000004j3HIIAY", notes: "Stage 2 - Contacted" },
-  { id: "hit-006", priority: 6, company: "Kronburger", city: "Brasov", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "Negotiation", sfOpportunityId: "001Ts00000785wcIAA", notes: "Stage 3 - Negotiation in progress" },
-  { id: "hit-007", priority: 7, company: "Log Out", city: "Baia Mare", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "New Opportunity", sfOpportunityId: "001Ts00000788NzIAI", notes: "Not yet started" },
-  { id: "hit-008", priority: 8, company: "Sandwich La Juma' de Kil", city: "Brasov", segment: "density", owner: "Ionut-Mădălin Gavrilă", stage: "Contacting Decision Maker", sfOpportunityId: "001Ts000005U9HeIAK", notes: "Stage 2 - Contacted" },
+  { id: "hit-003", priority: 3, company: "Jerry's Pizza", city: "Bucharest", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "Negotiations", sfOpportunityId: "001Ts00000JIIl2IAH", notes: "Complex tier 1A · market rank #5" },
+  { id: "hit-004", priority: 4, company: "Kronburger", city: "Brasov", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "New Opportunity", sfOpportunityId: "001Ts00000785wcIAA", notes: "Stage 3 - Negotiation in progress" },
+  { id: "hit-005", priority: 5, company: "Log Out", city: "Baia Mare", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "Contract sent", sfOpportunityId: "001Ts00000788NzIAI", notes: "Not yet started" },
 ];
 
 const wonYtd = 1426;
@@ -302,9 +262,9 @@ const dashboard = {
       metrics: [
         metricRow("Leads", "leads"),
         metricRow("Qualified", "qualified"),
-        metricRow("Contract Sent", "contractSent"),
-        metricRow("Won", "won"),
-        metricRow("Activated", "activated"),
+        metricRow("Negotiations", "negotiations"),
+        metricRow("Closed Won", "closedWon"),
+        metricRow("Active", "active"),
       ],
       history,
       breakdown: weeklyBreakdown,
@@ -316,8 +276,8 @@ const dashboard = {
         description: "Romania week-over-week production (Sales Opportunity record type).",
         currentWeek: curWeek.week,
         priorWeek: prevWeek.week,
-        rows: ["Leads", "Qualified", "Contract Sent", "Won", "Activated"].map((metric, i) => {
-          const keys = ["leads", "qualified", "contractSent", "won", "activated"];
+        rows: ["Leads", "Qualified", "Negotiations", "Closed Won", "Active"].map((metric, i) => {
+          const keys = ["leads", "qualified", "negotiations", "closedWon", "active"];
           const k = keys[i];
           return {
             metric,

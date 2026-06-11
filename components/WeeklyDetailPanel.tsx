@@ -1,13 +1,19 @@
 "use client";
 
-import { useMemo } from "react";
+import { Fragment, useMemo, useState } from "react";
 import type {
+  WeeklyAccountEvent,
   WeeklyAgentStatusView,
   WeeklyDetailView,
+  WeeklyStatusKey,
   WeeklyStatusProgressView,
   WeeklyTeamStatusView,
 } from "@/types/dashboard";
-import { WEEKLY_STAGE_MAP } from "@/lib/weekly-stages";
+import {
+  WEEKLY_STAGE_MAP,
+  WEEKLY_STATUS_LABELS,
+  weeklyStatusAccent,
+} from "@/lib/weekly-stages";
 
 export type WeeklyFilter =
   | "all"
@@ -22,6 +28,8 @@ type WeeklyDetailPanelProps = {
   agents?: Array<{ ownerId: string; name: string; segment: string }>;
   loading?: boolean;
   onClose?: () => void;
+  salesforceUrl?: string;
+  agentTimeline?: WeeklyDetailView[];
 };
 
 function accentColor(accent: WeeklyStatusProgressView["accent"]): string {
@@ -154,97 +162,174 @@ function AgentStatusMiniCell({ status }: { status: WeeklyStatusProgressView }) {
   );
 }
 
-function AgentWeeklyRows({ agents, compact }: { agents: WeeklyAgentStatusView[]; compact?: boolean }) {
+function AgentAccountList({
+  accounts,
+  statusKey,
+  salesforceUrl,
+}: {
+  accounts?: Partial<Record<WeeklyStatusKey, WeeklyAccountEvent[]>>;
+  statusKey?: WeeklyStatusKey;
+  salesforceUrl?: string;
+}) {
+  const groups = statusKey
+    ? [[statusKey, accounts?.[statusKey] ?? []] as const]
+    : (Object.entries(accounts ?? {}) as Array<[WeeklyStatusKey, WeeklyAccountEvent[]]>).filter(
+        ([, items]) => items?.length,
+      );
+
+  if (!groups.length) {
+    return (
+      <p className="px-md py-sm text-body-md text-on-surface-variant">No accounts recorded this week.</p>
+    );
+  }
+
+  return (
+    <div className="space-y-sm px-md pb-md">
+      {groups.map(([key, items]) => (
+        <div key={key} className="rounded-lg border border-outline-variant/50 bg-white/70">
+          <p className={`border-b border-outline-variant/40 px-sm py-xs text-[10px] font-bold uppercase ${accentTextClass(weeklyStatusAccentLocal(key))}`}>
+            {WEEKLY_STATUS_LABELS[key]} · {items.length}
+          </p>
+          <ul className="divide-y divide-outline-variant/30">
+            {items.map((account) => {
+              const href = account.sfOpportunityId && salesforceUrl
+                ? `${salesforceUrl}/${account.sfOpportunityId}`
+                : undefined;
+              return (
+                <li key={`${key}-${account.id}`} className="flex flex-wrap items-center justify-between gap-sm px-sm py-xs text-[11px]">
+                  <div className="min-w-0">
+                    {href ? (
+                      <a href={href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:underline">
+                        {account.name}
+                      </a>
+                    ) : (
+                      <span className="font-semibold text-on-surface">{account.name}</span>
+                    )}
+                    <p className="text-on-surface-variant">
+                      {account.city} · {account.stage} · {account.date}
+                    </p>
+                  </div>
+                  {href && (
+                    <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-xs text-primary hover:underline">
+                      <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+                      SF
+                    </a>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function weeklyStatusAccentLocal(key: WeeklyStatusKey): WeeklyStatusProgressView["accent"] {
+  return weeklyStatusAccent(key);
+}
+
+function AgentWeeklyRows({
+  agents,
+  compact,
+  salesforceUrl,
+}: {
+  agents: WeeklyAgentStatusView[];
+  compact?: boolean;
+  salesforceUrl?: string;
+}) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
   if (!agents.length) {
     return (
       <p className="px-sm py-md text-body-md text-on-surface-variant">No agents on this team roster.</p>
     );
   }
 
-  if (compact) {
-    return (
-      <div className="max-h-[28rem] overflow-auto">
-        <table className="w-full min-w-[520px] text-left text-[11px]">
-          <thead className="sticky top-0 z-10 bg-white/95 backdrop-blur-sm">
-            <tr className="border-b border-outline-variant/60">
-              <th className="px-xs py-[2px] text-label-md font-semibold uppercase text-on-surface-variant">
-                Agent
-              </th>
-              <th className="px-xs py-[2px] text-label-md font-semibold uppercase text-primary">Qual</th>
-              <th className="px-xs py-[2px] text-label-md font-semibold uppercase text-secondary">Nego</th>
-              <th className="px-xs py-[2px] text-label-md font-semibold uppercase text-won">Won</th>
-              <th className="px-xs py-[2px] text-label-md font-semibold uppercase text-activated">Act</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-outline-variant/30">
-            {agents.map((agent, index) => (
-              <tr
-                key={agent.ownerId}
-                className={index % 2 === 0 ? "bg-surface-container-low/30" : undefined}
-              >
-                <td className="px-xs py-xs">
-                  <div className="flex flex-wrap items-center gap-xs">
-                    <span className="font-semibold text-on-surface">{agent.name}</span>
-                    <span
-                      className={`rounded-full px-xs py-[2px] text-[10px] font-bold uppercase ${agent.segmentColor}`}
-                    >
-                      {agent.segment}
-                    </span>
-                  </div>
-                </td>
-                {agent.statuses.map((status) => (
-                  <td key={status.key} className="px-xs py-xs">
-                    <AgentStatusMiniCell status={status} />
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
+  const cellPad = compact ? "px-xs py-xs" : "px-md py-sm";
+  const headPad = compact ? "px-xs py-[2px]" : "px-md py-sm";
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[720px] text-left">
-        <thead>
+    <div className={compact ? "max-h-[32rem] overflow-auto" : "overflow-x-auto"}>
+      <table className={`w-full ${compact ? "min-w-[560px] text-[11px]" : "min-w-[720px]"} text-left`}>
+        <thead className={compact ? "sticky top-0 z-10 bg-white/95 backdrop-blur-sm" : undefined}>
           <tr className="border-b border-outline-variant/60 bg-surface-container-low/50">
-            <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">Agent</th>
-            <th className="px-md py-sm text-label-md font-semibold uppercase text-primary">Qualified</th>
-            <th className="px-md py-sm text-label-md font-semibold uppercase text-secondary">Negotiations</th>
-            <th className="px-md py-sm text-label-md font-semibold uppercase text-won">Closed Won</th>
-            <th className="px-md py-sm text-label-md font-semibold uppercase text-activated">Active</th>
+            <th className={`${headPad} text-label-md font-semibold uppercase text-on-surface-variant`}>
+              Agent
+            </th>
+            <th className={`${headPad} text-label-md font-semibold uppercase text-primary`}>Qualified</th>
+            <th className={`${headPad} text-label-md font-semibold uppercase text-secondary`}>Negotiations</th>
+            <th className={`${headPad} text-label-md font-semibold uppercase text-won`}>Closed Won</th>
+            <th className={`${headPad} text-label-md font-semibold uppercase text-activated`}>Active</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-outline-variant/40">
-          {agents.map((agent) => (
-            <tr key={agent.ownerId} className="hover:bg-surface-container-low/40">
-              <td className="px-md py-sm">
-                <div className="flex flex-wrap items-center gap-sm">
-                  <span className="font-semibold text-on-surface">{agent.name}</span>
-                  <span className={`rounded-full px-xs py-[2px] text-[11px] font-bold ${agent.segmentColor}`}>
-                    {agent.segment}
-                  </span>
-                </div>
-              </td>
-              {agent.statuses.map((status) => (
-                <td key={status.key} className="px-md py-sm">
-                  <div className="flex items-center gap-sm">
-                    <StatusDonut status={status} size="sm" />
-                    <AgentStatusMiniCell status={status} />
-                  </div>
-                </td>
-              ))}
-            </tr>
-          ))}
+          {agents.map((agent, index) => {
+            const isExpanded = expandedId === agent.ownerId;
+            const activityTotal = agent.statuses.reduce((sum, status) => sum + status.actual, 0);
+            return (
+              <Fragment key={agent.ownerId}>
+                <tr
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setExpandedId(isExpanded ? null : agent.ownerId)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setExpandedId(isExpanded ? null : agent.ownerId);
+                    }
+                  }}
+                  className={`cursor-pointer transition-colors hover:bg-surface-container-low/50 ${
+                    isExpanded ? "bg-primary-container/20" : index % 2 === 0 ? "bg-surface-container-low/20" : ""
+                  }`}
+                >
+                  <td className={cellPad}>
+                    <div className="flex items-center gap-xs">
+                      <span className="material-symbols-outlined text-[18px] text-on-surface-variant">
+                        {isExpanded ? "expand_less" : "expand_more"}
+                      </span>
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-xs">
+                          <span className="font-semibold text-primary">{agent.name}</span>
+                          <span className={`rounded-full px-xs py-[2px] text-[10px] font-bold uppercase ${agent.segmentColor}`}>
+                            {agent.segment}
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-on-surface-variant">{activityTotal} events · click to expand</p>
+                      </div>
+                    </div>
+                  </td>
+                  {agent.statuses.map((status) => (
+                    <td key={status.key} className={cellPad}>
+                      <AgentStatusMiniCell status={status} />
+                    </td>
+                  ))}
+                </tr>
+                {isExpanded && (
+                  <tr className="bg-surface-container-low/30">
+                    <td colSpan={5} className="p-0">
+                      <AgentAccountList accounts={agent.accounts} salesforceUrl={salesforceUrl} />
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
+            );
+          })}
         </tbody>
       </table>
     </div>
   );
 }
 
-function TeamWeeklyCard({ team, parallel = false }: { team: WeeklyTeamStatusView; parallel?: boolean }) {
+function TeamWeeklyCard({
+  team,
+  parallel = false,
+  salesforceUrl,
+}: {
+  team: WeeklyTeamStatusView;
+  parallel?: boolean;
+  salesforceUrl?: string;
+}) {
   const accent = team.segment === "complex" ? "complex" : "density";
   const borderColor = accent === "complex" ? "border-l-primary" : "border-l-tertiary";
   const cardAccent = accent === "complex" ? "team-card--complex" : "team-card--density";
@@ -287,13 +372,81 @@ function TeamWeeklyCard({ team, parallel = false }: { team: WeeklyTeamStatusView
           </p>
           <p className="text-label-md text-on-surface-variant">Sorted by activity</p>
         </div>
-        <AgentWeeklyRows agents={team.agents} compact={parallel} />
+        <AgentWeeklyRows agents={team.agents} compact={parallel} salesforceUrl={salesforceUrl} />
       </div>
     </div>
   );
 }
 
-function AgentWeeklyCard({ agent }: { agent: WeeklyAgentStatusView }) {
+function AgentWeeklyTimeline({
+  agent,
+  breakdown,
+  config,
+}: {
+  agent: WeeklyAgentStatusView;
+  breakdown: WeeklyDetailView[];
+  config?: { weekly: { complex: Record<WeeklyStatusKey, number>; density: Record<WeeklyStatusKey, number> }; weeklyPerRep: Record<string, Partial<Record<WeeklyStatusKey, number>>> };
+}) {
+  const rows = breakdown
+    .map((week) => {
+      const match = week.agents.find((entry) => entry.ownerId === agent.ownerId);
+      if (!match) return null;
+      const total = match.statuses.reduce((sum, status) => sum + status.actual, 0);
+      return { week: week.week, statuses: match.statuses, total, accounts: match.accounts };
+    })
+    .filter(Boolean);
+
+  if (!rows.length) {
+    return (
+      <p className="rounded-lg bg-surface-container-low px-md py-sm text-body-md text-on-surface-variant">
+        No weekly activity recorded for {agent.name} in 2026 W01–W24.
+      </p>
+    );
+  }
+
+  return (
+    <div className="glass-card overflow-hidden rounded-xl border border-outline-variant/60">
+      <div className="border-b border-outline-variant/60 px-lg py-md">
+        <h4 className="text-title-lg font-bold text-on-surface">{agent.name} · W01–W24</h4>
+        <p className="text-body-md text-on-surface-variant">Weekly status counts vs targets across all ISO weeks</p>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[720px] text-left text-[11px]">
+          <thead className="bg-surface-container-low/70">
+            <tr>
+              <th className="px-md py-sm font-semibold uppercase text-on-surface-variant">Week</th>
+              {WEEKLY_STATUS_LABELS && Object.entries(WEEKLY_STATUS_LABELS).map(([key, label]) => (
+                <th key={key} className={`px-md py-sm font-semibold uppercase ${accentTextClass(weeklyStatusAccentLocal(key as WeeklyStatusKey))}`}>
+                  {label}
+                </th>
+              ))}
+              <th className="px-md py-sm font-semibold uppercase text-on-surface-variant">Total</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-outline-variant/30">
+            {rows.map((row) => (
+              <tr key={row!.week} className="hover:bg-surface-container-low/30">
+                <td className="px-md py-sm font-semibold text-on-surface">{row!.week}</td>
+                {row!.statuses.map((status) => (
+                  <td key={status.key} className="px-md py-sm">
+                    <span className="font-bold tabular-nums text-on-surface">{status.actual}</span>
+                    <span className="text-on-surface-variant">/{status.target}</span>
+                    <span className={`ml-xs rounded-full px-xs py-[1px] text-[9px] font-bold ${status.progress >= 100 ? accentBarClass(status.accent) + " text-white" : "bg-surface-container text-on-surface-variant"}`}>
+                      {status.progress}%
+                    </span>
+                  </td>
+                ))}
+                <td className="px-md py-sm font-bold tabular-nums">{row!.total}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function AgentWeeklyCard({ agent, salesforceUrl }: { agent: WeeklyAgentStatusView; salesforceUrl?: string }) {
   return (
     <div className="glass-card rounded-xl border border-outline-variant/60 p-lg">
       <div className="mb-md flex flex-wrap items-center gap-sm">
@@ -307,6 +460,12 @@ function AgentWeeklyCard({ agent }: { agent: WeeklyAgentStatusView }) {
           <StatusCard key={status.key} status={status} />
         ))}
       </div>
+      {agent.accounts && (
+        <div className="mt-md border-t border-outline-variant/60 pt-md">
+          <p className="mb-sm text-label-md font-semibold uppercase text-on-surface-variant">Accounts this week</p>
+          <AgentAccountList accounts={agent.accounts} salesforceUrl={salesforceUrl} />
+        </div>
+      )}
     </div>
   );
 }
@@ -380,6 +539,8 @@ export function WeeklyDetailPanel({
   agents,
   loading,
   onClose,
+  salesforceUrl,
+  agentTimeline,
 }: WeeklyDetailPanelProps) {
   const content = useMemo(() => {
     if (!detail) return null;
@@ -388,7 +549,7 @@ export function WeeklyDetailPanel({
       return (
         <div className="team-progress-grid grid grid-cols-1 gap-lg md:grid-cols-2 md:items-stretch md:gap-md">
           {detail.teams.map((team) => (
-            <TeamWeeklyCard key={team.segment} team={team} parallel />
+            <TeamWeeklyCard key={team.segment} team={team} parallel salesforceUrl={salesforceUrl} />
           ))}
         </div>
       );
@@ -397,7 +558,7 @@ export function WeeklyDetailPanel({
     if (filter === "complex" || filter === "density") {
       const team = detail.teams.find((entry) => entry.segment === filter);
       if (!team) return null;
-      return <TeamWeeklyCard team={team} />;
+      return <TeamWeeklyCard team={team} salesforceUrl={salesforceUrl} />;
     }
 
     if (filter.type === "agent") {
@@ -409,11 +570,18 @@ export function WeeklyDetailPanel({
           </p>
         );
       }
-      return <AgentWeeklyCard agent={agent} />;
+      return (
+        <div className="space-y-lg">
+          <AgentWeeklyCard agent={agent} salesforceUrl={salesforceUrl} />
+          {agentTimeline?.length ? (
+            <AgentWeeklyTimeline agent={agent} breakdown={agentTimeline} />
+          ) : null}
+        </div>
+      );
     }
 
     return null;
-  }, [detail, filter]);
+  }, [detail, filter, salesforceUrl, agentTimeline]);
 
   if (loading && !detail) {
     return <div className="glass-card h-96 animate-pulse rounded-xl p-lg" />;

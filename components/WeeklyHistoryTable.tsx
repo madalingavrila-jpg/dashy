@@ -42,14 +42,14 @@ export function WeeklyHistoryTable({
               <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
                 Qualified
               </th>
-              <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
-                Contract Sent
+              <th className="px-md py-sm text-label-md font-semibold uppercase text-secondary">
+                Negotiations
               </th>
               <th className="px-md py-sm text-label-md font-semibold uppercase text-won">
-                Won
+                Closed Won
               </th>
               <th className="px-md py-sm text-label-md font-semibold uppercase text-activated">
-                Activated
+                Active
               </th>
             </tr>
           </thead>
@@ -97,9 +97,9 @@ export function WeeklyHistoryTable({
                   </td>
                   <td className="px-md py-sm text-data-mono">{row.leads}</td>
                   <td className="px-md py-sm text-data-mono">{row.qualified}</td>
-                  <td className="px-md py-sm text-data-mono">{row.contractSent}</td>
-                  <td className="px-md py-sm font-semibold text-won">{row.won}</td>
-                  <td className="px-md py-sm font-semibold text-activated">{row.activated}</td>
+                  <td className="px-md py-sm text-data-mono">{row.negotiations}</td>
+                  <td className="px-md py-sm font-semibold text-won">{row.closedWon}</td>
+                  <td className="px-md py-sm font-semibold text-activated">{row.active}</td>
                 </tr>
               );
             })}

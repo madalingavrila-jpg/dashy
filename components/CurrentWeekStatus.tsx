@@ -61,8 +61,8 @@ export function CurrentWeekStatus({ weekly, loading }: CurrentWeekStatusProps) {
         <div className="grid grid-cols-2 gap-md md:grid-cols-5">
           {weekly.metrics.map((metric) => {
             const labelLower = metric.label.toLowerCase();
-            const isWon = labelLower === "won";
-            const isActivated = labelLower === "activated";
+            const isClosedWon = labelLower === "closed won";
+            const isActive = labelLower === "active";
             const trendIcon =
               metric.trend === "up" ? "arrow_upward" : metric.trend === "down" ? "arrow_downward" : "remove";
 
@@ -70,9 +70,9 @@ export function CurrentWeekStatus({ weekly, loading }: CurrentWeekStatusProps) {
               <div
                 key={metric.label}
                 className={`glass-card rounded-xl p-md ${
-                  isWon
+                  isClosedWon
                     ? "border-t-4 border-t-won"
-                    : isActivated
+                    : isActive
                       ? "border-t-4 border-t-activated"
                       : ""
                 }`}

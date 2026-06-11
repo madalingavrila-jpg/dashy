@@ -26,13 +26,13 @@ export function WeeklyMetricsGrid({ metrics, weekLabel, loading }: WeeklyMetrics
       )}
       <div className="grid grid-cols-2 gap-md md:grid-cols-5">
         {metrics?.map((metric) => {
-          const isWon = metric.label.toLowerCase() === "won";
-          const isActivated = metric.label.toLowerCase() === "activated";
+          const isClosedWon = metric.label.toLowerCase() === "closed won";
+          const isActive = metric.label.toLowerCase() === "active";
           return (
             <div
               key={metric.label}
               className={`glass-card rounded-xl p-md ${
-                isWon ? "border-t-4 border-t-won" : isActivated ? "border-t-4 border-t-activated" : ""
+                isClosedWon ? "border-t-4 border-t-won" : isActive ? "border-t-4 border-t-activated" : ""
               }`}
             >
               <p className="text-label-md font-label-md text-on-surface-variant">{metric.label}</p>
@@ -73,12 +73,12 @@ export function WeeklyHistoryChart({
     return <div className="glass-card animate-pulse rounded-xl p-lg h-64" />;
   }
 
-  const maxWon = Math.max(...(history ?? []).map((h) => h.won), 1);
-  const maxActivated = Math.max(...(history ?? []).map((h) => h.activated), 1);
+  const maxClosedWon = Math.max(...(history ?? []).map((h) => h.closedWon), 1);
+  const maxActive = Math.max(...(history ?? []).map((h) => h.active), 1);
 
   return (
     <div className="glass-card rounded-xl p-lg">
-      <h3 className="mb-lg text-title-lg font-title-lg font-bold">2026 Trend (Won vs Activated)</h3>
+      <h3 className="mb-lg text-title-lg font-title-lg font-bold">2026 Trend (Closed Won vs Active)</h3>
       <div className="overflow-x-auto pb-sm">
       <div className="flex items-end justify-between gap-sm min-w-[960px]" style={{ minHeight: 180 }}>
         {history?.map((row) => {
@@ -102,18 +102,18 @@ export function WeeklyHistoryChart({
             <div className="flex w-full items-end justify-center gap-1" style={{ height: 140 }}>
               <div
                 className="w-4 rounded-t bg-won"
-                style={{ height: `${Math.max(8, (row.won / maxWon) * 100)}%` }}
-                title={`Won: ${row.won}`}
+                style={{ height: `${Math.max(8, (row.closedWon / maxClosedWon) * 100)}%` }}
+                title={`Closed Won: ${row.closedWon}`}
               />
               <div
                 className="w-4 rounded-t bg-activated"
-                style={{ height: `${Math.max(8, (row.activated / maxActivated) * 100)}%` }}
-                title={`Activated: ${row.activated}`}
+                style={{ height: `${Math.max(8, (row.active / maxActive) * 100)}%` }}
+                title={`Active: ${row.active}`}
               />
             </div>
             <span className="text-label-md font-label-md font-semibold">{row.week}</span>
             <span className="text-[10px] text-on-surface-variant">
-              L{row.leads} · W{row.won} · A{row.activated}
+              L{row.leads} · CW{row.closedWon} · A{row.active}
             </span>
           </div>
           );
@@ -122,10 +122,10 @@ export function WeeklyHistoryChart({
       </div>
       <div className="mt-md flex gap-md text-label-md">
         <span className="flex items-center gap-xs">
-          <span className="h-3 w-3 rounded bg-won" /> Won
+          <span className="h-3 w-3 rounded bg-won" /> Closed Won
         </span>
         <span className="flex items-center gap-xs">
-          <span className="h-3 w-3 rounded bg-activated" /> Activated
+          <span className="h-3 w-3 rounded bg-activated" /> Active
         </span>
       </div>
     </div>

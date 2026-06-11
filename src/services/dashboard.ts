@@ -439,9 +439,9 @@ function mapWeeklyMetricViews(metrics: WeeklyMetric[]): WeeklyMetricView[] {
 const WEEKLY_METRIC_KEYS = [
   { label: "Leads", key: "leads" as const },
   { label: "Qualified", key: "qualified" as const },
-  { label: "Contract Sent", key: "contractSent" as const },
-  { label: "Won", key: "won" as const },
-  { label: "Activated", key: "activated" as const },
+  { label: "Negotiations", key: "negotiations" as const },
+  { label: "Closed Won", key: "closedWon" as const },
+  { label: "Active", key: "active" as const },
 ];
 
 function buildWeeklyPerformanceView(

@@ -142,14 +142,14 @@
               "type": "array",
               "items": {
                 "type": "object",
-                "required": ["week", "leads", "qualified", "contractSent", "won", "activated"],
+                "required": ["week", "leads", "qualified", "negotiations", "closedWon", "active"],
                 "properties": {
                   "week": { "type": "string" },
                   "leads": { "type": "number" },
                   "qualified": { "type": "number" },
-                  "contractSent": { "type": "number" },
-                  "won": { "type": "number" },
-                  "activated": { "type": "number" }
+                  "negotiations": { "type": "number" },
+                  "closedWon": { "type": "number" },
+                  "active": { "type": "number" }
                 }
               }
             },
@@ -170,7 +170,7 @@
                   },
                   "agents": {
                     "type": "object",
-                    "additionalProperties": { "$ref": "#/$defs/weeklyStatusCounts" }
+                    "additionalProperties": { "$ref": "#/$defs/weeklyAgentBreakdown" }
                   }
                 }
               }
@@ -302,6 +302,36 @@
         "closedWon": { "type": "number" },
         "active": { "type": "number" }
       }
+    },
+    "weeklyAccountEvent": {
+      "type": "object",
+      "required": ["id", "name", "city", "stage", "date"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "city": { "type": "string" },
+        "stage": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "sfOpportunityId": { "type": "string" },
+        "sfAccountId": { "type": "string" }
+      }
+    },
+    "weeklyAgentBreakdown": {
+      "allOf": [
+        { "$ref": "#/$defs/weeklyStatusCounts" },
+        {
+          "type": "object",
+          "properties": {
+            "accounts": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": { "$ref": "#/$defs/weeklyAccountEvent" }
+              }
+            }
+          }
+        }
+      ]
     },
     "accountList": {
       "type": "array",

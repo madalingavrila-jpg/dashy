@@ -89,6 +89,7 @@ export function buildWeeklyDetailViews(
     breakdownRow: WeeklyBreakdownRow,
   ): WeeklyAgentStatusView {
     const counts = breakdownRow.agents[agent.ownerId] ?? emptyWeeklyStatusCounts();
+    const agentBreakdown = breakdownRow.agents[agent.ownerId];
     const segment = agent.segment;
     const style =
       segment === "complex"
@@ -100,6 +101,7 @@ export function buildWeeklyDetailViews(
       segment: segment === "complex" ? "Complex" : "Density",
       segmentColor: style,
       statuses: buildStatusViews(counts, segment, 1, config, agent.ownerId),
+      accounts: agentBreakdown?.accounts,
     };
   }
 

@@ -30,9 +30,23 @@ export type WeeklyHistoryRow = {
   week: string;
   leads: number;
   qualified: number;
-  contractSent: number;
-  won: number;
-  activated: number;
+  negotiations: number;
+  closedWon: number;
+  active: number;
+};
+
+export type WeeklyAccountEvent = {
+  id: string;
+  name: string;
+  city: string;
+  stage: string;
+  date: string;
+  sfOpportunityId?: string;
+  sfAccountId?: string;
+};
+
+export type WeeklyAgentBreakdown = WeeklyStatusCounts & {
+  accounts?: Partial<Record<WeeklyStatusKey, WeeklyAccountEvent[]>>;
 };
 
 export type WeeklyStatusKey = "qualified" | "negotiations" | "closedWon" | "active";
@@ -45,7 +59,7 @@ export type WeeklyBreakdownRow = {
     complex: WeeklyStatusCounts;
     density: WeeklyStatusCounts;
   };
-  agents: Record<string, WeeklyStatusCounts>;
+  agents: Record<string, WeeklyAgentBreakdown>;
 };
 
 export type WeeklyStatusProgressView = {
@@ -72,6 +86,7 @@ export type WeeklyAgentStatusView = {
   segment: string;
   segmentColor: string;
   statuses: WeeklyStatusProgressView[];
+  accounts?: Partial<Record<WeeklyStatusKey, WeeklyAccountEvent[]>>;
 };
 
 export type WeeklyDetailView = {

@@ -52,6 +52,16 @@ export function WeeklyShell() {
     return built[0];
   }, [model, selectedWeek, targetConfig]);
 
+  const agentTimeline = useMemo(() => {
+    if (!model?.weeklyPerformance.statusBreakdown.length || !model.agents.length) return [];
+    if (filter === "all" || filter === "complex" || filter === "density") return [];
+    return buildWeeklyDetailViews(
+      model.weeklyPerformance.statusBreakdown,
+      agentsForWeeklyBuild(model.agents),
+      { weekly: targetConfig.weekly, weeklyPerRep: targetConfig.weeklyPerRep },
+    );
+  }, [model, filter, targetConfig]);
+
   const handleWeekSelect = (week: string) => {
     setFilter("all");
     setSelectedWeek((current) => (current === week ? null : week));
@@ -135,6 +145,8 @@ export function WeeklyShell() {
             agents={agentOptions}
             loading={loading}
             onClose={() => setSelectedWeek(null)}
+            salesforceUrl={model?.salesforceInstanceUrl}
+            agentTimeline={agentTimeline}
           />
           {!loading && !selectedDetail && (
             <p className="rounded-lg bg-surface-container-low px-md py-sm text-body-md text-on-surface-variant">
