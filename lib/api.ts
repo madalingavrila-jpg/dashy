@@ -1,6 +1,13 @@
 import type { DashboardModel } from "@/types/dashboard";
 import type { TargetConfig } from "@/lib/targetConfig";
 
+export type TargetConfigPersistence = {
+  mode: "github" | "filesystem";
+  committed?: boolean;
+  commitSha?: string;
+  warning?: string;
+};
+
 export function apiBase(): string {
   return process.env.NEXT_PUBLIC_API_BASE?.replace(/\/$/, "") ?? "";
 }
@@ -36,7 +43,9 @@ export async function fetchTargetConfigFromApi(
   return (await response.json()) as Partial<TargetConfig>;
 }
 
-export async function saveTargetConfigToApi(config: TargetConfig): Promise<void> {
+export async function saveTargetConfigToApi(
+  config: TargetConfig,
+): Promise<TargetConfigPersistence | undefined> {
   const response = await fetch(`${apiBase()}/api/target-config`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -46,4 +55,8 @@ export async function saveTargetConfigToApi(config: TargetConfig): Promise<void>
     const body = (await response.json().catch(() => null)) as { error?: string } | null;
     throw new Error(body?.error ?? `Target config save returned ${response.status}`);
   }
+  const body = (await response.json()) as Partial<TargetConfig> & {
+    _persistence?: TargetConfigPersistence;
+  };
+  return body._persistence;
 }

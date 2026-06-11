@@ -1,12 +1,28 @@
 {
-  "updatedAt": "2026-06-12T00:00:00.000Z",
+  "updatedAt": "2026-06-11T21:36:04.282Z",
   "segment": {
-    "complex": { "won": 10, "activated": 8 },
-    "density": { "won": 30, "activated": 25 }
+    "complex": {
+      "won": 10,
+      "activated": 8
+    },
+    "density": {
+      "won": 30,
+      "activated": 25
+    }
   },
   "weekly": {
-    "complex": { "qualified": 3, "negotiations": 2, "closedWon": 3, "active": 2 },
-    "density": { "qualified": 8, "negotiations": 5, "closedWon": 8, "active": 6 }
+    "complex": {
+      "qualified": 3,
+      "negotiations": 2,
+      "closedWon": 3,
+      "active": 2
+    },
+    "density": {
+      "qualified": 8,
+      "negotiations": 5,
+      "closedWon": 8,
+      "active": 6
+    }
   },
   "perRep": {},
   "weeklyPerRep": {},

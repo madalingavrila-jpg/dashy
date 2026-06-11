@@ -57,6 +57,16 @@ DASHY_CACHE_TTL_MS=60000
 PORT=8080
 ```
 
+**Target overrides (Settings → Save targets):** `PUT /api/target-config` writes `data/target-config.json`. Boltable’s filesystem is ephemeral — without git persistence, overrides are lost on redeploy. Set on Boltable:
+
+```
+GITHUB_TOKEN=<PAT with repo contents write on boltable/dashy>
+GITHUB_REPO=boltable/dashy
+GITHUB_BRANCH=main
+```
+
+When configured, each save commits `data/target-config.json` via the GitHub Contents API; the next Paketo build pulls the file from git. Expect a short redeploy (~1–2 min) after each target save, same as dashboard data pushes.
+
 Google Sheet (agent refresh): `1IW8IxEs-YCsYMlCeTfkIz-b51eStjR5uUIEpkV1akRE` — see `AGENTS.md`.
 
 ## Boltable deploy

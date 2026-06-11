@@ -8,6 +8,7 @@ import {
   defaultTargetConfig,
   fetchTargetConfig,
   formatTargetSummary,
+  formatTargetSaveMessage,
   isTargetSettingsUnlocked,
   loadTargetConfig,
   saveTargetConfig,
@@ -132,9 +133,9 @@ export function TargetSettingsPanel({
     setSaving(true);
     setSaveMessage(null);
     try {
-      await saveTargetConfig(draft);
+      const persistence = await saveTargetConfig(draft);
       setSavedSummary(formatTargetSummary(draft));
-      setSaveMessage("Targets saved — visible to all users.");
+      setSaveMessage(formatTargetSaveMessage(persistence));
     } catch {
       setSaveMessage("Saved locally only — server unavailable. Retry when online.");
     } finally {
@@ -149,9 +150,9 @@ export function TargetSettingsPanel({
     const defaults = defaultTargetConfig();
     setDraft(defaults);
     try {
-      await clearTargetConfig();
+      const persistence = await clearTargetConfig();
       setSavedSummary(formatTargetSummary(defaults));
-      setSaveMessage("Reset to defaults — visible to all users.");
+      setSaveMessage(formatTargetSaveMessage(persistence) || "Reset to defaults.");
     } catch {
       setSavedSummary(formatTargetSummary(defaults));
       setSaveMessage("Reset locally — server unavailable.");
@@ -284,8 +285,10 @@ export function TargetSettingsPanel({
             </h3>
           </div>
           <p className="text-body-md text-on-surface-variant">
-            Segment defaults and per-rep overrides. Saved to the shared server config — all users
-            see the same targets. Does not change <code className="text-sm">data/dashboard.json</code>.
+            Segment defaults and per-rep overrides. Saved to{" "}
+            <code className="text-sm">data/target-config.json</code> — on Boltable, set{" "}
+            <code className="text-sm">GITHUB_TOKEN</code> so saves commit to git and survive redeploy.
+            Does not change <code className="text-sm">data/dashboard.json</code>.
           </p>
           <p className="mt-xs text-label-md text-on-surface-variant">
             Active: {savedSummary}

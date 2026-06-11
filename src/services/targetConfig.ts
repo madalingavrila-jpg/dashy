@@ -2,6 +2,7 @@ import fs from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { config } from "../config.js";
+import { commitFileToGitHub, isGitHubPersistEnabled } from "./githubPersist.js";
 import {
   COMPLEX_ACTIVATED_MTD_TARGET,
   COMPLEX_MTD_TARGET,
@@ -43,6 +44,20 @@ export type TargetConfigPayload = {
   weeklyPerRep: Record<string, PerRepWeeklyOverride>;
   pausedAgentIds: string[];
 };
+
+export type TargetConfigPersistence = {
+  mode: "github" | "filesystem";
+  committed?: boolean;
+  commitSha?: string;
+  warning?: string;
+};
+
+export type WriteTargetConfigResult = {
+  payload: TargetConfigPayload;
+  persistence: TargetConfigPersistence;
+};
+
+const TARGET_CONFIG_REPO_PATH = "data/target-config.json";
 
 function targetConfigPath(): string {
   return path.join(config.rootDir, "data", "target-config.json");
@@ -100,14 +115,59 @@ export async function readTargetConfig(): Promise<TargetConfigPayload> {
   }
 }
 
-export async function writeTargetConfig(payload: TargetConfigPayload): Promise<TargetConfigPayload> {
+function serializeTargetConfig(payload: TargetConfigPayload): string {
+  return `${JSON.stringify(payload, null, 2)}\n`;
+}
+
+export async function writeTargetConfig(payload: TargetConfigPayload): Promise<WriteTargetConfigResult> {
   const merged = mergeTargetConfig(payload);
   const toWrite: TargetConfigPayload = {
     ...merged,
     updatedAt: new Date().toISOString(),
   };
 
+  const serialized = serializeTargetConfig(toWrite);
   const filePath = targetConfigPath();
-  await writeFile(filePath, `${JSON.stringify(toWrite, null, 2)}\n`, "utf8");
-  return toWrite;
+  await writeFile(filePath, serialized, "utf8");
+
+  if (!isGitHubPersistEnabled()) {
+    return {
+      payload: toWrite,
+      persistence: {
+        mode: "filesystem",
+        warning:
+          "Saved on server filesystem only — overrides are lost on Boltable redeploy unless GITHUB_TOKEN and GITHUB_REPO are set.",
+      },
+    };
+  }
+
+  try {
+    const commit = await commitFileToGitHub(
+      TARGET_CONFIG_REPO_PATH,
+      serialized,
+      `chore(targets): update target-config.json [dashy]`,
+    );
+    console.log(
+      `[target-config] committed to ${config.githubRepo}@${config.githubBranch} (${commit.commitSha.slice(0, 7)})`,
+    );
+    return {
+      payload: toWrite,
+      persistence: {
+        mode: "github",
+        committed: true,
+        commitSha: commit.commitSha,
+      },
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "GitHub commit failed";
+    console.error("[target-config] GitHub commit failed:", message);
+    return {
+      payload: toWrite,
+      persistence: {
+        mode: "github",
+        committed: false,
+        warning: `${message} — file saved locally but may be lost on redeploy.`,
+      },
+    };
+  }
 }

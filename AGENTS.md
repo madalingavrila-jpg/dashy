@@ -243,6 +243,16 @@ npm run start:server
 curl http://localhost:8080/api/dashboard | jq '.totals.won.value'
 ```
 
+## Target overrides (`data/target-config.json`)
+
+Settings → **Save targets** calls `PUT /api/target-config`. On Boltable the container filesystem is **ephemeral** — file-only saves are lost on Paketo redeploy.
+
+**Production (Boltable):** set `GITHUB_TOKEN`, `GITHUB_REPO=boltable/dashy`, and optional `GITHUB_BRANCH=main`. Each save writes the file locally **and** commits it via the GitHub Contents API so the next deploy restores overrides from git.
+
+**Cursor agents:** When updating target overrides via Settings or API, ensure `data/target-config.json` is committed to git before/after deploy. If `GITHUB_TOKEN` is configured on Boltable, Settings saves auto-commit; otherwise commit the file manually and push to `boltable/dashy`.
+
+**Local dev:** without `GITHUB_TOKEN`, saves work for the current process only (filesystem mode).
+
 ## Do not
 
 - Add login/logout or auth flows.

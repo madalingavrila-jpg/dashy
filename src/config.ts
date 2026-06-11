@@ -17,4 +17,8 @@ export const config = {
   host: process.env.HOST || "0.0.0.0",
   isProduction: process.env.NODE_ENV === "production",
   dashboardSheetUrl: readEnv("DASHBOARD_SHEET_URL"),
+  /** When set with GITHUB_REPO, PUT /api/target-config commits data/target-config.json via GitHub API. */
+  githubToken: readEnv("GITHUB_TOKEN"),
+  githubRepo: readEnv("GITHUB_REPO"),
+  githubBranch: readEnv("GITHUB_BRANCH") || "main",
 };

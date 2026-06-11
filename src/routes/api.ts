@@ -79,10 +79,10 @@ apiRouter.put("/target-config", async (req, res) => {
       return;
     }
 
-    const payload = await writeTargetConfig(mergeTargetConfig(body));
+    const { payload, persistence } = await writeTargetConfig(mergeTargetConfig(body));
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("Content-Type", "application/json; charset=utf-8");
-    res.json(payload);
+    res.json({ ...payload, _persistence: persistence });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Target config save failed";
     console.error("[api/target-config PUT]", message);

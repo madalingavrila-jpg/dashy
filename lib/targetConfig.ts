@@ -84,6 +84,26 @@ function progressPercent(actual: number, target: number): number {
   return Math.min(100, Math.round((actual / target) * 100));
 }
 
+export type TargetConfigPersistence = {
+  mode: "github" | "filesystem";
+  committed?: boolean;
+  commitSha?: string;
+  warning?: string;
+};
+
+export function formatTargetSaveMessage(persistence?: TargetConfigPersistence): string {
+  if (persistence?.mode === "github" && persistence.committed) {
+    const sha = persistence.commitSha?.slice(0, 7);
+    return sha
+      ? `Targets saved to git (${sha}) — survives redeploy.`
+      : "Targets saved to git — survives redeploy.";
+  }
+  if (persistence?.warning) {
+    return persistence.warning;
+  }
+  return "Targets saved — visible to all users until the next redeploy.";
+}
+
 export function formatTargetSummary(config: TargetConfig): string {
   const { complex, density } = config.segment;
   const wc = config.weekly.complex;
@@ -158,18 +178,19 @@ export async function fetchTargetConfig(signal?: AbortSignal): Promise<TargetCon
   }
 }
 
-async function saveTargetConfigToServer(config: TargetConfig): Promise<void> {
+async function saveTargetConfigToServer(config: TargetConfig): Promise<TargetConfigPersistence | undefined> {
   const { saveTargetConfigToApi } = await import("@/lib/api");
-  await saveTargetConfigToApi(config);
+  return saveTargetConfigToApi(config);
 }
 
-export async function saveTargetConfig(config: TargetConfig): Promise<void> {
+export async function saveTargetConfig(config: TargetConfig): Promise<TargetConfigPersistence | undefined> {
   try {
-    await saveTargetConfigToServer(config);
+    const persistence = await saveTargetConfigToServer(config);
     if (typeof window !== "undefined") {
       localStorage.removeItem(TARGET_CONFIG_STORAGE_KEY);
     }
     dispatchTargetConfigUpdated();
+    return persistence;
   } catch (error) {
     if (typeof window !== "undefined") {
       localStorage.setItem(TARGET_CONFIG_STORAGE_KEY, JSON.stringify(config));
@@ -179,14 +200,15 @@ export async function saveTargetConfig(config: TargetConfig): Promise<void> {
   }
 }
 
-export async function clearTargetConfig(): Promise<void> {
+export async function clearTargetConfig(): Promise<TargetConfigPersistence | undefined> {
   const defaults = defaultTargetConfig();
   try {
-    await saveTargetConfigToServer(defaults);
+    const persistence = await saveTargetConfigToServer(defaults);
     if (typeof window !== "undefined") {
       localStorage.removeItem(TARGET_CONFIG_STORAGE_KEY);
     }
     dispatchTargetConfigUpdated();
+    return persistence;
   } catch {
     if (typeof window !== "undefined") {
       localStorage.removeItem(TARGET_CONFIG_STORAGE_KEY);
