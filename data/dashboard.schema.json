@@ -152,6 +152,28 @@
                   "activated": { "type": "number" }
                 }
               }
+            },
+            "breakdown": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["week", "teams", "agents"],
+                "properties": {
+                  "week": { "type": "string" },
+                  "teams": {
+                    "type": "object",
+                    "required": ["complex", "density"],
+                    "properties": {
+                      "complex": { "$ref": "#/$defs/weeklyStatusCounts" },
+                      "density": { "$ref": "#/$defs/weeklyStatusCounts" }
+                    }
+                  },
+                  "agents": {
+                    "type": "object",
+                    "additionalProperties": { "$ref": "#/$defs/weeklyStatusCounts" }
+                  }
+                }
+              }
             }
           }
         },
@@ -271,6 +293,16 @@
     }
   },
   "$defs": {
+    "weeklyStatusCounts": {
+      "type": "object",
+      "required": ["qualified", "negotiations", "closedWon", "active"],
+      "properties": {
+        "qualified": { "type": "number" },
+        "negotiations": { "type": "number" },
+        "closedWon": { "type": "number" },
+        "active": { "type": "number" }
+      }
+    },
     "accountList": {
       "type": "array",
       "items": {

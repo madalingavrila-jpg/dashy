@@ -6,7 +6,14 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { filterTeamAgents, buildMtdAchievement, isExcludedAgent } from "../lib/agent-segments.mjs";
+import { filterTeamAgents, buildMtdAchievement, isExcludedAgent, agentSegment } from "../lib/agent-segments.mjs";
+import {
+  accumulateWeeklyStatus,
+  breakdownStoreToHistory,
+  initWeeklyBreakdownStore,
+  weekKey,
+  weekLabel,
+} from "../lib/weekly-stages-build.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -25,23 +32,6 @@ const ONBOARDING_STAGES = ["Onboarding Checklist", "Onboarding", "Ready to Activ
 const WON_STAGES = ["Contract sent", "Ready to Activate", "Onboarding", "Onboarding Checklist", "Closed Won", "Activated"];
 const QUALIFIED_STAGES = ["Contacting DCM", "First Pitch", "Negotiations"];
 
-function isoWeek(date) {
-  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  const week = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
-  return { year: d.getUTCFullYear(), week };
-}
-
-function weekKey(date) {
-  const { year, week } = isoWeek(date);
-  return `${year}-W${String(week).padStart(2, "0")}`;
-}
-
-function weekLabel(key) {
-  const [, w] = key.split("-W");
-  return `W${String(Number(w)).padStart(2, "0")}`;
-}
 
 function pctChange(current, previous) {
   if (!previous) return current ? 100 : 0;
@@ -147,6 +137,13 @@ const history = Object.keys(weekBuckets)
   .sort()
   .slice(0, 24)
   .map((k) => weekBuckets[k]);
+
+// Weekly status breakdown by team + agent (Qualified / Negotiations / Closed Won / Active)
+const weeklyBreakdownStore = initWeeklyBreakdownStore(24);
+for (const rec of weeklyData.records ?? []) {
+  accumulateWeeklyStatus(rec, weeklyBreakdownStore, agentSegment, isExcludedAgent);
+}
+const weeklyBreakdown = breakdownStoreToHistory(weeklyBreakdownStore);
 
 const currentIdx = history.findIndex((h) => `2026-${h.week.replace("W", "W")}` === currentWeekKey || h.week === weekLabel(currentWeekKey));
 const curWeek = history.find((h) => h.week === weekLabel(currentWeekKey)) ?? history[history.length - 1];
@@ -310,6 +307,7 @@ const dashboard = {
         metricRow("Activated", "activated"),
       ],
       history,
+      breakdown: weeklyBreakdown,
     },
     wowReports: [
       {

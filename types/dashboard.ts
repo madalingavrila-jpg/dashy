@@ -35,6 +35,50 @@ export type WeeklyHistoryRow = {
   activated: number;
 };
 
+export type WeeklyStatusKey = "qualified" | "negotiations" | "closedWon" | "active";
+
+export type WeeklyStatusCounts = Record<WeeklyStatusKey, number>;
+
+export type WeeklyBreakdownRow = {
+  week: string;
+  teams: {
+    complex: WeeklyStatusCounts;
+    density: WeeklyStatusCounts;
+  };
+  agents: Record<string, WeeklyStatusCounts>;
+};
+
+export type WeeklyStatusProgressView = {
+  key: WeeklyStatusKey;
+  label: string;
+  actual: number;
+  target: number;
+  progress: number;
+  accent: "primary" | "secondary" | "won" | "activated";
+};
+
+export type WeeklyTeamStatusView = {
+  segment: "complex" | "density";
+  segmentLabel: string;
+  name: string;
+  repCount: number;
+  statuses: WeeklyStatusProgressView[];
+};
+
+export type WeeklyAgentStatusView = {
+  ownerId: string;
+  name: string;
+  segment: string;
+  segmentColor: string;
+  statuses: WeeklyStatusProgressView[];
+};
+
+export type WeeklyDetailView = {
+  week: string;
+  teams: WeeklyTeamStatusView[];
+  agents: WeeklyAgentStatusView[];
+};
+
 export type TierRow = {
   name: string;
   target: number;
@@ -180,6 +224,7 @@ export type DashboardRawData = {
       currentWeek?: string;
       metrics: WeeklyMetric[];
       history: WeeklyHistoryRow[];
+      breakdown?: WeeklyBreakdownRow[];
     };
     agents?: AgentRow[];
     accountsByStage?: Record<string, AccountRow[]>;
@@ -318,6 +363,7 @@ export type DashboardModel = {
     priorWeek: string;
     metrics: WeeklyMetricView[];
     history: WeeklyHistoryView[];
+    statusBreakdown: WeeklyBreakdownRow[];
     dataAvailable: boolean;
     fallbackMessage?: string;
   };

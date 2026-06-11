@@ -7,6 +7,11 @@ import {
   DENSITY_ACTIVATED_MTD_TARGET,
   DENSITY_MTD_TARGET,
 } from "@/lib/agent-segments";
+import {
+  COMPLEX_WEEKLY_TARGETS,
+  DENSITY_WEEKLY_TARGETS,
+  type WeeklyStatusCounts,
+} from "@/lib/weekly-stages";
 import { formatInteger, trendDirection } from "@/lib/format";
 
 export const TARGET_CONFIG_STORAGE_KEY = "dashy-target-config";
@@ -18,12 +23,19 @@ export type SegmentTargets = {
   activated: number;
 };
 
+export type WeeklyStatusTargets = WeeklyStatusCounts;
+
 export type TargetConfig = {
   segment: {
     complex: SegmentTargets;
     density: SegmentTargets;
   };
+  weekly: {
+    complex: WeeklyStatusTargets;
+    density: WeeklyStatusTargets;
+  };
   perRep: Record<string, { won?: number; activated?: number }>;
+  weeklyPerRep: Record<string, Partial<WeeklyStatusTargets>>;
 };
 
 export function defaultTargetConfig(): TargetConfig {
@@ -32,7 +44,12 @@ export function defaultTargetConfig(): TargetConfig {
       complex: { won: COMPLEX_MTD_TARGET, activated: COMPLEX_ACTIVATED_MTD_TARGET },
       density: { won: DENSITY_MTD_TARGET, activated: DENSITY_ACTIVATED_MTD_TARGET },
     },
+    weekly: {
+      complex: { ...COMPLEX_WEEKLY_TARGETS },
+      density: { ...DENSITY_WEEKLY_TARGETS },
+    },
     perRep: {},
+    weeklyPerRep: {},
   };
 }
 
@@ -48,7 +65,9 @@ function progressPercent(actual: number, target: number): number {
 
 export function formatTargetSummary(config: TargetConfig): string {
   const { complex, density } = config.segment;
-  return `Won target Complex ${complex.won}/rep, Density ${density.won}/rep · Activated target Complex ${complex.activated}/rep, Density ${density.activated}/rep`;
+  const wc = config.weekly.complex;
+  const wd = config.weekly.density;
+  return `Won target Complex ${complex.won}/rep, Density ${density.won}/rep · Activated target Complex ${complex.activated}/rep, Density ${density.activated}/rep · Weekly Complex Q${wc.qualified}/N${wc.negotiations}/W${wc.closedWon}/A${wc.active} · Density Q${wd.qualified}/N${wd.negotiations}/W${wd.closedWon}/A${wd.active}`;
 }
 
 export function loadTargetConfig(): TargetConfig {
@@ -63,7 +82,12 @@ export function loadTargetConfig(): TargetConfig {
         complex: { ...defaults.segment.complex, ...parsed.segment?.complex },
         density: { ...defaults.segment.density, ...parsed.segment?.density },
       },
+      weekly: {
+        complex: { ...defaults.weekly.complex, ...parsed.weekly?.complex },
+        density: { ...defaults.weekly.density, ...parsed.weekly?.density },
+      },
       perRep: parsed.perRep ?? {},
+      weeklyPerRep: parsed.weeklyPerRep ?? {},
     };
   } catch {
     return defaultTargetConfig();
@@ -272,6 +296,7 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
       activatedProgress,
     ),
     teamProgress: updatedTeams,
+    weeklyPerformance: model.weeklyPerformance,
     mtdAchievement: {
       ...model.mtdAchievement,
       wonProgress,

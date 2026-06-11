@@ -59,9 +59,16 @@ export function WeeklyMetricsGrid({ metrics, weekLabel, loading }: WeeklyMetrics
 type WeeklyHistoryChartProps = {
   history?: WeeklyHistoryView[];
   loading?: boolean;
+  selectedWeek?: string | null;
+  onWeekSelect?: (week: string) => void;
 };
 
-export function WeeklyHistoryChart({ history, loading }: WeeklyHistoryChartProps) {
+export function WeeklyHistoryChart({
+  history,
+  loading,
+  selectedWeek,
+  onWeekSelect,
+}: WeeklyHistoryChartProps) {
   if (loading && !history?.length) {
     return <div className="glass-card animate-pulse rounded-xl p-lg h-64" />;
   }
@@ -77,7 +84,21 @@ export function WeeklyHistoryChart({ history, loading }: WeeklyHistoryChartProps
         {history?.map((row) => {
           const isMany = (history?.length ?? 0) > 8;
           return (
-          <div key={row.week} className={`flex flex-col items-center gap-xs ${isMany ? "min-w-[36px] flex-1" : "flex-1"}`}>
+          <div
+            key={row.week}
+            role={onWeekSelect ? "button" : undefined}
+            tabIndex={onWeekSelect ? 0 : undefined}
+            onClick={() => onWeekSelect?.(row.week)}
+            onKeyDown={(event) => {
+              if (onWeekSelect && (event.key === "Enter" || event.key === " ")) {
+                event.preventDefault();
+                onWeekSelect(row.week);
+              }
+            }}
+            className={`flex flex-col items-center gap-xs ${isMany ? "min-w-[36px] flex-1" : "flex-1"} ${
+              onWeekSelect ? "cursor-pointer rounded-lg p-xs transition-colors hover:bg-surface-container-low" : ""
+            } ${selectedWeek === row.week ? "ring-2 ring-primary/50" : ""}`}
+          >
             <div className="flex w-full items-end justify-center gap-1" style={{ height: 140 }}>
               <div
                 className="w-4 rounded-t bg-won"

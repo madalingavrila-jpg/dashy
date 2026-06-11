@@ -12,7 +12,9 @@ import {
   saveTargetConfig,
   setTargetSettingsUnlocked,
   type TargetConfig,
+  type WeeklyStatusTargets,
 } from "@/lib/targetConfig";
+import { WEEKLY_STATUS_KEYS, WEEKLY_STATUS_LABELS } from "@/lib/weekly-stages";
 
 type TargetSettingsPanelProps = {
   agents?: AgentViewRow[];
@@ -117,6 +119,20 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
     }));
   };
 
+  const updateWeeklySegment = (
+    segment: "complex" | "density",
+    field: keyof WeeklyStatusTargets,
+    value: number,
+  ) => {
+    setDraft((prev) => ({
+      ...prev,
+      weekly: {
+        ...prev.weekly,
+        [segment]: { ...prev.weekly[segment], [field]: value },
+      },
+    }));
+  };
+
   const updatePerRep = (ownerId: string, field: "won" | "activated", value: string) => {
     const parsed = value === "" ? undefined : Math.max(0, Number.parseInt(value, 10) || 0);
     setDraft((prev) => {
@@ -143,7 +159,7 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
           <div className="mb-xs flex items-center gap-sm">
             <span className="material-symbols-outlined text-primary">flag</span>
             <h3 id="mtd-targets-heading" className="text-title-lg font-title-lg font-bold">
-              MTD Targets
+              Targets (MTD + Weekly)
             </h3>
           </div>
           <p className="text-body-md text-on-surface-variant">
@@ -230,6 +246,34 @@ export function TargetSettingsPanel({ agents, loading }: TargetSettingsPanelProp
                   onChange={(value) => updateSegment("density", "activated", value)}
                 />
               </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="mb-sm text-label-md font-bold uppercase tracking-wide text-on-surface-variant">
+              Weekly status targets · per rep
+            </h4>
+            <p className="mb-md text-body-md text-on-surface-variant">
+              Used in Weekly tab drill-down: Qualified, Negotiations, Closed Won, Active.
+            </p>
+            <div className="grid grid-cols-1 gap-md md:grid-cols-2">
+              {(["complex", "density"] as const).map((segment) => (
+                <div key={segment} className="rounded-lg bg-surface-container-low/60 p-md">
+                  <h5 className="mb-md text-label-md font-bold uppercase tracking-wide text-on-surface-variant">
+                    {segment === "complex" ? "Complex" : "Density"} weekly / rep
+                  </h5>
+                  <div className="grid grid-cols-2 gap-md">
+                    {WEEKLY_STATUS_KEYS.map((key) => (
+                      <NumberField
+                        key={key}
+                        label={WEEKLY_STATUS_LABELS[key]}
+                        value={draft.weekly[segment][key]}
+                        onChange={(value) => updateWeeklySegment(segment, key, value)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

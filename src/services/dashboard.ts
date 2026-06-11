@@ -463,6 +463,8 @@ function buildWeeklyPerformanceView(
   const storedMatchesCurrent =
     weeklyPerformance.currentWeek === currentWeek && weeklyPerformance.metrics.length > 0;
 
+  const statusBreakdown = weeklyPerformance.breakdown ?? [];
+
   if (storedMatchesCurrent) {
     return {
       weekLabel: weeklyPerformance.weekLabel || `${currentWeek} · ${dateRange}`,
@@ -472,6 +474,7 @@ function buildWeeklyPerformanceView(
       priorWeek: priorWeekCode(weeklyPerformance.currentWeek ?? currentWeek) ?? priorWeek,
       metrics: mapWeeklyMetricViews(weeklyPerformance.metrics),
       history,
+      statusBreakdown,
       dataAvailable: true,
     };
   }
@@ -496,6 +499,7 @@ function buildWeeklyPerformanceView(
       priorWeek: priorHistoryRow?.week ?? priorWeek,
       metrics: mapWeeklyMetricViews(metrics),
       history,
+      statusBreakdown,
       dataAvailable: true,
     };
   }
@@ -511,6 +515,7 @@ function buildWeeklyPerformanceView(
       priorWeek,
       metrics: mapWeeklyMetricViews(weeklyPerformance.metrics),
       history,
+      statusBreakdown,
       dataAvailable: true,
       fallbackMessage: `No history row for ${currentWeek}; showing last synced metrics.`,
     };
@@ -524,6 +529,7 @@ function buildWeeklyPerformanceView(
     priorWeek,
     metrics: [],
     history,
+    statusBreakdown,
     dataAvailable: false,
     fallbackMessage: `No weekly data for ${currentWeek} yet. Run the Salesforce refresh workflow.`,
   };
@@ -583,6 +589,7 @@ function placeholderModel(source: DataSourceStatus, error?: string): DashboardMo
       priorWeek: "—",
       metrics: [],
       history: [],
+      statusBreakdown: [],
       dataAvailable: false,
       fallbackMessage: "Weekly data unavailable",
     },

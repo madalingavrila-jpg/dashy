@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-11T18:53:23.439Z",
+  "updatedAt": "2026-06-11T19:46:55.443Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -109,9 +109,9 @@
       "metrics": [
         {
           "label": "Leads",
-          "value": 65,
+          "value": 61,
           "previousValue": 3,
-          "changePercent": 2066.7
+          "changePercent": 1933.3
         },
         {
           "label": "Qualified",
@@ -121,15 +121,15 @@
         },
         {
           "label": "Contract Sent",
-          "value": 15,
+          "value": 20,
           "previousValue": 9,
-          "changePercent": 66.7
+          "changePercent": 122.2
         },
         {
           "label": "Won",
-          "value": 30,
+          "value": 29,
           "previousValue": 52,
-          "changePercent": -42.3
+          "changePercent": -44.2
         },
         {
           "label": "Activated",
@@ -151,7 +151,7 @@
           "week": "W02",
           "leads": 2,
           "qualified": 0,
-          "contractSent": 0,
+          "contractSent": 1,
           "won": 19,
           "activated": 19
         },
@@ -160,72 +160,72 @@
           "leads": 0,
           "qualified": 0,
           "contractSent": 1,
-          "won": 37,
-          "activated": 37
+          "won": 33,
+          "activated": 33
         },
         {
           "week": "W04",
           "leads": 9,
           "qualified": 1,
-          "contractSent": 2,
-          "won": 52,
-          "activated": 52
+          "contractSent": 1,
+          "won": 51,
+          "activated": 51
         },
         {
           "week": "W05",
           "leads": 3,
           "qualified": 1,
           "contractSent": 0,
-          "won": 81,
-          "activated": 80
+          "won": 77,
+          "activated": 76
         },
         {
           "week": "W06",
           "leads": 2,
           "qualified": 2,
-          "contractSent": 2,
-          "won": 50,
-          "activated": 50
+          "contractSent": 3,
+          "won": 49,
+          "activated": 49
         },
         {
           "week": "W07",
           "leads": 13,
-          "qualified": 2,
-          "contractSent": 0,
-          "won": 56,
-          "activated": 56
+          "qualified": 3,
+          "contractSent": 1,
+          "won": 53,
+          "activated": 53
         },
         {
           "week": "W08",
           "leads": 7,
           "qualified": 3,
-          "contractSent": 5,
-          "won": 85,
-          "activated": 84
+          "contractSent": 4,
+          "won": 84,
+          "activated": 83
         },
         {
           "week": "W09",
           "leads": 1,
           "qualified": 1,
           "contractSent": 1,
-          "won": 112,
-          "activated": 112
+          "won": 108,
+          "activated": 108
         },
         {
           "week": "W10",
           "leads": 3,
           "qualified": 0,
           "contractSent": 0,
-          "won": 52,
-          "activated": 51
+          "won": 51,
+          "activated": 50
         },
         {
           "week": "W11",
           "leads": 3,
           "qualified": 1,
-          "contractSent": 2,
-          "won": 78,
-          "activated": 76
+          "contractSent": 0,
+          "won": 75,
+          "activated": 73
         },
         {
           "week": "W12",
@@ -240,8 +240,8 @@
           "leads": 3,
           "qualified": 2,
           "contractSent": 1,
-          "won": 75,
-          "activated": 75
+          "won": 72,
+          "activated": 72
         },
         {
           "week": "W14",
@@ -256,31 +256,31 @@
           "leads": 0,
           "qualified": 2,
           "contractSent": 1,
-          "won": 27,
-          "activated": 27
+          "won": 26,
+          "activated": 26
         },
         {
           "week": "W16",
           "leads": 6,
           "qualified": 0,
           "contractSent": 5,
-          "won": 32,
-          "activated": 32
+          "won": 30,
+          "activated": 30
         },
         {
           "week": "W17",
           "leads": 20,
           "qualified": 7,
-          "contractSent": 16,
-          "won": 74,
-          "activated": 72
+          "contractSent": 14,
+          "won": 73,
+          "activated": 71
         },
         {
           "week": "W18",
           "leads": 4,
-          "qualified": 0,
+          "qualified": 1,
           "contractSent": 7,
-          "won": 144,
+          "won": 145,
           "activated": 141
         },
         {
@@ -288,32 +288,32 @@
           "leads": 5,
           "qualified": 0,
           "contractSent": 3,
-          "won": 18,
-          "activated": 17
+          "won": 19,
+          "activated": 18
         },
         {
           "week": "W20",
           "leads": 22,
           "qualified": 1,
           "contractSent": 7,
-          "won": 43,
-          "activated": 42
+          "won": 42,
+          "activated": 41
         },
         {
           "week": "W21",
           "leads": 10,
           "qualified": 5,
           "contractSent": 11,
-          "won": 64,
-          "activated": 63
+          "won": 62,
+          "activated": 61
         },
         {
           "week": "W22",
           "leads": 4,
           "qualified": 0,
           "contractSent": 5,
-          "won": 137,
-          "activated": 136
+          "won": 135,
+          "activated": 134
         },
         {
           "week": "W23",
@@ -325,11 +325,1525 @@
         },
         {
           "week": "W24",
-          "leads": 65,
+          "leads": 61,
           "qualified": 3,
-          "contractSent": 15,
-          "won": 30,
+          "contractSent": 20,
+          "won": 29,
           "activated": 29
+        }
+      ],
+      "breakdown": [
+        {
+          "week": "W01",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            },
+            "density": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          },
+          "agents": {
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          }
+        },
+        {
+          "week": "W02",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            },
+            "density": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          },
+          "agents": {
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          }
+        },
+        {
+          "week": "W03",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "density": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            }
+          },
+          "agents": {
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            }
+          }
+        },
+        {
+          "week": "W04",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "density": {
+              "qualified": 8,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 12
+            }
+          },
+          "agents": {
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 7,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            }
+          }
+        },
+        {
+          "week": "W05",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "density": {
+              "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 33
+            }
+          },
+          "agents": {
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 7
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          }
+        },
+        {
+          "week": "W06",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            },
+            "density": {
+              "qualified": 0,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 17
+            }
+          },
+          "agents": {
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 6
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            }
+          }
+        },
+        {
+          "week": "W07",
+          "teams": {
+            "complex": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            },
+            "density": {
+              "qualified": 9,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 23
+            }
+          },
+          "agents": {
+            "005Ts000002AWIQIA4": {
+              "qualified": 1,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 3,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 3,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            }
+          }
+        },
+        {
+          "week": "W08",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 15
+            },
+            "density": {
+              "qualified": 4,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 33
+            }
+          },
+          "agents": {
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 6
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 2,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 14
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 7
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 6
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          }
+        },
+        {
+          "week": "W09",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "density": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 41
+            }
+          },
+          "agents": {
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 10
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          }
+        },
+        {
+          "week": "W10",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            },
+            "density": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 21
+            }
+          },
+          "agents": {
+            "005Ts00000BtGPDIA3": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 7
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            }
+          }
+        },
+        {
+          "week": "W11",
+          "teams": {
+            "complex": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "density": {
+              "qualified": 2,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 28
+            }
+          },
+          "agents": {
+            "005Ts000005c4hFIAQ": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 9
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 10
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          }
+        },
+        {
+          "week": "W12",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "density": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 25
+            }
+          },
+          "agents": {
+            "005Ts000002AX4nIAG": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 6
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 7
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          }
+        },
+        {
+          "week": "W13",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "density": {
+              "qualified": 4,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 36
+            }
+          },
+          "agents": {
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 4,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 7
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            }
+          }
+        },
+        {
+          "week": "W14",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "density": {
+              "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 15
+            }
+          },
+          "agents": {
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          }
+        },
+        {
+          "week": "W15",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "density": {
+              "qualified": 0,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 12
+            }
+          },
+          "agents": {
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            }
+          }
+        },
+        {
+          "week": "W16",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "density": {
+              "qualified": 4,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 10
+            }
+          },
+          "agents": {
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          }
+        },
+        {
+          "week": "W17",
+          "teams": {
+            "complex": {
+              "qualified": 6,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 2
+            },
+            "density": {
+              "qualified": 15,
+              "negotiations": 4,
+              "closedWon": 0,
+              "active": 42
+            }
+          },
+          "agents": {
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 12,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 13
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 6,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 0
+            }
+          }
+        },
+        {
+          "week": "W18",
+          "teams": {
+            "complex": {
+              "qualified": 3,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 3
+            },
+            "density": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 106
+            }
+          },
+          "agents": {
+            "005Ts000005c4hFIAQ": {
+              "qualified": 3,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 10
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 16
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 17
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 13
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 18
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 23
+            }
+          }
+        },
+        {
+          "week": "W19",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "density": {
+              "qualified": 4,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            }
+          },
+          "agents": {
+            "005Ts000002AWIQIA4": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            }
+          }
+        },
+        {
+          "week": "W20",
+          "teams": {
+            "complex": {
+              "qualified": 11,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "density": {
+              "qualified": 8,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 21
+            }
+          },
+          "agents": {
+            "005Ts000002AWIQIA4": {
+              "qualified": 4,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 9,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 3,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            }
+          }
+        },
+        {
+          "week": "W21",
+          "teams": {
+            "complex": {
+              "qualified": 3,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 1
+            },
+            "density": {
+              "qualified": 6,
+              "negotiations": 3,
+              "closedWon": 0,
+              "active": 52
+            }
+          },
+          "agents": {
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 10
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 3,
+              "negotiations": 2,
+              "closedWon": 0,
+              "active": 10
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 2,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 7
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 1,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 0
+            },
+            "005Qs00000Pr1HKIAZ": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0
+            }
+          }
+        },
+        {
+          "week": "W22",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 21
+            },
+            "density": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 102
+            }
+          },
+          "agents": {
+            "005Ts000002AX4nIAG": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 14
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 16
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 13
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 10
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 11
+            },
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 15
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 14
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 24
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 3
+            }
+          }
+        },
+        {
+          "week": "W23",
+          "teams": {
+            "complex": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
+            },
+            "density": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 42
+            }
+          },
+          "agents": {
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 4
+            },
+            "005Ts00000BtGPDIA3": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 14
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 9
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 8
+            }
+          }
+        },
+        {
+          "week": "W24",
+          "teams": {
+            "complex": {
+              "qualified": 4,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "density": {
+              "qualified": 45,
+              "negotiations": 3,
+              "closedWon": 0,
+              "active": 22
+            }
+          },
+          "agents": {
+            "005Ts00000BtGPDIA3": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 5
+            },
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 4,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 6
+            },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 38,
+              "negotiations": 3,
+              "closedWon": 0,
+              "active": 3
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 2,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            }
+          }
         }
       ]
     },
@@ -343,9 +1857,9 @@
         "rows": [
           {
             "metric": "Leads",
-            "current": 65,
+            "current": 61,
             "prior": 3,
-            "changePercent": 2066.7
+            "changePercent": 1933.3
           },
           {
             "metric": "Qualified",
@@ -355,15 +1869,15 @@
           },
           {
             "metric": "Contract Sent",
-            "current": 15,
+            "current": 20,
             "prior": 9,
-            "changePercent": 66.7
+            "changePercent": 122.2
           },
           {
             "metric": "Won",
-            "current": 30,
+            "current": 29,
             "prior": 52,
-            "changePercent": -42.3
+            "changePercent": -44.2
           },
           {
             "metric": "Activated",
@@ -18110,19 +19624,19 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-06-11T18:53:23.439Z",
+        "lastSync": "2026-06-11T19:46:55.443Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-06-11T18:53:23.439Z",
+        "lastSync": "2026-06-11T19:46:55.443Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-06-11T18:53:23.439Z",
+        "lastSync": "2026-06-11T19:46:55.443Z",
         "icon": "deployed_code"
       }
     ]
