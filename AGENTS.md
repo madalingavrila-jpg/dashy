@@ -116,31 +116,18 @@ Exclude `Administrator` from the agents list. Map each owner to segment, set `mt
 
 ### Weekly production
 
-Qualified, Negotiations, and Active use **OpportunityFieldHistory** (first transition INTO stage). **Closed Won** uses the same rules as **Won MTD** (`lib/mtd-history.mjs` → `isWonMtdOpportunity()`).
+All weekly buckets use **OpportunityFieldHistory** (first transition INTO stage). **Closed Won** is strict **`Closed Won`** only — not Contract sent, not Ready to Activate. Opps now in Activated (or later) still count in the week when they first entered Closed Won.
 
 | Bucket | SF stages | Record type | Week from |
 |--------|-----------|-------------|-----------|
 | Qualified | New Opportunity, Contacting DCM, First Pitch | Sales + Parent Opp | first transition INTO stage |
 | Negotiations | Negotiations | Sales Opportunity | first transition |
-| Closed Won | Contract sent, Ready to Activate (current stage) | Sales Opportunity | **CloseDate** (Europe/Bucharest ISO week) |
+| Closed Won | **Closed Won** only | Parent + Sales Opportunity | first transition INTO Closed Won (`CreatedDate`, Europe/Bucharest ISO week) |
 | Active | Activated | Sales Opportunity | first transition INTO Activated |
 
 Field history cache: `scripts/.cache/sf-stage-history-2026.json` (merge monthly exports via `scripts/fetch-sf-stage-history.mjs`).
 
-Closed Won YTD export (`scripts/.cache/sf-won-ytd.json`):
-
-```sql
-SELECT Id, Name, StageName, IsWon, CloseDate, Won_Date__c, OwnerId, Owner.Name, RecordType.Name,
-  AccountId, Account.Name, Account.BillingCity
-FROM Opportunity
-WHERE CloseDate >= 2026-01-01 AND CloseDate <= 2026-12-31
-  AND RecordType.Name = 'Sales Opportunity'
-  AND StageName IN ('Contract sent', 'Ready to Activate')
-  AND OwnerId IN ( /* same 12 rep IDs */ )
-ORDER BY CloseDate DESC
-```
-
-Refresh before deploy — opps that advanced to Activated drop out. Current-month rows in `sf-won-mtd.json` override stale YTD cache for June weeks.
+**MTD Won** (separate from weekly Closed Won) still uses CloseDate + Contract sent / Ready to Activate — see Won export above. Do not use `sf-won-ytd.json` for weekly Closed Won.
 
 Team owner IDs only (12 reps; excludes Teodor Domnica, Andrei-Sebastian Caba):
 

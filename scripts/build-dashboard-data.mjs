@@ -22,7 +22,6 @@ import {
 } from "../lib/mtd-history.mjs";
 import {
   accumulateWeeklyStatusFromHistory,
-  accumulateWeeklyClosedWonFromCloseDate,
   accumulateNewOpportunityFallback,
   breakdownStoreToHistory,
   countWeeklyLeads,
@@ -112,8 +111,6 @@ const stageHistoryExport =
 const pipelineExport = process.env.SF_PIPELINE_EXPORT ?? join(root, "scripts/.cache/sf-pipeline-open.json");
 /** CloseDate THIS_MONTH — Contract sent + Ready to Activate (SF dashboard Won MTD). */
 const wonExport = process.env.SF_WON_EXPORT ?? join(root, "scripts/.cache/sf-won-mtd.json");
-/** CloseDate 2026 YTD — weekly Closed Won (same stage filter as MTD). */
-const wonYtdExport = process.env.SF_WON_YTD_EXPORT ?? join(root, "scripts/.cache/sf-won-ytd.json");
 const wonRecentExport = join(root, "scripts/.cache/sf-won-recent.json");
 const wonCacheDir = join(root, "scripts/.cache");
 const mopsCasesExport =
@@ -122,15 +119,12 @@ const weeklyData = parseSfJson(weeklyExport);
 const stageHistoryData = parseSfJson(stageHistoryExport);
 const pipelineData = parseSfJson(pipelineExport);
 const wonData = parseSfJson(wonExport);
-const wonYtdData = existsSync(wonYtdExport) ? parseSfJson(wonYtdExport) : { records: [] };
 const wonRecentData = existsSync(wonRecentExport) ? parseSfJson(wonRecentExport) : { records: [] };
 const extraWonExports = readdirSync(wonCacheDir)
   .filter((name) => /^sf-won-\d{4}-\d{2}\.json$/.test(name))
   .map((name) => parseSfJson(join(wonCacheDir, name)));
 /** THIS_MONTH export (+ monthly archives) — authoritative for Won MTD; exclude sf-won-recent (Activated). */
 const wonMtdRecords = mergeWonExportRecords([wonData, ...extraWonExports]);
-/** YTD export for weekly Closed Won; current-month rows from wonMtdRecords override stale YTD cache. */
-const wonWeeklyRecords = mergeWonExportRecords([wonYtdData, wonMtdRecords, ...extraWonExports]);
 const mergedWonRecords = mergeWonExportRecords([wonMtdRecords, wonRecentData]);
 const mtdHistoryStore = buildHybridMtdStore(wonMtdRecords, stageHistoryData.records);
 const mtdHistory = buildMtdHistoryFromHybrid(wonMtdRecords, stageHistoryData.records);
@@ -201,16 +195,10 @@ const mops = buildMopsSection(mopsCasesData);
 const now = new Date().toISOString();
 const currentWeekKey = weekKey(new Date("2026-06-11"));
 
-// Weekly status breakdown — field history for qualified/negotiations/active; CloseDate for closedWon
+// Weekly status breakdown — all buckets from OpportunityFieldHistory (first INTO stage)
 const weeklyBreakdownStore = initWeeklyBreakdownStore(24);
 accumulateWeeklyStatusFromHistory(
   stageHistoryData.records,
-  weeklyBreakdownStore,
-  agentSegment,
-  isExcludedAgent,
-);
-accumulateWeeklyClosedWonFromCloseDate(
-  wonWeeklyRecords,
   weeklyBreakdownStore,
   agentSegment,
   isExcludedAgent,
