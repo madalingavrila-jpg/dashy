@@ -114,18 +114,33 @@ Activated field history cache: `scripts/.cache/sf-stage-history-2026.json` (week
 
 Exclude `Administrator` from the agents list. Map each owner to segment, set `mtdTarget`, then call `buildMtdAchievement(agents, month, { leadsMtd, qualifiedMtd })`.
 
-### Weekly production (stage transition dates)
+### Weekly production
 
-Weekly counts use **OpportunityFieldHistory** (StageName changes), not CloseDate or LastModifiedDate.
+Qualified, Negotiations, and Active use **OpportunityFieldHistory** (first transition INTO stage). **Closed Won** uses the same rules as **Won MTD** (`lib/mtd-history.mjs` → `isWonMtdOpportunity()`).
 
 | Bucket | SF stages | Record type | Week from |
 |--------|-----------|-------------|-----------|
 | Qualified | New Opportunity, Contacting DCM, First Pitch | Sales + Parent Opp | first transition INTO stage |
 | Negotiations | Negotiations | Sales Opportunity | first transition |
-| Closed Won | Closed Won | **Parent Opportunity** | first transition |
-| Active | Activated | Sales Opportunity | first transition |
+| Closed Won | Contract sent, Ready to Activate (current stage) | Sales Opportunity | **CloseDate** (Europe/Bucharest ISO week) |
+| Active | Activated | Sales Opportunity | first transition INTO Activated |
 
-Cache: `scripts/.cache/sf-stage-history-2026.json` (merge monthly exports via `scripts/fetch-sf-stage-history.mjs`).
+Field history cache: `scripts/.cache/sf-stage-history-2026.json` (merge monthly exports via `scripts/fetch-sf-stage-history.mjs`).
+
+Closed Won YTD export (`scripts/.cache/sf-won-ytd.json`):
+
+```sql
+SELECT Id, Name, StageName, IsWon, CloseDate, Won_Date__c, OwnerId, Owner.Name, RecordType.Name,
+  AccountId, Account.Name, Account.BillingCity
+FROM Opportunity
+WHERE CloseDate >= 2026-01-01 AND CloseDate <= 2026-12-31
+  AND RecordType.Name = 'Sales Opportunity'
+  AND StageName IN ('Contract sent', 'Ready to Activate')
+  AND OwnerId IN ( /* same 12 rep IDs */ )
+ORDER BY CloseDate DESC
+```
+
+Refresh before deploy — opps that advanced to Activated drop out. Current-month rows in `sf-won-mtd.json` override stale YTD cache for June weeks.
 
 Team owner IDs only (12 reps; excludes Teodor Domnica, Andrei-Sebastian Caba):
 

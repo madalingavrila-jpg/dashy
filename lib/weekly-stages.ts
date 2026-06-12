@@ -22,7 +22,7 @@ export const WEEKLY_STATUS_LABELS: Record<WeeklyStatusKey, string> = {
 export const WEEKLY_STAGE_MAP: Record<WeeklyStatusKey, string[]> = {
   qualified: ["New Opportunity", "Contacting DCM", "First Pitch"],
   negotiations: ["Negotiations"],
-  closedWon: ["Closed Won"],
+  closedWon: ["Contract sent", "Ready to Activate"],
   active: ["Activated"],
 };
 
