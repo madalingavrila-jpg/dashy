@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-12T08:27:27.838Z",
+  "updatedAt": "2026-06-12T08:33:55.297Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -69,7 +69,7 @@
     "mtdAchievement": {
       "month": "June 2026",
       "targetWon": 260,
-      "actualWon": 87,
+      "actualWon": 84,
       "targetActivated": 215,
       "actualActivated": 79,
       "leadsMtd": 173,
@@ -80,13 +80,13 @@
         {
           "name": "Complex",
           "target": 50,
-          "actual": 3,
+          "actual": 4,
           "type": "won"
         },
         {
           "name": "Density",
           "target": 210,
-          "actual": 84,
+          "actual": 80,
           "type": "won"
         },
         {
@@ -20700,7 +20700,7 @@
         "stageCounts": {
           "New Opportunity": 36
         },
-        "wonMtd": 14,
+        "wonMtd": 12,
         "activatedMtd": 8,
         "wonYtd": 8,
         "segment": "density",
@@ -20713,7 +20713,7 @@
         "stageCounts": {
           "New Opportunity": 29
         },
-        "wonMtd": 0,
+        "wonMtd": 1,
         "activatedMtd": 6,
         "wonYtd": 6,
         "segment": "complex",
@@ -20726,7 +20726,7 @@
         "stageCounts": {
           "New Opportunity": 18
         },
-        "wonMtd": 28,
+        "wonMtd": 26,
         "activatedMtd": 10,
         "wonYtd": 14,
         "segment": "density",
@@ -20818,9 +20818,41 @@
             "ownerId": "005Ts00000BtX53IAF",
             "name": "Daniel-Marian Toltică",
             "segment": "density",
-            "wonMtd": 28,
+            "wonMtd": 26,
             "activatedMtd": 10,
             "wonItems": [
+              {
+                "id": "006Qs00000i0UhWIAU",
+                "name": "Liziera",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000i0UhWIAU",
+                "sfAccountId": "001Qs00000n0z7QIAQ"
+              },
+              {
+                "id": "006Qs00000i0S1OIAU",
+                "name": "PAFFET",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000i0S1OIAU",
+                "sfAccountId": "001Qs00000nk47gIAA"
+              },
+              {
+                "id": "006Qs00000i6uPbIAI",
+                "name": "Arju Mancaruri Bune",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000i6uPbIAI",
+                "sfAccountId": "001Qs00000ngSdBIAU"
+              },
+              {
+                "id": "006Qs00000i0IZvIAM",
+                "name": "THE BIG BOOM EVENTS",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000i0IZvIAM",
+                "sfAccountId": "001Qs00000n2ZPQIA2"
+              },
               {
                 "id": "006Qs00000gLKbUIAW",
                 "name": "GIVE ME FIVE by Chef Darius",
@@ -20852,14 +20884,6 @@
                 "closeDate": "2026-06-30",
                 "sfOpportunityId": "006Qs00000gyXYqIAM",
                 "sfAccountId": "001Qs00000mZ3iXIAS"
-              },
-              {
-                "id": "006Qs00000h2MwaIAE",
-                "name": "Market Grill",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000h2MwaIAE",
-                "sfAccountId": "001Qs00000md1a7IAA"
               },
               {
                 "id": "006Qs00000h6nznIAA",
@@ -20926,54 +20950,6 @@
                 "sfAccountId": "001Qs00000n1JsVIAU"
               },
               {
-                "id": "006Qs00000i0IZvIAM",
-                "name": "THE BIG BOOM EVENTS",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000i0IZvIAM",
-                "sfAccountId": "001Qs00000n2ZPQIA2"
-              },
-              {
-                "id": "006Qs00000i0QScIAM",
-                "name": "La crosta",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000i0QScIAM",
-                "sfAccountId": "001Qs00000njnbWIAQ"
-              },
-              {
-                "id": "006Qs00000i0S1OIAU",
-                "name": "PAFFET",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000i0S1OIAU",
-                "sfAccountId": "001Qs00000nk47gIAA"
-              },
-              {
-                "id": "006Qs00000i0UhWIAU",
-                "name": "Liziera",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000i0UhWIAU",
-                "sfAccountId": "001Qs00000n0z7QIAQ"
-              },
-              {
-                "id": "006Qs00000i41vTIAQ",
-                "name": "kf-fit by Ahmed",
-                "city": "Bucharest",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000i41vTIAQ",
-                "sfAccountId": "001Qs00000n0A9dIAE"
-              },
-              {
-                "id": "006Qs00000i6uPbIAI",
-                "name": "Arju Mancaruri Bune",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000i6uPbIAI",
-                "sfAccountId": "001Qs00000ngSdBIAU"
-              },
-              {
                 "id": "006Qs00000izKtNIAU",
                 "name": "SHAO DONER",
                 "city": "—",
@@ -20982,36 +20958,12 @@
                 "sfAccountId": "001Qs00000pMa67IAC"
               },
               {
-                "id": "006Qs00000iLGutIAG",
-                "name": "Coffee Story",
+                "id": "006Qs00000isUpPIAU",
+                "name": "Istanbul 34",
                 "city": "—",
                 "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000iLGutIAG",
-                "sfAccountId": "001Qs00000oQ3VNIA0"
-              },
-              {
-                "id": "006Qs00000ihtG2IAI",
-                "name": "Proportioni Djembe",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000ihtG2IAI",
-                "sfAccountId": "001Qs00000owYkUIAU"
-              },
-              {
-                "id": "006Qs00000iiC5mIAE",
-                "name": "Bun de tot",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000iiC5mIAE",
-                "sfAccountId": "001Qs00000owq39IAA"
-              },
-              {
-                "id": "006Qs00000iiTg7IAE",
-                "name": "Tabiet Bistro",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000iiTg7IAE",
-                "sfAccountId": "001Qs00000ox5lMIAQ"
+                "sfOpportunityId": "006Qs00000isUpPIAU",
+                "sfAccountId": "001Qs00000pBvTtIAK"
               },
               {
                 "id": "006Qs00000isTwaIAE",
@@ -21022,12 +20974,44 @@
                 "sfAccountId": "001Qs00000pBxlyIAC"
               },
               {
-                "id": "006Qs00000isUpPIAU",
-                "name": "Istanbul 34",
+                "id": "006Qs00000iiTg7IAE",
+                "name": "Tabiet Bistro",
                 "city": "—",
                 "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000isUpPIAU",
-                "sfAccountId": "001Qs00000pBvTtIAK"
+                "sfOpportunityId": "006Qs00000iiTg7IAE",
+                "sfAccountId": "001Qs00000ox5lMIAQ"
+              },
+              {
+                "id": "006Qs00000ihtG2IAI",
+                "name": "Proportioni Djembe",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000ihtG2IAI",
+                "sfAccountId": "001Qs00000owYkUIAU"
+              },
+              {
+                "id": "006Qs00000iLGutIAG",
+                "name": "Coffee Story",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000iLGutIAG",
+                "sfAccountId": "001Qs00000oQ3VNIA0"
+              },
+              {
+                "id": "006Qs00000i0QScIAM",
+                "name": "La crosta",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000i0QScIAM",
+                "sfAccountId": "001Qs00000njnbWIAQ"
+              },
+              {
+                "id": "006Qs00000i41vTIAQ",
+                "name": "kf-fit by Ahmed",
+                "city": "Bucharest",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000i41vTIAQ",
+                "sfAccountId": "001Qs00000n0A9dIAE"
               },
               {
                 "id": "006Qs00000izCSkIAM",
@@ -21120,191 +21104,20 @@
             ]
           },
           {
-            "ownerId": "005Ts00000BtZV3IAN",
-            "name": "Borcaeas Georgian",
-            "segment": "density",
-            "wonMtd": 14,
-            "activatedMtd": 8,
-            "wonItems": [
-              {
-                "id": "006Qs00000gRCxmIAG",
-                "name": "Uncle Shu",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000gRCxmIAG",
-                "sfAccountId": "001Qs00000lsKJhIAM"
-              },
-              {
-                "id": "006Qs00000grEhOIAU",
-                "name": "Camizo",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000grEhOIAU",
-                "sfAccountId": "001Qs00000mPGdrIAG"
-              },
-              {
-                "id": "006Qs00000haUV4IAM",
-                "name": "Ap Kebab",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000haUV4IAM",
-                "sfAccountId": "001Qs00000nKCtfIAG"
-              },
-              {
-                "id": "006Qs00000hfouZIAQ",
-                "name": "Minion",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000hfouZIAQ",
-                "sfAccountId": "001Qs00000nRQC1IAO"
-              },
-              {
-                "id": "006Qs00000hp7DDIAY",
-                "name": "Brutaria cu Maia",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000hp7DDIAY",
-                "sfAccountId": "001Qs00000nfCMDIA2"
-              },
-              {
-                "id": "006Qs00000iBfuYIAS",
-                "name": "Piateta Cotroceni",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000iBfuYIAS",
-                "sfAccountId": "001Qs00000oBmXZIA0"
-              },
-              {
-                "id": "006Qs00000izOosIAE",
-                "name": "Beirut Deli",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000izOosIAE",
-                "sfAccountId": "001Qs00000pMNonIAG"
-              },
-              {
-                "id": "006Qs00000iP0edIAC",
-                "name": "Dyno's",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000iP0edIAC",
-                "sfAccountId": "001Qs00000oVGAHIA4"
-              },
-              {
-                "id": "006Qs00000iaFk0IAE",
-                "name": "Numinos",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000iaFk0IAE",
-                "sfAccountId": "001Qs00000omQI5IAM"
-              },
-              {
-                "id": "006Qs00000if2e2IAA",
-                "name": "Gratar La Palat",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000if2e2IAA",
-                "sfAccountId": "001Qs00000osUqkIAE"
-              },
-              {
-                "id": "006Qs00000istKmIAI",
-                "name": "Club One",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000istKmIAI",
-                "sfAccountId": "001Qs00000pCHETIA4"
-              },
-              {
-                "id": "006Qs00000iweyGIAQ",
-                "name": "B3ton Restobar Militari",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000iweyGIAQ",
-                "sfAccountId": "001Qs00000pI86jIAC"
-              },
-              {
-                "id": "006Qs00000ix2pGIAQ",
-                "name": "Wurstwagen",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000ix2pGIAQ",
-                "sfAccountId": "001Qs00000pHmitIAC"
-              },
-              {
-                "id": "006Qs00000ixAmpIAE",
-                "name": "El Patron Kebap",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000ixAmpIAE",
-                "sfAccountId": "001Qs00000pIjFtIAK"
-              }
-            ],
-            "activatedItems": [
-              {
-                "id": "006Qs00000hsiTAIAY",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-01",
-                "sfOpportunityId": "006Qs00000hsiTAIAY"
-              },
-              {
-                "id": "006Qs00000iRylCIAS",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-05",
-                "sfOpportunityId": "006Qs00000iRylCIAS"
-              },
-              {
-                "id": "006Qs00000igjFXIAY",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-09",
-                "sfOpportunityId": "006Qs00000igjFXIAY"
-              },
-              {
-                "id": "006Qs00000ibKZXIA2",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-09",
-                "sfOpportunityId": "006Qs00000ibKZXIA2"
-              },
-              {
-                "id": "006Qs00000iGaiwIAC",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-10",
-                "sfOpportunityId": "006Qs00000iGaiwIAC"
-              },
-              {
-                "id": "006Qs00000ifbNGIAY",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-10",
-                "sfOpportunityId": "006Qs00000ifbNGIAY"
-              },
-              {
-                "id": "006Qs00000hpASpIAM",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-10",
-                "sfOpportunityId": "006Qs00000hpASpIAM"
-              },
-              {
-                "id": "006Qs00000iBhxyIAC",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-11",
-                "sfOpportunityId": "006Qs00000iBhxyIAC"
-              }
-            ]
-          },
-          {
             "ownerId": "005Ts000002AWIQIA4",
             "name": "Eusebiu Hanganu",
             "segment": "density",
             "wonMtd": 14,
             "activatedMtd": 7,
             "wonItems": [
+              {
+                "id": "006Qs00000isTrjIAE",
+                "name": "Novapane",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000isTrjIAE",
+                "sfAccountId": "001Qs00000pBxXMIA0"
+              },
               {
                 "id": "006Qs00000gKQnnIAG",
                 "name": "Riba",
@@ -21386,14 +21199,6 @@
                 "sfAccountId": "001Qs00000owRJLIA2"
               },
               {
-                "id": "006Qs00000isTrjIAE",
-                "name": "Novapane",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000isTrjIAE",
-                "sfAccountId": "001Qs00000pBxXMIA0"
-              },
-              {
                 "id": "006Qs00000isXKEIA2",
                 "name": "Gramini",
                 "city": "—",
@@ -21471,6 +21276,169 @@
             ]
           },
           {
+            "ownerId": "005Ts00000BtZV3IAN",
+            "name": "Borcaeas Georgian",
+            "segment": "density",
+            "wonMtd": 12,
+            "activatedMtd": 8,
+            "wonItems": [
+              {
+                "id": "006Qs00000iBfuYIAS",
+                "name": "Piateta Cotroceni",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000iBfuYIAS",
+                "sfAccountId": "001Qs00000oBmXZIA0"
+              },
+              {
+                "id": "006Qs00000hp7DDIAY",
+                "name": "Brutaria cu Maia",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000hp7DDIAY",
+                "sfAccountId": "001Qs00000nfCMDIA2"
+              },
+              {
+                "id": "006Qs00000hfouZIAQ",
+                "name": "Minion",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000hfouZIAQ",
+                "sfAccountId": "001Qs00000nRQC1IAO"
+              },
+              {
+                "id": "006Qs00000izOosIAE",
+                "name": "Beirut Deli",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000izOosIAE",
+                "sfAccountId": "001Qs00000pMNonIAG"
+              },
+              {
+                "id": "006Qs00000haUV4IAM",
+                "name": "Ap Kebab",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000haUV4IAM",
+                "sfAccountId": "001Qs00000nKCtfIAG"
+              },
+              {
+                "id": "006Qs00000ixAmpIAE",
+                "name": "El Patron Kebap",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000ixAmpIAE",
+                "sfAccountId": "001Qs00000pIjFtIAK"
+              },
+              {
+                "id": "006Qs00000ix2pGIAQ",
+                "name": "Wurstwagen",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000ix2pGIAQ",
+                "sfAccountId": "001Qs00000pHmitIAC"
+              },
+              {
+                "id": "006Qs00000istKmIAI",
+                "name": "Club One",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000istKmIAI",
+                "sfAccountId": "001Qs00000pCHETIA4"
+              },
+              {
+                "id": "006Qs00000grEhOIAU",
+                "name": "Camizo",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000grEhOIAU",
+                "sfAccountId": "001Qs00000mPGdrIAG"
+              },
+              {
+                "id": "006Qs00000gRCxmIAG",
+                "name": "Uncle Shu",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000gRCxmIAG",
+                "sfAccountId": "001Qs00000lsKJhIAM"
+              },
+              {
+                "id": "006Qs00000if2e2IAA",
+                "name": "Gratar La Palat",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000if2e2IAA",
+                "sfAccountId": "001Qs00000osUqkIAE"
+              },
+              {
+                "id": "006Qs00000iP0edIAC",
+                "name": "Dyno's",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000iP0edIAC",
+                "sfAccountId": "001Qs00000oVGAHIA4"
+              }
+            ],
+            "activatedItems": [
+              {
+                "id": "006Qs00000hsiTAIAY",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-01",
+                "sfOpportunityId": "006Qs00000hsiTAIAY"
+              },
+              {
+                "id": "006Qs00000iRylCIAS",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-05",
+                "sfOpportunityId": "006Qs00000iRylCIAS"
+              },
+              {
+                "id": "006Qs00000igjFXIAY",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-09",
+                "sfOpportunityId": "006Qs00000igjFXIAY"
+              },
+              {
+                "id": "006Qs00000ibKZXIA2",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-09",
+                "sfOpportunityId": "006Qs00000ibKZXIA2"
+              },
+              {
+                "id": "006Qs00000iGaiwIAC",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-10",
+                "sfOpportunityId": "006Qs00000iGaiwIAC"
+              },
+              {
+                "id": "006Qs00000ifbNGIAY",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-10",
+                "sfOpportunityId": "006Qs00000ifbNGIAY"
+              },
+              {
+                "id": "006Qs00000hpASpIAM",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-10",
+                "sfOpportunityId": "006Qs00000hpASpIAM"
+              },
+              {
+                "id": "006Qs00000iBhxyIAC",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-11",
+                "sfOpportunityId": "006Qs00000iBhxyIAC"
+              }
+            ]
+          },
+          {
             "ownerId": "005Ts000006V3vpIAC",
             "name": "Oroles Roșu",
             "segment": "density",
@@ -21484,6 +21452,70 @@
                 "closeDate": "2026-06-30",
                 "sfOpportunityId": "006Qs00000izrAwIAI",
                 "sfAccountId": "001Qs00000pNHCTIA4"
+              },
+              {
+                "id": "006Qs00000izCVyIAM",
+                "name": "Kebapci",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000izCVyIAM",
+                "sfAccountId": "001Qs00000pM5jjIAC"
+              },
+              {
+                "id": "006Qs00000ihuDjIAI",
+                "name": "The Lobby",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000ihuDjIAI",
+                "sfAccountId": "001Qs00000owYxQIAU"
+              },
+              {
+                "id": "006Qs00000ihGWRIA2",
+                "name": "Casa Mia",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000ihGWRIA2",
+                "sfAccountId": "001Qs00000ovnLpIAI"
+              },
+              {
+                "id": "006Qs00000i4xg8IAA",
+                "name": "SMASH BURGER POINT",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000i4xg8IAA",
+                "sfAccountId": "001Qs00000o16l0IAA"
+              },
+              {
+                "id": "006Qs00000hyHOfIAM",
+                "name": "Misù - The Tiramisu Bar",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000hyHOfIAM",
+                "sfAccountId": "001Qs00000nsJ1gIAE"
+              },
+              {
+                "id": "006Qs00000hxTQHIA2",
+                "name": "Noa Restaurant",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000hxTQHIA2",
+                "sfAccountId": "001Qs00000nrRfVIAU"
+              },
+              {
+                "id": "006Qs00000hp0y6IAA",
+                "name": "KuchiSabishii",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000hp0y6IAA",
+                "sfAccountId": "001Qs00000nf7KiIAI"
+              },
+              {
+                "id": "006Qs00000h1sgkIAA",
+                "name": "Better Bread",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000h1sgkIAA",
+                "sfAccountId": "001Qs00000mcR3bIAE"
               },
               {
                 "id": "006Qs00000giA46IAE",
@@ -21500,70 +21532,6 @@
                 "closeDate": "2026-06-30",
                 "sfOpportunityId": "006Qs00000giZ1wIAE",
                 "sfAccountId": "001Qs00000mEaXuIAK"
-              },
-              {
-                "id": "006Qs00000h1sgkIAA",
-                "name": "Better Bread",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000h1sgkIAA",
-                "sfAccountId": "001Qs00000mcR3bIAE"
-              },
-              {
-                "id": "006Qs00000hp0y6IAA",
-                "name": "KuchiSabishii",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000hp0y6IAA",
-                "sfAccountId": "001Qs00000nf7KiIAI"
-              },
-              {
-                "id": "006Qs00000hxTQHIA2",
-                "name": "Noa Restaurant",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000hxTQHIA2",
-                "sfAccountId": "001Qs00000nrRfVIAU"
-              },
-              {
-                "id": "006Qs00000hyHOfIAM",
-                "name": "Misù - The Tiramisu Bar",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000hyHOfIAM",
-                "sfAccountId": "001Qs00000nsJ1gIAE"
-              },
-              {
-                "id": "006Qs00000i4xg8IAA",
-                "name": "SMASH BURGER POINT",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000i4xg8IAA",
-                "sfAccountId": "001Qs00000o16l0IAA"
-              },
-              {
-                "id": "006Qs00000ihGWRIA2",
-                "name": "Casa Mia",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000ihGWRIA2",
-                "sfAccountId": "001Qs00000ovnLpIAI"
-              },
-              {
-                "id": "006Qs00000ihuDjIAI",
-                "name": "The Lobby",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000ihuDjIAI",
-                "sfAccountId": "001Qs00000owYxQIAU"
-              },
-              {
-                "id": "006Qs00000izCVyIAM",
-                "name": "Kebapci",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000izCVyIAM",
-                "sfAccountId": "001Qs00000pM5jjIAC"
               }
             ],
             "activatedItems": [
@@ -21592,36 +21560,12 @@
                 "sfAccountId": "001Qs00000mVsi7IAC"
               },
               {
-                "id": "006Qs00000gxACsIAM",
-                "name": "Dabo Doner Shopping City",
+                "id": "006Qs00000it4HmIAI",
+                "name": "Mandarin Signature Restaurant",
                 "city": "—",
                 "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000gxACsIAM",
-                "sfAccountId": "001Qs00000mWnoNIAS"
-              },
-              {
-                "id": "006Qs00000i0P1wIAE",
-                "name": "ARTEMIS",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000i0P1wIAE",
-                "sfAccountId": "001Qs00000nvYqbIAE"
-              },
-              {
-                "id": "006Qs00000i0vjLIAQ",
-                "name": "Bacania Fermierului Brutarie",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000i0vjLIAQ",
-                "sfAccountId": "001Qs00000nw0RpIAI"
-              },
-              {
-                "id": "006Qs00000iAHmEIAW",
-                "name": "CARO Boutique Restaurant",
-                "city": "—",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000iAHmEIAW",
-                "sfAccountId": "001Qs00000mc2QIIAY"
+                "sfOpportunityId": "006Qs00000it4HmIAI",
+                "sfAccountId": "001Qs00000oHh8eIAC"
               },
               {
                 "id": "006Qs00000icbLOIAY",
@@ -21632,12 +21576,36 @@
                 "sfAccountId": "001Qs00000opA29IAE"
               },
               {
-                "id": "006Qs00000it4HmIAI",
-                "name": "Mandarin Signature Restaurant",
+                "id": "006Qs00000iAHmEIAW",
+                "name": "CARO Boutique Restaurant",
                 "city": "—",
                 "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000it4HmIAI",
-                "sfAccountId": "001Qs00000oHh8eIAC"
+                "sfOpportunityId": "006Qs00000iAHmEIAW",
+                "sfAccountId": "001Qs00000mc2QIIAY"
+              },
+              {
+                "id": "006Qs00000i0vjLIAQ",
+                "name": "Bacania Fermierului Brutarie",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000i0vjLIAQ",
+                "sfAccountId": "001Qs00000nw0RpIAI"
+              },
+              {
+                "id": "006Qs00000i0P1wIAE",
+                "name": "ARTEMIS",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000i0P1wIAE",
+                "sfAccountId": "001Qs00000nvYqbIAE"
+              },
+              {
+                "id": "006Qs00000gxACsIAM",
+                "name": "Dabo Doner Shopping City",
+                "city": "—",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000gxACsIAM",
+                "sfAccountId": "001Qs00000mWnoNIAS"
               },
               {
                 "id": "006Qs00000iqMo8IAE",
@@ -22026,20 +21994,20 @@
             "activatedMtd": 3,
             "wonItems": [
               {
-                "id": "006Qs00000h2eiCIAQ",
-                "name": "Mamaliguta& Sushi Han BV",
-                "city": "Ploiești",
-                "closeDate": "2026-06-30",
-                "sfOpportunityId": "006Qs00000h2eiCIAQ",
-                "sfAccountId": "001Qs00000mdLPAIA2"
-              },
-              {
                 "id": "006Qs00000iMMgWIAW",
                 "name": "The Hungry BUN",
                 "city": "Ploiești",
                 "closeDate": "2026-06-30",
                 "sfOpportunityId": "006Qs00000iMMgWIAW",
                 "sfAccountId": "001Qs00000oRbbPIAS"
+              },
+              {
+                "id": "006Qs00000h2eiCIAQ",
+                "name": "Mamaliguta& Sushi Han BV",
+                "city": "Ploiești",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000h2eiCIAQ",
+                "sfAccountId": "001Qs00000mdLPAIA2"
               }
             ],
             "activatedItems": [
@@ -22063,6 +22031,67 @@
                 "city": "—",
                 "closeDate": "2026-06-10",
                 "sfOpportunityId": "006Qs00000icB2kIAE"
+              }
+            ]
+          },
+          {
+            "ownerId": "005Ts000005c4hFIAQ",
+            "name": "Corneliu-Ștefan Radu",
+            "segment": "complex",
+            "wonMtd": 1,
+            "activatedMtd": 6,
+            "wonItems": [
+              {
+                "id": "006Qs00000ibptTIAQ",
+                "name": "Proper Pizza & Pasta Slatina",
+                "city": "Slatina",
+                "closeDate": "2026-06-30",
+                "sfOpportunityId": "006Qs00000ibptTIAQ",
+                "sfAccountId": "001Qs00000onoLqIAI"
+              }
+            ],
+            "activatedItems": [
+              {
+                "id": "006Qs00000gtRHAIA2",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-05",
+                "sfOpportunityId": "006Qs00000gtRHAIA2"
+              },
+              {
+                "id": "006Qs00000ibbKGIAY",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-06",
+                "sfOpportunityId": "006Qs00000ibbKGIAY"
+              },
+              {
+                "id": "006Qs00000ihuTqIAI",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-06",
+                "sfOpportunityId": "006Qs00000ihuTqIAI"
+              },
+              {
+                "id": "006Qs00000iTEZLIA4",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-06",
+                "sfOpportunityId": "006Qs00000iTEZLIA4"
+              },
+              {
+                "id": "006Qs00000igvIJIAY",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-06",
+                "sfOpportunityId": "006Qs00000igvIJIAY"
+              },
+              {
+                "id": "006Qs00000iTIMpIAO",
+                "name": "—",
+                "city": "—",
+                "closeDate": "2026-06-11",
+                "sfOpportunityId": "006Qs00000iTIMpIAO"
               }
             ]
           },
@@ -22129,64 +22158,12 @@
                 "sfOpportunityId": "006Qs00000ia702IAA"
               }
             ]
-          },
-          {
-            "ownerId": "005Ts000005c4hFIAQ",
-            "name": "Corneliu-Ștefan Radu",
-            "segment": "complex",
-            "wonMtd": 0,
-            "activatedMtd": 6,
-            "wonItems": [],
-            "activatedItems": [
-              {
-                "id": "006Qs00000gtRHAIA2",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-05",
-                "sfOpportunityId": "006Qs00000gtRHAIA2"
-              },
-              {
-                "id": "006Qs00000ibbKGIAY",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-06",
-                "sfOpportunityId": "006Qs00000ibbKGIAY"
-              },
-              {
-                "id": "006Qs00000ihuTqIAI",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-06",
-                "sfOpportunityId": "006Qs00000ihuTqIAI"
-              },
-              {
-                "id": "006Qs00000iTEZLIA4",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-06",
-                "sfOpportunityId": "006Qs00000iTEZLIA4"
-              },
-              {
-                "id": "006Qs00000igvIJIAY",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-06",
-                "sfOpportunityId": "006Qs00000igvIJIAY"
-              },
-              {
-                "id": "006Qs00000iTIMpIAO",
-                "name": "—",
-                "city": "—",
-                "closeDate": "2026-06-11",
-                "sfOpportunityId": "006Qs00000iTIMpIAO"
-              }
-            ]
           }
         ],
         "mtdAchievement": {
           "month": "June 2026",
           "targetWon": 250,
-          "actualWon": 87,
+          "actualWon": 84,
           "targetActivated": 207,
           "actualActivated": 79,
           "leadsMtd": 0,
@@ -22197,13 +22174,13 @@
             {
               "name": "Complex",
               "target": 40,
-              "actual": 3,
+              "actual": 4,
               "type": "won"
             },
             {
               "name": "Density",
               "target": 210,
-              "actual": 84,
+              "actual": 80,
               "type": "won"
             },
             {
@@ -45845,575 +45822,10 @@
           "ownerId": "005Ts00000BtX53IAF",
           "segment": "density"
         }
-      ],
-      "Contract sent": [
-        {
-          "id": "006Qs00000izrAwIAI",
-          "name": "Coba",
-          "city": "—",
-          "owner": "Oroles Roșu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000pNHCTIA4",
-          "sfOpportunityId": "006Qs00000izrAwIAI",
-          "ownerId": "005Ts000006V3vpIAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gKQnnIAG",
-          "name": "Riba",
-          "city": "—",
-          "owner": "Eusebiu Hanganu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000lk168IAA",
-          "sfOpportunityId": "006Qs00000gKQnnIAG",
-          "ownerId": "005Ts000002AWIQIA4",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gLKbUIAW",
-          "name": "GIVE ME FIVE by Chef Darius",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000lkxYNIAY",
-          "sfOpportunityId": "006Qs00000gLKbUIAW",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gRCxmIAG",
-          "name": "Uncle Shu",
-          "city": "—",
-          "owner": "Borcaeas Georgian",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000lsKJhIAM",
-          "sfOpportunityId": "006Qs00000gRCxmIAG",
-          "ownerId": "005Ts00000BtZV3IAN",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000giA46IAE",
-          "name": "Black El Zorab",
-          "city": "—",
-          "owner": "Oroles Roșu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mEIeIIAW",
-          "sfOpportunityId": "006Qs00000giA46IAE",
-          "ownerId": "005Ts000006V3vpIAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000giZ1wIAE",
-          "name": "Oriental Cuts",
-          "city": "—",
-          "owner": "Oroles Roșu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mEaXuIAK",
-          "sfOpportunityId": "006Qs00000giZ1wIAE",
-          "ownerId": "005Ts000006V3vpIAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gppRjIAI",
-          "name": "Restaurant Bar - Influence",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mNXSoIAO",
-          "sfOpportunityId": "006Qs00000gppRjIAI",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gq8e2IAA",
-          "name": "Izumi",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mNp0JIAS",
-          "sfOpportunityId": "006Qs00000gq8e2IAA",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000grEhOIAU",
-          "name": "Camizo",
-          "city": "—",
-          "owner": "Borcaeas Georgian",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mPGdrIAG",
-          "sfOpportunityId": "006Qs00000grEhOIAU",
-          "ownerId": "005Ts00000BtZV3IAN",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gwnL9IAI",
-          "name": "Dabo Doner Miercurea Ciuc",
-          "city": "—",
-          "owner": "Silviu-Mihnea Voicu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mVsi7IAC",
-          "sfOpportunityId": "006Qs00000gwnL9IAI",
-          "ownerId": "005Ts000001Ak10IAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gxACsIAM",
-          "name": "Dabo Doner Shopping City",
-          "city": "—",
-          "owner": "Silviu-Mihnea Voicu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mWnoNIAS",
-          "sfOpportunityId": "006Qs00000gxACsIAM",
-          "ownerId": "005Ts000001Ak10IAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gyXYqIAM",
-          "name": "Il Destino",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mZ3iXIAS",
-          "sfOpportunityId": "006Qs00000gyXYqIAM",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h1sgkIAA",
-          "name": "Better Bread",
-          "city": "—",
-          "owner": "Oroles Roșu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mcR3bIAE",
-          "sfOpportunityId": "006Qs00000h1sgkIAA",
-          "ownerId": "005Ts000006V3vpIAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h6nznIAA",
-          "name": "Autoservirea Andreea",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mie1QIAQ",
-          "sfOpportunityId": "006Qs00000h6nznIAA",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h7KCYIA2",
-          "name": "Caramel",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mj8kAIAQ",
-          "sfOpportunityId": "006Qs00000h7KCYIA2",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h9rQxIAI",
-          "name": "Hudin Anda",
-          "city": "—",
-          "owner": "Eusebiu Hanganu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mm3HmIAI",
-          "sfOpportunityId": "006Qs00000h9rQxIAI",
-          "ownerId": "005Ts000002AWIQIA4",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000hDC96IAG",
-          "name": "GastroLab",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mqYekIAE",
-          "sfOpportunityId": "006Qs00000hDC96IAG",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        }
-      ],
-      "Ready for TA": [
-        {
-          "id": "006Qs00000gybICIAY",
-          "name": "Crazy Schnitzel",
-          "city": "—",
-          "owner": "Eusebiu Hanganu",
-          "tier": "Standard",
-          "stage": "Ready for TA",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mYe5zIAC",
-          "sfOpportunityId": "006Qs00000gybICIAY",
-          "ownerId": "005Ts000002AWIQIA4",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h2MwaIAE",
-          "name": "Market Grill",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Ready for TA",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000md1a7IAA",
-          "sfOpportunityId": "006Qs00000h2MwaIAE",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h2eiCIAQ",
-          "name": "Mamaliguta& Sushi Han BV",
-          "city": "Ploiești",
-          "owner": "Paul-Daniel Rîngheanu",
-          "tier": "Standard",
-          "stage": "Ready for TA",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mdLPAIA2",
-          "sfOpportunityId": "006Qs00000h2eiCIAQ",
-          "ownerId": "005Qs00000Mxc6EIAR",
-          "segment": "density"
-        }
       ]
     },
     "accounts": {
-      "won": [
-        {
-          "id": "006Qs00000izrAwIAI",
-          "name": "Coba",
-          "city": "—",
-          "owner": "Oroles Roșu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000pNHCTIA4",
-          "sfOpportunityId": "006Qs00000izrAwIAI",
-          "ownerId": "005Ts000006V3vpIAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gKQnnIAG",
-          "name": "Riba",
-          "city": "—",
-          "owner": "Eusebiu Hanganu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000lk168IAA",
-          "sfOpportunityId": "006Qs00000gKQnnIAG",
-          "ownerId": "005Ts000002AWIQIA4",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gLKbUIAW",
-          "name": "GIVE ME FIVE by Chef Darius",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000lkxYNIAY",
-          "sfOpportunityId": "006Qs00000gLKbUIAW",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gRCxmIAG",
-          "name": "Uncle Shu",
-          "city": "—",
-          "owner": "Borcaeas Georgian",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000lsKJhIAM",
-          "sfOpportunityId": "006Qs00000gRCxmIAG",
-          "ownerId": "005Ts00000BtZV3IAN",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000giA46IAE",
-          "name": "Black El Zorab",
-          "city": "—",
-          "owner": "Oroles Roșu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mEIeIIAW",
-          "sfOpportunityId": "006Qs00000giA46IAE",
-          "ownerId": "005Ts000006V3vpIAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000giZ1wIAE",
-          "name": "Oriental Cuts",
-          "city": "—",
-          "owner": "Oroles Roșu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mEaXuIAK",
-          "sfOpportunityId": "006Qs00000giZ1wIAE",
-          "ownerId": "005Ts000006V3vpIAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gppRjIAI",
-          "name": "Restaurant Bar - Influence",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mNXSoIAO",
-          "sfOpportunityId": "006Qs00000gppRjIAI",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gq8e2IAA",
-          "name": "Izumi",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mNp0JIAS",
-          "sfOpportunityId": "006Qs00000gq8e2IAA",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000grEhOIAU",
-          "name": "Camizo",
-          "city": "—",
-          "owner": "Borcaeas Georgian",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mPGdrIAG",
-          "sfOpportunityId": "006Qs00000grEhOIAU",
-          "ownerId": "005Ts00000BtZV3IAN",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gwnL9IAI",
-          "name": "Dabo Doner Miercurea Ciuc",
-          "city": "—",
-          "owner": "Silviu-Mihnea Voicu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mVsi7IAC",
-          "sfOpportunityId": "006Qs00000gwnL9IAI",
-          "ownerId": "005Ts000001Ak10IAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gxACsIAM",
-          "name": "Dabo Doner Shopping City",
-          "city": "—",
-          "owner": "Silviu-Mihnea Voicu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mWnoNIAS",
-          "sfOpportunityId": "006Qs00000gxACsIAM",
-          "ownerId": "005Ts000001Ak10IAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gyXYqIAM",
-          "name": "Il Destino",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mZ3iXIAS",
-          "sfOpportunityId": "006Qs00000gyXYqIAM",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gybICIAY",
-          "name": "Crazy Schnitzel",
-          "city": "—",
-          "owner": "Eusebiu Hanganu",
-          "tier": "Standard",
-          "stage": "Ready for TA",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mYe5zIAC",
-          "sfOpportunityId": "006Qs00000gybICIAY",
-          "ownerId": "005Ts000002AWIQIA4",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h1sgkIAA",
-          "name": "Better Bread",
-          "city": "—",
-          "owner": "Oroles Roșu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mcR3bIAE",
-          "sfOpportunityId": "006Qs00000h1sgkIAA",
-          "ownerId": "005Ts000006V3vpIAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h2MwaIAE",
-          "name": "Market Grill",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Ready for TA",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000md1a7IAA",
-          "sfOpportunityId": "006Qs00000h2MwaIAE",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h2eiCIAQ",
-          "name": "Mamaliguta& Sushi Han BV",
-          "city": "Ploiești",
-          "owner": "Paul-Daniel Rîngheanu",
-          "tier": "Standard",
-          "stage": "Ready for TA",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mdLPAIA2",
-          "sfOpportunityId": "006Qs00000h2eiCIAQ",
-          "ownerId": "005Qs00000Mxc6EIAR",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h6nznIAA",
-          "name": "Autoservirea Andreea",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mie1QIAQ",
-          "sfOpportunityId": "006Qs00000h6nznIAA",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h7KCYIA2",
-          "name": "Caramel",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mj8kAIAQ",
-          "sfOpportunityId": "006Qs00000h7KCYIA2",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000h9rQxIAI",
-          "name": "Hudin Anda",
-          "city": "—",
-          "owner": "Eusebiu Hanganu",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mm3HmIAI",
-          "sfOpportunityId": "006Qs00000h9rQxIAI",
-          "ownerId": "005Ts000002AWIQIA4",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000hDC96IAG",
-          "name": "GastroLab",
-          "city": "—",
-          "owner": "Daniel-Marian Toltică",
-          "tier": "Standard",
-          "stage": "Contract sent",
-          "status": "won",
-          "closedDate": "2026-06-30",
-          "sfAccountId": "001Qs00000mqYekIAE",
-          "sfOpportunityId": "006Qs00000hDC96IAG",
-          "ownerId": "005Ts00000BtX53IAF",
-          "segment": "density"
-        }
-      ],
+      "won": [],
       "activated": [
         {
           "id": "006Qs00000iTIMpIAO",
@@ -56609,25 +56021,25 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-06-12T08:27:27.838Z",
+        "lastSync": "2026-06-12T08:33:55.297Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-06-12T08:27:27.838Z",
+        "lastSync": "2026-06-12T08:33:55.297Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-06-12T08:27:27.838Z",
+        "lastSync": "2026-06-12T08:33:55.297Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-06-12T08:27:27.838Z",
+        "lastSync": "2026-06-12T08:33:55.297Z",
         "icon": "dashboard"
       }
     ]

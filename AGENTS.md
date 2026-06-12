@@ -108,7 +108,7 @@ WHERE CloseDate = THIS_MONTH
 ORDER BY CloseDate DESC
 ```
 
-Reproduces **87** team total (June 2026) vs **199** when all post-contract stages are included.
+Reproduces **84** team total (June 2026) vs **199** when all post-contract stages are included. Refresh this export before each deploy — stale rows (e.g. opps that moved to Activated) inflate counts.
 
 Activated field history cache: `scripts/.cache/sf-stage-history-2026.json` (weekly query below).
 

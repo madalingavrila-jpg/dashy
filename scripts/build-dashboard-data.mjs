@@ -123,9 +123,11 @@ const wonRecentData = existsSync(wonRecentExport) ? parseSfJson(wonRecentExport)
 const extraWonExports = readdirSync(wonCacheDir)
   .filter((name) => /^sf-won-\d{4}-\d{2}\.json$/.test(name))
   .map((name) => parseSfJson(join(wonCacheDir, name)));
-const mergedWonRecords = mergeWonExportRecords([wonData, wonRecentData, ...extraWonExports]);
-const mtdHistoryStore = buildHybridMtdStore(mergedWonRecords, stageHistoryData.records);
-const mtdHistory = buildMtdHistoryFromHybrid(mergedWonRecords, stageHistoryData.records);
+/** THIS_MONTH export (+ monthly archives) — authoritative for Won MTD; exclude sf-won-recent (Activated). */
+const wonMtdRecords = mergeWonExportRecords([wonData, ...extraWonExports]);
+const mergedWonRecords = mergeWonExportRecords([wonMtdRecords, wonRecentData]);
+const mtdHistoryStore = buildHybridMtdStore(wonMtdRecords, stageHistoryData.records);
+const mtdHistory = buildMtdHistoryFromHybrid(wonMtdRecords, stageHistoryData.records);
 const mopsCasesData = parseSfJson(mopsCasesExport);
 
 function buildMopsSection(casesData) {
