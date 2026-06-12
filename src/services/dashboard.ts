@@ -713,12 +713,14 @@ function toDashboardModel(
       )
     : 0;
 
+  const mtdMonthKey = currentMonthKey(new Date(data.updatedAt));
+
   return {
     updatedAt: data.updatedAt,
     salesforceInstanceUrl: instanceUrl,
     sources: source,
     mtdMonthLabel: mtdAchievement.month,
-    mtdMonthKey: currentMonthKey(new Date(data.updatedAt)),
+    mtdMonthKey,
     mtdHistory: salesPipeline.mtdHistory ?? [],
     overviewMetrics: buildMtdOverviewMetrics(data),
     teamProgress: buildTeamProgress(agents),
@@ -797,6 +799,50 @@ function toDashboardModel(
   };
 }
 
+/** Drop nested drill-down lists except for the active month/week to keep /api/dashboard under Boltable memory limits. */
+function slimDashboardModelForApi(model: DashboardModel): DashboardModel {
+  const activeMonthKey = model.mtdMonthKey ?? currentMonthKey(new Date(model.updatedAt));
+  const activeWeek = model.weeklyPerformance.currentWeek;
+
+  const mtdHistory = model.mtdHistory.map((month) => {
+    if (month.monthKey === activeMonthKey) {
+      return month;
+    }
+    return {
+      ...month,
+      agents: month.agents.map((agent) => ({
+        ...agent,
+        wonItems: [],
+        activatedItems: [],
+      })),
+    };
+  });
+
+  const statusBreakdown = model.weeklyPerformance.statusBreakdown.map((row) => {
+    if (row.week === activeWeek) {
+      return row;
+    }
+    return {
+      ...row,
+      agents: Object.fromEntries(
+        Object.entries(row.agents).map(([ownerId, agent]) => [
+          ownerId,
+          { ...agent, accounts: undefined },
+        ]),
+      ),
+    };
+  });
+
+  return {
+    ...model,
+    mtdHistory,
+    weeklyPerformance: {
+      ...model.weeklyPerformance,
+      statusBreakdown,
+    },
+  };
+}
+
 type DashboardCacheEntry = {
   buffer: Buffer;
   sourcePath: string;
@@ -845,7 +891,7 @@ function cacheIsFresh(source: { path: string; mtimeMs: number }): boolean {
 export async function serializeDashboardApi(): Promise<string> {
   try {
     const { data, source } = await loadRawData();
-    return JSON.stringify(toDashboardModel(data, source));
+    return JSON.stringify(slimDashboardModelForApi(toDashboardModel(data, source)));
   } catch (error) {
     const message = error instanceof Error ? error.message : "Dashboard load failed";
     return JSON.stringify(

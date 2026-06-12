@@ -36,4 +36,17 @@ try {
   process.exit(1);
 }
 
-console.log("[verify-build] OK — static export, server bundle, and dashboard data verified");
+const apiPath = path.join(root, "out/api/dashboard.json");
+const apiBytes = fs.statSync(apiPath).size;
+const API_PAYLOAD_MAX_BYTES = 350_000;
+if (apiBytes > API_PAYLOAD_MAX_BYTES) {
+  console.error(
+    `[verify-build] out/api/dashboard.json is ${apiBytes} bytes (max ${API_PAYLOAD_MAX_BYTES}). ` +
+      "Slim drill-down data in serializeDashboardApi to avoid Boltable OOM.",
+  );
+  process.exit(1);
+}
+
+console.log(
+  `[verify-build] OK — static export, server bundle, and dashboard data verified (api ${apiBytes} bytes)`,
+);

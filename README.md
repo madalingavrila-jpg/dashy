@@ -79,7 +79,7 @@ Config files: `project.toml`, `Procfile`.
 
 **Health check:** `GET /api/health` is lightweight (no dashboard load). It reports `staticReady`, `dashboardCacheReady`, and `uptime` for debugging.
 
-**Memory:** `data/dashboard.json` (~600KB) is parsed once at startup and cached in memory (~500KB JSON response). Concurrent cache-miss loads were causing OOM on small Boltable containers; the server now deduplicates loads and pre-warms the cache on boot.
+**Memory:** `data/dashboard.json` can be ~2MB on disk; build precomputes a slim `/api/dashboard` payload (~200KB) with drill-down lists only for the current MTD month and ISO week. The server serves a single cached buffer — keep `out/api/dashboard.json` under 350KB or Boltable may OOM.
 
 **Tips to avoid repeated downtime:** batch commits before pushing; data-only updates (`data/dashboard.json`) still trigger a full rebuild on Boltable.
 
