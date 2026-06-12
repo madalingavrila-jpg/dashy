@@ -51,7 +51,7 @@ export function AgentsTable({ agents, targetSummary, loading }: AgentsTableProps
               </th>
               <th
                 className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant"
-                title="Won MTD = CloseDate this month (SF dashboard alignment)"
+                title="Won MTD = Won_Date__c this month (SF dashboard alignment)"
               >
                 Won MTD
               </th>

@@ -302,7 +302,7 @@ function AgentRowsTable({
               </th>
               <th
                 className="px-md py-sm text-label-md font-semibold uppercase text-won"
-                title="Won MTD = CloseDate this month (SF dashboard alignment)"
+                title="Won MTD = Won_Date__c this month (SF dashboard alignment)"
               >
                 Won MTD
               </th>
@@ -397,7 +397,7 @@ function AgentRowsTable({
             </th>
             <th
               className={`${headPad} text-label-md font-semibold uppercase text-won`}
-              title="Won MTD = CloseDate this month (SF dashboard alignment)"
+              title="Won MTD = Won_Date__c this month (SF dashboard alignment)"
             >
               Won MTD
             </th>

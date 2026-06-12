@@ -81,16 +81,14 @@ Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.m
 
 ### MTD Won vs Activated (hybrid — aligned with SF dashboard)
 
-**Won MTD** matches Salesforce dashboard `01ZTs000000L8AfMAK` (red “won” box, filter **Won Date = This Month**): **CloseDate** in month + **Contract sent / Ready to Activate** only. Do **not** use custom field `Won_Date__c` (populated later in onboarding; would drop Contract sent rows). Do **not** count Onboarding, Activated, or `IsWon` alone.
+**Won MTD** matches Salesforce dashboard `01ZTs000000L8AfMAK` (red “won” box, filter **Won Date = This Month**): custom field **`Won_Date__c = THIS_MONTH`**. **No StageName filter** — opps in Onboarding, Activated, etc. still count if `Won_Date__c` is in the current month. Do **not** use `CloseDate` or `StageName IN ('Contract sent', 'Ready to Activate')` for Won MTD.
 
 | Metric | SF logic | Record type | Month from |
 |--------|----------|-------------|------------|
-| **Won MTD** | `CloseDate = THIS_MONTH` AND `StageName` IN (`Contract sent`, `Ready to Activate`) | **Sales Opportunity** only | `CloseDate` (Europe/Bucharest) |
+| **Won MTD** | `Won_Date__c = THIS_MONTH` | **Sales Opportunity** only | `Won_Date__c` (Europe/Bucharest) |
 | **Activated MTD** | first transition INTO `Activated` | Sales Opportunity only | `OpportunityFieldHistory.CreatedDate` |
 
-**WON_STAGES** (SF dashboard Won metric): **Contract sent**, **Ready to Activate** only. Onboarding / Activated are separate metrics.
-
-Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore()` — won from `accumulateMtdWonFromCloseDate()`, activated from `accumulateMtdActivatedFromStageHistory()`. Prior months in `mtdHistory` fall back to field-history Closed Won when no CloseDate export exists (`sf-won-YYYY-MM.json`).
+Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore()` — won from `accumulateMtdWonFromWonDate()`, activated from `accumulateMtdActivatedFromStageHistory()`. Prior months in `mtdHistory` fall back to field-history Closed Won when no Won_Date export exists (`sf-won-YYYY-MM.json`).
 
 Exclude Teodor Domnica and Andrei-Sebastian Caba (`EXCLUDED_OWNER_IDS`). 12 team reps only.
 
@@ -102,14 +100,13 @@ Exclude Teodor Domnica and Andrei-Sebastian Caba (`EXCLUDED_OWNER_IDS`). 12 team
 SELECT Id, Name, StageName, IsWon, CloseDate, Won_Date__c, OwnerId, Owner.Name, RecordType.Name,
   AccountId, Account.Name, Account.BillingCity
 FROM Opportunity
-WHERE CloseDate = THIS_MONTH
+WHERE Won_Date__c = THIS_MONTH
   AND RecordType.Name = 'Sales Opportunity'
-  AND StageName IN ('Contract sent', 'Ready to Activate')
   AND OwnerId IN ( /* 12 rep IDs — see weekly query */ )
-ORDER BY CloseDate DESC
+ORDER BY Won_Date__c DESC
 ```
 
-Reproduces **84** team total (June 2026) vs **199** when all post-contract stages are included. Refresh this export before each deploy — stale rows (e.g. opps that moved to Activated) inflate counts.
+Reproduces **100** team total (June 2026) — includes all stages with Won Date set this month. Refresh this export before each deploy.
 
 Activated field history cache: `scripts/.cache/sf-stage-history-2026.json` (weekly query below).
 
@@ -128,7 +125,7 @@ All weekly buckets use **OpportunityFieldHistory** (first transition INTO stage)
 
 Field history cache: `scripts/.cache/sf-stage-history-2026.json` (merge monthly exports via `scripts/fetch-sf-stage-history.mjs`).
 
-**MTD Won** (separate from weekly Closed Won) still uses CloseDate + Contract sent / Ready to Activate — see Won export above. Do not use `sf-won-ytd.json` for weekly Closed Won.
+**MTD Won** (separate from weekly Closed Won) uses `Won_Date__c = THIS_MONTH` — see Won export above. Do not use `sf-won-ytd.json` for weekly Closed Won. Weekly **Closed Won** still uses field-history first transition INTO `Closed Won` only.
 
 Team owner IDs only (12 reps; excludes Teodor Domnica, Andrei-Sebastian Caba):
 

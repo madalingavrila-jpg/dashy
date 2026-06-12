@@ -195,7 +195,7 @@ function buildMtdOverviewMetrics(data: DashboardRawData): MetricCard[] {
       trendValue: `${wonProgress}%`,
       label: "Won MTD",
       value: formatInteger(mtdAchievement.actualWon),
-      subtitle: `Target ${formatInteger(mtdAchievement.targetWon)} · ${month} · CloseDate (SF dashboard)`,
+      subtitle: `Target ${formatInteger(mtdAchievement.targetWon)} · ${month} · Won Date (SF dashboard)`,
       variant: "won",
     },
     {
