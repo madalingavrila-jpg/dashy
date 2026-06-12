@@ -14,8 +14,11 @@ import {
   enrichAgent,
 } from "../lib/agent-segments.mjs";
 import {
-  buildMtdHistoryFromRecords,
+  buildMtdHistoryFromStageHistory,
+  currentMonthKey,
   mergeWonExportRecords,
+  mtdAgentsForMonth,
+  accumulateMtdFromStageHistory,
 } from "../lib/mtd-history.mjs";
 import {
   accumulateWeeklyStatusFromHistory,
@@ -121,7 +124,8 @@ const extraWonExports = readdirSync(wonCacheDir)
   .filter((name) => /^sf-won-\d{4}-\d{2}\.json$/.test(name))
   .map((name) => parseSfJson(join(wonCacheDir, name)));
 const mergedWonRecords = mergeWonExportRecords([wonData, wonRecentData, ...extraWonExports]);
-const mtdHistory = buildMtdHistoryFromRecords(mergedWonRecords);
+const mtdHistoryStore = accumulateMtdFromStageHistory(stageHistoryData.records);
+const mtdHistory = buildMtdHistoryFromStageHistory(stageHistoryData.records);
 const mopsCasesData = parseSfJson(mopsCasesExport);
 
 function buildMopsSection(casesData) {
@@ -267,26 +271,31 @@ for (const opp of pipelineData.records ?? []) {
   agent.stageCounts[stage] = (agent.stageCounts[stage] ?? 0) + 1;
 }
 
-/** MTD window — export should already use CloseDate = THIS_MONTH; filter again for safety. */
-const mtdRef = new Date();
-const mtdYear = mtdRef.getFullYear();
-const mtdMonth = mtdRef.getMonth();
-const mtdStart = new Date(Date.UTC(mtdYear, mtdMonth, 1));
-const mtdEnd = new Date(Date.UTC(mtdYear, mtdMonth + 1, 0, 23, 59, 59));
-const mtdMonthLabel = mtdRef.toLocaleString("en-GB", {
+/** MTD won/activated — first stage transition date from OpportunityFieldHistory (Europe/Bucharest). */
+const mtdMonthKey = currentMonthKey();
+const mtdMonthLabel = new Date().toLocaleString("en-GB", {
   month: "long",
   year: "numeric",
   timeZone: "Europe/Bucharest",
 });
+const mtdYear = mtdMonthKey?.slice(0, 4);
+
+const mtdMonthAgents = mtdAgentsForMonth(mtdHistoryStore, mtdMonthKey);
+for (const mtdAgent of mtdMonthAgents.values()) {
+  const agent = upsertAgent({
+    OwnerId: mtdAgent.ownerId,
+    Owner: { Name: mtdAgent.name },
+  });
+  agent.wonMtd = mtdAgent.wonMtd;
+  agent.activatedMtd = mtdAgent.activatedMtd;
+}
 
 for (const opp of mergedWonRecords) {
   const agent = upsertAgent(opp);
   const closed = opp.CloseDate ? new Date(`${opp.CloseDate}T12:00:00Z`) : null;
-  if (closed && closed >= mtdStart && closed <= mtdEnd) {
-    if (opp.IsWon === true) agent.wonMtd += 1;
-    if (opp.StageName === "Activated") agent.activatedMtd += 1;
+  if (opp.StageName === "Activated" && closed?.getFullYear() === Number(mtdYear)) {
+    agent.wonYtd += 1;
   }
-  if (opp.StageName === "Activated" && closed?.getFullYear() === mtdYear) agent.wonYtd += 1;
 }
 
 const agents = filterTeamAgents(

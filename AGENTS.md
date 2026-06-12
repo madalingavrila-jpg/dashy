@@ -78,34 +78,24 @@ Each agent row must include `segment` (`complex` | `density`) and `mtdTarget` (W
 
 Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.mjs` and `scripts/patch-mtd-targets.mjs`). Excluded reps are defined in `EXCLUDED_OWNER_IDS`.
 
-### Won MTD per owner
+### MTD Won vs Activated (field history — same rules as weekly)
 
-Matches Slack: count opportunities with `IsWon = true` and `CloseDate = THIS_MONTH` (all record types).
+MTD counts use **OpportunityFieldHistory** (first transition INTO stage), **not** `CloseDate`. This separates deals closed this month from accounts activated this month (many won in June activate later).
 
-```sql
-SELECT OwnerId, Owner.Name, COUNT(Id) cnt
-FROM Opportunity
-WHERE CloseDate = THIS_MONTH
-  AND IsWon = true
-GROUP BY OwnerId, Owner.Name
-ORDER BY COUNT(Id) DESC
-```
+| Metric | SF stage | Record type | When |
+|--------|----------|-------------|------|
+| **Won MTD** | Closed Won | Parent Opportunity + Sales Opportunity | first transition INTO stage; month from `CreatedDate` (Europe/Bucharest) |
+| **Activated MTD** | Activated | Sales Opportunity only | first transition INTO stage; month from `CreatedDate` |
 
-### Activated MTD per owner
+Logic: `lib/mtd-history.mjs` → `accumulateMtdFromStageHistory()` (reuses weekly record-type rules from `lib/weekly-stages-build.mjs`).
 
-```sql
-SELECT OwnerId, Owner.Name, COUNT(Id) cnt
-FROM Opportunity
-WHERE RecordType.Name = 'Sales Opportunity'
-  AND CloseDate = THIS_MONTH
-  AND StageName = 'Activated'
-GROUP BY OwnerId, Owner.Name
-ORDER BY COUNT(Id) DESC
-```
+Uses the same cache as weekly: `scripts/.cache/sf-stage-history-2026.json` (see weekly query below). Exclude Teodor Domnica and Andrei-Sebastian Caba (`EXCLUDED_OWNER_IDS`).
 
-Exclude `Administrator` from the agents list. Map each owner to segment, set `mtdTarget`, then call `buildMtdAchievement(agents, month, { leadsMtd, qualifiedMtd })`.
+**Do not** use `CloseDate = THIS_MONTH` for MTD won/activated — that double-counts activated opps as won when both share the same close date.
 
-**MCP export for MTD counts** — save full query results to `scripts/.cache/sf-won-mtd.json` (all THIS_MONTH rows; do **not** use a recent-N sample):
+### Won export (accounts list only)
+
+`scripts/.cache/sf-won-mtd.json` still feeds recent won/activated account tabs — not MTD per-rep counts:
 
 ```sql
 SELECT Id, Name, StageName, IsWon, CloseDate, OwnerId, Owner.Name, AccountId, Account.Name, Account.BillingCity
@@ -115,7 +105,7 @@ WHERE CloseDate = THIS_MONTH
 ORDER BY CloseDate DESC
 ```
 
-`scripts/build-dashboard-data.mjs` reads this file for per-rep `wonMtd` (`IsWon = true`) / `activatedMtd` (`StageName = 'Activated'`) and global `mtdAchievement`.
+Exclude `Administrator` from the agents list. Map each owner to segment, set `mtdTarget`, then call `buildMtdAchievement(agents, month, { leadsMtd, qualifiedMtd })`.
 
 ### Weekly production (stage transition dates)
 
