@@ -37,6 +37,7 @@ export function isoWeekDateRange(year: number, week: number): { start: Date; end
   return { start, end };
 }
 
+/** @deprecated Prefer `formatWeekDateRange` from `@/lib/weekDateRange`. */
 export function formatIsoWeekDateRange(
   year: number,
   week: number,

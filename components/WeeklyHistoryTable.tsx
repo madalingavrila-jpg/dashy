@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import type { WeeklyHistoryView } from "@/types/dashboard";
+import { formatWeekLabel } from "@/lib/weekDateRange";
 
 type WeeklyHistoryTableProps = {
   history?: WeeklyHistoryView[];
@@ -142,7 +143,7 @@ function WeekRowGroup({
           </span>
         </td>
         <td className="px-md py-sm font-semibold">
-          {row.week}
+          {formatWeekLabel(row.week)}
           {isCurrent && (
             <span className="ml-xs rounded-full bg-primary px-xs py-[1px] text-[10px] font-bold text-on-primary">
               NOW
@@ -170,7 +171,7 @@ function WeekRowGroup({
             >
               {expandedContent ?? (
                 <p className="rounded-lg bg-surface-container-low px-md py-sm text-body-md text-on-surface-variant">
-                  Loading drill-down for {row.week}…
+                  Loading drill-down for {formatWeekLabel(row.week)}…
                 </p>
               )}
             </div>

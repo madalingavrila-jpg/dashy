@@ -25,12 +25,16 @@ import {
   trendDirection,
 } from "../../lib/format.js";
 import {
-  formatIsoWeekDateRange,
   formatWeekCode,
   formatWeekTitle,
   getIsoWeek,
   priorWeekCode,
 } from "../../lib/isoWeek.js";
+import {
+  DASHBOARD_WEEK_YEAR,
+  formatWeekDateRange,
+  formatWeekLabel,
+} from "../../lib/weekDateRange.js";
 import {
   accountsFilterUrl,
   salesforceAccountUrl,
@@ -473,7 +477,7 @@ function buildWeeklyPerformanceView(
   const currentWeek = formatWeekCode(week);
   const priorWeek = priorWeekCode(currentWeek) ?? "—";
   const weekTitle = formatWeekTitle(week, year);
-  const dateRange = formatIsoWeekDateRange(year, week);
+  const dateRange = formatWeekDateRange(week, year);
   const history = weeklyPerformance.history ?? [];
 
   const historyRow = history.find((row) => row.week === currentWeek);
@@ -487,7 +491,7 @@ function buildWeeklyPerformanceView(
 
   if (storedMatchesCurrent) {
     return {
-      weekLabel: weeklyPerformance.weekLabel || `${currentWeek} · ${dateRange}`,
+      weekLabel: formatWeekLabel(currentWeek, year),
       weekTitle,
       dateRange,
       currentWeek,
@@ -512,7 +516,7 @@ function buildWeeklyPerformanceView(
     });
 
     return {
-      weekLabel: `${currentWeek} · ${dateRange}`,
+      weekLabel: formatWeekLabel(currentWeek, year),
       weekTitle,
       dateRange,
       currentWeek,
@@ -525,13 +529,15 @@ function buildWeeklyPerformanceView(
   }
 
   if (weeklyPerformance.metrics.length > 0) {
+    const fallbackWeek = weeklyPerformance.currentWeek ?? currentWeek;
     return {
-      weekLabel: weeklyPerformance.weekLabel,
-      weekTitle: weeklyPerformance.weekLabel.split("·")[0]?.trim() ?? weekTitle,
-      dateRange: weeklyPerformance.weekLabel.includes("·")
-        ? weeklyPerformance.weekLabel.split("·").slice(1).join("·").trim()
-        : dateRange,
-      currentWeek: weeklyPerformance.currentWeek ?? currentWeek,
+      weekLabel: formatWeekLabel(fallbackWeek, year),
+      weekTitle,
+      dateRange: formatWeekDateRange(
+        Number.parseInt(fallbackWeek.replace(/^W/i, ""), 10) || week,
+        year,
+      ),
+      currentWeek: fallbackWeek,
       priorWeek,
       metrics: mapWeeklyMetricViews(weeklyPerformance.metrics),
       history,
@@ -542,7 +548,7 @@ function buildWeeklyPerformanceView(
   }
 
   return {
-    weekLabel: `${currentWeek} · ${dateRange}`,
+    weekLabel: formatWeekLabel(currentWeek, year),
     weekTitle,
     dateRange,
     currentWeek,
@@ -754,8 +760,8 @@ function toDashboardModel(
       id: report.id,
       title: report.title,
       description: report.description,
-      currentWeek: report.currentWeek,
-      priorWeek: report.priorWeek,
+      currentWeek: formatWeekLabel(report.currentWeek, DASHBOARD_WEEK_YEAR),
+      priorWeek: formatWeekLabel(report.priorWeek, DASHBOARD_WEEK_YEAR),
       rows: report.rows.map((row) => ({
         metric: row.metric,
         current: formatInteger(row.current),

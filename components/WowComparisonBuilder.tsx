@@ -8,8 +8,10 @@ import {
   WOW_METRIC_OPTIONS,
   type WowCompareRow,
   type WowMetricKey,
+  weekOptionLabel,
   weekOptionsFromHistory,
 } from "@/lib/wowCompare";
+import { formatWeekLabel } from "@/lib/weekDateRange";
 
 type WowComparisonBuilderProps = {
   history?: WeeklyHistoryRow[];
@@ -177,7 +179,7 @@ export function WowComparisonBuilder({
             <select value={leftWeek} onChange={(event) => setLeftWeek(event.target.value)} className={selectClassName()}>
               {weekOptions.map((week) => (
                 <option key={`left-${week}`} value={week}>
-                  {week}
+                  {weekOptionLabel(week)}
                 </option>
               ))}
             </select>
@@ -188,7 +190,7 @@ export function WowComparisonBuilder({
             <select value={rightWeek} onChange={(event) => setRightWeek(event.target.value)} className={selectClassName()}>
               {weekOptions.map((week) => (
                 <option key={`right-${week}`} value={week}>
-                  {week}
+                  {weekOptionLabel(week)}
                 </option>
               ))}
             </select>
@@ -213,9 +215,9 @@ export function WowComparisonBuilder({
             <thead className="bg-surface-container-lowest">
               <tr>
                 <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">Scope</th>
-                <th className="px-lg py-md text-right text-label-md font-semibold uppercase text-primary">{comparison.leftWeek}</th>
+                <th className="px-lg py-md text-right text-label-md font-semibold uppercase text-primary">{formatWeekLabel(comparison.leftWeek)}</th>
                 <th className="px-md py-md text-center text-label-md font-semibold uppercase text-on-surface-variant">Δ</th>
-                <th className="px-lg py-md text-left text-label-md font-semibold uppercase text-on-surface-variant">{comparison.rightWeek}</th>
+                <th className="px-lg py-md text-left text-label-md font-semibold uppercase text-on-surface-variant">{formatWeekLabel(comparison.rightWeek)}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant">

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { WeeklyHistoryView } from "@/types/dashboard";
+import { formatWeekLabel } from "@/lib/weekDateRange";
 
 type ChartMode = "weekly" | "cumulative";
 
@@ -260,7 +261,7 @@ export function WowYtdTrendChart({ history, loading }: WowYtdTrendChartProps) {
                 stroke="#cbd5e1"
               />
               <text x={Math.min(xAt(hoverIndex) + 16, CHART.width - 140)} y={CHART.padTop + 26} className="fill-on-surface text-[12px] font-bold">
-                {hoverPoint.week}
+                {formatWeekLabel(hoverPoint.week)}
               </text>
               <text x={Math.min(xAt(hoverIndex) + 16, CHART.width - 140)} y={CHART.padTop + 42} className="fill-[#059669] text-[11px] font-semibold">
                 Closed Won: {hoverPoint.closedWon}

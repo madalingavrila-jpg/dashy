@@ -17,7 +17,7 @@ import {
   type WeeklyStatusTargets,
 } from "@/lib/targetConfig";
 import { currentMonthKey, mtdMonthOptions } from "@/lib/mtdMonth";
-import { weekOptionsFromHistory } from "@/lib/wowCompare";
+import { weekOptionLabel, weekOptionsFromHistory } from "@/lib/wowCompare";
 import { WEEKLY_STATUS_KEYS, WEEKLY_STATUS_LABELS } from "@/lib/weekly-stages";
 
 type TargetSettingsPanelProps = {
@@ -644,7 +644,7 @@ export function TargetSettingsPanel({
                             >
                               {weekOptions.map((week) => (
                                 <option key={week} value={week}>
-                                  {week}
+                                  {weekOptionLabel(week)}
                                 </option>
                               ))}
                             </select>

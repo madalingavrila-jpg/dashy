@@ -5,6 +5,7 @@ import type {
   WeeklyStatusKey,
 } from "@/types/dashboard";
 import { formatInteger, formatSignedDelta, formatSignedPct, pctChange, trendDirection } from "@/lib/format";
+import { DASHBOARD_WEEK_YEAR, formatWeekLabel } from "@/lib/weekDateRange";
 
 export type WowMetricKey = keyof Omit<WeeklyHistoryRow, "week">;
 
@@ -39,6 +40,10 @@ export function sortWeekCodes(weeks: string[]): string[] {
 export function weekOptionsFromHistory(history: WeeklyHistoryRow[] | undefined): string[] {
   if (!history?.length) return [];
   return sortWeekCodes(history.map((row) => row.week));
+}
+
+export function weekOptionLabel(week: string, year: number = DASHBOARD_WEEK_YEAR): string {
+  return formatWeekLabel(week, year);
 }
 
 function historyValue(history: WeeklyHistoryRow[] | undefined, week: string, metric: WowMetricKey): number {

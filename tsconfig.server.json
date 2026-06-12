@@ -20,6 +20,7 @@
     "types/**/*.ts",
     "lib/format.ts",
     "lib/isoWeek.ts",
+    "lib/weekDateRange.ts",
     "lib/salesforce.ts",
     "lib/agent-segments.ts",
     "lib/weekly-stages.ts"

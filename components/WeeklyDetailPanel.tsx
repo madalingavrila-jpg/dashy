@@ -14,6 +14,7 @@ import {
   WEEKLY_STATUS_LABELS,
   weeklyStatusAccent,
 } from "@/lib/weekly-stages";
+import { formatWeekLabel } from "@/lib/weekDateRange";
 
 export type WeeklyFilter =
   | "all"
@@ -431,7 +432,7 @@ function AgentWeeklyTimeline({
           <tbody className="divide-y divide-outline-variant/30">
             {rows.map((row) => (
               <tr key={row!.week} className="hover:bg-surface-container-low/30">
-                <td className="px-md py-sm font-semibold text-on-surface">{row!.week}</td>
+                <td className="px-md py-sm font-semibold text-on-surface">{formatWeekLabel(row!.week)}</td>
                 {row!.statuses.map((status) => (
                   <td key={status.key} className="px-md py-sm">
                     <span className="font-bold tabular-nums text-on-surface">{status.actual}</span>
@@ -576,7 +577,7 @@ export function WeeklyDetailPanel({
       if (!agent) {
         return (
           <p className="rounded-lg bg-surface-container-low px-md py-sm text-body-md text-on-surface-variant">
-            No activity recorded for this agent in {detail.week}.
+            No activity recorded for this agent in {formatWeekLabel(detail.week)}.
           </p>
         );
       }
@@ -608,7 +609,7 @@ export function WeeklyDetailPanel({
               Week drill-down · Overview style
             </p>
             <h2 className="text-headline-md font-extrabold text-on-surface">
-              {detail.week} · account statuses
+              {formatWeekLabel(detail.week)} · account statuses
             </h2>
             <p className="text-body-md text-on-surface-variant">
               Complex &amp; Density teams with per-agent Qualified · Negotiations · Closed Won · Active

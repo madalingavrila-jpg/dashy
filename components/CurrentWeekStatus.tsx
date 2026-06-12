@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { DashboardModel } from "@/types/dashboard";
+import { formatWeekLabel } from "@/lib/weekDateRange";
 
 type CurrentWeekStatusProps = {
   weekly?: DashboardModel["weeklyPerformance"];
@@ -13,7 +14,10 @@ function MetricSkeleton() {
 }
 
 export function CurrentWeekStatus({ weekly, loading }: CurrentWeekStatusProps) {
-  const priorLabel = weekly?.priorWeek && weekly.priorWeek !== "—" ? weekly.priorWeek : "prior week";
+  const priorLabel =
+    weekly?.priorWeek && weekly.priorWeek !== "—"
+      ? formatWeekLabel(weekly.priorWeek)
+      : "prior week";
 
   return (
     <section className="space-y-sm">

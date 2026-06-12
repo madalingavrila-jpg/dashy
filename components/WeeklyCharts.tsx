@@ -1,6 +1,7 @@
 "use client";
 
 import type { WeeklyHistoryView, WeeklyMetricView } from "@/types/dashboard";
+import { formatWeekDateRange, formatWeekLabel } from "@/lib/weekDateRange";
 
 type WeeklyMetricsGridProps = {
   metrics?: WeeklyMetricView[];
@@ -85,6 +86,11 @@ export function WeeklyHistoryChart({
       <div className="flex items-end justify-between gap-sm min-w-[960px]" style={{ minHeight: 180 }}>
         {history?.map((row) => {
           const isMany = (history?.length ?? 0) > 8;
+          const weekMatch = /^W(\d{1,2})$/i.exec(row.week);
+          const weekNum = weekMatch ? Number(weekMatch[1]) : null;
+          const dateRange = weekNum != null ? formatWeekDateRange(weekNum) : "";
+          const barTitle = (metric: string, value: number) =>
+            dateRange ? `${formatWeekLabel(row.week)} · ${metric}: ${value}` : `${metric}: ${value}`;
           return (
           <div
             key={row.week}
@@ -105,15 +111,20 @@ export function WeeklyHistoryChart({
               <div
                 className="w-4 rounded-t bg-won"
                 style={{ height: `${Math.max(8, (row.closedWon / maxClosedWon) * 100)}%` }}
-                title={`Closed Won: ${row.closedWon}`}
+                title={barTitle("Closed Won", row.closedWon)}
               />
               <div
                 className="w-4 rounded-t bg-activated"
                 style={{ height: `${Math.max(8, (row.active / maxActive) * 100)}%` }}
-                title={`Active: ${row.active}`}
+                title={barTitle("Active", row.active)}
               />
             </div>
-            <span className="text-label-md font-label-md font-semibold">{row.week}</span>
+            <span className="text-center text-label-md font-label-md font-semibold leading-tight">
+              {row.week}
+            </span>
+            {dateRange ? (
+              <span className="text-center text-[9px] leading-tight text-on-surface-variant">{dateRange}</span>
+            ) : null}
             <span className="text-[10px] text-on-surface-variant">
               L{row.leads} · CW{row.closedWon} · A{row.active}
             </span>
