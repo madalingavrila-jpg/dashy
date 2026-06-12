@@ -1,6 +1,6 @@
 {
-  "openCases": 92,
-  "openNewOnboarding": 59,
+  "openCases": 94,
+  "openNewOnboarding": 61,
   "openByStatus": [
     {
       "status": "Menu & Assets",
@@ -8,17 +8,21 @@
     },
     {
       "status": "Onboarding Qualify",
-      "count": 31
+      "count": 32
     },
     {
       "status": "Menu Update",
       "count": 11
+    },
+    {
+      "status": "Admin Creation",
+      "count": 1
     }
   ],
   "openByRecordType": [
     {
       "recordType": "New Onboarding",
-      "count": 59
+      "count": 61
     },
     {
       "recordType": "Self Signup",
@@ -63,6 +67,11 @@
       "count": 8
     },
     {
+      "ownerId": "005Qs00000LaNYHIA3",
+      "name": "MariAnn Ignacio",
+      "count": 7
+    },
+    {
       "ownerId": "005Ts00000FDPj8IAH",
       "name": "JericoAngelo Marcelo",
       "count": 7
@@ -76,11 +85,6 @@
       "ownerId": "005Ts00000C6gIeIAJ",
       "name": "javi javier",
       "count": 7
-    },
-    {
-      "ownerId": "005Qs00000LaNYHIA3",
-      "name": "MariAnn Ignacio",
-      "count": 5
     },
     {
       "ownerId": "005Qs00000L3GXBIA3",
@@ -109,6 +113,24 @@
     }
   ],
   "records": [
+    {
+      "id": "500Qs00000lv0LKIAY",
+      "caseNumber": "00067412",
+      "subject": "Artpop Ice Cream Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Qs00000LaNYHIA3",
+      "ownerName": "MariAnn Ignacio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000lvLxZIAU",
+      "caseNumber": "00067410",
+      "subject": "Pestele Mustacios Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Qs00000LaNYHIA3",
+      "ownerName": "MariAnn Ignacio",
+      "recordType": "New Onboarding"
+    },
     {
       "id": "500Qs00000lsMRuIAM",
       "caseNumber": "00067356",
@@ -248,7 +270,7 @@
       "id": "500Qs00000ljEwnIAE",
       "caseNumber": "00066999",
       "subject": "Mofticios by Koko Loko Onboarding",
-      "status": "Onboarding Qualify",
+      "status": "Admin Creation",
       "ownerId": "005Ts00000C6gIeIAJ",
       "ownerName": "javi javier",
       "recordType": "New Onboarding"
