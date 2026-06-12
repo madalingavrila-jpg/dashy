@@ -78,32 +78,39 @@ Each agent row must include `segment` (`complex` | `density`) and `mtdTarget` (W
 
 Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.mjs` and `scripts/patch-mtd-targets.mjs`). Excluded reps are defined in `EXCLUDED_OWNER_IDS`.
 
-### MTD Won vs Activated (field history — same rules as weekly)
+### MTD Won vs Activated (hybrid — aligned with SF dashboard)
 
-MTD counts use **OpportunityFieldHistory** (first transition INTO stage), **not** `CloseDate`. This separates deals closed this month from accounts activated this month (many won in June activate later).
+**Won MTD** matches Salesforce dashboard `01ZTs000000L8AfMAK` (red “won” box): **CloseDate** in month, not field history.
 
-| Metric | SF stage | Record type | When |
-|--------|----------|-------------|------|
-| **Won MTD** | Closed Won | Parent Opportunity + Sales Opportunity | first transition INTO stage; month from `CreatedDate` (Europe/Bucharest) |
-| **Activated MTD** | Activated | Sales Opportunity only | first transition INTO stage; month from `CreatedDate` |
+| Metric | SF logic | Record type | Month from |
+|--------|----------|-------------|------------|
+| **Won MTD** | `CloseDate = THIS_MONTH` AND (`IsWon = true` OR `StageName` IN WON_STAGES) | **Sales Opportunity** only | `CloseDate` (Europe/Bucharest) |
+| **Activated MTD** | first transition INTO `Activated` | Sales Opportunity only | `OpportunityFieldHistory.CreatedDate` |
 
-Logic: `lib/mtd-history.mjs` → `accumulateMtdFromStageHistory()` (reuses weekly record-type rules from `lib/weekly-stages-build.mjs`).
+**WON_STAGES** (same as SF dashboard): Contract sent, Ready to Activate, Onboarding, Onboarding Checklist, Closed Won, Activated.
 
-Uses the same cache as weekly: `scripts/.cache/sf-stage-history-2026.json` (see weekly query below). Exclude Teodor Domnica and Andrei-Sebastian Caba (`EXCLUDED_OWNER_IDS`).
+Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore()` — won from `accumulateMtdWonFromCloseDate()`, activated from `accumulateMtdActivatedFromStageHistory()`. Prior months in `mtdHistory` fall back to field-history Closed Won when no CloseDate export exists (`sf-won-YYYY-MM.json`).
 
-**Do not** use `CloseDate = THIS_MONTH` for MTD won/activated — that double-counts activated opps as won when both share the same close date.
+Exclude Teodor Domnica and Andrei-Sebastian Caba (`EXCLUDED_OWNER_IDS`). 12 team reps only.
 
-### Won export (accounts list only)
+### Won export (MTD counts + account tabs)
 
-`scripts/.cache/sf-won-mtd.json` still feeds recent won/activated account tabs — not MTD per-rep counts:
+`scripts/.cache/sf-won-mtd.json` drives **Won MTD per-rep** and recent won account tabs:
 
 ```sql
-SELECT Id, Name, StageName, IsWon, CloseDate, OwnerId, Owner.Name, AccountId, Account.Name, Account.BillingCity
+SELECT Id, Name, StageName, IsWon, CloseDate, OwnerId, Owner.Name, RecordType.Name,
+  AccountId, Account.Name, Account.BillingCity
 FROM Opportunity
 WHERE CloseDate = THIS_MONTH
-  AND (IsWon = true OR StageName = 'Activated')
+  AND RecordType.Name = 'Sales Opportunity'
+  AND (IsWon = true OR StageName IN (
+    'Contract sent', 'Ready to Activate', 'Onboarding', 'Onboarding Checklist',
+    'Closed Won', 'Activated'))
+  AND OwnerId IN ( /* 12 rep IDs — see weekly query */ )
 ORDER BY CloseDate DESC
 ```
+
+Activated field history cache: `scripts/.cache/sf-stage-history-2026.json` (weekly query below).
 
 Exclude `Administrator` from the agents list. Map each owner to segment, set `mtdTarget`, then call `buildMtdAchievement(agents, month, { leadsMtd, qualifiedMtd })`.
 

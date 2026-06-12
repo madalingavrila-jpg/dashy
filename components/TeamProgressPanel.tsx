@@ -300,7 +300,12 @@ function AgentRowsTable({
               <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
                 Segment
               </th>
-              <th className="px-md py-sm text-label-md font-semibold uppercase text-won">Won MTD</th>
+              <th
+                className="px-md py-sm text-label-md font-semibold uppercase text-won"
+                title="Won MTD = CloseDate this month (SF dashboard alignment)"
+              >
+                Won MTD
+              </th>
               <th className="px-md py-sm text-label-md font-semibold uppercase text-activated">
                 Activated MTD
               </th>
@@ -390,7 +395,12 @@ function AgentRowsTable({
             >
               Agent
             </th>
-            <th className={`${headPad} text-label-md font-semibold uppercase text-won`}>Won MTD</th>
+            <th
+              className={`${headPad} text-label-md font-semibold uppercase text-won`}
+              title="Won MTD = CloseDate this month (SF dashboard alignment)"
+            >
+              Won MTD
+            </th>
             <th
               className={`${headPad} text-label-md font-semibold uppercase text-activated`}
             >
