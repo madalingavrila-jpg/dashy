@@ -1,0 +1,15 @@
+---
+description: Never send Slack messages from this project
+alwaysApply: true
+---
+
+# No Slack messaging
+
+Do **not** send, schedule, or draft Slack messages for this project.
+
+- Never call `slack_send_message`, `slack_schedule_message`, or `slack_send_message_draft` (plugin-slack-slack MCP).
+- Do not post to Slack webhooks or use any Slack API to deliver notifications.
+- If the user asks to "send on Slack" or "notify on Slack", reply in chat only — do not use Slack MCP write tools.
+- Slack MCP read tools (search, read channel) are allowed only when the user explicitly asks to read Slack, not to deliver results.
+
+This applies to data refresh workflows, automations, CI, and ad-hoc agent tasks.
