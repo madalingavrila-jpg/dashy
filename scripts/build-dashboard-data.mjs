@@ -109,7 +109,7 @@ const weeklyExport = process.env.SF_WEEKLY_EXPORT ?? join(root, "scripts/.cache/
 const stageHistoryExport =
   process.env.SF_STAGE_HISTORY_EXPORT ?? join(root, "scripts/.cache/sf-stage-history-2026.json");
 const pipelineExport = process.env.SF_PIPELINE_EXPORT ?? join(root, "scripts/.cache/sf-pipeline-open.json");
-/** CloseDate THIS_MONTH won opps (SF dashboard WON_STAGES) — see AGENTS.md SOQL. */
+/** CloseDate THIS_MONTH — Contract sent + Ready to Activate (SF dashboard Won MTD). */
 const wonExport = process.env.SF_WON_EXPORT ?? join(root, "scripts/.cache/sf-won-mtd.json");
 const wonRecentExport = join(root, "scripts/.cache/sf-won-recent.json");
 const wonCacheDir = join(root, "scripts/.cache");
@@ -271,7 +271,7 @@ for (const opp of pipelineData.records ?? []) {
   agent.stageCounts[stage] = (agent.stageCounts[stage] ?? 0) + 1;
 }
 
-/** MTD won = CloseDate + WON_STAGES (SF dashboard); activated = field history (Europe/Bucharest). */
+/** MTD won = CloseDate + Contract sent/RTA (SF dashboard); activated = field history (Europe/Bucharest). */
 const mtdMonthKey = currentMonthKey();
 const mtdMonthLabel = new Date().toLocaleString("en-GB", {
   month: "long",

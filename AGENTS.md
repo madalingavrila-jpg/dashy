@@ -80,14 +80,14 @@ Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.m
 
 ### MTD Won vs Activated (hybrid — aligned with SF dashboard)
 
-**Won MTD** matches Salesforce dashboard `01ZTs000000L8AfMAK` (red “won” box): **CloseDate** in month, not field history.
+**Won MTD** matches Salesforce dashboard `01ZTs000000L8AfMAK` (red “won” box, filter **Won Date = This Month**): **CloseDate** in month + **Contract sent / Ready to Activate** only. Do **not** use custom field `Won_Date__c` (populated later in onboarding; would drop Contract sent rows). Do **not** count Onboarding, Activated, or `IsWon` alone.
 
 | Metric | SF logic | Record type | Month from |
 |--------|----------|-------------|------------|
-| **Won MTD** | `CloseDate = THIS_MONTH` AND (`IsWon = true` OR `StageName` IN WON_STAGES) | **Sales Opportunity** only | `CloseDate` (Europe/Bucharest) |
+| **Won MTD** | `CloseDate = THIS_MONTH` AND `StageName` IN (`Contract sent`, `Ready to Activate`) | **Sales Opportunity** only | `CloseDate` (Europe/Bucharest) |
 | **Activated MTD** | first transition INTO `Activated` | Sales Opportunity only | `OpportunityFieldHistory.CreatedDate` |
 
-**WON_STAGES** (same as SF dashboard): Contract sent, Ready to Activate, Onboarding, Onboarding Checklist, Closed Won, Activated.
+**WON_STAGES** (SF dashboard Won metric): **Contract sent**, **Ready to Activate** only. Onboarding / Activated are separate metrics.
 
 Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore()` — won from `accumulateMtdWonFromCloseDate()`, activated from `accumulateMtdActivatedFromStageHistory()`. Prior months in `mtdHistory` fall back to field-history Closed Won when no CloseDate export exists (`sf-won-YYYY-MM.json`).
 
@@ -98,17 +98,17 @@ Exclude Teodor Domnica and Andrei-Sebastian Caba (`EXCLUDED_OWNER_IDS`). 12 team
 `scripts/.cache/sf-won-mtd.json` drives **Won MTD per-rep** and recent won account tabs:
 
 ```sql
-SELECT Id, Name, StageName, IsWon, CloseDate, OwnerId, Owner.Name, RecordType.Name,
+SELECT Id, Name, StageName, IsWon, CloseDate, Won_Date__c, OwnerId, Owner.Name, RecordType.Name,
   AccountId, Account.Name, Account.BillingCity
 FROM Opportunity
 WHERE CloseDate = THIS_MONTH
   AND RecordType.Name = 'Sales Opportunity'
-  AND (IsWon = true OR StageName IN (
-    'Contract sent', 'Ready to Activate', 'Onboarding', 'Onboarding Checklist',
-    'Closed Won', 'Activated'))
+  AND StageName IN ('Contract sent', 'Ready to Activate')
   AND OwnerId IN ( /* 12 rep IDs — see weekly query */ )
 ORDER BY CloseDate DESC
 ```
+
+Reproduces **87** team total (June 2026) vs **199** when all post-contract stages are included.
 
 Activated field history cache: `scripts/.cache/sf-stage-history-2026.json` (weekly query below).
 
