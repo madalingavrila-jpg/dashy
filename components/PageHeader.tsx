@@ -24,7 +24,7 @@ export function PageHeader({
         </p>
         {updatedAt && !loading && (
           <p className="mt-1 text-label-md font-label-md text-on-surface-variant opacity-70">
-            Updated {new Date(updatedAt).toLocaleString("en-GB")}
+            Date actualizate: {new Date(updatedAt).toLocaleString("ro-RO")}
           </p>
         )}
       </div>

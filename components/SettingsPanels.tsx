@@ -1,12 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import type { IntegrationSetting } from "@/types/dashboard";
+import { fetchHealth } from "@/lib/api";
 
 type SettingsPanelsProps = {
   timezone?: string;
   locale?: string;
   integrations?: IntegrationSetting[];
   sources?: { source: string; path?: string };
+  updatedAt?: string;
   loading?: boolean;
 };
 
@@ -21,8 +24,23 @@ export function SettingsPanels({
   locale,
   integrations,
   sources,
+  updatedAt,
   loading,
 }: SettingsPanelsProps) {
+  const [gitSha, setGitSha] = useState<string | null>(null);
+  const [builtAt, setBuiltAt] = useState<string | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetchHealth(controller.signal)
+      .then((health) => {
+        setGitSha(health.gitSha);
+        setBuiltAt(health.builtAt);
+      })
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
+
   return (
     <>
       <div className="glass-card rounded-xl p-lg">
@@ -34,6 +52,12 @@ export function SettingsPanels({
           <p className="text-on-surface-variant">Loading…</p>
         ) : (
           <dl className="space-y-sm text-body-md">
+            {updatedAt && (
+              <div className="flex justify-between border-b border-outline-variant py-sm">
+                <dt className="text-on-surface-variant">Date actualizate</dt>
+                <dd className="font-semibold">{new Date(updatedAt).toLocaleString("ro-RO")}</dd>
+              </div>
+            )}
             <div className="flex justify-between border-b border-outline-variant py-sm">
               <dt className="text-on-surface-variant">Source</dt>
               <dd className="font-semibold">{sources?.source ?? "json"}</dd>
@@ -41,6 +65,23 @@ export function SettingsPanels({
             <div className="flex justify-between border-b border-outline-variant py-sm">
               <dt className="text-on-surface-variant">Path</dt>
               <dd className="font-mono text-sm">{sources?.path ?? "data/dashboard.json"}</dd>
+            </div>
+            <div className="flex justify-between border-b border-outline-variant py-sm">
+              <dt className="text-on-surface-variant">Deploy (git SHA)</dt>
+              <dd className="font-mono text-sm">{gitSha ?? "—"}</dd>
+            </div>
+            {builtAt && (
+              <div className="flex justify-between border-b border-outline-variant py-sm">
+                <dt className="text-on-surface-variant">Built at</dt>
+                <dd>{new Date(builtAt).toLocaleString("ro-RO")}</dd>
+              </div>
+            )}
+            <div className="flex justify-between border-b border-outline-variant py-sm">
+              <dt className="text-on-surface-variant">Target overrides</dt>
+              <dd className="max-w-[60%] text-right text-sm">
+                With GITHUB_TOKEN: saved to git (all browsers). Without: localStorage fallback until
+                redeploy.
+              </dd>
             </div>
             <div className="flex justify-between border-b border-outline-variant py-sm">
               <dt className="text-on-surface-variant">Timezone</dt>

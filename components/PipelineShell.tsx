@@ -14,7 +14,9 @@ import {
 } from "@/lib/mtdMonth";
 
 export function PipelineShell() {
-  const { baseModel, error, loading, sourceHint, targetConfig } = useDashboard();
+  const { baseModel, error, loading, sourceHint, targetConfig } = useDashboard({
+    sections: ["overview", "mtd"],
+  });
   const [selectedMonthKey, setSelectedMonthKey] = useState("");
 
   const defaultMonthKey = useMemo(() => resolveDefaultMonthKey(baseModel), [baseModel]);

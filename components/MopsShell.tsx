@@ -10,7 +10,7 @@ const SF_DASHBOARD_URL =
   "https://boltfood.lightning.force.com/lightning/r/Dashboard/01ZTs000000Bx9dMAC/view";
 
 export function MopsShell() {
-  const { model, error, loading, sourceHint } = useDashboard();
+  const { model, error, loading, sourceHint } = useDashboard({ sections: ["mops"] });
   const mops = model?.mops;
 
   return (

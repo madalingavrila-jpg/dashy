@@ -8,7 +8,8 @@ This app does **not** call Salesforce or Looker at runtime. You (the Cursor agen
 2. Read **Google Sheet** hitlist via Bolt MCP (`read_sheet_values`) — spreadsheet `1IW8IxEs-YCsYMlCeTfkIz-b51eStjR5uUIEpkV1akRE`.
 3. Map results to `data/dashboard.json` using `data/dashboard.schema.json`.
 4. Set `updatedAt` to the current ISO timestamp.
-5. Commit `data/dashboard.json` and push — Paketo redeploys dashy on Boltable.
+5. **Slim at source:** `build-dashboard-data.mjs` calls `lib/slim-dashboard-source.mjs` — keeps MTD/weekly **aggregates for all periods**, but drill-down lists only for the **current month** and **current ISO week**; caps account tabs at 28 with SF list URLs. Re-run `node scripts/slim-dashboard-json.mjs` after manual JSON edits.
+6. Commit `data/dashboard.json` and push — Paketo redeploys dashy on Boltable.
 
 Optional: publish full JSON to Google Sheet and set `DASHBOARD_SHEET_URL` on Boltable instead of repo file.
 
@@ -239,8 +240,13 @@ Map to `salesPipeline.accounts.won`.
 ```bash
 npm run build:boltable
 npm run start:server
-curl http://localhost:8080/api/dashboard | jq '.totals.won.value'
+curl http://localhost:8080/api/dashboard/overview | jq '.updatedAt'
+curl http://localhost:8080/api/dashboard/mtd | jq '.mtdHistory | length'
+curl http://localhost:8080/api/dashboard/weekly | jq '.weeklyPerformance.currentWeek'
+curl http://localhost:8080/api/health | jq '.gitSha'
 ```
+
+**Slim source checks:** prior months in `mtdHistory` must have empty `wonItems`/`activatedItems` but correct `wonMtd`/`activatedMtd` counts. Prior weeks in `weeklyPerformance.breakdown` must have status **counts** but no `accounts` arrays. Account tabs show max 28 rows; totals live in `accounts.meta`.
 
 ## Target overrides (`data/target-config.json`)
 

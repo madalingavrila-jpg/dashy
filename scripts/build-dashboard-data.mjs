@@ -30,6 +30,7 @@ import {
   weekKey,
   weekLabel,
 } from "../lib/weekly-stages-build.mjs";
+import { slimDashboardRawData } from "../lib/slim-dashboard-source.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -422,7 +423,8 @@ const dashboard = {
   },
 };
 
-writeFileSync(join(root, "data/dashboard.json"), `${JSON.stringify(dashboard, null, 2)}\n`);
+const slimmed = slimDashboardRawData(dashboard);
+writeFileSync(join(root, "data/dashboard.json"), `${JSON.stringify(slimmed, null, 2)}\n`);
 console.log("Wrote data/dashboard.json", {
   agents: agents.length,
   history: history.length,

@@ -6,7 +6,7 @@ import { HitlistTable } from "@/components/HitlistTable";
 import { useDashboard } from "@/lib/useDashboard";
 
 export function HitlistShell() {
-  const { model, error, loading, sourceHint } = useDashboard();
+  const { model, error, loading, sourceHint } = useDashboard({ sections: ["overview"] });
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">

@@ -7,6 +7,8 @@ type AccountsTableProps = {
   won?: AccountViewRow[];
   activated?: AccountViewRow[];
   backlog?: AccountViewRow[];
+  totals?: { won: number; activated: number; backlog: number };
+  listUrls?: { won: string; activated: string; backlog: string };
   filtered?: AccountViewRow[];
   filterMode?: boolean;
   loading?: boolean;
@@ -80,6 +82,8 @@ export function AccountsTable({
   won,
   activated,
   backlog,
+  totals,
+  listUrls,
   filtered,
   filterMode,
   loading,
@@ -94,6 +98,22 @@ export function AccountsTable({
         ? activated
         : backlog;
 
+  const tabTotal = (id: Tab) => {
+    const shown =
+      id === "won" ? (won?.length ?? 0) : id === "activated" ? (activated?.length ?? 0) : (backlog?.length ?? 0);
+    const full =
+      id === "won"
+        ? (totals?.won ?? shown)
+        : id === "activated"
+          ? (totals?.activated ?? shown)
+          : (totals?.backlog ?? shown);
+    return { shown, full };
+  };
+
+  const activeListUrl =
+    tab === "won" ? listUrls?.won : tab === "activated" ? listUrls?.activated : listUrls?.backlog;
+  const activeTotals = tabTotal(tab);
+
   return (
     <div className="glass-card overflow-hidden rounded-xl">
       <div className="flex flex-wrap items-center justify-between gap-sm border-b border-outline-variant p-lg">
@@ -107,7 +127,9 @@ export function AccountsTable({
         </div>
         {!filterMode && (
           <div className="flex gap-1 rounded-lg bg-surface-container-low p-1">
-            {tabs.map((item) => (
+            {tabs.map((item) => {
+              const { shown, full } = tabTotal(item.id);
+              return (
               <button
                 key={item.id}
                 type="button"
@@ -121,15 +143,23 @@ export function AccountsTable({
                 <span className="material-symbols-outlined text-[16px]">{item.icon}</span>
                 {item.label}
                 <span className="rounded-full bg-surface-container px-1 text-[10px]">
-                  {item.id === "won"
-                    ? (won?.length ?? 0)
-                    : item.id === "activated"
-                      ? (activated?.length ?? 0)
-                      : (backlog?.length ?? 0)}
+                  {full > shown ? `${shown}/${full}` : shown}
                 </span>
               </button>
-            ))}
+            );
+            })}
           </div>
+        )}
+        {!filterMode && activeTotals.full > activeTotals.shown && activeListUrl && (
+          <a
+            href={activeListUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-xs text-label-md font-semibold text-primary hover:underline"
+          >
+            <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+            View all in Salesforce ({activeTotals.full})
+          </a>
         )}
       </div>
       <div className="overflow-x-auto">

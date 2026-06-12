@@ -7,7 +7,7 @@ import { useDashboard } from "@/lib/useDashboard";
 import { formatTargetSummary } from "@/lib/targetConfig";
 
 export function AgentsShell() {
-  const { model, error, loading, sourceHint, targetConfig } = useDashboard();
+  const { model, error, loading, sourceHint, targetConfig } = useDashboard({ sections: ["agents"] });
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">

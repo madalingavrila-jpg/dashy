@@ -21,4 +21,6 @@ export const config = {
   githubToken: readEnv("GITHUB_TOKEN"),
   githubRepo: readEnv("GITHUB_REPO"),
   githubBranch: readEnv("GITHUB_BRANCH") || "main",
+  /** Re-read dashboard when file mtime changes or this TTL elapses (default 5 min). */
+  dashyCacheTtlMs: parseInt(process.env.DASHY_CACHE_TTL_MS || "300000", 10),
 };

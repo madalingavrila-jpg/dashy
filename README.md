@@ -9,10 +9,24 @@ Cursor (Salesforce MCP + Bolt Sheet MCP)
   → update data/dashboard.json (or publish JSON to Google Sheet)
   → git push
   → Paketo redeploy (Boltable)
-  → GET /api/dashboard
+  → GET /api/dashboard/* (lazy sections per page)
 ```
 
 No Salesforce or Looker calls at runtime on Boltable.
+
+## API (lazy load per tab)
+
+| Endpoint | Used by |
+|----------|---------|
+| `GET /api/dashboard/overview` | Overview, Hitlist, WoW (partial) |
+| `GET /api/dashboard/mtd` | MTD, Pipeline, Settings |
+| `GET /api/dashboard/weekly` | Weekly, WoW |
+| `GET /api/dashboard/accounts` | Accounts |
+| `GET /api/dashboard/mops` | MOPS |
+| `GET /api/dashboard/agents` | Agents, Weekly, Settings |
+| `GET /api/dashboard` | Fallback (full slim payload) |
+
+Each page fetches only the sections it needs; falls back to `/api/dashboard` if a section request fails.
 
 ## Pages
 
@@ -41,9 +55,10 @@ Open [http://localhost:8080](http://localhost:8080).
 
 API endpoints:
 
-- `GET /api/health`
+- `GET /api/health` — includes `gitSha`, `cacheTtlMs`
 - `GET /api/status`
-- `GET /api/dashboard`
+- `GET /api/dashboard` — full slim payload (backward compatible)
+- `GET /api/dashboard/overview|mtd|weekly|accounts|mops|agents`
 
 ## Data sources
 
@@ -53,9 +68,11 @@ Optional Boltable env:
 
 ```
 DASHBOARD_SHEET_URL=https://docs.google.com/spreadsheets/d/e/.../pub?output=json
-DASHY_CACHE_TTL_MS=60000
+DASHY_CACHE_TTL_MS=300000
 PORT=8080
 ```
+
+`DASHY_CACHE_TTL_MS` (default **5 minutes**) controls how long the server keeps the parsed dashboard in memory before re-reading the file (also invalidated when `dashboard.json` mtime changes).
 
 **Target overrides (Settings → Save targets):** `PUT /api/target-config` writes `data/target-config.json`. Boltable’s filesystem is ephemeral — without git persistence, overrides are lost on redeploy. Set on Boltable:
 
@@ -77,9 +94,9 @@ Config files: `project.toml`, `Procfile`.
 
 **Auto-update:** every `git push` to the Boltable remote triggers a full rebuild and restart. Expect **~1–2 minutes of 503** (“Application is not responding”) while Paketo builds Next.js and swaps the container — this is normal redeploy downtime, not a crash.
 
-**Health check:** `GET /api/health` is lightweight (no dashboard load). It reports `staticReady`, `dashboardCacheReady`, and `uptime` for debugging.
+**Health check:** `GET /api/health` is lightweight (no dashboard load). It reports `staticReady`, `dashboardCacheReady`, `gitSha`, `cacheTtlMs`, and `uptime`.
 
-**Memory:** `data/dashboard.json` can be ~2MB on disk; build precomputes a slim `/api/dashboard` payload (~200KB) with drill-down lists only for the current MTD month and ISO week. The server serves a single cached buffer — keep `out/api/dashboard.json` under 350KB or Boltable may OOM.
+**Payload size:** `scripts/build-dashboard-data.mjs` and `scripts/slim-dashboard-json.mjs` write a **slim source** `data/dashboard.json` (~200–300KB): MTD `wonItems`/`activatedItems` only for the current month, weekly account lists only for the current ISO week, account tabs capped at 28 rows with Salesforce list URLs. Build precomputes `out/api/dashboard.json` (~200KB, must stay under **350KB**). UI shows **Date actualizate** in TopBar and page headers.
 
 **Tips to avoid repeated downtime:** batch commits before pushing; data-only updates (`data/dashboard.json`) still trigger a full rebuild on Boltable.
 
@@ -91,6 +108,7 @@ Config files: `project.toml`, `Procfile`.
 | `npm run dev:server` | Express + API (requires prior build) |
 | `npm run build:boltable` | Production build for Boltable |
 | `npm run start:server` | Serve static export + API |
+| `node scripts/slim-dashboard-json.mjs` | Re-slim existing `data/dashboard.json` in place |
 
 ## Design reference
 

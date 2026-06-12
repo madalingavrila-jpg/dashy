@@ -8,8 +8,35 @@ export type TargetConfigPersistence = {
   warning?: string;
 };
 
+export type DashboardSection =
+  | "overview"
+  | "mtd"
+  | "weekly"
+  | "accounts"
+  | "mops"
+  | "agents";
+
+export type HealthInfo = {
+  ok: boolean;
+  gitSha: string | null;
+  builtAt: string | null;
+  cacheTtlMs?: number;
+};
+
 export function apiBase(): string {
   return process.env.NEXT_PUBLIC_API_BASE?.replace(/\/$/, "") ?? "";
+}
+
+async function parseJsonResponse<T>(response: Response): Promise<T> {
+  if (!response.ok) {
+    if (response.status === 503) {
+      throw new Error(
+        "Dashboard is starting or redeploying. Wait a moment and refresh once.",
+      );
+    }
+    throw new Error(`Dashboard API returned ${response.status}`);
+  }
+  return (await response.json()) as T;
 }
 
 export async function fetchDashboard(
@@ -19,15 +46,44 @@ export async function fetchDashboard(
     cache: "no-store",
     signal,
   });
-  if (!response.ok) {
-    if (response.status === 503) {
-      throw new Error(
-        "Dashboard is starting or redeploying. Wait a moment and refresh once.",
-      );
-    }
-    throw new Error(`Dashboard API returned ${response.status}`);
+  return parseJsonResponse<DashboardModel>(response);
+}
+
+export async function fetchDashboardSection(
+  section: DashboardSection,
+  signal?: AbortSignal,
+): Promise<Partial<DashboardModel>> {
+  const response = await fetch(`${apiBase()}/api/dashboard/${section}`, {
+    cache: "no-store",
+    signal,
+  });
+  return parseJsonResponse<Partial<DashboardModel>>(response);
+}
+
+export async function fetchDashboardSections(
+  sections: DashboardSection[],
+  signal?: AbortSignal,
+): Promise<Partial<DashboardModel>> {
+  const unique = [...new Set(sections)];
+  try {
+    const parts = await Promise.all(
+      unique.map((section) => fetchDashboardSection(section, signal)),
+    );
+    return Object.assign({}, ...parts) as Partial<DashboardModel>;
+  } catch {
+    return fetchDashboard(signal);
   }
-  return (await response.json()) as DashboardModel;
+}
+
+export async function fetchHealth(signal?: AbortSignal): Promise<HealthInfo> {
+  const response = await fetch(`${apiBase()}/api/health`, {
+    cache: "no-store",
+    signal,
+  });
+  if (!response.ok) {
+    throw new Error(`Health API returned ${response.status}`);
+  }
+  return (await response.json()) as HealthInfo;
 }
 
 export async function fetchTargetConfigFromApi(

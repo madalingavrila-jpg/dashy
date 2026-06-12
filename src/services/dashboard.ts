@@ -776,6 +776,20 @@ function toDashboardModel(
       won: buildAccountViews(accounts.won, instanceUrl),
       activated: buildAccountViews(accounts.activated, instanceUrl),
       backlog: buildAccountViews(accounts.backlog, instanceUrl),
+      totals: accounts.meta
+        ? {
+            won: accounts.meta.won.total,
+            activated: accounts.meta.activated.total,
+            backlog: accounts.meta.backlog.total,
+          }
+        : undefined,
+      listUrls: accounts.meta
+        ? {
+            won: accounts.meta.won.listUrl,
+            activated: accounts.meta.activated.listUrl,
+            backlog: accounts.meta.backlog.listUrl,
+          }
+        : undefined,
     },
     hitlist: hitlist
       .slice()
@@ -845,12 +859,94 @@ function slimDashboardModelForApi(model: DashboardModel): DashboardModel {
 
 type DashboardCacheEntry = {
   buffer: Buffer;
+  model: DashboardModel;
   sourcePath: string;
   sourceMtimeMs: number;
+  cachedAtMs: number;
 };
 
 let cachedPayload: DashboardCacheEntry | null = null;
 let loadingPromise: Promise<DashboardCacheEntry> | null = null;
+
+export type DashboardSection =
+  | "overview"
+  | "mtd"
+  | "weekly"
+  | "accounts"
+  | "mops"
+  | "agents";
+
+export function sliceDashboardSection(
+  model: DashboardModel,
+  section: DashboardSection,
+): Record<string, unknown> {
+  switch (section) {
+    case "overview":
+      return {
+        updatedAt: model.updatedAt,
+        salesforceInstanceUrl: model.salesforceInstanceUrl,
+        sources: model.sources,
+        mtdMonthKey: model.mtdMonthKey,
+        mtdMonthLabel: model.mtdMonthLabel,
+        overviewMetrics: model.overviewMetrics,
+        teamProgress: model.teamProgress,
+        totals: model.totals,
+        snapshot: model.snapshot,
+        mtdAchievement: model.mtdAchievement,
+        weeklyPerformance: model.weeklyPerformance,
+        wowReports: model.wowReports,
+        hitlist: model.hitlist,
+        settings: model.settings,
+      };
+    case "mtd":
+      return {
+        updatedAt: model.updatedAt,
+        mtdMonthKey: model.mtdMonthKey,
+        mtdMonthLabel: model.mtdMonthLabel,
+        mtdAchievement: model.mtdAchievement,
+        mtdHistory: model.mtdHistory,
+        teamProgress: model.teamProgress,
+      };
+    case "weekly":
+      return {
+        updatedAt: model.updatedAt,
+        weeklyPerformance: model.weeklyPerformance,
+      };
+    case "accounts":
+      return {
+        updatedAt: model.updatedAt,
+        salesforceInstanceUrl: model.salesforceInstanceUrl,
+        accounts: model.accounts,
+      };
+    case "mops":
+      return {
+        updatedAt: model.updatedAt,
+        mops: model.mops,
+      };
+    case "agents":
+      return {
+        updatedAt: model.updatedAt,
+        agents: model.agents,
+      };
+    default:
+      return { updatedAt: model.updatedAt };
+  }
+}
+
+export async function getDashboardModel(): Promise<DashboardModel> {
+  const entry = await ensureDashboardCache();
+  return entry.model;
+}
+
+export async function serializeDashboardSection(section: DashboardSection): Promise<string> {
+  try {
+    const model = await getDashboardModel();
+    return JSON.stringify(sliceDashboardSection(model, section));
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Dashboard load failed";
+    return JSON.stringify({ error: message, updatedAt: new Date().toISOString() });
+  }
+}
 
 export function getPrecomputedApiPath(): string {
   return path.join(config.staticDir, "api", "dashboard.json");
@@ -881,11 +977,17 @@ function resolveCacheSource(): { path: string; mtimeMs: number } | null {
 }
 
 function cacheIsFresh(source: { path: string; mtimeMs: number }): boolean {
-  return (
-    cachedPayload !== null &&
-    cachedPayload.sourcePath === source.path &&
-    cachedPayload.sourceMtimeMs === source.mtimeMs
-  );
+  if (!cachedPayload) {
+    return false;
+  }
+  if (
+    cachedPayload.sourcePath !== source.path ||
+    cachedPayload.sourceMtimeMs !== source.mtimeMs
+  ) {
+    return false;
+  }
+  const ageMs = Date.now() - cachedPayload.cachedAtMs;
+  return ageMs < config.dashyCacheTtlMs;
 }
 
 export async function serializeDashboardApi(): Promise<string> {
@@ -904,16 +1006,20 @@ async function readOrBuildPayload(
   source: { path: string; mtimeMs: number },
 ): Promise<DashboardCacheEntry> {
   const precomputed = getPrecomputedApiPath();
+  let buffer: Buffer;
   if (source.path === precomputed) {
-    const buffer = await readFile(precomputed);
-    return { buffer, sourcePath: precomputed, sourceMtimeMs: source.mtimeMs };
+    buffer = await readFile(precomputed);
+  } else {
+    buffer = Buffer.from(await serializeDashboardApi(), "utf8");
   }
 
-  const json = await serializeDashboardApi();
+  const model = JSON.parse(buffer.toString("utf8")) as DashboardModel;
   return {
-    buffer: Buffer.from(json, "utf8"),
+    buffer,
+    model,
     sourcePath: source.path,
     sourceMtimeMs: source.mtimeMs,
+    cachedAtMs: Date.now(),
   };
 }
 

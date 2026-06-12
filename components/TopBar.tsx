@@ -1,4 +1,28 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { apiBase } from "@/lib/api";
+
 export function TopBar() {
+  const [updatedAt, setUpdatedAt] = useState<string | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(`${apiBase()}/api/dashboard/overview`, { cache: "no-store", signal: controller.signal })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: { updatedAt?: string } | null) => {
+        if (data?.updatedAt) {
+          setUpdatedAt(data.updatedAt);
+        }
+      })
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
+
+  const freshnessLabel = updatedAt
+    ? `Date actualizate: ${new Date(updatedAt).toLocaleString("ro-RO")}`
+    : null;
+
   return (
     <header className="fixed left-[280px] right-0 top-0 z-40 flex h-16 items-center justify-between border-b border-outline-variant bg-surface px-lg">
       <div className="flex flex-1 items-center gap-md">
@@ -12,6 +36,11 @@ export function TopBar() {
             className="w-full rounded-lg border-none bg-surface-container py-2 pl-10 pr-4 text-body-md font-body-md focus:ring-2 focus:ring-primary"
           />
         </div>
+        {freshnessLabel && (
+          <p className="hidden text-label-md text-on-surface-variant lg:block" title={updatedAt ?? undefined}>
+            {freshnessLabel}
+          </p>
+        )}
       </div>
 
       <div className="flex items-center gap-md">

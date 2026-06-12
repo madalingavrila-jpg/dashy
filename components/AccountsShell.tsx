@@ -9,7 +9,7 @@ import { useDashboard } from "@/lib/useDashboard";
 import type { AccountViewRow } from "@/types/dashboard";
 
 function AccountsContent() {
-  const { model, error, loading, sourceHint } = useDashboard();
+  const { model, error, loading, sourceHint } = useDashboard({ sections: ["accounts"] });
   const searchParams = useSearchParams();
 
   const stageFilter = searchParams.get("stage") ?? undefined;
@@ -70,6 +70,8 @@ function AccountsContent() {
           won={model?.accounts.won}
           activated={model?.accounts.activated}
           backlog={model?.accounts.backlog}
+          totals={model?.accounts.totals}
+          listUrls={model?.accounts.listUrls}
           loading={loading}
         />
       )}

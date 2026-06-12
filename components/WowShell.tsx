@@ -8,7 +8,9 @@ import { WowYtdTrendChart } from "@/components/WowYtdTrendChart";
 import { useDashboard } from "@/lib/useDashboard";
 
 export function WowShell() {
-  const { model, error, loading, sourceHint, targetConfig } = useDashboard();
+  const { model, error, loading, sourceHint, targetConfig } = useDashboard({
+    sections: ["overview", "weekly", "agents"],
+  });
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">

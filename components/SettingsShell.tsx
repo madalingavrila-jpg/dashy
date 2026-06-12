@@ -7,7 +7,9 @@ import { TargetSettingsPanel } from "@/components/TargetSettingsPanel";
 import { useDashboard } from "@/lib/useDashboard";
 
 export function SettingsShell() {
-  const { model, error, loading, sourceHint } = useDashboard();
+  const { model, error, loading, sourceHint } = useDashboard({
+    sections: ["overview", "mtd", "weekly", "agents"],
+  });
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">
@@ -36,6 +38,7 @@ export function SettingsShell() {
           locale={model?.settings.locale}
           integrations={model?.settings.integrations}
           sources={model?.sources}
+          updatedAt={model?.updatedAt}
           loading={loading}
         />
       </div>

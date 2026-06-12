@@ -36,7 +36,9 @@ function agentsForWeeklyBuild(
 }
 
 export function WeeklyShell() {
-  const { model, error, loading, sourceHint, targetConfig } = useDashboard();
+  const { model, error, loading, sourceHint, targetConfig } = useDashboard({
+    sections: ["weekly", "agents"],
+  });
   const [selectedWeek, setSelectedWeek] = useState<string | null>(null);
   const [filter, setFilter] = useState<WeeklyFilter>("all");
   const detailRef = useRef<HTMLDivElement>(null);

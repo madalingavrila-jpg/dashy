@@ -6,6 +6,8 @@ import {
   ensureDashboardCache,
   getCachedDashboardBuffer,
   getPrecomputedApiPath,
+  serializeDashboardSection,
+  type DashboardSection,
 } from "../services/dashboard.js";
 import {
   mergeTargetConfig,
@@ -43,6 +45,7 @@ apiRouter.get("/health", (_req, res) => {
     staticReady: fs.existsSync(staticIndex),
     dashboardCacheReady: getCachedDashboardBuffer() !== null,
     dashboardPrecomputed: fs.existsSync(precomputed),
+    cacheTtlMs: config.dashyCacheTtlMs,
   });
 });
 
@@ -53,8 +56,17 @@ apiRouter.get("/status", (_req, res) => {
     dataSource: config.dashboardSheetUrl ? "sheet" : "json",
     dataPath: config.dashboardSheetUrl || "data/dashboard.json",
     apiPath: "out/api/dashboard.json",
+    cacheTtlMs: config.dashyCacheTtlMs,
+    dashboardSections: [
+      "/api/dashboard/overview",
+      "/api/dashboard/mtd",
+      "/api/dashboard/weekly",
+      "/api/dashboard/accounts",
+      "/api/dashboard/mops",
+      "/api/dashboard/agents",
+    ],
     dataFlow:
-      "Cursor (Salesforce MCP + Bolt Sheet MCP) → data/dashboard.json → build precompute → /api/dashboard",
+      "Cursor (Salesforce MCP + Bolt Sheet MCP) → data/dashboard.json (slim at source) → build precompute → /api/dashboard/*",
   });
 });
 
@@ -107,3 +119,32 @@ apiRouter.get("/dashboard", async (_req, res) => {
     res.status(500).json({ error: message });
   }
 });
+
+const DASHBOARD_SECTIONS: DashboardSection[] = [
+  "overview",
+  "mtd",
+  "weekly",
+  "accounts",
+  "mops",
+  "agents",
+];
+
+for (const section of DASHBOARD_SECTIONS) {
+  apiRouter.get(`/dashboard/${section}`, async (_req, res) => {
+    try {
+      const json = await serializeDashboardSection(section);
+      const parsed = JSON.parse(json) as { error?: string };
+      if (parsed.error && !("overviewMetrics" in parsed) && !("mtdHistory" in parsed)) {
+        res.status(500).json({ error: parsed.error });
+        return;
+      }
+      res.setHeader("Cache-Control", API_CACHE);
+      res.setHeader("Content-Type", "application/json; charset=utf-8");
+      res.send(json);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Dashboard section load failed";
+      console.error(`[api/dashboard/${section}]`, message);
+      res.status(500).json({ error: message });
+    }
+  });
+}

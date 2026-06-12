@@ -9,7 +9,7 @@ import { CurrentWeekStatus } from "@/components/CurrentWeekStatus";
 import { useDashboard } from "@/lib/useDashboard";
 
 export function OverviewShell() {
-  const { model, error, loading, sourceHint } = useDashboard();
+  const { model, error, loading, sourceHint } = useDashboard({ sections: ["overview"] });
   const monthLabel = model?.mtdMonthLabel ?? "Current month";
 
   return (

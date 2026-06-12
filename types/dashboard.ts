@@ -342,6 +342,11 @@ export type DashboardRawData = {
       activated: AccountRow[];
       backlog: AccountRow[];
       all?: AccountRow[];
+      meta?: {
+        won: { total: number; listUrl: string };
+        activated: { total: number; listUrl: string };
+        backlog: { total: number; listUrl: string };
+      };
     };
     hitlist: HitlistRow[];
     mtdHistory?: MtdHistoryMonth[];
@@ -488,6 +493,8 @@ export type DashboardModel = {
     activated: AccountViewRow[];
     backlog: AccountViewRow[];
     all?: AccountViewRow[];
+    totals?: { won: number; activated: number; backlog: number };
+    listUrls?: { won: string; activated: string; backlog: string };
   };
   hitlist: HitlistViewRow[];
   mops?: MopsView;
