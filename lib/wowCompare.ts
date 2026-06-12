@@ -6,6 +6,7 @@ import type {
 } from "@/types/dashboard";
 import { formatInteger, formatSignedDelta, formatSignedPct, pctChange, trendDirection } from "@/lib/format";
 import { DASHBOARD_WEEK_YEAR, formatWeekLabel } from "@/lib/weekDateRange";
+import { filterWeeklyHistory, pickDefaultWeek, sortWeekCodes } from "@/lib/weekQuarterFilter";
 
 export type WowMetricKey = keyof Omit<WeeklyHistoryRow, "week">;
 
@@ -29,17 +30,11 @@ export function isBreakdownMetric(metric: WowMetricKey): metric is WeeklyStatusK
   return WOW_BREAKDOWN_METRICS.has(metric);
 }
 
-export function sortWeekCodes(weeks: string[]): string[] {
-  return [...weeks].sort((a, b) => {
-    const na = Number.parseInt(a.replace(/^W/i, ""), 10);
-    const nb = Number.parseInt(b.replace(/^W/i, ""), 10);
-    return na - nb;
-  });
-}
+export { sortWeekCodes } from "@/lib/weekQuarterFilter";
 
 export function weekOptionsFromHistory(history: WeeklyHistoryRow[] | undefined): string[] {
   if (!history?.length) return [];
-  return sortWeekCodes(history.map((row) => row.week));
+  return sortWeekCodes(filterWeeklyHistory(history).map((row) => row.week));
 }
 
 export function weekOptionLabel(week: string, year: number = DASHBOARD_WEEK_YEAR): string {
@@ -191,7 +186,7 @@ export function defaultWowWeeks(
   const weeks = weekOptionsFromHistory(history);
   if (!weeks.length) return { leftWeek: "", rightWeek: "" };
 
-  const normalizedCurrent = currentWeek && weeks.includes(currentWeek) ? currentWeek : weeks[weeks.length - 1];
+  const normalizedCurrent = pickDefaultWeek(weeks, currentWeek);
   const currentIdx = weeks.indexOf(normalizedCurrent);
   const priorIdx = currentIdx > 0 ? currentIdx - 1 : Math.max(0, currentIdx - 1);
   const rightWeek = weeks[priorIdx] ?? weeks[0];

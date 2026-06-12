@@ -6,11 +6,15 @@ import { WowComparisonBuilder } from "@/components/WowComparisonBuilder";
 import { WowReportsList } from "@/components/WowReportsList";
 import { WowYtdTrendChart } from "@/components/WowYtdTrendChart";
 import { useDashboard } from "@/lib/useDashboard";
+import { useFilteredWeeklyHistory } from "@/lib/useFilteredWeeklyHistory";
 
 export function WowShell() {
   const { model, error, loading, sourceHint, targetConfig } = useDashboard({
     sections: ["overview", "weekly", "agents"],
   });
+  const { history: filteredHistory, statusBreakdown: filteredBreakdown } = useFilteredWeeklyHistory(
+    model?.weeklyPerformance,
+  );
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">
@@ -23,11 +27,11 @@ export function WowShell() {
 
       <DataAlert error={error} sourceHint={sourceHint} />
 
-      <WowYtdTrendChart history={model?.weeklyPerformance.history} loading={loading} />
+      <WowYtdTrendChart history={filteredHistory} loading={loading} />
 
       <WowComparisonBuilder
-        history={model?.weeklyPerformance.history}
-        breakdown={model?.weeklyPerformance.statusBreakdown}
+        history={filteredHistory}
+        breakdown={filteredBreakdown}
         agents={model?.agents}
         currentWeek={model?.weeklyPerformance.currentWeek}
         pausedAgentIds={targetConfig.pausedAgentIds}

@@ -151,7 +151,7 @@ export function WowYtdTrendChart({ history, loading }: WowYtdTrendChartProps) {
         <div>
           <h3 className="text-title-lg font-title-lg font-bold">Closed Won &amp; Active — YTD Evolution</h3>
           <p className="text-body-md text-on-surface-variant">
-            Weekly counts from Salesforce field history · {history.length} weeks YTD
+            Weekly counts from Salesforce field history · {history.length} weeks (Q2 + forward)
           </p>
         </div>
         <ModeToggle mode={mode} onChange={setMode} />
@@ -286,7 +286,7 @@ export function WowYtdTrendChart({ history, loading }: WowYtdTrendChartProps) {
           Active
         </span>
         <span className="text-on-surface-variant">
-          {mode === "weekly" ? "Per-week counts" : "Running total from W01"}
+          {mode === "weekly" ? "Per-week counts" : "Running total from first visible week"}
         </span>
       </div>
     </div>

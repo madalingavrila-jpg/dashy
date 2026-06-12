@@ -17,6 +17,7 @@ import {
   type WeeklyStatusTargets,
 } from "@/lib/targetConfig";
 import { currentMonthKey, mtdMonthOptions } from "@/lib/mtdMonth";
+import { pickDefaultWeek } from "@/lib/weekQuarterFilter";
 import { weekOptionLabel, weekOptionsFromHistory } from "@/lib/wowCompare";
 import { WEEKLY_STATUS_KEYS, WEEKLY_STATUS_LABELS } from "@/lib/weekly-stages";
 
@@ -104,7 +105,7 @@ export function TargetSettingsPanel({
     [weeklyHistory],
   );
   const defaultWeek = useMemo(
-    () => currentWeek ?? weekOptions.at(-1) ?? "",
+    () => pickDefaultWeek(weekOptions, currentWeek),
     [currentWeek, weekOptions],
   );
 

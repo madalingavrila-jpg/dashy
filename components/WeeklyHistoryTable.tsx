@@ -10,6 +10,7 @@ type WeeklyHistoryTableProps = {
   selectedWeek?: string | null;
   onWeekSelect?: (week: string) => void;
   loading?: boolean;
+  visibleWeekRange?: string;
   expandedContent?: ReactNode;
   detailRef?: React.RefObject<HTMLDivElement | null>;
 };
@@ -20,6 +21,7 @@ export function WeeklyHistoryTable({
   selectedWeek,
   onWeekSelect,
   loading,
+  visibleWeekRange,
   expandedContent,
   detailRef,
 }: WeeklyHistoryTableProps) {
@@ -34,7 +36,7 @@ export function WeeklyHistoryTable({
       <div className="border-b border-outline-variant p-lg">
         <h3 className="text-title-lg font-title-lg font-bold">2026 Weekly Performance</h3>
         <p className="text-body-md text-on-surface-variant">
-          ISO weeks W01–W24 · click any row to expand team drill-down inline
+          Q2+ weeks {visibleWeekRange ?? "—"} · click any row to expand team drill-down inline
         </p>
       </div>
       <div className="overflow-x-auto">

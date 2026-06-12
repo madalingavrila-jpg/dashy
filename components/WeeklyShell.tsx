@@ -10,6 +10,7 @@ import {
   type WeeklyFilter,
 } from "@/components/WeeklyDetailPanel";
 import { useDashboard } from "@/lib/useDashboard";
+import { useFilteredWeeklyHistory } from "@/lib/useFilteredWeeklyHistory";
 import { buildWeeklyDetailViews } from "@/lib/weeklyDetail";
 import type { AgentRow } from "@/types/dashboard";
 
@@ -39,31 +40,33 @@ export function WeeklyShell() {
   const { model, error, loading, sourceHint, targetConfig } = useDashboard({
     sections: ["weekly", "agents"],
   });
+  const { history: filteredHistory, statusBreakdown: filteredBreakdown, visibleWeekRange } =
+    useFilteredWeeklyHistory(model?.weeklyPerformance);
   const [selectedWeek, setSelectedWeek] = useState<string | null>(null);
   const [filter, setFilter] = useState<WeeklyFilter>("all");
   const detailRef = useRef<HTMLDivElement>(null);
 
   const selectedDetail = useMemo(() => {
-    if (!selectedWeek || !model?.weeklyPerformance.statusBreakdown.length) return undefined;
-    const row = model.weeklyPerformance.statusBreakdown.find((entry) => entry.week === selectedWeek);
-    if (!row || !model.agents.length) return undefined;
+    if (!selectedWeek || !filteredBreakdown.length) return undefined;
+    const row = filteredBreakdown.find((entry) => entry.week === selectedWeek);
+    if (!row || !model?.agents.length) return undefined;
     const built = buildWeeklyDetailViews([row], agentsForWeeklyBuild(model.agents), {
       weekly: targetConfig.weekly,
       weeklyPerRep: targetConfig.weeklyPerRep,
       pausedAgentIds: targetConfig.pausedAgentIds,
     });
     return built[0];
-  }, [model, selectedWeek, targetConfig]);
+  }, [filteredBreakdown, model, selectedWeek, targetConfig]);
 
   const agentTimeline = useMemo(() => {
-    if (!model?.weeklyPerformance.statusBreakdown.length || !model.agents.length) return [];
+    if (!filteredBreakdown.length || !model?.agents.length) return [];
     if (filter === "all" || filter === "complex" || filter === "density") return [];
     return buildWeeklyDetailViews(
-      model.weeklyPerformance.statusBreakdown,
+      filteredBreakdown,
       agentsForWeeklyBuild(model.agents),
       { weekly: targetConfig.weekly, weeklyPerRep: targetConfig.weeklyPerRep, pausedAgentIds: targetConfig.pausedAgentIds },
     );
-  }, [model, filter, targetConfig]);
+  }, [model, filter, targetConfig, filteredBreakdown]);
 
   const handleWeekSelect = (week: string) => {
     setFilter("all");
@@ -79,7 +82,7 @@ export function WeeklyShell() {
     target?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [selectedWeek, selectedDetail]);
 
-  const hasBreakdown = (model?.weeklyPerformance.statusBreakdown.length ?? 0) > 0;
+  const hasBreakdown = filteredBreakdown.length > 0;
   const agentOptions = model?.agents.map((agent) => ({
     ownerId: agent.ownerId,
     name: agent.name,
@@ -138,18 +141,19 @@ export function WeeklyShell() {
       />
 
       <WeeklyHistoryChart
-        history={model?.weeklyPerformance.history}
+        history={filteredHistory}
         loading={loading}
         selectedWeek={selectedWeek}
         onWeekSelect={handleWeekSelect}
       />
 
       <WeeklyHistoryTable
-        history={model?.weeklyPerformance.history}
+        history={filteredHistory}
         currentWeek={model?.weeklyPerformance.currentWeek}
         selectedWeek={selectedWeek}
         onWeekSelect={handleWeekSelect}
         loading={loading}
+        visibleWeekRange={visibleWeekRange}
         expandedContent={expandedContent || undefined}
         detailRef={detailRef}
       />
