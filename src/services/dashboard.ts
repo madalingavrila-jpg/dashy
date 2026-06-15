@@ -859,14 +859,12 @@ function slimDashboardModelForApi(model: DashboardModel): DashboardModel {
 
 type DashboardCacheEntry = {
   buffer: Buffer;
-  model: DashboardModel;
+  /** Parsed only when runtime fallback is needed; precomputed routes serve buffers directly. */
+  model: DashboardModel | null;
   sourcePath: string;
   sourceMtimeMs: number;
   cachedAtMs: number;
 };
-
-let cachedPayload: DashboardCacheEntry | null = null;
-let loadingPromise: Promise<DashboardCacheEntry> | null = null;
 
 export type DashboardSection =
   | "overview"
@@ -875,6 +873,18 @@ export type DashboardSection =
   | "accounts"
   | "mops"
   | "agents";
+
+let cachedPayload: DashboardCacheEntry | null = null;
+let loadingPromise: Promise<DashboardCacheEntry> | null = null;
+
+export const DASHBOARD_SECTIONS: DashboardSection[] = [
+  "overview",
+  "mtd",
+  "weekly",
+  "accounts",
+  "mops",
+  "agents",
+];
 
 export function sliceDashboardSection(
   model: DashboardModel,
@@ -933,9 +943,16 @@ export function sliceDashboardSection(
   }
 }
 
+function parseCachedModel(entry: DashboardCacheEntry): DashboardModel {
+  if (!entry.model) {
+    entry.model = JSON.parse(entry.buffer.toString("utf8")) as DashboardModel;
+  }
+  return entry.model;
+}
+
 export async function getDashboardModel(): Promise<DashboardModel> {
   const entry = await ensureDashboardCache();
-  return entry.model;
+  return parseCachedModel(entry);
 }
 
 export async function serializeDashboardSection(section: DashboardSection): Promise<string> {
@@ -950,6 +967,16 @@ export async function serializeDashboardSection(section: DashboardSection): Prom
 
 export function getPrecomputedApiPath(): string {
   return path.join(config.staticDir, "api", "dashboard.json");
+}
+
+export function getPrecomputedSectionPath(section: DashboardSection): string {
+  return path.join(config.staticDir, "api", "dashboard", `${section}.json`);
+}
+
+export function precomputedSectionsReady(): boolean {
+  return DASHBOARD_SECTIONS.every((section) =>
+    fs.existsSync(getPrecomputedSectionPath(section)),
+  );
 }
 
 function rawDataPath(): string {
@@ -1013,10 +1040,9 @@ async function readOrBuildPayload(
     buffer = Buffer.from(await serializeDashboardApi(), "utf8");
   }
 
-  const model = JSON.parse(buffer.toString("utf8")) as DashboardModel;
   return {
     buffer,
-    model,
+    model: null,
     sourcePath: source.path,
     sourceMtimeMs: source.mtimeMs,
     cachedAtMs: Date.now(),
@@ -1057,7 +1083,8 @@ export function getCachedDashboardBuffer(): Buffer | null {
   return cachedPayload.buffer;
 }
 
-export function preloadDashboardModel(): void {
+/** Warm the dashboard buffer cache without parsing JSON (avoids startup heap spikes on Boltable). */
+export function preloadDashboardCache(): void {
   void ensureDashboardCache().catch((error) => {
     const message = error instanceof Error ? error.message : "Dashboard preload failed";
     console.error("[dashy] dashboard preload failed:", message);

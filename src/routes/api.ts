@@ -3,9 +3,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { config } from "../config.js";
 import {
+  DASHBOARD_SECTIONS,
   ensureDashboardCache,
   getCachedDashboardBuffer,
   getPrecomputedApiPath,
+  getPrecomputedSectionPath,
+  precomputedSectionsReady,
   serializeDashboardSection,
   type DashboardSection,
 } from "../services/dashboard.js";
@@ -45,6 +48,7 @@ apiRouter.get("/health", (_req, res) => {
     staticReady: fs.existsSync(staticIndex),
     dashboardCacheReady: getCachedDashboardBuffer() !== null,
     dashboardPrecomputed: fs.existsSync(precomputed),
+    dashboardSectionsPrecomputed: precomputedSectionsReady(),
     cacheTtlMs: config.dashyCacheTtlMs,
   });
 });
@@ -120,22 +124,22 @@ apiRouter.get("/dashboard", async (_req, res) => {
   }
 });
 
-const DASHBOARD_SECTIONS: DashboardSection[] = [
-  "overview",
-  "mtd",
-  "weekly",
-  "accounts",
-  "mops",
-  "agents",
-];
+const DASHBOARD_SECTIONS_LIST: DashboardSection[] = DASHBOARD_SECTIONS;
 
-for (const section of DASHBOARD_SECTIONS) {
+for (const section of DASHBOARD_SECTIONS_LIST) {
   apiRouter.get(`/dashboard/${section}`, async (_req, res) => {
+    const sectionPath = getPrecomputedSectionPath(section);
+    if (fs.existsSync(sectionPath)) {
+      res.setHeader("Cache-Control", API_CACHE);
+      res.setHeader("Content-Type", "application/json; charset=utf-8");
+      res.sendFile(sectionPath);
+      return;
+    }
+
     try {
       const json = await serializeDashboardSection(section);
-      const parsed = JSON.parse(json) as { error?: string };
-      if (parsed.error && !("overviewMetrics" in parsed) && !("mtdHistory" in parsed)) {
-        res.status(500).json({ error: parsed.error });
+      if (json.includes('"error"') && !json.includes('"overviewMetrics"') && !json.includes('"mtdHistory"')) {
+        res.status(500).json({ error: "Dashboard section load failed" });
         return;
       }
       res.setHeader("Cache-Control", API_CACHE);
