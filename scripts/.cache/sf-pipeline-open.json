@@ -5,6 +5,897 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j7GxOIAU"
+      },
+      "Id": "006Qs00000j7GxOIAU",
+      "Name": "Bottega Sensoria",
+      "StageName": "New Opportunity",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Ts00000FTeRKIA1",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000FTeRKIA1"
+        },
+        "Name": "Bottega Sensoria",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iwJ0zIAE"
+      },
+      "Id": "006Qs00000iwJ0zIAE",
+      "Name": "Kong Burger",
+      "StageName": "Escalation",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Qs00000pHkdzIAC",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pHkdzIAC"
+        },
+        "Name": "Kong Burger",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izrAwIAI"
+      },
+      "Id": "006Qs00000izrAwIAI",
+      "Name": "Coba",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Qs00000pNHCTIA4",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pNHCTIA4"
+        },
+        "Name": "Coba",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ivux1IAA"
+      },
+      "Id": "006Qs00000ivux1IAA",
+      "Name": "Tut Amun Coffee",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Qs00000pH96TIAS",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pH96TIAS"
+        },
+        "Name": "Tut Amun Coffee",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iwwbmIAA"
+      },
+      "Id": "006Qs00000iwwbmIAA",
+      "Name": "Pizza Epic",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000pIJJrIAO",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pIJJrIAO"
+        },
+        "Name": "Pizza Epic",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ix3esIAA"
+      },
+      "Id": "006Qs00000ix3esIAA",
+      "Name": "Nook Food2Go",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-17",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Qs00000nvxFKIAY",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000nvxFKIAY"
+        },
+        "Name": "Nook Food2Go",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000itEc8IAE"
+      },
+      "Id": "006Qs00000itEc8IAE",
+      "Name": "La Zid",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000pCkBXIA0",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pCkBXIA0"
+        },
+        "Name": "La Zid",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000isUpPIAU"
+      },
+      "Id": "006Qs00000isUpPIAU",
+      "Name": "Istanbul 34",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Qs00000pBvTtIAK",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pBvTtIAK"
+        },
+        "Name": "Istanbul 34",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000i0yEBIAY"
+      },
+      "Id": "006Qs00000i0yEBIAY",
+      "Name": "Liberty Bagels",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000nwKBrIAM",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000nwKBrIAM"
+        },
+        "Name": "Liberty Bagels",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izOosIAE"
+      },
+      "Id": "006Qs00000izOosIAE",
+      "Name": "Beirut Deli",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
+        },
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000pMNonIAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMNonIAG"
+        },
+        "Name": "Beirut Deli",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ixAmpIAE"
+      },
+      "Id": "006Qs00000ixAmpIAE",
+      "Name": "El Patron Kebap",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
+        },
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000pIjFtIAK",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pIjFtIAK"
+        },
+        "Name": "El Patron Kebap",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000itHF0IAM"
+      },
+      "Id": "006Qs00000itHF0IAM",
+      "Name": "Pizza Venezia",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-16",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000l92MHIAY",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000l92MHIAY"
+        },
+        "Name": "Pizza Venezia",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hp7DDIAY"
+      },
+      "Id": "006Qs00000hp7DDIAY",
+      "Name": "Brutaria cu Maia",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
+        },
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000nfCMDIA2",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000nfCMDIA2"
+        },
+        "Name": "Brutaria cu Maia",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iwg3zIAA"
+      },
+      "Id": "006Qs00000iwg3zIAA",
+      "Name": "Aperitif",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000pI4HnIAK",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pI4HnIAK"
+        },
+        "Name": "Aperitif",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000isPcqIAE"
+      },
+      "Id": "006Qs00000isPcqIAE",
+      "Name": "Koko Loko Burgers",
+      "StageName": "Escalation",
+      "CloseDate": "2026-06-09",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
+        },
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "0017Q000018iegZQAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/0017Q000018iegZQAQ"
+        },
+        "Name": "Koko Loko Burgers",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ixUVPIA2"
+      },
+      "Id": "006Qs00000ixUVPIA2",
+      "Name": "La Cratita Vesela",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
+        },
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000pJCePIAW",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pJCePIAW"
+        },
+        "Name": "La Cratita Vesela",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iaqtCIAQ"
+      },
+      "Id": "006Qs00000iaqtCIAQ",
+      "Name": "Sweets by the Sea",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
+        },
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Qs00000on0WjIAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000on0WjIAI"
+        },
+        "Name": "Sweets by the Sea",
+        "BillingCity": "Constanta"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j38C2IAI"
+      },
+      "Id": "006Qs00000j38C2IAI",
+      "Name": "Al Dente",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Qs00000pSa3MIAS",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pSa3MIAS"
+        },
+        "Name": "Al Dente",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000B1g4iIAB"
+      },
+      "Id": "006Ts00000B1g4iIAB",
+      "Name": "TAVERNA RACILOR IASI",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2025-03-01",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Ts00000JIPqsIAH",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000JIPqsIAH"
+        },
+        "Name": "TAVERNA RACILOR IASI",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j31bzIAA"
+      },
+      "Id": "006Qs00000j31bzIAA",
+      "Name": "Guau! Lipovei",
+      "StageName": "New Opportunity",
+      "CloseDate": "2026-06-19",
+      "OwnerId": "005Qs00000N2Hh3IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Qs00000N2Hh3IAF"
+        },
+        "Name": "Andrei-Georgian Pătru"
+      },
+      "AccountId": "001Ts000005nrA3IAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nrA3IAI"
+        },
+        "Name": "Guau! Lipovei",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000004VbCBIA0"
+      },
+      "Id": "006Ts000004VbCBIA0",
+      "Name": "Guau! Lipovei",
+      "StageName": "Negotiations",
+      "CloseDate": "2024-06-01",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Ts000005nrA3IAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nrA3IAI"
+        },
+        "Name": "Guau! Lipovei",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j2mRgIAI"
+      },
+      "Id": "006Qs00000j2mRgIAI",
+      "Name": "Rotiseria La Manu",
+      "StageName": "Contract sent",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
+        },
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000pSVhsIAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pSVhsIAG"
+        },
+        "Name": "Rotiseria La Manu",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izTesIAE"
+      },
+      "Id": "006Qs00000izTesIAE",
+      "Name": "Cappadocia Kebap",
+      "StageName": "Escalation",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Qs00000Mxc6EIAR",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Qs00000Mxc6EIAR"
+        },
+        "Name": "Paul-Daniel Rîngheanu"
+      },
+      "AccountId": "001Qs00000pMF50IAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMF50IAG"
+        },
+        "Name": "Cappadocia Kebap",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iwOf1IAE"
+      },
+      "Id": "006Qs00000iwOf1IAE",
+      "Name": "Pestele Mustacios",
+      "StageName": "Escalation",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
+        },
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Qs00000pHtPPIA0",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pHtPPIA0"
+        },
+        "Name": "Pestele Mustacios",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j1xAcIAI"
+      },
+      "Id": "006Qs00000j1xAcIAI",
+      "Name": "Artpop Ice Cream",
+      "StageName": "Escalation",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
+        },
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Qs00000pRGkxIAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pRGkxIAG"
+        },
+        "Name": "Artpop Ice Cream",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000it80RIAQ"
+      },
+      "Id": "006Qs00000it80RIAQ",
+      "Name": "Ca Odinioară",
+      "StageName": "Contract sent",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000kHPHhIAO",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000kHPHhIAO"
+        },
+        "Name": "Ca Odinioară",
+        "BillingCity": "Tulcea"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izVC2IAM"
+      },
+      "Id": "006Qs00000izVC2IAM",
+      "Name": "La Scoica Land",
+      "StageName": "New Opportunity",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Qs00000Mxc6EIAR",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Qs00000Mxc6EIAR"
+        },
+        "Name": "Paul-Daniel Rîngheanu"
+      },
+      "AccountId": "001Qs00000pMkgMIAS",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMkgMIAS"
+        },
+        "Name": "La Scoica Land",
+        "BillingCity": "Constanța"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izUKoIAM"
+      },
+      "Id": "006Qs00000izUKoIAM",
+      "Name": "Pizzeria Bonaccia Palazu",
+      "StageName": "New Opportunity",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Qs00000Mxc6EIAR",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Qs00000Mxc6EIAR"
+        },
+        "Name": "Paul-Daniel Rîngheanu"
+      },
+      "AccountId": "001Qs00000pMaxCIAS",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMaxCIAS"
+        },
+        "Name": "Pizzeria Bonaccia Palazu",
+        "BillingCity": "Constanța"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izLsdIAE"
+      },
+      "Id": "006Qs00000izLsdIAE",
+      "Name": "Pizzeria Bonaccia Constanta",
+      "StageName": "New Opportunity",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Qs00000Mxc6EIAR",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Qs00000Mxc6EIAR"
+        },
+        "Name": "Paul-Daniel Rîngheanu"
+      },
+      "AccountId": "001Qs00000pMLjjIAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMLjjIAG"
+        },
+        "Name": "Pizzeria Bonaccia Constanta",
+        "BillingCity": "Constanța"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ipsl4IAA"
+      },
+      "Id": "006Qs00000ipsl4IAA",
+      "Name": "Focado Tom",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
+        },
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000p7cmXIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000p7cmXIAQ"
+        },
+        "Name": "Focado",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j2KtmIAE"
+      },
+      "Id": "006Qs00000j2KtmIAE",
+      "Name": "Faire Gicler",
+      "StageName": "Contract sent",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Qs00000pRp7sIAC",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pRp7sIAC"
+        },
+        "Name": "Faire Gicler",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izSsUIAU"
+      },
+      "Id": "006Qs00000izSsUIAU",
+      "Name": "La Scoica",
+      "StageName": "New Opportunity",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Qs00000Mxc6EIAR",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Qs00000Mxc6EIAR"
+        },
+        "Name": "Paul-Daniel Rîngheanu"
+      },
+      "AccountId": "001Qs00000pMj4MIAS",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMj4MIAS"
+        },
+        "Name": "La Scoica",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j1phiIAA"
+      },
+      "Id": "006Qs00000j1phiIAA",
+      "Name": "Cin Cin by Risto",
+      "StageName": "New Opportunity",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000001Ak10IAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000001Ak10IAC"
+        },
+        "Name": "Silviu-Mihnea Voicu"
+      },
+      "AccountId": "001Qs00000pRONRIA4",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pRONRIA4"
+        },
+        "Name": "Cin Cin by Risto",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j01OoIAI"
       },
       "Id": "006Qs00000j01OoIAI",
@@ -113,222 +1004,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000isYctIAE"
-      },
-      "Id": "006Qs00000isYctIAE",
-      "Name": "Mofticios by Koko Loko",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-09",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
-        },
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Ts00000ILBiyIAH",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000ILBiyIAH"
-        },
-        "Name": "Mofticios by Koko Loko",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000it4HmIAI"
-      },
-      "Id": "006Qs00000it4HmIAI",
-      "Name": "Mandarin Signature Restaurant",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000001Ak10IAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000001Ak10IAC"
-        },
-        "Name": "Silviu-Mihnea Voicu"
-      },
-      "AccountId": "001Qs00000oHh8eIAC",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000oHh8eIAC"
-        },
-        "Name": "Mandarin Signature Restaurant",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iehufIAA"
-      },
-      "Id": "006Qs00000iehufIAA",
-      "Name": "Beef Up",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
-        },
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Qs00000osCKSIA2",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000osCKSIA2"
-        },
-        "Name": "Beef Up",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j1xAcIAI"
-      },
-      "Id": "006Qs00000j1xAcIAI",
-      "Name": "Artpop Ice Cream",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
-        },
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Qs00000pRGkxIAG",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pRGkxIAG"
-        },
-        "Name": "Artpop Ice Cream",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iwOf1IAE"
-      },
-      "Id": "006Qs00000iwOf1IAE",
-      "Name": "Pestele Mustacios",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
-        },
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Qs00000pHtPPIA0",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pHtPPIA0"
-        },
-        "Name": "Pestele Mustacios",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000isPcqIAE"
-      },
-      "Id": "006Qs00000isPcqIAE",
-      "Name": "Koko Loko Burgers",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-09",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
-        },
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "0017Q000018iegZQAQ",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/0017Q000018iegZQAQ"
-        },
-        "Name": "Koko Loko Burgers",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j1phiIAA"
-      },
-      "Id": "006Qs00000j1phiIAA",
-      "Name": "Cin Cin by Risto",
-      "StageName": "New Opportunity",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000001Ak10IAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000001Ak10IAC"
-        },
-        "Name": "Silviu-Mihnea Voicu"
-      },
-      "AccountId": "001Qs00000pRONRIA4",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pRONRIA4"
-        },
-        "Name": "Cin Cin by Risto",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ix3esIAA"
-      },
-      "Id": "006Qs00000ix3esIAA",
-      "Name": "Nook Food2Go",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-17",
-      "OwnerId": "005Ts00000BtX53IAF",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
-        },
-        "Name": "Daniel-Marian Toltică"
-      },
-      "AccountId": "001Qs00000nvxFKIAY",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000nvxFKIAY"
-        },
-        "Name": "Nook Food2Go",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iaZFgIAM"
       },
       "Id": "006Qs00000iaZFgIAM",
@@ -350,60 +1025,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000omW43IAE"
         },
         "Name": "Pescaria NAVA",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gybICIAY"
-      },
-      "Id": "006Qs00000gybICIAY",
-      "Name": "Crazy Schnitzel",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000mYe5zIAC",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000mYe5zIAC"
-        },
-        "Name": "Crazy Schnitzel",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000itHF0IAM"
-      },
-      "Id": "006Qs00000itHF0IAM",
-      "Name": "Pizza Venezia",
-      "StageName": "New Opportunity",
-      "CloseDate": "2026-06-16",
-      "OwnerId": "005Ts00000BtGPDIA3",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
-        },
-        "Name": "Daniel-Alexandru Boboc"
-      },
-      "AccountId": "001Qs00000l92MHIAY",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000l92MHIAY"
-        },
-        "Name": "Pizza Venezia",
         "BillingCity": null
       }
     },
@@ -464,60 +1085,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000isUpPIAU"
-      },
-      "Id": "006Qs00000isUpPIAU",
-      "Name": "Istanbul 34",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtX53IAF",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
-        },
-        "Name": "Daniel-Marian Toltică"
-      },
-      "AccountId": "001Qs00000pBvTtIAK",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pBvTtIAK"
-        },
-        "Name": "Istanbul 34",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000itEc8IAE"
-      },
-      "Id": "006Qs00000itEc8IAE",
-      "Name": "La Zid",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtGPDIA3",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
-        },
-        "Name": "Daniel-Alexandru Boboc"
-      },
-      "AccountId": "001Qs00000pCkBXIA0",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pCkBXIA0"
-        },
-        "Name": "La Zid",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000it5iZIAQ"
       },
       "Id": "006Qs00000it5iZIAQ",
@@ -539,87 +1106,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000l5kK9IAI"
         },
         "Name": "Shaorma Box",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000isJVnIAM"
-      },
-      "Id": "006Qs00000isJVnIAM",
-      "Name": "The Charlatans Pub",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000owRJLIA2",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000owRJLIA2"
-        },
-        "Name": "The Charlatans Pub",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000i0yEBIAY"
-      },
-      "Id": "006Qs00000i0yEBIAY",
-      "Name": "Liberty Bagels",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000nwKBrIAM",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000nwKBrIAM"
-        },
-        "Name": "Liberty Bagels",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iyxIRIAY"
-      },
-      "Id": "006Qs00000iyxIRIAY",
-      "Name": "1902 Athletic Pub",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000pKyInIAK",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pKyInIAK"
-        },
-        "Name": "1902 Athletic Pub",
         "BillingCity": null
       }
     },
@@ -653,60 +1139,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ivux1IAA"
-      },
-      "Id": "006Qs00000ivux1IAA",
-      "Name": "Tut Amun Coffee",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtX53IAF",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
-        },
-        "Name": "Daniel-Marian Toltică"
-      },
-      "AccountId": "001Qs00000pH96TIAS",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pH96TIAS"
-        },
-        "Name": "Tut Amun Coffee",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izrAwIAI"
-      },
-      "Id": "006Qs00000izrAwIAI",
-      "Name": "Coba",
-      "StageName": "Contract sent",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Qs00000pNHCTIA4",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pNHCTIA4"
-        },
-        "Name": "Coba",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iwX5WIAU"
       },
       "Id": "006Qs00000iwX5WIAU",
@@ -729,222 +1161,6 @@
         },
         "Name": "Panini Station",
         "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iwwbmIAA"
-      },
-      "Id": "006Qs00000iwwbmIAA",
-      "Name": "Pizza Epic",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtGPDIA3",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
-        },
-        "Name": "Daniel-Alexandru Boboc"
-      },
-      "AccountId": "001Qs00000pIJJrIAO",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pIJJrIAO"
-        },
-        "Name": "Pizza Epic",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izOosIAE"
-      },
-      "Id": "006Qs00000izOosIAE",
-      "Name": "Beirut Deli",
-      "StageName": "Contract sent",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtZV3IAN",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
-        },
-        "Name": "Borcaeas Georgian"
-      },
-      "AccountId": "001Qs00000pMNonIAG",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMNonIAG"
-        },
-        "Name": "Beirut Deli",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izSsUIAU"
-      },
-      "Id": "006Qs00000izSsUIAU",
-      "Name": "La Scoica",
-      "StageName": "New Opportunity",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Qs00000Mxc6EIAR",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Qs00000Mxc6EIAR"
-        },
-        "Name": "Paul-Daniel Rîngheanu"
-      },
-      "AccountId": "001Qs00000pMj4MIAS",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMj4MIAS"
-        },
-        "Name": "La Scoica",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izVC2IAM"
-      },
-      "Id": "006Qs00000izVC2IAM",
-      "Name": "La Scoica Land",
-      "StageName": "New Opportunity",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Qs00000Mxc6EIAR",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Qs00000Mxc6EIAR"
-        },
-        "Name": "Paul-Daniel Rîngheanu"
-      },
-      "AccountId": "001Qs00000pMkgMIAS",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMkgMIAS"
-        },
-        "Name": "La Scoica Land",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izLsdIAE"
-      },
-      "Id": "006Qs00000izLsdIAE",
-      "Name": "Pizzeria Bonaccia Constanta",
-      "StageName": "New Opportunity",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Qs00000Mxc6EIAR",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Qs00000Mxc6EIAR"
-        },
-        "Name": "Paul-Daniel Rîngheanu"
-      },
-      "AccountId": "001Qs00000pMLjjIAG",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMLjjIAG"
-        },
-        "Name": "Pizzeria Bonaccia Constanta",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izUKoIAM"
-      },
-      "Id": "006Qs00000izUKoIAM",
-      "Name": "Pizzeria Bonaccia Palazu",
-      "StageName": "New Opportunity",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Qs00000Mxc6EIAR",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Qs00000Mxc6EIAR"
-        },
-        "Name": "Paul-Daniel Rîngheanu"
-      },
-      "AccountId": "001Qs00000pMaxCIAS",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMaxCIAS"
-        },
-        "Name": "Pizzeria Bonaccia Palazu",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izTesIAE"
-      },
-      "Id": "006Qs00000izTesIAE",
-      "Name": "Cappadocia Kebap",
-      "StageName": "New Opportunity",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Qs00000Mxc6EIAR",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Qs00000Mxc6EIAR"
-        },
-        "Name": "Paul-Daniel Rîngheanu"
-      },
-      "AccountId": "001Qs00000pMF50IAG",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMF50IAG"
-        },
-        "Name": "Cappadocia Kebap",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ibptTIAQ"
-      },
-      "Id": "006Qs00000ibptTIAQ",
-      "Name": "Proper Pizza & Pasta Slatina",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000005c4hFIAQ",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
-        },
-        "Name": "Corneliu-Ștefan Radu"
-      },
-      "AccountId": "001Qs00000onoLqIAI",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000onoLqIAI"
-        },
-        "Name": "Proper Pizza & Pasta Slatina",
-        "BillingCity": "Slatina"
       }
     },
     {
@@ -1085,33 +1301,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iwwVNIAY"
-      },
-      "Id": "006Qs00000iwwVNIAY",
-      "Name": "Mazzo Timisoara",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000pIP4PIAW",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pIP4PIAW"
-        },
-        "Name": "Mazzo Timisoara",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000itwN0IAI"
       },
       "Id": "006Qs00000itwN0IAI",
@@ -1187,114 +1376,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000pM5jjIAC"
         },
         "Name": "Kebapci",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iwJ0zIAE"
-      },
-      "Id": "006Qs00000iwJ0zIAE",
-      "Name": "Kong Burger",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtX53IAF",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
-        },
-        "Name": "Daniel-Marian Toltică"
-      },
-      "AccountId": "001Qs00000pHkdzIAC",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pHkdzIAC"
-        },
-        "Name": "Kong Burger",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hp7DDIAY"
-      },
-      "Id": "006Qs00000hp7DDIAY",
-      "Name": "Brutaria cu Maia",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtZV3IAN",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
-        },
-        "Name": "Borcaeas Georgian"
-      },
-      "AccountId": "001Qs00000nfCMDIA2",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000nfCMDIA2"
-        },
-        "Name": "Brutaria cu Maia",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ixUVPIA2"
-      },
-      "Id": "006Qs00000ixUVPIA2",
-      "Name": "La Cratita Vesela",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtZV3IAN",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
-        },
-        "Name": "Borcaeas Georgian"
-      },
-      "AccountId": "001Qs00000pJCePIAW",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pJCePIAW"
-        },
-        "Name": "La Cratita Vesela",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iwg3zIAA"
-      },
-      "Id": "006Qs00000iwg3zIAA",
-      "Name": "Aperitif",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000pI4HnIAK",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pI4HnIAK"
-        },
-        "Name": "Aperitif",
         "BillingCity": null
       }
     },
@@ -1409,60 +1490,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iBfuYIAS"
-      },
-      "Id": "006Qs00000iBfuYIAS",
-      "Name": "Piateta Cotroceni",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtZV3IAN",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
-        },
-        "Name": "Borcaeas Georgian"
-      },
-      "AccountId": "001Qs00000oBmXZIA0",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000oBmXZIA0"
-        },
-        "Name": "Piateta Cotroceni",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hlreRIAQ"
-      },
-      "Id": "006Qs00000hlreRIAQ",
-      "Name": "Sapori Pizza & More",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000naCPtIAM",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000naCPtIAM"
-        },
-        "Name": "Sapori Pizza & More",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iiTg7IAE"
       },
       "Id": "006Qs00000iiTg7IAE",
@@ -1484,141 +1511,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000ox5lMIAQ"
         },
         "Name": "Tabiet Bistro",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iP0edIAC"
-      },
-      "Id": "006Qs00000iP0edIAC",
-      "Name": "Dyno's",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtZV3IAN",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
-        },
-        "Name": "Borcaeas Georgian"
-      },
-      "AccountId": "001Qs00000oVGAHIA4",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000oVGAHIA4"
-        },
-        "Name": "Dyno's",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ixAmpIAE"
-      },
-      "Id": "006Qs00000ixAmpIAE",
-      "Name": "El Patron Kebap",
-      "StageName": "Contract sent",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtZV3IAN",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
-        },
-        "Name": "Borcaeas Georgian"
-      },
-      "AccountId": "001Qs00000pIjFtIAK",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pIjFtIAK"
-        },
-        "Name": "El Patron Kebap",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iw6RuIAI"
-      },
-      "Id": "006Qs00000iw6RuIAI",
-      "Name": "Shaorma la Chef Duran",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtZV3IAN",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
-        },
-        "Name": "Borcaeas Georgian"
-      },
-      "AccountId": "001Qs00000pGpz6IAC",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pGpz6IAC"
-        },
-        "Name": "Shaorma la Chef Duran",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000B1g4iIAB"
-      },
-      "Id": "006Ts00000B1g4iIAB",
-      "Name": "TAVERNA RACILOR IASI",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2025-03-01",
-      "OwnerId": "005Ts00000BtGPDIA3",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
-        },
-        "Name": "Daniel-Alexandru Boboc"
-      },
-      "AccountId": "001Ts00000JIPqsIAH",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000JIPqsIAH"
-        },
-        "Name": "TAVERNA RACILOR IASI",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ipsl4IAA"
-      },
-      "Id": "006Qs00000ipsl4IAA",
-      "Name": "Focado",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtZV3IAN",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
-        },
-        "Name": "Borcaeas Georgian"
-      },
-      "AccountId": "001Qs00000p7cmXIAQ",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000p7cmXIAQ"
-        },
-        "Name": "Focado",
         "BillingCity": null
       }
     },
@@ -1862,60 +1754,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000oxN0bIAE"
         },
         "Name": "La Habib",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ibh34IAA"
-      },
-      "Id": "006Qs00000ibh34IAA",
-      "Name": "Lou Doner",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
-        },
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Qs00000onlh4IAA",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000onlh4IAA"
-        },
-        "Name": "Lou Doner",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iFcRsIAK"
-      },
-      "Id": "006Qs00000iFcRsIAK",
-      "Name": "Los Chomperos",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000n00gmIAA",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000n00gmIAA"
-        },
-        "Name": "Los Chomperos",
         "BillingCity": null
       }
     },
@@ -2564,60 +2402,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000nwPwMIAU"
         },
         "Name": "Bordo Garden",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000it80RIAQ"
-      },
-      "Id": "006Qs00000it80RIAQ",
-      "Name": "Ca Odinioară",
-      "StageName": "New Opportunity",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000kHPHhIAO",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000kHPHhIAO"
-        },
-        "Name": "Ca Odinioară",
-        "BillingCity": "Tulcea"
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iqTiyIAE"
-      },
-      "Id": "006Qs00000iqTiyIAE",
-      "Name": "Mandarin Signature Restaurant",
-      "StageName": "New Opportunity",
-      "CloseDate": "2026-06-15",
-      "OwnerId": "005Ts000001Ak10IAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000001Ak10IAC"
-        },
-        "Name": "Silviu-Mihnea Voicu"
-      },
-      "AccountId": "001Qs00000oHh8eIAC",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000oHh8eIAC"
-        },
-        "Name": "Mandarin Signature Restaurant",
         "BillingCity": null
       }
     },
@@ -3434,33 +3218,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iaqtCIAQ"
-      },
-      "Id": "006Qs00000iaqtCIAQ",
-      "Name": "Sweets by the Sea",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
-        },
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Qs00000on0WjIAI",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000on0WjIAI"
-        },
-        "Name": "Sweets by the Sea",
-        "BillingCity": "Constanta"
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ihuDjIAI"
       },
       "Id": "006Qs00000ihuDjIAI",
@@ -3893,33 +3650,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000fnUgVIAU"
-      },
-      "Id": "006Qs00000fnUgVIAU",
-      "Name": "Bunatati Romanesti la Oala",
-      "StageName": "Contract sent",
-      "CloseDate": "2026-03-31",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Qs00000kqh04IAA",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000kqh04IAA"
-        },
-        "Name": "Bunatati Romanesti la Oala",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000fngpiIAA"
       },
       "Id": "006Qs00000fngpiIAA",
@@ -3941,6 +3671,33 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000kr159IAA"
         },
         "Name": "Shaormeria Traian",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000fnUgVIAU"
+      },
+      "Id": "006Qs00000fnUgVIAU",
+      "Name": "Bunatati Romanesti la Oala",
+      "StageName": "Contract sent",
+      "CloseDate": "2026-03-31",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Qs00000kqh04IAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000kqh04IAA"
+        },
+        "Name": "Bunatati Romanesti la Oala",
         "BillingCity": null
       }
     },
@@ -9023,33 +8780,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000004VbCBIA0"
-      },
-      "Id": "006Ts000004VbCBIA0",
-      "Name": "Guau! Lipovei",
-      "StageName": "Negotiations",
-      "CloseDate": "2024-06-01",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Ts000005nrA3IAI",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nrA3IAI"
-        },
-        "Name": "Guau! Lipovei",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000e4VPbIAM"
       },
       "Id": "006Qs00000e4VPbIAM",
@@ -10535,33 +10265,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LpoNrIAJ"
-      },
-      "Id": "006Ts00000LpoNrIAJ",
-      "Name": "Family Coffee&Play",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-10-27",
-      "OwnerId": "005Ts00000BtX53IAF",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
-        },
-        "Name": "Daniel-Marian Toltică"
-      },
-      "AccountId": "001Ts00000F1BCHIA3",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F1BCHIA3"
-        },
-        "Name": "Family Coffee&Play",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LpnvRIAR"
       },
       "Id": "006Ts00000LpnvRIAR",
@@ -10643,10 +10346,10 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LpoNhIAJ"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LpoNrIAJ"
       },
-      "Id": "006Ts00000LpoNhIAJ",
-      "Name": "BurgerTime Botoșani 2 - capăt 1",
+      "Id": "006Ts00000LpoNrIAJ",
+      "Name": "Family Coffee&Play",
       "StageName": "New Opportunity",
       "CloseDate": "2025-10-27",
       "OwnerId": "005Ts00000BtX53IAF",
@@ -10657,13 +10360,13 @@
         },
         "Name": "Daniel-Marian Toltică"
       },
-      "AccountId": "001Ts00000F18sYIAR",
+      "AccountId": "001Ts00000F1BCHIA3",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F18sYIAR"
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F1BCHIA3"
         },
-        "Name": "BurgerTime Botoșani 2 - capăt 1",
+        "Name": "Family Coffee&Play",
         "BillingCity": null
       }
     },
@@ -10697,60 +10400,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LpoNiIAJ"
-      },
-      "Id": "006Ts00000LpoNiIAJ",
-      "Name": "Society Restaurant",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-10-27",
-      "OwnerId": "005Ts00000BtX53IAF",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
-        },
-        "Name": "Daniel-Marian Toltică"
-      },
-      "AccountId": "001Ts00000F18sZIAR",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F18sZIAR"
-        },
-        "Name": "Society Restaurant",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LpoNWIAZ"
-      },
-      "Id": "006Ts00000LpoNWIAZ",
-      "Name": "Restaurant \"La Strada\" Botosani",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-10-27",
-      "OwnerId": "005Ts00000BtX53IAF",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
-        },
-        "Name": "Daniel-Marian Toltică"
-      },
-      "AccountId": "001Ts00000F18WZIAZ",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F18WZIAZ"
-        },
-        "Name": "Restaurant \"La Strada\" Botosani",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LbFeLIAV"
       },
       "Id": "006Ts00000LbFeLIAV",
@@ -10772,6 +10421,33 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts00000CXSgDIAX"
         },
         "Name": "Burgeria D`Agostino",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000008tNTWIA2"
+      },
+      "Id": "006Ts000008tNTWIA2",
+      "Name": "No Pardon Delivery",
+      "StageName": "Negotiations",
+      "CloseDate": "2024-12-06",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Ts00000F15JBIAZ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F15JBIAZ"
+        },
+        "Name": "No Pardon Delivery",
         "BillingCity": null
       }
     },
@@ -10832,33 +10508,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000008tNTWIA2"
-      },
-      "Id": "006Ts000008tNTWIA2",
-      "Name": "No Pardon Delivery",
-      "StageName": "Negotiations",
-      "CloseDate": "2024-12-06",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Ts00000F15JBIAZ",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F15JBIAZ"
-        },
-        "Name": "No Pardon Delivery",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LpZXoIAN"
       },
       "Id": "006Ts00000LpZXoIAN",
@@ -10886,6 +10535,87 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000008tNhsIAE"
+      },
+      "Id": "006Ts000008tNhsIAE",
+      "Name": "OK Street Pub",
+      "StageName": "Contract sent",
+      "CloseDate": "2024-12-06",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000F0ynmIAB",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F0ynmIAB"
+        },
+        "Name": "OK Street Pub",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LpoNWIAZ"
+      },
+      "Id": "006Ts00000LpoNWIAZ",
+      "Name": "Restaurant \"La Strada\" Botosani",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-10-27",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000F18WZIAZ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F18WZIAZ"
+        },
+        "Name": "Restaurant \"La Strada\" Botosani",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LpoNhIAJ"
+      },
+      "Id": "006Ts00000LpoNhIAJ",
+      "Name": "BurgerTime Botoșani 2 - capăt 1",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-10-27",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000F18sYIAR",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F18sYIAR"
+        },
+        "Name": "BurgerTime Botoșani 2 - capăt 1",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts0000059RX2IAM"
       },
       "Id": "006Ts0000059RX2IAM",
@@ -10907,6 +10637,33 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts0000078BDIIA2"
         },
         "Name": "Pomodoro Pizza&Grill",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LpoNiIAJ"
+      },
+      "Id": "006Ts00000LpoNiIAJ",
+      "Name": "Society Restaurant",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-10-27",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000F18sZIAR",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F18sZIAR"
+        },
+        "Name": "Society Restaurant",
         "BillingCity": null
       }
     },
@@ -10961,33 +10718,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts00000F16ZRIAZ"
         },
         "Name": "Autentic Pizzeria Vera",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000008tNhsIAE"
-      },
-      "Id": "006Ts000008tNhsIAE",
-      "Name": "OK Street Pub",
-      "StageName": "Contract sent",
-      "CloseDate": "2024-12-06",
-      "OwnerId": "005Ts00000BtX53IAF",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
-        },
-        "Name": "Daniel-Marian Toltică"
-      },
-      "AccountId": "001Ts00000F0ynmIAB",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000F0ynmIAB"
-        },
-        "Name": "OK Street Pub",
         "BillingCity": null
       }
     },
@@ -12506,6 +12236,33 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LbAYPIA3"
+      },
+      "Id": "006Ts00000LbAYPIA3",
+      "Name": "Carrefour Super (3252)",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-10-23",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Ts00000ZvZD0IAN",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000ZvZD0IAN"
+        },
+        "Name": "Carrefour Targu Mures Voinicenilor (3252)",
+        "BillingCity": "Targu Mures"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LbAYNIA3"
       },
       "Id": "006Ts00000LbAYNIA3",
@@ -12554,33 +12311,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts00000ZvYbtIAF"
         },
         "Name": "Carrefour Targu-Mures Carm Olimp (4574)",
-        "BillingCity": "Targu Mures"
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000LbAYPIA3"
-      },
-      "Id": "006Ts00000LbAYPIA3",
-      "Name": "Carrefour Super (3252)",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-10-23",
-      "OwnerId": "005Ts00000BtGPDIA3",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
-        },
-        "Name": "Daniel-Alexandru Boboc"
-      },
-      "AccountId": "001Ts00000ZvZD0IAN",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000ZvZD0IAN"
-        },
-        "Name": "Carrefour Targu Mures Voinicenilor (3252)",
         "BillingCity": "Targu Mures"
       }
     },
@@ -13208,6 +12938,33 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000005ABlZIAW"
+      },
+      "Id": "006Ts000005ABlZIAW",
+      "Name": "Profi Super",
+      "StageName": "New Opportunity",
+      "CloseDate": "2024-07-01",
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts0000060ICnIAM"
+        },
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts0000078zNLIAY",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts0000078zNLIAY"
+        },
+        "Name": "Profi Super Emil Racovita",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000005ABlnIAG"
       },
       "Id": "006Ts000005ABlnIAG",
@@ -13262,6 +13019,60 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000005ABlOIAW"
+      },
+      "Id": "006Ts000005ABlOIAW",
+      "Name": "Profi Standard",
+      "StageName": "New Opportunity",
+      "CloseDate": "2024-07-01",
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts0000060ICnIAM"
+        },
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts0000078zNAIAY",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts0000078zNAIAY"
+        },
+        "Name": "Profi Standard",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000005ABODIA4"
+      },
+      "Id": "006Ts000005ABODIA4",
+      "Name": "PANINI NUR (Șos. Fundeni)",
+      "StageName": "New Opportunity",
+      "CloseDate": "2024-07-01",
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts0000060ICnIAM"
+        },
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts0000078yyNIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts0000078yyNIAQ"
+        },
+        "Name": "PANINI NUR",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000005ABk5IAG"
       },
       "Id": "006Ts000005ABk5IAG",
@@ -13310,87 +13121,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts0000078zM2IAI"
         },
         "Name": "Platouas",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000005ABODIA4"
-      },
-      "Id": "006Ts000005ABODIA4",
-      "Name": "PANINI NUR (Șos. Fundeni)",
-      "StageName": "New Opportunity",
-      "CloseDate": "2024-07-01",
-      "OwnerId": "005Ts0000060ICnIAM",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts0000060ICnIAM"
-        },
-        "Name": "Ionut-Mădălin Gavrilă"
-      },
-      "AccountId": "001Ts0000078yyNIAQ",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts0000078yyNIAQ"
-        },
-        "Name": "PANINI NUR",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000005ABlOIAW"
-      },
-      "Id": "006Ts000005ABlOIAW",
-      "Name": "Profi Standard",
-      "StageName": "New Opportunity",
-      "CloseDate": "2024-07-01",
-      "OwnerId": "005Ts0000060ICnIAM",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts0000060ICnIAM"
-        },
-        "Name": "Ionut-Mădălin Gavrilă"
-      },
-      "AccountId": "001Ts0000078zNAIAY",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts0000078zNAIAY"
-        },
-        "Name": "Profi Standard",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000005ABlZIAW"
-      },
-      "Id": "006Ts000005ABlZIAW",
-      "Name": "Profi Super",
-      "StageName": "New Opportunity",
-      "CloseDate": "2024-07-01",
-      "OwnerId": "005Ts0000060ICnIAM",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts0000060ICnIAM"
-        },
-        "Name": "Ionut-Mădălin Gavrilă"
-      },
-      "AccountId": "001Ts0000078zNLIAY",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts0000078zNLIAY"
-        },
-        "Name": "Profi Super Emil Racovita",
         "BillingCity": null
       }
     },
@@ -13499,6 +13229,276 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts00000HMTysIAH"
         },
         "Name": "Bistro Bucataria Bunicii",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000A2GMEIA3"
+      },
+      "Id": "006Ts00000A2GMEIA3",
+      "Name": "Johnny's Pizza",
+      "StageName": "Contract sent",
+      "CloseDate": "2025-01-18",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000HMVXqIAP",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000HMVXqIAP"
+        },
+        "Name": "Johnny's Pizza",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000004VtEzIAK"
+      },
+      "Id": "006Ts000004VtEzIAK",
+      "Name": "Enjoy Sushi Timisoara",
+      "StageName": "New Opportunity",
+      "CloseDate": "2024-06-01",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005ns0sIAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005ns0sIAA"
+        },
+        "Name": "Enjoy Sushi Timisoara",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000004VpRCIA0"
+      },
+      "Id": "006Ts000004VpRCIA0",
+      "Name": "Maripusc",
+      "StageName": "Negotiations",
+      "CloseDate": "2024-06-01",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
+        },
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Ts000005ntVIIAY",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005ntVIIAY"
+        },
+        "Name": "Maripusc",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000005AC4GIAW"
+      },
+      "Id": "006Ts000005AC4GIAW",
+      "Name": "Restaurant ORIGINI LUCANE",
+      "StageName": "New Opportunity",
+      "CloseDate": "2024-07-01",
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts0000060ICnIAM"
+        },
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts0000078zj6IAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts0000078zj6IAA"
+        },
+        "Name": "Restaurant ORIGINI LUCANE",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts000004VtwGIAS"
+      },
+      "Id": "006Ts000004VtwGIAS",
+      "Name": "Ristorante Monza",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-06-01",
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts0000060ICnIAM"
+        },
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts000005o1zQIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005o1zQIAQ"
+        },
+        "Name": "Ristorante Monza",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000A2I9PIAV"
+      },
+      "Id": "006Ts00000A2I9PIAV",
+      "Name": "Restaurant Maria",
+      "StageName": "Negotiations",
+      "CloseDate": "2025-01-18",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000HMXBTIA5",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000HMXBTIA5"
+        },
+        "Name": "Restaurant Maria",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000A2JWmIAN"
+      },
+      "Id": "006Ts00000A2JWmIAN",
+      "Name": "OLA PIZZA",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-01-18",
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts0000060ICnIAM"
+        },
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts00000HMYQoIAP",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000HMYQoIAP"
+        },
+        "Name": "OLA PIZZA",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000A2JWFIA3"
+      },
+      "Id": "006Ts00000A2JWFIA3",
+      "Name": "Pizza Hollywood",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-01-18",
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts0000060ICnIAM"
+        },
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts00000HMYQHIA5",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000HMYQHIA5"
+        },
+        "Name": "Pizza Hollywood",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000A2JXcIAN"
+      },
+      "Id": "006Ts00000A2JXcIAN",
+      "Name": "Cramele Recas",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-01-18",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000HMYReIAP",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000HMYReIAP"
+        },
+        "Name": "Cramele Recas",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000A2JqUIAV"
+      },
+      "Id": "006Ts00000A2JqUIAV",
+      "Name": "American Mac and Cheese",
+      "StageName": "Negotiations",
+      "CloseDate": "2025-01-18",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Ts00000HMZISIA5",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000HMZISIA5"
+        },
+        "Name": "American Mac and Cheese",
         "BillingCity": null
       }
     }

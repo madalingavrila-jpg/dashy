@@ -1,7 +1,65 @@
 {
-  "totalSize": 919,
+  "totalSize": 975,
   "done": true,
   "records": [
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j7GxOIAU"
+      },
+      "Id": "006Qs00000j7GxOIAU",
+      "Name": "Bottega Sensoria",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-06-15T07:35:41.000+0000",
+      "LastModifiedDate": "2026-06-15T07:41:54.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Ts00000FTeRKIA1",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000FTeRKIA1"
+        },
+        "Name": "Bottega Sensoria",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j31bzIAA"
+      },
+      "Id": "006Qs00000j31bzIAA",
+      "Name": "Guau! Lipovei",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-06-12T13:58:43.000+0000",
+      "LastModifiedDate": "2026-06-12T13:58:43.000+0000",
+      "CloseDate": "2026-06-19",
+      "OwnerId": "005Qs00000N2Hh3IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Qs00000N2Hh3IAF"
+        },
+        "Name": "Andrei-Georgian Pătru"
+      },
+      "AccountId": "001Ts000005nrA3IAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nrA3IAI"
+        },
+        "Name": "Guau! Lipovei",
+        "BillingCity": null
+      }
+    },
     {
       "attributes": {
         "type": "Opportunity",
@@ -11,7 +69,7 @@
       "Name": "Cin Cin by Risto",
       "StageName": "New Opportunity",
       "CreatedDate": "2026-06-12T06:13:25.000+0000",
-      "LastModifiedDate": "2026-06-12T06:15:13.000+0000",
+      "LastModifiedDate": "2026-06-12T09:08:08.000+0000",
       "CloseDate": "2026-06-30",
       "OwnerId": "005Ts000001Ak10IAC",
       "Owner": {
@@ -69,7 +127,7 @@
       "Name": "La Scoica Land",
       "StageName": "New Opportunity",
       "CreatedDate": "2026-06-11T09:55:54.000+0000",
-      "LastModifiedDate": "2026-06-11T09:55:55.000+0000",
+      "LastModifiedDate": "2026-06-12T10:15:03.000+0000",
       "CloseDate": "2026-06-30",
       "OwnerId": "005Qs00000Mxc6EIAR",
       "Owner": {
@@ -86,7 +144,7 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMkgMIAS"
         },
         "Name": "La Scoica Land",
-        "BillingCity": null
+        "BillingCity": "Constanța"
       }
     },
     {
@@ -98,7 +156,7 @@
       "Name": "Pizzeria Bonaccia Palazu",
       "StageName": "New Opportunity",
       "CreatedDate": "2026-06-11T09:52:56.000+0000",
-      "LastModifiedDate": "2026-06-11T09:52:57.000+0000",
+      "LastModifiedDate": "2026-06-12T10:05:35.000+0000",
       "CloseDate": "2026-06-30",
       "OwnerId": "005Qs00000Mxc6EIAR",
       "Owner": {
@@ -115,36 +173,7 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMaxCIAS"
         },
         "Name": "Pizzeria Bonaccia Palazu",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izTesIAE"
-      },
-      "Id": "006Qs00000izTesIAE",
-      "Name": "Cappadocia Kebap",
-      "StageName": "New Opportunity",
-      "CreatedDate": "2026-06-11T09:49:18.000+0000",
-      "LastModifiedDate": "2026-06-11T09:50:07.000+0000",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Qs00000Mxc6EIAR",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Qs00000Mxc6EIAR"
-        },
-        "Name": "Paul-Daniel Rîngheanu"
-      },
-      "AccountId": "001Qs00000pMF50IAG",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMF50IAG"
-        },
-        "Name": "Cappadocia Kebap",
-        "BillingCity": null
+        "BillingCity": "Constanța"
       }
     },
     {
@@ -156,7 +185,7 @@
       "Name": "La Scoica",
       "StageName": "New Opportunity",
       "CreatedDate": "2026-06-11T09:43:57.000+0000",
-      "LastModifiedDate": "2026-06-11T09:55:57.000+0000",
+      "LastModifiedDate": "2026-06-12T09:22:56.000+0000",
       "CloseDate": "2026-06-30",
       "OwnerId": "005Qs00000Mxc6EIAR",
       "Owner": {
@@ -185,7 +214,7 @@
       "Name": "Pizzeria Bonaccia Constanta",
       "StageName": "New Opportunity",
       "CreatedDate": "2026-06-11T09:37:32.000+0000",
-      "LastModifiedDate": "2026-06-11T09:52:59.000+0000",
+      "LastModifiedDate": "2026-06-12T09:54:16.000+0000",
       "CloseDate": "2026-06-30",
       "OwnerId": "005Qs00000Mxc6EIAR",
       "Owner": {
@@ -202,7 +231,7 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000pMLjjIAG"
         },
         "Name": "Pizzeria Bonaccia Constanta",
-        "BillingCity": null
+        "BillingCity": "Constanța"
       }
     },
     {
@@ -353,6 +382,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iyxIRIAY"
+      },
+      "Id": "006Qs00000iyxIRIAY",
+      "Name": "1902 Athletic Pub",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-11T07:48:12.000+0000",
+      "LastModifiedDate": "2026-06-14T08:30:51.000+0000",
+      "CloseDate": "2026-06-14",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000pKyInIAK",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pKyInIAK"
+        },
+        "Name": "1902 Athletic Pub",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iyfIQIAY"
       },
       "Id": "006Qs00000iyfIQIAY",
@@ -440,6 +498,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iwwVNIAY"
+      },
+      "Id": "006Qs00000iwwVNIAY",
+      "Name": "Mazzo Timisoara",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-10T12:54:49.000+0000",
+      "LastModifiedDate": "2026-06-14T08:30:40.000+0000",
+      "CloseDate": "2026-06-14",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000pIP4PIAW",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pIP4PIAW"
+        },
+        "Name": "Mazzo Timisoara",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iweyGIAQ"
       },
       "Id": "006Qs00000iweyGIAQ",
@@ -492,6 +579,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000pHXyHIAW"
         },
         "Name": "Bucataria lui Anne",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iw6RuIAI"
+      },
+      "Id": "006Qs00000iw6RuIAI",
+      "Name": "Shaorma la Chef Duran",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-10T08:32:22.000+0000",
+      "LastModifiedDate": "2026-06-14T08:30:36.000+0000",
+      "CloseDate": "2026-06-14",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
+        },
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000pGpz6IAC",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pGpz6IAC"
+        },
+        "Name": "Shaorma la Chef Duran",
         "BillingCity": null
       }
     },
@@ -1020,59 +1136,30 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000itHF0IAM"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000it4HmIAI"
       },
-      "Id": "006Qs00000itHF0IAM",
-      "Name": "Pizza Venezia",
-      "StageName": "New Opportunity",
-      "CreatedDate": "2026-06-09T10:11:33.000+0000",
-      "LastModifiedDate": "2026-06-11T14:31:09.000+0000",
-      "CloseDate": "2026-06-16",
-      "OwnerId": "005Ts00000BtGPDIA3",
+      "Id": "006Qs00000it4HmIAI",
+      "Name": "Mandarin Signature Restaurant",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-09T09:12:42.000+0000",
+      "LastModifiedDate": "2026-06-14T08:30:14.000+0000",
+      "CloseDate": "2026-06-14",
+      "OwnerId": "005Ts000001Ak10IAC",
       "Owner": {
         "attributes": {
           "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+          "url": "/services/data/v64.0/sobjects/User/005Ts000001Ak10IAC"
         },
-        "Name": "Daniel-Alexandru Boboc"
+        "Name": "Silviu-Mihnea Voicu"
       },
-      "AccountId": "001Qs00000l92MHIAY",
+      "AccountId": "001Qs00000oHh8eIAC",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000l92MHIAY"
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000oHh8eIAC"
         },
-        "Name": "Pizza Venezia",
+        "Name": "Mandarin Signature Restaurant",
         "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000it80RIAQ"
-      },
-      "Id": "006Qs00000it80RIAQ",
-      "Name": "Ca Odinioară",
-      "StageName": "New Opportunity",
-      "CreatedDate": "2026-06-09T10:05:23.000+0000",
-      "LastModifiedDate": "2026-06-09T10:05:26.000+0000",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000kHPHhIAO",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000kHPHhIAO"
-        },
-        "Name": "Ca Odinioară",
-        "BillingCity": "Tulcea"
       }
     },
     {
@@ -1246,6 +1333,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts000004NRrkIAG"
         },
         "Name": "La Thuile Delivery",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000isYctIAE"
+      },
+      "Id": "006Qs00000isYctIAE",
+      "Name": "Mofticios by Koko Loko",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-09T07:18:49.000+0000",
+      "LastModifiedDate": "2026-06-12T14:00:18.000+0000",
+      "CloseDate": "2026-06-12",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
+        },
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Ts00000ILBiyIAH",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000ILBiyIAH"
+        },
+        "Name": "Mofticios by Koko Loko",
         "BillingCity": null
       }
     },
@@ -1455,6 +1571,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000isJVnIAM"
+      },
+      "Id": "006Qs00000isJVnIAM",
+      "Name": "The Charlatans Pub",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-09T06:58:49.000+0000",
+      "LastModifiedDate": "2026-06-13T08:30:52.000+0000",
+      "CloseDate": "2026-06-13",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000owRJLIA2",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000owRJLIA2"
+        },
+        "Name": "The Charlatans Pub",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000isOaJIAU"
       },
       "Id": "006Qs00000isOaJIAU",
@@ -1565,35 +1710,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000pBsUSIA0"
         },
         "Name": "Popa's Burger",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iqTiyIAE"
-      },
-      "Id": "006Qs00000iqTiyIAE",
-      "Name": "Mandarin Signature Restaurant",
-      "StageName": "New Opportunity",
-      "CreatedDate": "2026-06-08T12:36:05.000+0000",
-      "LastModifiedDate": "2026-06-09T09:18:32.000+0000",
-      "CloseDate": "2026-06-15",
-      "OwnerId": "005Ts000001Ak10IAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000001Ak10IAC"
-        },
-        "Name": "Silviu-Mihnea Voicu"
-      },
-      "AccountId": "001Qs00000oHh8eIAC",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000oHh8eIAC"
-        },
-        "Name": "Mandarin Signature Restaurant",
         "BillingCity": null
       }
     },
@@ -1832,6 +1948,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ihuTqIAI"
+      },
+      "Id": "006Qs00000ihuTqIAI",
+      "Name": "Shish Shaorma & Kebab- Arhitectilor",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-04T11:19:48.000+0000",
+      "LastModifiedDate": "2026-06-06T08:34:15.000+0000",
+      "CloseDate": "2026-06-06",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000owX3kIAE",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000owX3kIAE"
+        },
+        "Name": "Shish Shaorma & Kebab- Arhitectilor",
+        "BillingCity": "Sibiu"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ihjJuIAI"
       },
       "Id": "006Qs00000ihjJuIAI",
@@ -1856,6 +2001,35 @@
         },
         "Name": "Tokyo Ramen",
         "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000igvIJIAY"
+      },
+      "Id": "006Qs00000igvIJIAY",
+      "Name": "Complex || Shish Shaorma & Kebab- Alba Iulia",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-04T07:25:17.000+0000",
+      "LastModifiedDate": "2026-06-06T08:33:56.000+0000",
+      "CloseDate": "2026-06-06",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000ovSkSIAU",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000ovSkSIAU"
+        },
+        "Name": "Shish Shaorma & Kebab- Alba Iulia",
+        "BillingCity": "Sibiu"
       }
     },
     {
@@ -2000,6 +2174,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000osi0wIAA"
         },
         "Name": "Zanza Bistro by Crispy Store",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iehufIAA"
+      },
+      "Id": "006Qs00000iehufIAA",
+      "Name": "Beef Up",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-03T12:28:15.000+0000",
+      "LastModifiedDate": "2026-06-14T08:30:08.000+0000",
+      "CloseDate": "2026-06-14",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
+        },
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Qs00000osCKSIA2",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000osCKSIA2"
+        },
+        "Name": "Beef Up",
         "BillingCity": null
       }
     },
@@ -2354,6 +2557,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ibptTIAQ"
+      },
+      "Id": "006Qs00000ibptTIAQ",
+      "Name": "Proper Pizza & Pasta Slatina",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-02T13:33:55.000+0000",
+      "LastModifiedDate": "2026-06-13T08:30:18.000+0000",
+      "CloseDate": "2026-06-13",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000onoLqIAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000onoLqIAI"
+        },
+        "Name": "Proper Pizza & Pasta Slatina",
+        "BillingCity": "Slatina"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ibx1OIAQ"
       },
       "Id": "006Qs00000ibx1OIAQ",
@@ -2412,6 +2644,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ibbKGIAY"
+      },
+      "Id": "006Qs00000ibbKGIAY",
+      "Name": "Proper Pizza & Pasta",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-02T13:21:08.000+0000",
+      "LastModifiedDate": "2026-06-06T08:31:59.000+0000",
+      "CloseDate": "2026-06-06",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000onstqIAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000onstqIAA"
+        },
+        "Name": "Proper Pizza & Pasta",
+        "BillingCity": "Sibiu"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ibYmFIAU"
       },
       "Id": "006Qs00000ibYmFIAU",
@@ -2435,6 +2696,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000onrOGIAY"
         },
         "Name": "5 Elemente Chinese Cuisine",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ibh34IAA"
+      },
+      "Id": "006Qs00000ibh34IAA",
+      "Name": "Lou Doner",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-02T12:20:55.000+0000",
+      "LastModifiedDate": "2026-06-13T08:30:29.000+0000",
+      "CloseDate": "2026-06-13",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
+        },
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Qs00000onlh4IAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000onlh4IAA"
+        },
+        "Name": "Lou Doner",
         "BillingCity": null
       }
     },
@@ -2586,6 +2876,64 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iTEZLIA4"
+      },
+      "Id": "006Qs00000iTEZLIA4",
+      "Name": "Complex || Shish Shaorma & Kebab",
+      "StageName": "Activated",
+      "CreatedDate": "2026-05-29T14:46:30.000+0000",
+      "LastModifiedDate": "2026-06-06T08:33:50.000+0000",
+      "CloseDate": "2026-06-06",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000obP7YIAU",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000obP7YIAU"
+        },
+        "Name": "Shish Shaorma & Kebab",
+        "BillingCity": "Sibiu"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iTIMpIAO"
+      },
+      "Id": "006Qs00000iTIMpIAO",
+      "Name": "Proper Pizza & Pasta Craiova",
+      "StageName": "Activated",
+      "CreatedDate": "2026-05-29T14:29:07.000+0000",
+      "LastModifiedDate": "2026-06-11T08:32:31.000+0000",
+      "CloseDate": "2026-06-11",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000obOZhIAM",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000obOZhIAM"
+        },
+        "Name": "Proper Pizza & Pasta",
+        "BillingCity": "Sibiu"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iRylCIAS"
       },
       "Id": "006Qs00000iRylCIAS",
@@ -2609,6 +2957,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000oZouwIAC"
         },
         "Name": "Urban Dumplings",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iP0edIAC"
+      },
+      "Id": "006Qs00000iP0edIAC",
+      "Name": "Dyno's",
+      "StageName": "Activated",
+      "CreatedDate": "2026-05-28T09:27:31.000+0000",
+      "LastModifiedDate": "2026-06-13T08:31:00.000+0000",
+      "CloseDate": "2026-06-13",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
+        },
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000oVGAHIA4",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000oVGAHIA4"
+        },
+        "Name": "Dyno's",
         "BillingCity": null
       }
     },
@@ -3369,6 +3746,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iFcRsIAK"
+      },
+      "Id": "006Qs00000iFcRsIAK",
+      "Name": "Los Chomperos",
+      "StageName": "Activated",
+      "CreatedDate": "2026-05-25T08:07:05.000+0000",
+      "LastModifiedDate": "2026-06-14T08:30:15.000+0000",
+      "CloseDate": "2026-06-14",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000n00gmIAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000n00gmIAA"
+        },
+        "Name": "Los Chomperos",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iFYssIAG"
       },
       "Id": "006Qs00000iFYssIAG",
@@ -3450,6 +3856,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000oBpQbIAK"
         },
         "Name": "Casa Goia Street",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iBfuYIAS"
+      },
+      "Id": "006Qs00000iBfuYIAS",
+      "Name": "Piateta Cotroceni",
+      "StageName": "Activated",
+      "CreatedDate": "2026-05-22T13:48:47.000+0000",
+      "LastModifiedDate": "2026-06-13T08:30:13.000+0000",
+      "CloseDate": "2026-06-13",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
+        },
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000oBmXZIA0",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000oBmXZIA0"
+        },
+        "Name": "Piateta Cotroceni",
         "BillingCity": null
       }
     },
@@ -3712,6 +4147,35 @@
         },
         "Name": "Al Wady Express",
         "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iAuFiIAK"
+      },
+      "Id": "006Qs00000iAuFiIAK",
+      "Name": "Bakabi- Platform delivery",
+      "StageName": "Negotiations",
+      "CreatedDate": "2026-05-22T10:17:57.000+0000",
+      "LastModifiedDate": "2026-05-22T10:19:19.000+0000",
+      "CloseDate": "2026-08-07",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Ts000005ntVYIAY",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005ntVYIAY"
+        },
+        "Name": "Bakabi",
+        "BillingCity": "Brasov"
       }
     },
     {
@@ -4437,6 +4901,35 @@
         },
         "Name": "Riyo Wok & Sushi",
         "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000i6Ve8IAE"
+      },
+      "Id": "006Qs00000i6Ve8IAE",
+      "Name": "Shish Shaorma & Kebab",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-05-21T07:20:40.000+0000",
+      "LastModifiedDate": "2026-06-03T14:48:34.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000o4ix0IAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000o4ix0IAA"
+        },
+        "Name": "Shish Shaorma & Kebab",
+        "BillingCity": "Sibiu"
       }
     },
     {
@@ -7574,6 +8067,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hlreRIAQ"
+      },
+      "Id": "006Qs00000hlreRIAQ",
+      "Name": "Sapori Pizza & More",
+      "StageName": "Activated",
+      "CreatedDate": "2026-05-13T07:36:34.000+0000",
+      "LastModifiedDate": "2026-06-14T08:30:13.000+0000",
+      "CloseDate": "2026-06-14",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000naCPtIAM",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000naCPtIAM"
+        },
+        "Name": "Sapori Pizza & More",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hloqEIAQ"
       },
       "Id": "006Qs00000hloqEIAQ",
@@ -8096,6 +8618,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hj4JjIAI"
+      },
+      "Id": "006Qs00000hj4JjIAI",
+      "Name": "Dei Frati Constanta",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-05-12T11:11:19.000+0000",
+      "LastModifiedDate": "2026-05-12T11:11:44.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000nW7v5IAC",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000nW7v5IAC"
+        },
+        "Name": "Dei Frati Constanta",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hj7r1IAA"
       },
       "Id": "006Qs00000hj7r1IAA",
@@ -8119,6 +8670,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000nWDfXIAW"
         },
         "Name": "Splendid Chicken",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hiiPdIAI"
+      },
+      "Id": "006Qs00000hiiPdIAI",
+      "Name": "Berăria Poftă sau Foame Constanța",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-05-12T10:45:51.000+0000",
+      "LastModifiedDate": "2026-05-12T10:46:09.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000nVjEQIA0",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000nVjEQIA0"
+        },
+        "Name": "Berăria Poftă sau Foame Constanța",
         "BillingCity": null
       }
     },
@@ -9773,6 +10353,93 @@
         },
         "Name": "Aprozar Nicolas Simo",
         "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hAVjLIAW"
+      },
+      "Id": "006Qs00000hAVjLIAW",
+      "Name": "Music Pub",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-04-28T10:44:51.000+0000",
+      "LastModifiedDate": "2026-04-28T10:44:51.000+0000",
+      "CloseDate": "2026-05-05",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Ts00000788IEIAY",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000788IEIAY"
+        },
+        "Name": "Music Pub",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hAVzUIAW"
+      },
+      "Id": "006Qs00000hAVzUIAW",
+      "Name": "Cafe Wien",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-04-28T10:43:01.000+0000",
+      "LastModifiedDate": "2026-04-28T10:43:01.000+0000",
+      "CloseDate": "2026-05-05",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Ts0000078ZNnIAM",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts0000078ZNnIAM"
+        },
+        "Name": "Cafe Wien",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hAe3SIAS"
+      },
+      "Id": "006Qs00000hAe3SIAS",
+      "Name": "Super Mama Oituz",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-04-28T10:27:48.000+0000",
+      "LastModifiedDate": "2026-05-28T11:24:34.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000mmhqPIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000mmhqPIAQ"
+        },
+        "Name": "Super Mama Oituz",
+        "BillingCity": "SIBIU"
       }
     },
     {
@@ -11692,6 +12359,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gybICIAY"
+      },
+      "Id": "006Qs00000gybICIAY",
+      "Name": "Crazy Schnitzel",
+      "StageName": "Activated",
+      "CreatedDate": "2026-04-23T08:41:21.000+0000",
+      "LastModifiedDate": "2026-06-14T14:00:08.000+0000",
+      "CloseDate": "2026-06-14",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000mYe5zIAC",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000mYe5zIAC"
+        },
+        "Name": "Crazy Schnitzel",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gz6ecIAA"
       },
       "Id": "006Qs00000gz6ecIAA",
@@ -11953,6 +12649,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gxslnIAA"
+      },
+      "Id": "006Qs00000gxslnIAA",
+      "Name": "Delicio 2 Iasi",
+      "StageName": "Activated",
+      "CreatedDate": "2026-04-22T17:44:02.000+0000",
+      "LastModifiedDate": "2026-05-11T13:44:54.000+0000",
+      "CloseDate": "2026-05-06",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000mXcdzIAC",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000mXcdzIAC"
+        },
+        "Name": "Delicio 2 Iasi",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gxVikIAE"
       },
       "Id": "006Qs00000gxVikIAE",
@@ -12035,6 +12760,64 @@
         },
         "Name": "Mei Wei Obor",
         "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gxMqmIAE"
+      },
+      "Id": "006Qs00000gxMqmIAE",
+      "Name": "Delicio 1 Iasi",
+      "StageName": "Activated",
+      "CreatedDate": "2026-04-22T14:49:42.000+0000",
+      "LastModifiedDate": "2026-05-11T13:44:54.000+0000",
+      "CloseDate": "2026-05-06",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000mX2diIAC",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000mX2diIAC"
+        },
+        "Name": "Delicio 1 Iasi",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gxArFIAU"
+      },
+      "Id": "006Qs00000gxArFIAU",
+      "Name": "Delicio Sibiu",
+      "StageName": "Activated",
+      "CreatedDate": "2026-04-22T14:28:07.000+0000",
+      "LastModifiedDate": "2026-05-04T21:42:23.000+0000",
+      "CloseDate": "2026-04-29",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000mWqsmIAC",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000mWqsmIAC"
+        },
+        "Name": "Pizza Delicio Sibiu",
+        "BillingCity": "Brasov"
       }
     },
     {
@@ -12214,6 +12997,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gx8B4IAI"
+      },
+      "Id": "006Qs00000gx8B4IAI",
+      "Name": "Filalei original -Brintex- locația centru Mihai Viteazu Nr 10 Gustul unic face diferența",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-04-22T13:06:03.000+0000",
+      "LastModifiedDate": "2026-04-22T13:06:20.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000mWf2pIAC",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000mWf2pIAC"
+        },
+        "Name": "Filalei original -Brintex- locația centru Mihai Viteazu Nr 10 Gustul unic face diferența",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gx7baIAA"
       },
       "Id": "006Qs00000gx7baIAA",
@@ -12243,6 +13055,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gx14mIAA"
+      },
+      "Id": "006Qs00000gx14mIAA",
+      "Name": "Focacceria DaVero",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-04-22T12:56:54.000+0000",
+      "LastModifiedDate": "2026-04-22T12:57:30.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000mWMBUIA4",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000mWMBUIA4"
+        },
+        "Name": "Focacceria DaVero",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gwmnHIAQ"
       },
       "Id": "006Qs00000gwmnHIAQ",
@@ -12266,6 +13107,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000mWAITIA4"
         },
         "Name": "Komi Sushi",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gwyMOIAY"
+      },
+      "Id": "006Qs00000gwyMOIAY",
+      "Name": "Filalei",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-04-22T12:41:02.000+0000",
+      "LastModifiedDate": "2026-04-22T12:41:29.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000mWakwIAC",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000mWakwIAC"
+        },
+        "Name": "Filalei",
         "BillingCity": null
       }
     },
@@ -12939,6 +13809,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gtRHAIA2"
+      },
+      "Id": "006Qs00000gtRHAIA2",
+      "Name": "Izi D'oro Pizza",
+      "StageName": "Activated",
+      "CreatedDate": "2026-04-21T11:43:19.000+0000",
+      "LastModifiedDate": "2026-06-05T14:01:14.000+0000",
+      "CloseDate": "2026-06-05",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Ts00000788HsIAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000788HsIAI"
+        },
+        "Name": "Izi D'oro Pizza",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gtcneIAA"
       },
       "Id": "006Qs00000gtcneIAA",
@@ -12962,6 +13861,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000mS2BSIA0"
         },
         "Name": "Spired Roastery",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gtWLfIAM"
+      },
+      "Id": "006Qs00000gtWLfIAM",
+      "Name": "Olivia's Trattoria",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-04-21T11:24:51.000+0000",
+      "LastModifiedDate": "2026-04-21T11:24:51.000+0000",
+      "CloseDate": "2026-04-28",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Ts00000HLzvlIAD",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000HLzvlIAD"
+        },
+        "Name": "Olivia's Trattoria",
         "BillingCity": null
       }
     },
@@ -13658,6 +14586,64 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000mN2jzIAC"
         },
         "Name": "Oala Ardeleană - Food & Catering",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gpKz0IAE"
+      },
+      "Id": "006Qs00000gpKz0IAE",
+      "Name": "KronBurger Smoker and Grill",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-04-20T06:04:40.000+0000",
+      "LastModifiedDate": "2026-04-20T06:05:06.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000mNDycIAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000mNDycIAG"
+        },
+        "Name": "KronBurger Smoker and Grill",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gpKisIAE"
+      },
+      "Id": "006Qs00000gpKisIAE",
+      "Name": "KronBurger Coresi Brasov",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-04-20T06:03:18.000+0000",
+      "LastModifiedDate": "2026-04-20T06:04:00.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000mNEmbIAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000mNEmbIAG"
+        },
+        "Name": "KronBurger Coresi Brasov",
         "BillingCity": null
       }
     },
@@ -14505,6 +15491,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gRIrvIAG"
+      },
+      "Id": "006Qs00000gRIrvIAG",
+      "Name": "Tajmahal",
+      "StageName": "Activated",
+      "CreatedDate": "2026-04-09T12:31:47.000+0000",
+      "LastModifiedDate": "2026-05-04T21:37:31.000+0000",
+      "CloseDate": "2026-04-29",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000lsatBIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000lsatBIAQ"
+        },
+        "Name": "Tajmahal Sibiu",
+        "BillingCity": "Sibiu"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gQo96IAC"
       },
       "Id": "006Qs00000gQo96IAC",
@@ -14674,6 +15689,35 @@
         },
         "Name": "Cabana Stejarilor",
         "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000gLTd8IAG"
+      },
+      "Id": "006Qs00000gLTd8IAG",
+      "Name": "L’Altra Idea",
+      "StageName": "Activated",
+      "CreatedDate": "2026-04-07T12:40:00.000+0000",
+      "LastModifiedDate": "2026-05-04T21:42:38.000+0000",
+      "CloseDate": "2026-04-30",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Ts000005ntTsIAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005ntTsIAI"
+        },
+        "Name": "L’Altra Idea",
+        "BillingCity": "Brasov"
       }
     },
     {
@@ -14946,7 +15990,7 @@
       "Name": "El Petra Shawarma",
       "StageName": "Activated",
       "CreatedDate": "2026-04-06T13:04:57.000+0000",
-      "LastModifiedDate": "2026-05-27T08:34:40.000+0000",
+      "LastModifiedDate": "2026-06-14T01:01:42.000+0000",
       "CloseDate": "2026-05-27",
       "OwnerId": "005Ts0000060ICnIAM",
       "Owner": {
@@ -18188,6 +19232,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000fLVagIAG"
+      },
+      "Id": "006Qs00000fLVagIAG",
+      "Name": "Pizza by Tango",
+      "StageName": "Activated",
+      "CreatedDate": "2026-03-16T08:25:12.000+0000",
+      "LastModifiedDate": "2026-03-20T09:36:17.000+0000",
+      "CloseDate": "2026-03-20",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000kLY2eIAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000kLY2eIAG"
+        },
+        "Name": "Pizza by Tango",
+        "BillingCity": "SIBIU"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000fHgD5IAK"
       },
       "Id": "006Qs00000fHgD5IAK",
@@ -18270,6 +19343,35 @@
         },
         "Name": "La Țiți",
         "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000fHIyfIAG"
+      },
+      "Id": "006Qs00000fHIyfIAG",
+      "Name": "Lor.And",
+      "StageName": "Activated",
+      "CreatedDate": "2026-03-13T12:55:33.000+0000",
+      "LastModifiedDate": "2026-04-07T16:46:22.000+0000",
+      "CloseDate": "2026-03-21",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Ts00000788I7IAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000788I7IAI"
+        },
+        "Name": "Lor.And",
+        "BillingCity": "SIBIU"
       }
     },
     {
@@ -18507,6 +19609,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000fEW3gIAG"
+      },
+      "Id": "006Qs00000fEW3gIAG",
+      "Name": "Restaurant Atractiv PD",
+      "StageName": "Activated",
+      "CreatedDate": "2026-03-12T13:31:18.000+0000",
+      "LastModifiedDate": "2026-04-07T16:46:45.000+0000",
+      "CloseDate": "2026-03-24",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Ts00000788IaIAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000788IaIAI"
+        },
+        "Name": "Restaurant Atractiv",
+        "BillingCity": "ALĂMOR"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000fESGBIA4"
       },
       "Id": "006Qs00000fESGBIA4",
@@ -18588,6 +19719,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000kAG2gIAG"
         },
         "Name": "Fabrica de Tocanite Moldova Mall",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000fDqu4IAC"
+      },
+      "Id": "006Qs00000fDqu4IAC",
+      "Name": "Crama Ileana Restaurant",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-03-12T10:19:59.000+0000",
+      "LastModifiedDate": "2026-03-12T10:19:59.000+0000",
+      "CloseDate": "2026-03-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Ts00000788HXIAY",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000788HXIAY"
+        },
+        "Name": "Crama Ileana Restaurant",
         "BillingCity": null
       }
     },
@@ -19256,6 +20416,35 @@
         },
         "Name": "Sol Pizza & More",
         "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000f5LAiIAM"
+      },
+      "Id": "006Qs00000f5LAiIAM",
+      "Name": "Pizzza Delicio",
+      "StageName": "Activated",
+      "CreatedDate": "2026-03-09T13:12:35.000+0000",
+      "LastModifiedDate": "2026-04-22T17:44:06.000+0000",
+      "CloseDate": "2026-03-12",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000jyJArIAM",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000jyJArIAM"
+        },
+        "Name": "Pizza Delicio 2",
+        "BillingCity": "Brasov"
       }
     },
     {
@@ -23872,6 +25061,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000e0UC0IAM"
+      },
+      "Id": "006Qs00000e0UC0IAM",
+      "Name": "Haplea D'ale Gurii Eliana",
+      "StageName": "Activated",
+      "CreatedDate": "2026-02-09T10:14:18.000+0000",
+      "LastModifiedDate": "2026-02-17T09:33:33.000+0000",
+      "CloseDate": "2026-02-17",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000iODCYIA4",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000iODCYIA4"
+        },
+        "Name": "Haplea D'ale Gurii Eliana",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000e064pIAA"
       },
       "Id": "006Qs00000e064pIAA",
@@ -24655,6 +25873,267 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dTzo7IAC"
+      },
+      "Id": "006Qs00000dTzo7IAC",
+      "Name": "Fried Chicken",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-27T15:09:50.000+0000",
+      "LastModifiedDate": "2026-03-12T15:37:34.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000heUgEIAU",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000heUgEIAU"
+        },
+        "Name": "Smash Burger by La Juma’ de Kil",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dUAd2IAG"
+      },
+      "Id": "006Qs00000dUAd2IAG",
+      "Name": "Master Burger",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-27T15:01:17.000+0000",
+      "LastModifiedDate": "2026-03-12T15:37:34.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000heVcIIAU",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000heVcIIAU"
+        },
+        "Name": "Master Burger",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dTlGUIA0"
+      },
+      "Id": "006Qs00000dTlGUIA0",
+      "Name": "Fish&Chips",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-27T14:57:35.000+0000",
+      "LastModifiedDate": "2026-03-12T15:37:34.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000heNN4IAM",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000heNN4IAM"
+        },
+        "Name": "Fish&Chips",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dUCABIA4"
+      },
+      "Id": "006Qs00000dUCABIA4",
+      "Name": "Famous Smoke BBQ",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-27T14:51:06.000+0000",
+      "LastModifiedDate": "2026-03-12T15:37:34.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000hePmyIAE",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000hePmyIAE"
+        },
+        "Name": "Famous Smoke BBQ",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dTVmmIAG"
+      },
+      "Id": "006Qs00000dTVmmIAG",
+      "Name": "Chiftelute Mania",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-27T14:40:26.000+0000",
+      "LastModifiedDate": "2026-03-12T15:37:34.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000hdzFoIAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000hdzFoIAI"
+        },
+        "Name": "Chiftelute Mania",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dU9trIAC"
+      },
+      "Id": "006Qs00000dU9trIAC",
+      "Name": "Sandwich Libanez",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-27T14:31:20.000+0000",
+      "LastModifiedDate": "2026-03-12T15:37:34.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000heR7FIAU",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000heR7FIAU"
+        },
+        "Name": "Sandwich Libanez",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dU35HIAS"
+      },
+      "Id": "006Qs00000dU35HIAS",
+      "Name": "Snitele ca la bunica",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-27T14:27:25.000+0000",
+      "LastModifiedDate": "2026-03-12T15:37:34.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000hebT7IAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000hebT7IAI"
+        },
+        "Name": "Snitele ca la bunica",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dTd4QIAS"
+      },
+      "Id": "006Qs00000dTd4QIAS",
+      "Name": "Galeata cu Crispy",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-27T14:17:35.000+0000",
+      "LastModifiedDate": "2026-03-12T15:37:34.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000hdy6wIAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000hdy6wIAA"
+        },
+        "Name": "Galeata cu Crispy",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dU2QzIAK"
+      },
+      "Id": "006Qs00000dU2QzIAK",
+      "Name": "Ti-e Foame",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-27T14:04:56.000+0000",
+      "LastModifiedDate": "2026-03-12T15:37:34.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000heR8pIAE",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000heR8pIAE"
+        },
+        "Name": "Ti-e Foame",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dTzMdIAK"
       },
       "Id": "006Qs00000dTzMdIAK",
@@ -24684,6 +26163,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dTheEIAS"
+      },
+      "Id": "006Qs00000dTheEIAS",
+      "Name": "Friptache Urban",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-27T12:31:58.000+0000",
+      "LastModifiedDate": "2026-03-12T15:37:34.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000he9S2IAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000he9S2IAI"
+        },
+        "Name": "Friptache Urban",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dTgDWIA0"
       },
       "Id": "006Qs00000dTgDWIA0",
@@ -24708,6 +26216,35 @@
         },
         "Name": "Al Taib Grill bragadiru",
         "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dTLU4IAO"
+      },
+      "Id": "006Qs00000dTLU4IAO",
+      "Name": "Shaorma La Juma' de Kil",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-27T11:41:18.000+0000",
+      "LastModifiedDate": "2026-03-12T15:37:34.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000hdgq2IAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000hdgq2IAA"
+        },
+        "Name": "Shaorma La Juma' de Kil",
+        "BillingCity": "Brasov"
       }
     },
     {
@@ -25288,6 +26825,64 @@
         },
         "Name": "Toate Bune",
         "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dH9RqIAK"
+      },
+      "Id": "006Qs00000dH9RqIAK",
+      "Name": "Coastele lui Culcea",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-22T15:53:00.000+0000",
+      "LastModifiedDate": "2026-04-03T12:34:48.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000hNSndIAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000hNSndIAG"
+        },
+        "Name": "Coastele lui Culcea",
+        "BillingCity": "Brasov"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000dH1Z9IAK"
+      },
+      "Id": "006Qs00000dH1Z9IAK",
+      "Name": "Sandwich La Juma de Kil",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-22T15:41:30.000+0000",
+      "LastModifiedDate": "2026-04-03T12:34:48.000+0000",
+      "CloseDate": "2026-02-19",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000hNLMQIA4",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000hNLMQIA4"
+        },
+        "Name": "Sandwich La Juma de Kil",
+        "BillingCity": "Brasov"
       }
     },
     {
@@ -26361,6 +27956,35 @@
         },
         "Name": "J'ai Bistrot Targu Mures",
         "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000cwIrYIAU"
+      },
+      "Id": "006Qs00000cwIrYIAU",
+      "Name": "Old Mill Oradea",
+      "StageName": "Activated",
+      "CreatedDate": "2026-01-15T08:42:08.000+0000",
+      "LastModifiedDate": "2026-03-16T10:39:00.000+0000",
+      "CloseDate": "2026-03-11",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000gvamjIAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000gvamjIAA"
+        },
+        "Name": "Old Mill Oradea",
+        "BillingCity": "Oradea"
       }
     },
     {
