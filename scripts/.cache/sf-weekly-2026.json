@@ -5,6 +5,35 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jC2ycIAC"
+      },
+      "Id": "006Qs00000jC2ycIAC",
+      "Name": "AM PM Pub",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-06-16T11:54:20.000+0000",
+      "LastModifiedDate": "2026-06-16T11:54:20.000+0000",
+      "CloseDate": "2026-06-23",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000owzsoIAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000owzsoIAA"
+        },
+        "Name": "AM PM Pub",
+        "BillingCity": "Satu Mare"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jAvEaIAK"
       },
       "Id": "006Qs00000jAvEaIAK",
@@ -2667,35 +2696,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000oruGzIAI"
         },
         "Name": "GRIN HAUS",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000idWTMIA2"
-      },
-      "Id": "006Qs00000idWTMIA2",
-      "Name": "Atelier Matcha",
-      "StageName": "Negotiations",
-      "CreatedDate": "2026-06-03T06:59:34.000+0000",
-      "LastModifiedDate": "2026-06-12T08:34:24.000+0000",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts00000BtZV3IAN",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
-        },
-        "Name": "Borcaeas Georgian"
-      },
-      "AccountId": "001Qs00000oqY8zIAE",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000oqY8zIAE"
-        },
-        "Name": "Atelier Matcha",
         "BillingCity": null
       }
     },
@@ -6246,7 +6246,7 @@
       "Name": "18CTEA",
       "StageName": "Activated",
       "CreatedDate": "2026-05-20T07:42:48.000+0000",
-      "LastModifiedDate": "2026-06-16T07:59:20.000+0000",
+      "LastModifiedDate": "2026-06-16T10:59:56.000+0000",
       "CloseDate": "2026-05-26",
       "OwnerId": "005Ts00000BtGPDIA3",
       "Owner": {
@@ -6971,7 +6971,7 @@
       "Name": "18CTEA",
       "StageName": "Activated",
       "CreatedDate": "2026-05-18T13:07:32.000+0000",
-      "LastModifiedDate": "2026-06-16T07:59:20.000+0000",
+      "LastModifiedDate": "2026-06-16T10:59:56.000+0000",
       "CloseDate": "2026-05-27",
       "OwnerId": "005Ts00000BtGPDIA3",
       "Owner": {
@@ -8524,7 +8524,7 @@
           "type": "Account",
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000naCPtIAM"
         },
-        "Name": "Sapori Pizza & More",
+        "Name": "Sapori • Pizza & More",
         "BillingCity": null
       }
     },

@@ -1,14 +1,14 @@
 {
-  "openCases": 99,
-  "openNewOnboarding": 60,
+  "openCases": 104,
+  "openNewOnboarding": 67,
   "openByStatus": [
     {
       "status": "Menu & Assets",
-      "count": 53
+      "count": 55
     },
     {
       "status": "Onboarding Qualify",
-      "count": 35
+      "count": 38
     },
     {
       "status": "Menu Update",
@@ -22,15 +22,19 @@
   "openByRecordType": [
     {
       "recordType": "New Onboarding",
-      "count": 60
+      "count": 67
     },
     {
       "recordType": "Self Signup",
-      "count": 18
+      "count": 15
     },
     {
       "recordType": "Menu Update",
       "count": 11
+    },
+    {
+      "recordType": "New Merchant Venue",
+      "count": 4
     },
     {
       "recordType": "Expansion",
@@ -38,10 +42,6 @@
     },
     {
       "recordType": "Reactivation",
-      "count": 3
-    },
-    {
-      "recordType": "New Merchant Venue",
       "count": 3
     }
   ],
@@ -54,12 +54,17 @@
     {
       "ownerId": "005Ts00000C6g2TIAR",
       "name": "shanelei abelende",
-      "count": 14
+      "count": 16
     },
     {
       "ownerId": "00GTs000000wXy5MAE",
       "name": "Romania",
       "count": 11
+    },
+    {
+      "ownerId": "005Qs00000L3GXBIA3",
+      "name": "MohammadOmar HadjiTaha",
+      "count": 8
     },
     {
       "ownerId": "005Ts00000C6gIeIAJ",
@@ -72,14 +77,9 @@
       "count": 8
     },
     {
-      "ownerId": "005Ts00000FDPj8IAH",
-      "name": "JericoAngelo Marcelo",
-      "count": 7
-    },
-    {
       "ownerId": "005Qs00000LaNYHIA3",
       "name": "MariAnn Ignacio",
-      "count": 6
+      "count": 7
     },
     {
       "ownerId": "005Ts00000FDUu5IAH",
@@ -87,24 +87,24 @@
       "count": 6
     },
     {
-      "ownerId": "005Qs00000L3GddIAF",
-      "name": "TrishaJane Plopinio",
-      "count": 6
+      "ownerId": "005Qs00000LaMKUIA3",
+      "name": "Vhictoria Inton",
+      "count": 5
     },
     {
-      "ownerId": "005Qs00000L3GXBIA3",
-      "name": "MohammadOmar HadjiTaha",
+      "ownerId": "005Ts00000FDPj8IAH",
+      "name": "JericoAngelo Marcelo",
+      "count": 5
+    },
+    {
+      "ownerId": "005Qs00000L3GddIAF",
+      "name": "TrishaJane Plopinio",
       "count": 4
     },
     {
       "ownerId": "005Ts000001Ak10IAC",
       "name": "Silviu-Mihnea Voicu",
       "count": 4
-    },
-    {
-      "ownerId": "005Qs00000LaMKUIA3",
-      "name": "Vhictoria Inton",
-      "count": 3
     },
     {
       "ownerId": "005Ts00000C6gIbIAJ",
@@ -124,6 +124,105 @@
   ],
   "records": [
     {
+      "id": "500Qs00000m81ZeIAI",
+      "caseNumber": "00067820",
+      "subject": "Ana si Ion Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Qs00000L3GXBIA3",
+      "ownerName": "MohammadOmar HadjiTaha",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000m86FxIAI",
+      "caseNumber": "00067818",
+      "subject": "Faire Gicler Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000L3GXBIA3",
+      "ownerName": "MohammadOmar HadjiTaha",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000m7h6LIAQ",
+      "caseNumber": "00067809",
+      "subject": "La TINE - Traditional Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Qs00000LaMKUIA3",
+      "ownerName": "Vhictoria Inton",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000m7jRUIAY",
+      "caseNumber": "00067806",
+      "subject": "Casa Ghincea Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Qs00000LaMKUIA3",
+      "ownerName": "Vhictoria Inton",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000m7p70IAA",
+      "caseNumber": "00067801",
+      "subject": "Flori-Boutique Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000m7nwUIAQ",
+      "caseNumber": "00067795",
+      "subject": "Burger King Drumul Taberelor Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000C6g2TIAR",
+      "ownerName": "shanelei abelende",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000m7raLIAQ",
+      "caseNumber": "00067794",
+      "subject": "Gratar La Palat Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Ts00000FDUu5IAH",
+      "ownerName": "MarkLouie Lumio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000m7i0mIAA",
+      "caseNumber": "00067792",
+      "subject": "Restaurant Bulevard Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "005Qs00000LaNYHIA3",
+      "ownerName": "MariAnn Ignacio",
+      "recordType": "New Onboarding"
+    },
+    {
+      "id": "500Qs00000m7Pe8IAE",
+      "caseNumber": "00067784",
+      "subject": "Tutungeria ta Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000L3GXBIA3",
+      "ownerName": "MohammadOmar HadjiTaha",
+      "recordType": "Self Signup"
+    },
+    {
+      "id": "500Qs00000m6vJsIAI",
+      "caseNumber": "00067782",
+      "subject": "Plăcintărescu Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000L3GXBIA3",
+      "ownerName": "MohammadOmar HadjiTaha",
+      "recordType": "New Merchant Venue"
+    },
+    {
+      "id": "500Qs00000m6uNXIAY",
+      "caseNumber": "00067773",
+      "subject": "Four Star Pizza Delivery Onboarding",
+      "status": "Menu & Assets",
+      "ownerId": "005Qs00000L3GXBIA3",
+      "ownerName": "MohammadOmar HadjiTaha",
+      "recordType": "New Onboarding"
+    },
+    {
       "id": "500Qs00000m6juzIAA",
       "caseNumber": "00067756",
       "subject": "Vero Pizza Onboarding",
@@ -133,19 +232,10 @@
       "recordType": "Self Signup"
     },
     {
-      "id": "500Qs00000m75c1IAA",
-      "caseNumber": "00067753",
-      "subject": "Rocca Grill Onboarding",
-      "status": "Onboarding Qualify",
-      "ownerId": "005Ts00000FDPj8IAH",
-      "ownerName": "JericoAngelo Marcelo",
-      "recordType": "Self Signup"
-    },
-    {
       "id": "500Qs00000m6XdhIAE",
       "caseNumber": "00067748",
       "subject": "Brasseria 1848 Onboarding",
-      "status": "Onboarding Qualify",
+      "status": "Menu & Assets",
       "ownerId": "005Ts00000FDUu5IAH",
       "ownerName": "MarkLouie Lumio",
       "recordType": "Self Signup"
@@ -190,7 +280,7 @@
       "id": "500Qs00000m4qu2IAA",
       "caseNumber": "00067709",
       "subject": "Zeyn Noire Onboarding",
-      "status": "Onboarding Qualify",
+      "status": "Menu & Assets",
       "ownerId": "005Qs00000L3GXBIA3",
       "ownerName": "MohammadOmar HadjiTaha",
       "recordType": "Self Signup"
@@ -199,7 +289,7 @@
       "id": "500Qs00000m4eMhIAI",
       "caseNumber": "00067707",
       "subject": "Ca Odinioară Onboarding",
-      "status": "Onboarding Qualify",
+      "status": "Menu & Assets",
       "ownerId": "005Qs00000LaMKUIA3",
       "ownerName": "Vhictoria Inton",
       "recordType": "Self Signup"
@@ -268,15 +358,6 @@
       "recordType": "New Onboarding"
     },
     {
-      "id": "500Qs00000m22tZIAQ",
-      "caseNumber": "00067556",
-      "subject": "Bottega Sensoria Onboarding",
-      "status": "Menu & Assets",
-      "ownerId": "005Qs00000L3GddIAF",
-      "ownerName": "TrishaJane Plopinio",
-      "recordType": "Self Signup"
-    },
-    {
       "id": "500Qs00000lyxi7IAA",
       "caseNumber": "00067534",
       "subject": "In House Pastrami & More Rosetti Onboarding",
@@ -286,24 +367,6 @@
       "recordType": "Reactivation"
     },
     {
-      "id": "500Qs00000lwwGoIAI",
-      "caseNumber": "00067518",
-      "subject": "El Patron Kebap Onboarding",
-      "status": "Menu & Assets",
-      "ownerId": "005Ts00000FDUu5IAH",
-      "ownerName": "MarkLouie Lumio",
-      "recordType": "New Onboarding"
-    },
-    {
-      "id": "500Qs00000lwSsPIAU",
-      "caseNumber": "00067492",
-      "subject": "Coba Onboarding",
-      "status": "Menu & Assets",
-      "ownerId": "005Qs00000L3GXBIA3",
-      "ownerName": "MohammadOmar HadjiTaha",
-      "recordType": "New Onboarding"
-    },
-    {
       "id": "500Qs00000lwKl0IAE",
       "caseNumber": "00067489",
       "subject": "Al Dente Onboarding",
@@ -311,15 +374,6 @@
       "ownerId": "005Qs00000L3GXBIA3",
       "ownerName": "MohammadOmar HadjiTaha",
       "recordType": "New Onboarding"
-    },
-    {
-      "id": "500Qs00000lwWNqIAM",
-      "caseNumber": "00067473",
-      "subject": "Pizza Venezia Onboarding",
-      "status": "Menu & Assets",
-      "ownerId": "005Qs00000L3GddIAF",
-      "ownerName": "TrishaJane Plopinio",
-      "recordType": "Self Signup"
     },
     {
       "id": "500Qs00000lv0LKIAY",
@@ -338,15 +392,6 @@
       "ownerId": "005Qs00000LaNYHIA3",
       "ownerName": "MariAnn Ignacio",
       "recordType": "New Onboarding"
-    },
-    {
-      "id": "500Qs00000lsMRuIAM",
-      "caseNumber": "00067356",
-      "subject": "Neo Napoletana Pizzeria Onboarding",
-      "status": "Menu & Assets",
-      "ownerId": "005Ts00000FDPj8IAH",
-      "ownerName": "JericoAngelo Marcelo",
-      "recordType": "Self Signup"
     },
     {
       "id": "500Qs00000lrF13IAE",
