@@ -1,7 +1,123 @@
 {
-  "totalSize": 990,
+  "totalSize": 997,
   "done": true,
   "records": [
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jE7xPIAS"
+      },
+      "Id": "006Qs00000jE7xPIAS",
+      "Name": "Pizza Benitto",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-06-17T07:48:34.000+0000",
+      "LastModifiedDate": "2026-06-17T07:48:36.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000pn9rJIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pn9rJIAQ"
+        },
+        "Name": "Pizza Benitto",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jDtPnIAK"
+      },
+      "Id": "006Qs00000jDtPnIAK",
+      "Name": "Tasty Fast Food",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-06-17T07:45:10.000+0000",
+      "LastModifiedDate": "2026-06-17T07:45:12.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000pnRLDIA2",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pnRLDIA2"
+        },
+        "Name": "Tasty Fast Food",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jDrHeIAK"
+      },
+      "Id": "006Qs00000jDrHeIAK",
+      "Name": "Chicken House",
+      "StageName": "First Pitch",
+      "CreatedDate": "2026-06-17T07:30:36.000+0000",
+      "LastModifiedDate": "2026-06-17T07:30:48.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000pnRhgIAE",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pnRhgIAE"
+        },
+        "Name": "Chicken House",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jE0caIAC"
+      },
+      "Id": "006Qs00000jE0caIAC",
+      "Name": "Seven One One",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-06-17T07:15:11.000+0000",
+      "LastModifiedDate": "2026-06-17T07:15:11.000+0000",
+      "CloseDate": "2026-06-24",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Ts00000HLw9FIAT",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000HLw9FIAT"
+        },
+        "Name": "Seven One One",
+        "BillingCity": null
+      }
+    },
     {
       "attributes": {
         "type": "Opportunity",
@@ -666,6 +782,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000pM5QJIA0"
         },
         "Name": "Flora Restaurant",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ixUVPIA2"
+      },
+      "Id": "006Qs00000ixUVPIA2",
+      "Name": "La Cratita Vesela",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-10T15:04:36.000+0000",
+      "LastModifiedDate": "2026-06-17T08:30:40.000+0000",
+      "CloseDate": "2026-06-17",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtZV3IAN"
+        },
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000pJCePIAW",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pJCePIAW"
+        },
+        "Name": "La Cratita Vesela",
         "BillingCity": null
       }
     },
@@ -1391,6 +1536,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000p6n0fIAA"
         },
         "Name": "Origini Cluj Napoca",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000itHF0IAM"
+      },
+      "Id": "006Qs00000itHF0IAM",
+      "Name": "Pizza Venezia",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-09T10:11:33.000+0000",
+      "LastModifiedDate": "2026-06-17T08:32:19.000+0000",
+      "CloseDate": "2026-06-17",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000l92MHIAY",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000l92MHIAY"
+        },
+        "Name": "Pizza Venezia",
         "BillingCity": null
       }
     },
@@ -2319,6 +2493,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000owMOMIA2"
         },
         "Name": "Tokyo Ramen",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ihGWRIA2"
+      },
+      "Id": "006Qs00000ihGWRIA2",
+      "Name": "Casa Mia",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-04T08:24:19.000+0000",
+      "LastModifiedDate": "2026-06-17T08:30:50.000+0000",
+      "CloseDate": "2026-06-17",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Qs00000ovnLpIAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000ovnLpIAI"
+        },
+        "Name": "Casa Mia",
         "BillingCity": null
       }
     },
@@ -4147,35 +4350,6 @@
         },
         "Name": "Larz Bistro",
         "BillingCity": "Timisoara"
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000iBqBeIAK"
-      },
-      "Id": "006Qs00000iBqBeIAK",
-      "Name": "Piccolino-",
-      "StageName": "New Opportunity",
-      "CreatedDate": "2026-05-22T14:37:38.000+0000",
-      "LastModifiedDate": "2026-06-16T07:47:56.000+0000",
-      "CloseDate": "2026-06-30",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
-        },
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000oBui2IAC",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000oBui2IAC"
-        },
-        "Name": "Piccolino",
-        "BillingCity": null
       }
     },
     {
@@ -7568,6 +7742,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000nkchHIAQ"
         },
         "Name": "Casa Oprescu",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000hsBVdIAM"
+      },
+      "Id": "006Qs00000hsBVdIAM",
+      "Name": "Master Truck A/S",
+      "StageName": "Activated",
+      "CreatedDate": "2026-05-15T11:38:19.000+0000",
+      "LastModifiedDate": "2026-06-17T08:30:27.000+0000",
+      "CloseDate": "2026-06-17",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000njyiPIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000njyiPIAQ"
+        },
+        "Name": "Master Truck A/S",
         "BillingCity": null
       }
     },
