@@ -1,7 +1,123 @@
 {
-  "totalSize": 997,
+  "totalSize": 1005,
   "done": true,
   "records": [
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jIfcIIAS"
+      },
+      "Id": "006Qs00000jIfcIIAS",
+      "Name": "PAFFET",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-06-18T09:40:52.000+0000",
+      "LastModifiedDate": "2026-06-18T09:40:52.000+0000",
+      "CloseDate": "2026-06-25",
+      "OwnerId": "005Ts000001Ak10IAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000001Ak10IAC"
+        },
+        "Name": "Silviu-Mihnea Voicu"
+      },
+      "AccountId": "001Qs00000nk47gIAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000nk47gIAA"
+        },
+        "Name": "PAFFET",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jG0F5IAK"
+      },
+      "Id": "006Qs00000jG0F5IAK",
+      "Name": "Bistro Felix",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-06-17T14:10:28.000+0000",
+      "LastModifiedDate": "2026-06-17T14:12:00.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000ppHELIA2",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000ppHELIA2"
+        },
+        "Name": "Bistro Felix",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jFzNsIAK"
+      },
+      "Id": "006Qs00000jFzNsIAK",
+      "Name": "Cuptorul Boieresc",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-06-17T14:04:00.000+0000",
+      "LastModifiedDate": "2026-06-17T14:06:55.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000ppFvhIAE",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000ppFvhIAE"
+        },
+        "Name": "Cuptorul Boieresc",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jFpl5IAC"
+      },
+      "Id": "006Qs00000jFpl5IAC",
+      "Name": "Tres Dedos",
+      "StageName": "New Opportunity",
+      "CreatedDate": "2026-06-17T13:36:44.000+0000",
+      "LastModifiedDate": "2026-06-17T13:53:52.000+0000",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000pooZ0IAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pooZ0IAI"
+        },
+        "Name": "Tres Dedos",
+        "BillingCity": null
+      }
+    },
     {
       "attributes": {
         "type": "Opportunity",
@@ -127,7 +243,7 @@
       "Name": "AM PM Pub",
       "StageName": "New Opportunity",
       "CreatedDate": "2026-06-16T11:54:20.000+0000",
-      "LastModifiedDate": "2026-06-16T11:54:20.000+0000",
+      "LastModifiedDate": "2026-06-18T06:30:02.000+0000",
       "CloseDate": "2026-06-23",
       "OwnerId": "005Ts000002AWIQIA4",
       "Owner": {
@@ -144,7 +260,7 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000owzsoIAA"
         },
         "Name": "AM PM Pub",
-        "BillingCity": "Satu Mare"
+        "BillingCity": null
       }
     },
     {
@@ -156,7 +272,7 @@
       "Name": "Fast Food Oli",
       "StageName": "New Opportunity",
       "CreatedDate": "2026-06-16T07:44:20.000+0000",
-      "LastModifiedDate": "2026-06-16T07:44:22.000+0000",
+      "LastModifiedDate": "2026-06-17T15:40:22.000+0000",
       "CloseDate": "2026-06-30",
       "OwnerId": "005Ts000002AX4nIAG",
       "Owner": {
@@ -301,7 +417,7 @@
       "Name": "VATRUSHKA",
       "StageName": "New Opportunity",
       "CreatedDate": "2026-06-16T07:15:26.000+0000",
-      "LastModifiedDate": "2026-06-16T07:15:26.000+0000",
+      "LastModifiedDate": "2026-06-17T18:16:14.000+0000",
       "CloseDate": "2026-06-23",
       "OwnerId": "005Ts000002AWIQIA4",
       "Owner": {
@@ -318,6 +434,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000p7RHSIA2"
         },
         "Name": "VATRUSHKA",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000j8gg6IAA"
+      },
+      "Id": "006Qs00000j8gg6IAA",
+      "Name": "Four Star Pizza Delivery",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-15T13:46:44.000+0000",
+      "LastModifiedDate": "2026-06-18T08:32:41.000+0000",
+      "CloseDate": "2026-06-18",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtX53IAF"
+        },
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts000007852aIAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000007852aIAA"
+        },
+        "Name": "Four Star Pizza Delivery",
         "BillingCity": null
       }
     },
@@ -405,6 +550,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000pRONRIA4"
         },
         "Name": "Cin Cin by Risto",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000izz6tIAA"
+      },
+      "Id": "006Qs00000izz6tIAA",
+      "Name": "Neo Napoletana Pizzeria",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-11T12:31:44.000+0000",
+      "LastModifiedDate": "2026-06-18T08:30:23.000+0000",
+      "CloseDate": "2026-06-18",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000oyX7aIAE",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000oyX7aIAE"
+        },
+        "Name": "Neo Napoletana Pizzeria",
         "BillingCity": null
       }
     },
@@ -2145,6 +2319,35 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000pBy3YIAS"
         },
         "Name": "Dulciurile Vanesei",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000isVIQIA2"
+      },
+      "Id": "006Qs00000isVIQIA2",
+      "Name": "Metaphor Coffee Roasters",
+      "StageName": "Activated",
+      "CreatedDate": "2026-06-09T06:50:39.000+0000",
+      "LastModifiedDate": "2026-06-18T08:31:01.000+0000",
+      "CloseDate": "2026-06-18",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000002AWIQIA4"
+        },
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000pBwUnIAK",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pBwUnIAK"
+        },
+        "Name": "Metaphor Coffee Roasters",
         "BillingCity": null
       }
     },
@@ -5481,6 +5684,35 @@
         },
         "Name": "Shish Shaorma & Kebab",
         "BillingCity": "Sibiu"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000i4xg8IAA"
+      },
+      "Id": "006Qs00000i4xg8IAA",
+      "Name": "SMASH BURGER POINT",
+      "StageName": "Activated",
+      "CreatedDate": "2026-05-20T14:45:55.000+0000",
+      "LastModifiedDate": "2026-06-18T08:30:44.000+0000",
+      "CloseDate": "2026-06-18",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Qs00000o16l0IAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000o16l0IAA"
+        },
+        "Name": "SMASH BURGER POINT",
+        "BillingCity": null
       }
     },
     {
@@ -11058,10 +11290,10 @@
       },
       "Id": "006Qs00000hAe3SIAS",
       "Name": "Super Mama Oituz",
-      "StageName": "New Opportunity",
+      "StageName": "Activated",
       "CreatedDate": "2026-04-28T10:27:48.000+0000",
-      "LastModifiedDate": "2026-05-28T11:24:34.000+0000",
-      "CloseDate": "2026-06-30",
+      "LastModifiedDate": "2026-06-18T08:30:04.000+0000",
+      "CloseDate": "2026-06-18",
       "OwnerId": "005Ts000005c4hFIAQ",
       "Owner": {
         "attributes": {
@@ -11076,7 +11308,7 @@
           "type": "Account",
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000mmhqPIAQ"
         },
-        "Name": "Super Mama Oituz",
+        "Name": "Super Mama",
         "BillingCity": "SIBIU"
       }
     },
