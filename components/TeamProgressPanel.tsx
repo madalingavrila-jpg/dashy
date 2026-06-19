@@ -333,14 +333,7 @@ function AgentRowsTable({
               >
                 <td className="px-md py-sm">
                   <div className="flex flex-wrap items-center gap-xs">
-                    <Link
-                      href={agent.accountsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-semibold text-primary hover:underline"
-                    >
-                      {agent.name}
-                    </Link>
+                    <span className="font-semibold text-on-surface">{agent.name}</span>
                     {agent.targetPaused ? <PauseBadge /> : null}
                   </div>
                 </td>
@@ -427,14 +420,7 @@ function AgentRowsTable({
             >
               <td className={cellPad}>
                 <div className="flex flex-wrap items-center gap-xs">
-                  <Link
-                    href={agent.accountsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-primary hover:underline"
-                  >
-                    {agent.name}
-                  </Link>
+                  <span className="font-semibold text-on-surface">{agent.name}</span>
                   <span
                     className={`rounded-full px-xs py-[2px] text-[10px] font-bold uppercase ${agent.segmentColor}`}
                   >
