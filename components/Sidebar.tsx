@@ -10,7 +10,6 @@ const navItems = [
   { icon: "calendar_view_week", label: "Weekly", href: "/weekly" },
   { icon: "flag", label: "MTD & Tiers", href: "/mtd" },
   { icon: "compare_arrows", label: "WoW Reports", href: "/wow" },
-  { icon: "priority_high", label: "Hitlist", href: "/hitlist" },
   { icon: "storefront", label: "Accounts performance", href: "/accounts-performance" },
   { icon: "support_agent", label: "MOPS", href: "/mops" },
 ];

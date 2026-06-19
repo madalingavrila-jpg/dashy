@@ -42,5 +42,4 @@ Stitch project `6890101916617207787` exports SPA shells only (auth required) —
 | MTD & Tiers Tracking | `/mtd` | MtdShell |
 | WoW Reports Builder | `/wow` | WowShell |
 | Accounts Management | `/accounts` | AccountsShell |
-| Hitlist Priority List | `/hitlist` | HitlistShell |
 | Settings & Admin | `/settings` | SettingsShell |

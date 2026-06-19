@@ -201,7 +201,7 @@ export function AccountsPerformanceShell() {
                 type="button"
                 onClick={() => setMonthChoice(m.month)}
                 className={`flex flex-1 flex-col items-center gap-xs rounded-lg p-xs transition-colors hover:bg-surface-container-low ${
-                  active ? "ring-2 ring-primary/50" : ""
+                  active ? "ring-2 ring-won/50" : ""
                 }`}
               >
                 <span className="text-label-md font-semibold text-on-surface">
@@ -209,7 +209,7 @@ export function AccountsPerformanceShell() {
                 </span>
                 <div className="flex w-full items-end justify-center" style={{ height: 110 }}>
                   <div
-                    className={`w-10 rounded-t ${active ? "bg-primary" : "bg-primary/55"}`}
+                    className={`w-10 rounded-t ${active ? "bg-won" : "bg-won/55"}`}
                     style={{ height: `${Math.max(6, (m.gmv / maxMonthGmv) * 100)}%` }}
                     title={`${monthLabel(m.month)} · GMV ${formatEur(m.gmv)} · ${formatInteger(
                       m.orders,

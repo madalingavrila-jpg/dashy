@@ -172,7 +172,7 @@ export function AccountsPerformanceTable({
                   <td className="px-md py-sm">
                     <div className="flex flex-col items-end gap-xs">
                       <div className="flex items-center justify-end gap-sm">
-                        <Sparkline points={account.sparkline} />
+                        <Sparkline points={account.sparkline} colorClass="text-won" />
                         <span className="w-20 text-right text-body-md font-semibold text-on-surface">
                           {formatEur(account.totalGmv)}
                         </span>

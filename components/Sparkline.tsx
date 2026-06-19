@@ -7,7 +7,7 @@ type SparklineProps = {
   width?: number;
   height?: number;
   className?: string;
-  /** Tailwind stroke color class, e.g. "text-primary". */
+  /** Tailwind stroke color class, e.g. "text-won" (Bolt green). */
   colorClass?: string;
 };
 
@@ -20,7 +20,7 @@ export function Sparkline({
   width = 96,
   height = 28,
   className = "",
-  colorClass = "text-primary",
+  colorClass = "text-won",
 }: SparklineProps) {
   const values = points.map((p) => p.value);
   const pad = 2;
@@ -63,8 +63,7 @@ export function Sparkline({
     coords.map((c) => `L${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(" ") +
     ` L${coords[coords.length - 1].x.toFixed(1)},${(height - pad).toFixed(1)} Z`;
   const last = coords[coords.length - 1];
-  const rising = values[values.length - 1] >= values[0];
-  const tone = rising ? colorClass : "text-error";
+  const tone = colorClass;
 
   return (
     <svg

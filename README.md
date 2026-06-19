@@ -38,7 +38,6 @@ Each page fetches only the sections it needs; falls back to `/api/dashboard` if 
 | `/mtd` | MTD & Tiers Tracking |
 | `/wow` | WoW Reports (read-only from JSON) |
 | `/accounts` | Accounts (Won / Activated / backlog) |
-| `/hitlist` | Hitlist Priority List |
 | `/settings` | Settings & Admin (read-only) |
 
 ## Getting started
