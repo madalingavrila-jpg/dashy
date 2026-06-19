@@ -145,7 +145,7 @@ export function AccountsPerformanceShell() {
       label: "Commission",
       value: formatEurCompact(totals.commission),
       icon: "percent",
-      hint: "Salesforce commission (Opportunity.Commission__c rate × gross GMV), summed across accounts that have a SF commission rate",
+      hint: "Commission summed across accounts: Salesforce rate (Opportunity.Commission__c) × gross GMV, or the actual Databricks commission when an account has no SF rate",
     },
     {
       label: "AOV gross",

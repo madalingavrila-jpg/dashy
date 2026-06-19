@@ -62,9 +62,24 @@ function pctStr(value: number | null | undefined, digits = 1): string {
   return value == null ? "—" : `${value.toFixed(digits)}%`;
 }
 
-/** Commission percentage = the Salesforce negotiated rate (Opportunity.Commission__c). */
+/**
+ * Effective commission % shown in the table: the Salesforce negotiated rate
+ * (Opportunity.Commission__c) when present, else the Databricks-derived rate
+ * (actual commission ÷ gross GMV).
+ */
 function commissionPctOf(account: AccountsPerformanceAccount): number | null {
-  return account.commissionRatePct ?? null;
+  return account.commissionPct ?? account.commissionRatePct ?? null;
+}
+
+/** Subtle source marker for the commission cell: SF rate vs Databricks actual. */
+function commissionSourceMark(
+  account: AccountsPerformanceAccount,
+): { label: string; title: string } | null {
+  if (account.commissionSource === "databricks")
+    return { label: "DB", title: "actual (Databricks)" };
+  if (account.commissionSource === "salesforce")
+    return { label: "SF", title: "from Salesforce rate" };
+  return null;
 }
 
 /** Compact euro (e.g. €1.2k) for dense trend/launch cells. */
@@ -196,7 +211,7 @@ function sortValue(
     case "commission":
       return month ? month.commission : null;
     case "commissionPct":
-      return account.commissionRatePct ?? null;
+      return commissionPctOf(account);
     case "rating":
       return account.quality?.rating ?? null;
     case "availability":
@@ -346,7 +361,7 @@ export function AccountsPerformanceTable({
         </span>
         <span>GMV = before-discount GMV</span>
         <span>AOV = gross GMV ÷ delivered orders</span>
-        <span>Commission % = Salesforce rate (Commission__c); € = rate × gross GMV</span>
+        <span>Commission = Salesforce rate (Commission__c) × gross GMV; falls back to actual Databricks commission (DB) when no SF rate</span>
         <span className="opacity-70">net (after-discount) GMV &amp; discount shown per account on expand</span>
       </div>
       <table className="w-full table-fixed border-collapse text-left text-[13px]">
@@ -429,7 +444,7 @@ export function AccountsPerformanceTable({
             />
             <th
               className={numTh}
-              title={`Commission € (Salesforce rate × gross GMV) and the Salesforce negotiated commission rate (Opportunity.Commission__c) · ${monthLabel(selectedMonth)}`}
+              title={`Commission € (Salesforce rate × gross GMV, or actual Databricks commission when no SF rate) and the effective commission % · ${monthLabel(selectedMonth)}`}
               aria-sort={
                 sort.key === "commission" || sort.key === "commissionPct"
                   ? sort.dir === "asc"
@@ -469,9 +484,9 @@ export function AccountsPerformanceTable({
                   className={`group/sort inline-flex items-center gap-[1px] rounded transition-colors hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
                     sort.key === "commissionPct" ? "text-on-surface" : ""
                   }`}
-                  title="Sort by Salesforce commission rate (Opportunity.Commission__c)"
+                  title="Sort by effective commission % (Salesforce rate, or Databricks actual when no SF rate)"
                 >
-                  <span>% SF</span>
+                  <span>%</span>
                   <span
                     className={`material-symbols-outlined text-[14px] ${
                       sort.key === "commissionPct"
@@ -605,22 +620,40 @@ export function AccountsPerformanceTable({
                   </td>
                   <td
                     className="px-xs py-xs text-right align-top"
-                    title={
-                      hasMonth
-                        ? `${month!.commission != null ? formatEur(month!.commission) : "no Salesforce commission rate"}` +
-                          `${
-                            account.commissionRatePct != null
-                              ? ` · Salesforce commission rate ${pctStr(account.commissionRatePct)} (Commission__c) × gross GMV`
-                              : ""
-                          }`
-                        : undefined
-                    }
+                    title={(() => {
+                      const eur =
+                        hasMonth && month!.commission != null
+                          ? formatEur(month!.commission)
+                          : "no commission";
+                      if (account.commissionSource === "salesforce")
+                        return `${eur} · Salesforce rate ${pctStr(account.commissionRatePct)} (Commission__c) × gross GMV`;
+                      if (account.commissionSource === "databricks")
+                        return `${eur} · actual commission (Databricks), no Salesforce rate · ${pctStr(
+                          account.commissionPct,
+                        )} of gross GMV`;
+                      return "No Salesforce rate and no Databricks commission";
+                    })()}
                   >
                     <span className="block font-semibold text-on-surface">
                       {hasMonth && month!.commission != null ? eurShort(month!.commission) : "—"}
                     </span>
                     <span className="block text-[11px] text-on-surface-variant">
                       {pctStr(commissionPctOf(account))}
+                      {(() => {
+                        const mark = commissionSourceMark(account);
+                        return mark ? (
+                          <span
+                            className={`ml-[2px] align-top text-[8px] font-bold ${
+                              account.commissionSource === "databricks"
+                                ? "text-amber-600"
+                                : "opacity-40"
+                            }`}
+                            title={mark.title}
+                          >
+                            {mark.label}
+                          </span>
+                        ) : null;
+                      })()}
                     </span>
                   </td>
                   <td className="px-xs py-xs text-right align-top">
@@ -787,24 +820,34 @@ export function AccountsPerformanceTable({
                                 hint="Gross GMV ÷ delivered orders"
                               />
                               <DetailStat
-                                label="Commission"
+                                label={
+                                  account.commissionSource === "databricks"
+                                    ? "Commission (DB)"
+                                    : "Commission"
+                                }
                                 value={
                                   account.totalCommission != null
                                     ? formatEur(account.totalCommission)
                                     : "—"
                                 }
                                 hint={
-                                  account.commissionRatePct != null
+                                  account.commissionSource === "salesforce"
                                     ? `Salesforce commission rate ${pctStr(
                                         account.commissionRatePct,
                                       )} (Opportunity.Commission__c) × gross GMV`
-                                    : "No Salesforce commission rate on the activation opportunity"
+                                    : account.commissionSource === "databricks"
+                                      ? "Actual commission from Databricks (no Salesforce rate on the activation opportunity)"
+                                      : "No Salesforce rate and no Databricks commission"
                                 }
                               />
                               <DetailStat
                                 label="Commission %"
-                                value={pctStr(account.commissionRatePct)}
-                                hint="Salesforce negotiated rate (Opportunity.Commission__c)"
+                                value={pctStr(commissionPctOf(account))}
+                                hint={
+                                  account.commissionSource === "databricks"
+                                    ? "Databricks actual commission ÷ gross GMV (no Salesforce rate)"
+                                    : "Salesforce negotiated rate (Opportunity.Commission__c)"
+                                }
                               />
                               {account.totalGmvNet != null ? (
                                 <DetailStat

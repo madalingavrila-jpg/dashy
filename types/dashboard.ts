@@ -342,7 +342,8 @@ export type AccountsPerformanceMonth = {
   orders: number;
   /** Gross AOV = gross GMV ÷ delivered orders. */
   aov: number;
-  /** Commission € = SF commission rate × gross GMV; null when SF has no rate. */
+  /** Commission € — SF rate × gross GMV, or the Databricks actual commission as
+   * fallback; null only when neither source has a value. */
   commission: number | null;
   /** NET GMV after discounts — context only, never used for headline figures. */
   gmvNet?: number | null;
@@ -385,7 +386,8 @@ export type AccountsPerformanceAccount = {
   /** GROSS GMV (before discounts), launch → date. */
   totalGmv: number;
   totalOrders: number;
-  /** Commission € = SF rate × gross GMV (launch → date); null when no SF rate. */
+  /** Commission € (launch → date) — SF rate × gross GMV, or the Databricks actual
+   * commission as fallback; null only when neither source has a value. */
   totalCommission: number | null;
   /** NET GMV (after discounts), launch → date — context only. */
   totalGmvNet?: number;
@@ -393,6 +395,11 @@ export type AccountsPerformanceAccount = {
   totalDiscount?: number;
   /** Salesforce negotiated commission rate (Opportunity.Commission__c, %); null if unset. */
   commissionRatePct?: number | null;
+  /** Effective commission % for display/sort: the SF rate when present, else the
+   * Databricks-derived rate (actual commission ÷ gross GMV). Null when neither. */
+  commissionPct?: number | null;
+  /** Source of the commission figure: SF negotiated rate vs Databricks actual. */
+  commissionSource?: "salesforce" | "databricks" | null;
   aov: number;
   quality?: AccountsPerformanceQuality;
 };
@@ -447,8 +454,14 @@ export type AccountsPerformance = {
     discount?: number;
     orders: number;
     commission: number;
-    /** Number of accounts that have a Salesforce commission rate. */
+    /** Number of accounts with any commission value (SF rate or Databricks fallback). */
     accountsWithCommission?: number;
+    /** Accounts whose commission comes from the Salesforce rate (Commission__c). */
+    accountsWithSfRate?: number;
+    /** Accounts that fell back to the Databricks actual commission (no SF rate). */
+    accountsWithDbFallback?: number;
+    /** Accounts with no commission from either source (show “—”). */
+    accountsWithoutCommission?: number;
     aov: number;
     quality?: AccountsPerformanceQualityTotals;
   };
