@@ -147,10 +147,9 @@ function CollapseBlock({
   );
 }
 
-function RepSection({ rep, loading, defaultOpen = false }: { rep: InboundRep; loading?: boolean; defaultOpen?: boolean }) {
+function RepSection({ rep, loading }: { rep: InboundRep; loading?: boolean }) {
   const ap = rep.accountsPerformance;
   const months = useMemo(() => ap.byMonth.map((m) => m.month), [ap]);
-  const [open, setOpen] = useState(defaultOpen);
   const [monthChoice, setMonthChoice] = useState<string>("");
   const selectedMonth =
     monthChoice && months.includes(monthChoice)
@@ -180,99 +179,88 @@ function RepSection({ rep, loading, defaultOpen = false }: { rep: InboundRep; lo
   const hasMtdItems = rep.mtd.wonItems.length > 0 || rep.mtd.activatedItems.length > 0;
 
   return (
-    <section className="rounded-2xl border border-outline-variant bg-surface-container-lowest">
-      <button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        aria-expanded={open}
-        className="flex w-full flex-wrap items-center justify-between gap-sm rounded-2xl px-md py-sm text-left transition-colors hover:bg-primary-container/10"
-      >
-        <span className="flex min-w-0 items-center gap-sm">
-          <span
-            className={`material-symbols-outlined text-[22px] text-primary transition-transform ${
-              open ? "rotate-90" : ""
-            }`}
-            aria-hidden="true"
-          >
-            chevron_right
-          </span>
+    <section className="flex flex-col rounded-2xl border border-outline-variant bg-surface-container-lowest">
+      <div className="flex flex-wrap items-center justify-between gap-sm border-b border-outline-variant px-md py-sm">
+        <div className="flex min-w-0 items-center gap-sm">
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary-container/50 text-on-secondary-container">
             <span className="material-symbols-outlined text-[20px]">person</span>
           </span>
-          <span className="min-w-0">
-            <span className="block truncate text-title-md font-bold text-on-surface">{rep.name}</span>
-            <span className="block truncate text-[11px] text-on-surface-variant">{rep.email} · Inbound RO</span>
-          </span>
-        </span>
-        <span className="flex flex-wrap items-center gap-md">
-          {kpis.map((kpi) => (
-            <span key={kpi.label} className="text-right">
-              <span className="block text-[10px] font-semibold uppercase tracking-wide text-on-surface-variant">
-                {kpi.label}
-              </span>
-              <span className={`block text-title-md font-extrabold tabular-nums ${kpi.accent}`}>
-                {loading && !rep ? "…" : kpi.value}
-              </span>
-            </span>
-          ))}
-        </span>
-      </button>
-
-      {open ? (
-        <div className="space-y-sm border-t border-outline-variant px-md pb-md pt-md">
-          {hasMtdItems ? (
-            <div className="flex flex-col gap-sm rounded-xl border border-outline-variant bg-surface-container-low p-md md:flex-row md:gap-lg">
-              <MtdItemList title="Won this month" items={rep.mtd.wonItems} accent="text-won" />
-              <MtdItemList title="Activated this month" items={rep.mtd.activatedItems} accent="text-activated" />
-            </div>
-          ) : null}
-
-          <CollapseBlock title="Weekly performance" icon="show_chart" defaultOpen>
-            <WeeklyMetricsGrid metrics={weekMetrics} loading={loading} />
-            <WeeklyHistoryChart history={rep.weekly.history} loading={loading} />
-          </CollapseBlock>
-
-          <CollapseBlock title="Week over week" icon="compare_arrows">
-            <WowReportsList reports={[repWowReport(rep)]} loading={loading} />
-          </CollapseBlock>
-
-          <CollapseBlock
-            title="Accounts performance"
-            icon="storefront"
-            hint="activated last 90 days"
-          >
-            <div className="flex flex-wrap items-end justify-end gap-sm">
-              {months.length > 0 && (
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-semibold uppercase tracking-wide text-on-surface-variant">
-                    Month (table breakdown)
-                  </label>
-                  <select
-                    value={selectedMonth}
-                    onChange={(event) => setMonthChoice(event.target.value)}
-                    className="min-w-[160px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
-                  >
-                    {months.map((month) => (
-                      <option key={month} value={month}>
-                        {monthLabel(month)}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-            </div>
-            <AccountsPerformanceTable
-              accounts={accounts}
-              selectedMonth={selectedMonth}
-              monthLabel={monthLabel}
-              formatEur={formatEur}
-              formatInt={formatInteger}
-              dataMonthMax={ap.dataMonthMax}
-              loading={loading}
-            />
-          </CollapseBlock>
+          <div className="min-w-0">
+            <h3 className="truncate text-title-md font-bold text-on-surface">{rep.name}</h3>
+            <p className="truncate text-[11px] text-on-surface-variant">{rep.email} · Inbound RO</p>
+          </div>
         </div>
-      ) : null}
+        <span className="rounded-full bg-secondary-container/40 px-sm py-[2px] text-[10px] font-bold text-on-secondary-container">
+          Actuals only
+        </span>
+      </div>
+
+      <div className="grid grid-cols-2 gap-sm border-b border-outline-variant px-md py-sm sm:grid-cols-4">
+        {kpis.map((kpi) => (
+          <div key={kpi.label} className="rounded-lg bg-surface-container-low px-sm py-xs">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-on-surface-variant">
+              {kpi.label}
+            </p>
+            <p className={`text-title-md font-extrabold tabular-nums ${kpi.accent}`}>
+              {loading && !rep ? "…" : kpi.value}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="space-y-sm px-md py-sm">
+        {hasMtdItems ? (
+          <CollapseBlock title="Won / Activated this month" icon="emoji_events">
+            <MtdItemList title="Won this month" items={rep.mtd.wonItems} accent="text-won" />
+            <MtdItemList title="Activated this month" items={rep.mtd.activatedItems} accent="text-activated" />
+          </CollapseBlock>
+        ) : null}
+
+        <CollapseBlock title="Weekly performance" icon="show_chart" defaultOpen>
+          <WeeklyMetricsGrid metrics={weekMetrics} loading={loading} />
+          <WeeklyHistoryChart history={rep.weekly.history} loading={loading} />
+        </CollapseBlock>
+
+        <CollapseBlock title="Week over week" icon="compare_arrows">
+          <WowReportsList reports={[repWowReport(rep)]} loading={loading} />
+        </CollapseBlock>
+
+        <CollapseBlock
+          title="Accounts performance"
+          icon="storefront"
+          hint="activated last 90 days"
+        >
+          <div className="flex flex-wrap items-end justify-end gap-sm">
+            {months.length > 0 && (
+              <div className="flex flex-col gap-1">
+                <label className="text-[10px] font-semibold uppercase tracking-wide text-on-surface-variant">
+                  Month (table breakdown)
+                </label>
+                <select
+                  value={selectedMonth}
+                  onChange={(event) => setMonthChoice(event.target.value)}
+                  className="min-w-[160px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+                >
+                  {months.map((month) => (
+                    <option key={month} value={month}>
+                      {monthLabel(month)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
+          <AccountsPerformanceTable
+            accounts={accounts}
+            selectedMonth={selectedMonth}
+            monthLabel={monthLabel}
+            formatEur={formatEur}
+            formatInt={formatInteger}
+            dataMonthMax={ap.dataMonthMax}
+            loading={loading}
+          />
+        </CollapseBlock>
+      </div>
     </section>
   );
 }
@@ -296,7 +284,7 @@ export function InboundShell() {
     <div className="mx-auto max-w-[1500px] space-y-md">
       <PageHeader
         title="Inbound team"
-        subtitle="Ana-Maria Preda & Catalin Corbeanu — inbound RO, broken down per person. Expand a rep for weekly, WoW and accounts — actuals only."
+        subtitle="Ana-Maria Preda & Catalin Corbeanu — inbound RO, side by side. Expand weekly, WoW and accounts per rep — actuals only."
         updatedAt={inbound?.generatedAt ?? model?.updatedAt}
         loading={loading}
       />
@@ -329,9 +317,13 @@ export function InboundShell() {
         </div>
       )}
 
-      {(inbound?.reps ?? []).map((rep, index) => (
-        <RepSection key={rep.ownerId} rep={rep} loading={loading} defaultOpen={index === 0} />
-      ))}
+      {inbound && inbound.reps.length > 0 && (
+        <section className="grid grid-cols-1 gap-md xl:grid-cols-2 xl:items-start">
+          {inbound.reps.map((rep) => (
+            <RepSection key={rep.ownerId} rep={rep} loading={loading} />
+          ))}
+        </section>
+      )}
     </div>
   );
 }
