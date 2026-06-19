@@ -79,9 +79,14 @@ function parseFormattedInt(value: string): number {
   return Number.isFinite(n) ? n : 0;
 }
 
+/**
+ * True achievement percentage — NOT clamped at 100 so overachievement is
+ * surfaced (e.g. 12/10 → 120%). Progress bars cap their fill width at 100%
+ * visually, but the displayed number must reflect the real value.
+ */
 function progressPercent(actual: number, target: number): number {
   if (target <= 0) return actual > 0 ? 100 : 0;
-  return Math.min(100, Math.round((actual / target) * 100));
+  return Math.round((actual / target) * 100);
 }
 
 export type TargetConfigPersistence = {

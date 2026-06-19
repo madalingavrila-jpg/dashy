@@ -51,9 +51,10 @@ function asTargetConfig(config: WeeklyTargetConfig): TargetConfig {
   };
 }
 
+/** True achievement % — not clamped so weekly overachievement (>100%) shows. */
 function progressPercent(actual: number, target: number): number {
   if (target <= 0) return actual > 0 ? 100 : 0;
-  return Math.min(100, Math.round((actual / target) * 100));
+  return Math.round((actual / target) * 100);
 }
 
 function buildStatusViews(

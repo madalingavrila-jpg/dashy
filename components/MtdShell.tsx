@@ -3,6 +3,7 @@
 import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { MtdProgressCards, TierTrackingTable, MtdSummaryCards } from "@/components/MtdPanels";
+import { TeamProgressGrid } from "@/components/TeamProgressPanel";
 import { useDashboard } from "@/lib/useDashboard";
 
 export function MtdShell() {
@@ -38,6 +39,15 @@ export function MtdShell() {
       />
 
       <TierTrackingTable tiers={model?.mtdAchievement.tiers} loading={loading} />
+
+      <TeamProgressGrid
+        id="mtd-teams"
+        teams={model?.teamProgress}
+        month={model?.mtdAchievement.month}
+        loading={loading}
+        variant="detailed"
+        salesforceUrl={model?.salesforceInstanceUrl}
+      />
     </div>
   );
 }

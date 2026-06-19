@@ -50,6 +50,7 @@ export function OverviewShell() {
         loading={loading}
         variant="detailed"
         hero
+        salesforceUrl={model?.salesforceInstanceUrl}
       />
     </div>
   );

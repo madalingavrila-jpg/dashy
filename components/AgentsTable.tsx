@@ -11,12 +11,24 @@ type AgentsTableProps = {
 
 function progressBar(progress: number, accent: "won" | "activated") {
   const barColor = accent === "won" ? "bg-won" : "bg-activated";
+  const over = progress > 100;
+  const width = Math.min(100, progress);
   return (
     <div className="flex items-center gap-sm">
       <div className="h-2 w-16 overflow-hidden rounded-full bg-surface-container">
-        <div className={`h-full rounded-full ${barColor}`} style={{ width: `${progress}%` }} />
+        <div
+          className={`h-full rounded-full ${barColor} ${over ? "bar-over" : ""}`}
+          style={{ width: `${width}%` }}
+        />
       </div>
-      <span className="text-label-md text-on-surface-variant">{progress}%</span>
+      <span
+        className={`text-label-md tabular-nums ${
+          over ? "rounded-full badge-over px-xs font-bold" : "text-on-surface-variant"
+        }`}
+      >
+        {over ? "▲ " : ""}
+        {progress}%
+      </span>
     </div>
   );
 }

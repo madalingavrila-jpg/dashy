@@ -120,17 +120,22 @@ function StatusCard({ status }: { status: WeeklyStatusProgressView }) {
             </p>
             <span
               className={`rounded-full px-sm py-[2px] text-label-md font-bold tabular-nums ${
-                status.progress >= 100
-                  ? `${accentBarClass(status.accent)} text-white`
-                  : "bg-surface-container text-on-surface-variant"
+                status.progress > 100
+                  ? "badge-over"
+                  : status.progress >= 100
+                    ? `${accentBarClass(status.accent)} text-white`
+                    : "bg-surface-container text-on-surface-variant"
               }`}
             >
+              {status.progress > 100 ? "▲ " : ""}
               {status.progress}%
             </span>
           </div>
           <div className="mt-sm h-2 overflow-hidden rounded-full bg-surface-container">
             <div
-              className={`progress-bar h-full rounded-full ${accentBarClass(status.accent)}`}
+              className={`progress-bar h-full rounded-full ${accentBarClass(status.accent)} ${
+                status.progress > 100 ? "bar-over" : ""
+              }`}
               style={{ width: `${barWidth}%` }}
             />
           </div>
@@ -149,13 +154,19 @@ function AgentStatusMiniCell({ status }: { status: WeeklyStatusProgressView }) {
         <span className={`text-[10px] font-bold uppercase ${accentTextClass(status.accent)}`}>
           {status.label.slice(0, 3)}
         </span>
-        <span className="text-[10px] font-bold tabular-nums text-on-surface">
+        <span
+          className={`text-[10px] font-bold tabular-nums ${
+            status.progress > 100 ? "rounded-full badge-over px-[3px]" : "text-on-surface"
+          }`}
+        >
           {status.actual}/{status.target}
         </span>
       </div>
       <div className="h-1.5 overflow-hidden rounded-full bg-surface-container">
         <div
-          className={`h-full rounded-full ${accentBarClass(status.accent)}`}
+          className={`h-full rounded-full ${accentBarClass(status.accent)} ${
+            status.progress > 100 ? "bar-over" : ""
+          }`}
           style={{ width: `${barWidth}%` }}
         />
       </div>

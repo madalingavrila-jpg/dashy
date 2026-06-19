@@ -101,6 +101,8 @@ function ProgressCard({
   accent: "won" | "activated";
 }) {
   const barColor = accent === "won" ? "bg-won" : "bg-activated";
+  const over = progress > 100;
+  const width = Math.min(100, progress);
   return (
     <div className={`glass-card rounded-xl p-lg border-l-4 ${accent === "won" ? "border-l-won" : "border-l-activated"}`}>
       <p className="text-label-md font-label-md text-on-surface-variant">{month} · MTD only</p>
@@ -109,9 +111,21 @@ function ProgressCard({
         {actual} <span className="text-body-md font-normal text-on-surface-variant">/ {target}</span>
       </p>
       <div className="mt-md h-3 overflow-hidden rounded-full bg-surface-container">
-        <div className={`h-full rounded-full ${barColor}`} style={{ width: `${progress}%` }} />
+        <div
+          className={`h-full rounded-full ${barColor} ${over ? "bar-over" : ""}`}
+          style={{ width: `${width}%` }}
+        />
       </div>
-      <p className="mt-xs text-label-md font-label-md text-on-surface-variant">{progress}% of target</p>
+      <p className="mt-xs flex items-center gap-xs text-label-md font-label-md text-on-surface-variant">
+        {over ? (
+          <span className="rounded-full badge-over px-xs py-[1px] font-bold tabular-nums">
+            ▲ {progress}%
+          </span>
+        ) : (
+          <span className="tabular-nums">{progress}%</span>
+        )}
+        of target
+      </p>
     </div>
   );
 }
@@ -167,11 +181,20 @@ export function TierTrackingTable({ tiers, loading }: TierTableProps) {
                     <div className="flex items-center gap-sm">
                       <div className="h-2 w-24 overflow-hidden rounded-full bg-surface-container">
                         <div
-                          className={`h-full rounded-full ${tier.type === "won" ? "bg-won" : "bg-activated"}`}
-                          style={{ width: `${tier.progress}%` }}
+                          className={`h-full rounded-full ${tier.type === "won" ? "bg-won" : "bg-activated"} ${
+                            tier.progress > 100 ? "bar-over" : ""
+                          }`}
+                          style={{ width: `${Math.min(100, tier.progress)}%` }}
                         />
                       </div>
-                      <span className="text-label-md">{tier.progress}%</span>
+                      <span
+                        className={`text-label-md tabular-nums ${
+                          tier.progress > 100 ? "rounded-full badge-over px-xs font-bold" : ""
+                        }`}
+                      >
+                        {tier.progress > 100 ? "▲ " : ""}
+                        {tier.progress}%
+                      </span>
                     </div>
                   </td>
                 </tr>

@@ -27,12 +27,13 @@ function progressBar(
           ? "bg-primary"
           : "bg-tertiary";
   const height = size === "md" ? "h-3" : size === "sm" ? "h-2" : "h-1.5";
+  const over = progress > 100;
   const width = Math.min(100, Math.max(progress > 0 ? 4 : 0, progress));
 
   return (
     <div className={`${height} overflow-hidden rounded-full bg-surface-container`}>
       <div
-        className={`progress-bar h-full rounded-full ${barColor}`}
+        className={`progress-bar h-full rounded-full ${barColor} ${over ? "bar-over" : ""}`}
         style={{ width: `${width}%` }}
       />
     </div>
@@ -40,9 +41,11 @@ function progressBar(
 }
 
 function progressBadge(progress: number, tone: "won" | "activated") {
+  const over = progress > 100;
   const reached = progress >= 100;
-  const base =
-    tone === "won"
+  const base = over
+    ? "badge-over"
+    : tone === "won"
       ? reached
         ? "bg-won text-white"
         : "bg-won-container text-won"
@@ -52,6 +55,7 @@ function progressBadge(progress: number, tone: "won" | "activated") {
 
   return (
     <span className={`rounded-full px-sm py-[2px] text-label-md font-bold tabular-nums ${base}`}>
+      {over ? "▲ " : ""}
       {progress}%
     </span>
   );
@@ -261,8 +265,15 @@ function AgentMtdCell({
         />
         <span className="text-label-md tabular-nums text-on-surface-variant">/ {target}</span>
         <span
-          className={`text-label-md font-bold tabular-nums ${tone === "won" ? "text-won" : "text-activated"}`}
+          className={`text-label-md font-bold tabular-nums ${
+            progress > 100
+              ? "rounded-full badge-over px-xs"
+              : tone === "won"
+                ? "text-won"
+                : "text-activated"
+          }`}
         >
+          {progress > 100 ? "▲ " : ""}
           {progress}%
         </span>
       </div>

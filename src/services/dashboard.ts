@@ -12,6 +12,7 @@ import type {
   MetricCard,
   MopsData,
   MopsView,
+  MtdItem,
   MyPipelineRaw,
   MyPipelineView,
   MyPipelineItemView,
@@ -271,8 +272,11 @@ function agentSegmentStyle(segment: "complex" | "density"): { label: string; col
   return { label: "Density", color: "bg-tertiary-container/40 text-on-tertiary-container" };
 }
 
+type MtdItemsByOwner = Map<string, { wonItems: MtdItem[]; activatedItems: MtdItem[] }>;
+
 function buildTeamProgress(
   agents: DashboardRawData["salesPipeline"]["agents"],
+  mtdItemsByOwner?: MtdItemsByOwner,
 ): TeamProgressView[] {
   const enriched = (agents ?? [])
     .filter((agent) => isTeamAgent(agent.name, agent.ownerId))
@@ -283,10 +287,10 @@ function buildTeamProgress(
       const mtdActual = agent.wonMtd ?? 0;
       const activatedActual = agent.activatedMtd ?? 0;
       const progress = mtdTarget
-        ? Math.min(100, Math.round((mtdActual / mtdTarget) * 100))
+        ? Math.round((mtdActual / mtdTarget) * 100)
         : 0;
       const activatedProgress = activatedTarget
-        ? Math.min(100, Math.round((activatedActual / activatedTarget) * 100))
+        ? Math.round((activatedActual / activatedTarget) * 100)
         : 0;
       return {
         ownerId: agent.ownerId,
@@ -320,11 +324,11 @@ function buildTeamProgress(
       );
     const actual = members.reduce((sum, agent) => sum + agent.mtdActual, 0);
     const target = members.length * targetPerRep;
-    const progress = target ? Math.min(100, Math.round((actual / target) * 100)) : 0;
+    const progress = target ? Math.round((actual / target) * 100) : 0;
     const activatedActual = members.reduce((sum, agent) => sum + agent.activatedActual, 0);
     const activatedTarget = members.length * activatedTargetPerRep;
     const activatedProgress = activatedTarget
-      ? Math.min(100, Math.round((activatedActual / activatedTarget) * 100))
+      ? Math.round((activatedActual / activatedTarget) * 100)
       : 0;
 
     return {
@@ -342,6 +346,7 @@ function buildTeamProgress(
       activatedProgress,
       agents: members.map((agent) => {
         const style = agentSegmentStyle(agent.segment);
+        const items = mtdItemsByOwner?.get(agent.ownerId);
         return {
           ownerId: agent.ownerId,
           name: agent.name,
@@ -354,6 +359,8 @@ function buildTeamProgress(
           activatedActual: formatInteger(agent.activatedActual),
           activatedProgress: agent.activatedProgress,
           accountsUrl: agent.accountsUrl,
+          wonItems: items?.wonItems ?? [],
+          activatedItems: items?.activatedItems ?? [],
         };
       }),
     };
@@ -419,10 +426,10 @@ function buildAgentViews(
         .map(([stage, count]) => `${stage} ${count}`)
         .join(" · ");
       const wonProgress = mtdTarget
-        ? Math.min(100, Math.round((agent.wonMtd / mtdTarget) * 100))
+        ? Math.round((agent.wonMtd / mtdTarget) * 100)
         : 0;
       const activatedProgress = activatedMtdTarget
-        ? Math.min(100, Math.round((agent.activatedMtd / activatedMtdTarget) * 100))
+        ? Math.round((agent.activatedMtd / activatedMtdTarget) * 100)
         : 0;
       return {
         ownerId: agent.ownerId,
@@ -815,16 +822,28 @@ function toDashboardModel(
     salesPipeline;
 
   const wonProgress = mtdAchievement.targetWon
-    ? Math.min(100, Math.round((mtdAchievement.actualWon / mtdAchievement.targetWon) * 100))
+    ? Math.round((mtdAchievement.actualWon / mtdAchievement.targetWon) * 100)
     : 0;
   const activatedProgress = mtdAchievement.targetActivated
-    ? Math.min(
-        100,
-        Math.round((mtdAchievement.actualActivated / mtdAchievement.targetActivated) * 100),
-      )
+    ? Math.round((mtdAchievement.actualActivated / mtdAchievement.targetActivated) * 100)
     : 0;
 
   const mtdMonthKey = currentMonthKey(new Date(data.updatedAt));
+
+  // Per-agent current-month Won/Activated drill-down lists, sourced from the
+  // (un-slimmed) current month in mtdHistory. Wiring these into teamProgress
+  // lets the Overview & MTD agent click-through show the complete MTD lists
+  // that match each agent's Won/Activated MTD counts.
+  const currentMtdMonth = (salesPipeline.mtdHistory ?? []).find(
+    (month) => month.monthKey === mtdMonthKey,
+  );
+  const mtdItemsByOwner: MtdItemsByOwner = new Map();
+  for (const agent of currentMtdMonth?.agents ?? []) {
+    mtdItemsByOwner.set(agent.ownerId, {
+      wonItems: agent.wonItems ?? [],
+      activatedItems: agent.activatedItems ?? [],
+    });
+  }
 
   return {
     updatedAt: data.updatedAt,
@@ -834,7 +853,7 @@ function toDashboardModel(
     mtdMonthKey,
     mtdHistory: salesPipeline.mtdHistory ?? [],
     overviewMetrics: buildMtdOverviewMetrics(data),
-    teamProgress: buildTeamProgress(agents),
+    teamProgress: buildTeamProgress(agents, mtdItemsByOwner),
     totals: {
       won: buildTotalMetric("Total Won", salesPipeline.totals.won, "emoji_events", "won"),
       activated: buildTotalMetric(
@@ -862,7 +881,7 @@ function toDashboardModel(
         name: tier.name,
         target: formatInteger(tier.target),
         actual: formatInteger(tier.actual),
-        progress: tier.target ? Math.min(100, Math.round((tier.actual / tier.target) * 100)) : 0,
+        progress: tier.target ? Math.round((tier.actual / tier.target) * 100) : 0,
         type: tier.type,
         typeLabel: tier.type === "won" ? "Won" : "Activated",
       })),
