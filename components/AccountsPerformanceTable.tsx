@@ -9,6 +9,8 @@ type AccountsPerformanceTableProps = {
   monthLabel: (month: string) => string;
   formatEur: (value: number) => string;
   formatInt: (value: number) => string;
+  /** Latest month covered by the Databricks pull; later L-months are "pending". */
+  dataMonthMax?: string | null;
   loading?: boolean;
 };
 
@@ -25,12 +27,53 @@ function formatLaunch(date: string | null): string {
   return parsed.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 }
 
+/** "YYYY-MM" + n calendar months → "YYYY-MM". */
+function addMonths(yearMonth: string, n: number): string {
+  const [year, mo] = yearMonth.split("-").map(Number);
+  const d = new Date(year, mo - 1 + n, 1);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+}
+
+type LaunchMonthCell = {
+  label: string;
+  month: string;
+  gmv: number | null;
+  pending: boolean;
+};
+
+/**
+ * L1/L2/L3 = the calendar month containing the launch date and the two months
+ * that follow (L1 = launch month, L2 = +1, L3 = +2). GMV is looked up in the
+ * account's monthly array; a missing month past the data cut-off is "pending"
+ * (account too new), otherwise "—" (no GMV reported).
+ */
+function launchMonths(
+  account: AccountsPerformanceAccount,
+  dataMonthMax?: string | null,
+): LaunchMonthCell[] | null {
+  if (!account.launchDate) return null;
+  const base = account.launchDate.slice(0, 7);
+  if (!/^\d{4}-\d{2}$/.test(base)) return null;
+  return [0, 1, 2].map((offset) => {
+    const month = addMonths(base, offset);
+    const entry = account.monthly.find((m) => m.month === month);
+    const pending = !entry && Boolean(dataMonthMax) && month > (dataMonthMax as string);
+    return {
+      label: `L${offset + 1}`,
+      month,
+      gmv: entry ? entry.gmv : null,
+      pending,
+    };
+  });
+}
+
 export function AccountsPerformanceTable({
   accounts,
   selectedMonth,
   monthLabel,
   formatEur,
   formatInt,
+  dataMonthMax,
   loading,
 }: AccountsPerformanceTableProps) {
   if (loading && !accounts.length) {
@@ -76,7 +119,9 @@ export function AccountsPerformanceTable({
               <th className="px-md pb-xs text-right font-semibold">Orders</th>
               <th className="px-md pb-xs text-right font-semibold">AOV</th>
               <th className="px-md pb-xs text-right font-semibold">Commission</th>
-              <th className="px-md pb-xs text-right font-semibold">GMV trend · total</th>
+              <th className="px-md pb-xs text-right font-semibold">
+                GMV trend · total · L1/L2/L3 since launch
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -125,11 +170,49 @@ export function AccountsPerformanceTable({
                     {hasMonth ? formatEur(month!.commission) : "—"}
                   </td>
                   <td className="px-md py-sm">
-                    <div className="flex items-center justify-end gap-sm">
-                      <Sparkline points={account.sparkline} />
-                      <span className="w-20 text-right text-body-md font-semibold text-on-surface">
-                        {formatEur(account.totalGmv)}
-                      </span>
+                    <div className="flex flex-col items-end gap-xs">
+                      <div className="flex items-center justify-end gap-sm">
+                        <Sparkline points={account.sparkline} />
+                        <span className="w-20 text-right text-body-md font-semibold text-on-surface">
+                          {formatEur(account.totalGmv)}
+                        </span>
+                      </div>
+                      {(() => {
+                        const cells = launchMonths(account, dataMonthMax);
+                        if (!cells) return null;
+                        return (
+                          <div className="flex flex-wrap justify-end gap-xs">
+                            {cells.map((cell) => (
+                              <div
+                                key={cell.label}
+                                className="flex min-w-[104px] flex-col rounded-md border border-outline-variant/60 bg-surface-container-low px-xs py-[3px] text-right"
+                                title={`${cell.label} · ${monthLabel(cell.month)} · ${
+                                  cell.gmv != null
+                                    ? formatEur(cell.gmv)
+                                    : cell.pending
+                                      ? "pending"
+                                      : "no GMV"
+                                }`}
+                              >
+                                <span className="text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">
+                                  {cell.label} · {monthLabel(cell.month)}
+                                </span>
+                                <span
+                                  className={`text-label-md font-semibold ${
+                                    cell.gmv != null ? "text-on-surface" : "text-on-surface-variant"
+                                  }`}
+                                >
+                                  {cell.gmv != null
+                                    ? formatEur(cell.gmv)
+                                    : cell.pending
+                                      ? "pending"
+                                      : "—"}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      })()}
                     </div>
                   </td>
                 </tr>

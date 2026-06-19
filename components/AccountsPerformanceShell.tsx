@@ -243,6 +243,7 @@ export function AccountsPerformanceShell() {
           monthLabel={monthLabel}
           formatEur={formatEur}
           formatInt={formatInteger}
+          dataMonthMax={ap?.dataMonthMax}
           loading={loading}
         />
         {ap?.metricsNote ? (
