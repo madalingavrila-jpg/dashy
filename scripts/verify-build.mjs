@@ -16,8 +16,12 @@ const required = [
   "dist/lib/salesforce.js",
   "data/dashboard.json",
   "out/api/dashboard.json",
+  "out/api/dashboard.json.gz",
+  "out/api/dashboard.json.br",
   "dist/build-info.json",
   ...SECTIONS.map((section) => `out/api/dashboard/${section}.json`),
+  ...SECTIONS.map((section) => `out/api/dashboard/${section}.json.gz`),
+  ...SECTIONS.map((section) => `out/api/dashboard/${section}.json.br`),
 ];
 
 const missing = required.filter((rel) => !fs.existsSync(path.join(root, rel)));

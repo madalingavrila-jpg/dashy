@@ -194,10 +194,38 @@ function buildMopsSection(casesData) {
 const mops = buildMopsSection(mopsCasesData);
 
 const now = new Date().toISOString();
-const currentWeekKey = weekKey(new Date("2026-06-11"));
+// Dynamic current ISO week (Europe/Bucharest) — was hardcoded to a June-11
+// (W24) date, which froze the tracked range at W24 and hid W25 once the
+// calendar advanced. weekKey() already resolves the Bucharest ISO week.
+const currentWeekKey = weekKey(new Date());
+const currentWeekNum = Number(weekLabel(currentWeekKey).replace(/^W/, ""));
+
+/** Monday–Sunday range for an ISO week, formatted like "16–22 Jun 2026" (Europe/Bucharest). */
+function isoWeekRangeLabel(year, week) {
+  const jan4 = new Date(Date.UTC(year, 0, 4));
+  const week1Monday = new Date(jan4);
+  week1Monday.setUTCDate(jan4.getUTCDate() - (jan4.getUTCDay() || 7) + 1);
+  const start = new Date(week1Monday);
+  start.setUTCDate(week1Monday.getUTCDate() + (week - 1) * 7);
+  start.setUTCHours(12, 0, 0, 0);
+  const end = new Date(start);
+  end.setUTCDate(start.getUTCDate() + 6);
+  const fmt = (d, opts) =>
+    new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Bucharest", ...opts }).format(d);
+  const startDay = fmt(start, { day: "numeric" });
+  const endDay = fmt(end, { day: "numeric" });
+  const startMonth = fmt(start, { month: "short" });
+  const endMonth = fmt(end, { month: "short" });
+  const endYear = fmt(end, { year: "numeric" });
+  return startMonth === endMonth
+    ? `${startDay}–${endDay} ${endMonth} ${endYear}`
+    : `${startDay} ${startMonth} – ${endDay} ${endMonth} ${endYear}`;
+}
+const currentWeekYear = Number(currentWeekKey.slice(0, 4));
+const currentWeekLabelText = `${weekLabel(currentWeekKey)} · ${isoWeekRangeLabel(currentWeekYear, currentWeekNum)}`;
 
 // Weekly status breakdown — all buckets from OpportunityFieldHistory (first INTO stage)
-const weeklyBreakdownStore = initWeeklyBreakdownStore(24);
+const weeklyBreakdownStore = initWeeklyBreakdownStore(currentWeekNum);
 accumulateWeeklyStatusFromHistory(
   stageHistoryData.records,
   weeklyBreakdownStore,
@@ -368,8 +396,8 @@ const dashboard = {
     snapshot: { sales: salesSnapshot, onboarding: onboardingSnapshot },
     mtdAchievement,
     weeklyPerformance: {
-      weekLabel: `W24 · 9–15 Jun 2026`,
-      currentWeek: "W24",
+      weekLabel: currentWeekLabelText,
+      currentWeek: weekLabel(currentWeekKey),
       metrics: [
         metricRow("Leads", "leads"),
         metricRow("Qualified", "qualified"),

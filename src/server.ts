@@ -6,6 +6,11 @@ import path from "node:path";
 import { config } from "./config.js";
 import { apiRouter } from "./routes/api.js";
 import { getPrecomputedApiPath, preloadDashboardCache } from "./services/dashboard.js";
+import {
+  getFullDashboardAsset,
+  preloadApiAssets,
+  sendApiAsset,
+} from "./services/apiAssets.js";
 
 const staticIndexPath = path.join(config.staticDir, "index.html");
 const precomputedDashboardPath = getPrecomputedApiPath();
@@ -50,7 +55,10 @@ app.use(
   compression({
     threshold: 1024,
     filter(req, res) {
-      if (req.path === "/api/dashboard" || req.path === "/api/dashboard.json") {
+      // Dashboard JSON (full + sections) is precompressed at build time and
+      // served with an explicit Content-Encoding, so runtime gzip would only
+      // waste CPU/heap (the OOM driver under concurrency). Skip those paths.
+      if (req.path.startsWith("/api/dashboard")) {
         return false;
       }
       return compression.filter(req, res);
@@ -59,8 +67,15 @@ app.use(
 );
 
 if (fs.existsSync(precomputedDashboardPath)) {
-  app.get("/api/dashboard.json", (_req, res) => {
-    res.setHeader("Cache-Control", "public, max-age=3600, stale-while-revalidate=86400");
+  const DASHBOARD_JSON_CACHE =
+    "public, max-age=3600, stale-while-revalidate=86400";
+  app.get("/api/dashboard.json", (req, res) => {
+    const asset = getFullDashboardAsset();
+    if (asset) {
+      sendApiAsset(req, res, asset, DASHBOARD_JSON_CACHE);
+      return;
+    }
+    res.setHeader("Cache-Control", DASHBOARD_JSON_CACHE);
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     res.sendFile(precomputedDashboardPath);
   });
@@ -172,11 +187,12 @@ process.on("uncaughtException", (error) => {
 });
 
 const server = app.listen(config.port, config.host, () => {
-  console.log(
-    `dashy listening on http://${config.host}:${config.port}` +
-      (staticReady ? "" : " (static export unavailable)"),
-  );
-  preloadDashboardCache();
+    console.log(
+      `dashy listening on http://${config.host}:${config.port}` +
+        (staticReady ? "" : " (static export unavailable)"),
+    );
+    preloadApiAssets();
+    preloadDashboardCache();
 });
 
 server.keepAliveTimeout = 65_000;

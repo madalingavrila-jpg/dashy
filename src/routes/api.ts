@@ -18,6 +18,11 @@ import {
   writeTargetConfig,
   type TargetConfigPayload,
 } from "../services/targetConfig.js";
+import {
+  getFullDashboardAsset,
+  getSectionAsset,
+  sendApiAsset,
+} from "../services/apiAssets.js";
 
 export const apiRouter = Router();
 
@@ -121,7 +126,16 @@ apiRouter.put("/target-config", async (req, res) => {
   }
 });
 
-apiRouter.get("/dashboard", async (_req, res) => {
+apiRouter.get("/dashboard", async (req, res) => {
+  // Fast path: serve the preloaded, precompressed buffer (no disk I/O, no
+  // runtime gzip). Falls back to the dynamic cache only when no precompute
+  // exists (e.g. DASHBOARD_SHEET_URL mode or a partial build).
+  const asset = getFullDashboardAsset();
+  if (asset) {
+    sendApiAsset(req, res, asset, API_CACHE);
+    return;
+  }
+
   try {
     let buffer = getCachedDashboardBuffer();
     if (!buffer) {
@@ -142,7 +156,13 @@ apiRouter.get("/dashboard", async (_req, res) => {
 const DASHBOARD_SECTIONS_LIST: DashboardSection[] = DASHBOARD_SECTIONS;
 
 for (const section of DASHBOARD_SECTIONS_LIST) {
-  apiRouter.get(`/dashboard/${section}`, async (_req, res) => {
+  apiRouter.get(`/dashboard/${section}`, async (req, res) => {
+    const asset = getSectionAsset(section);
+    if (asset) {
+      sendApiAsset(req, res, asset, API_CACHE);
+      return;
+    }
+
     const sectionPath = getPrecomputedSectionPath(section);
     if (fs.existsSync(sectionPath)) {
       res.setHeader("Cache-Control", API_CACHE);
