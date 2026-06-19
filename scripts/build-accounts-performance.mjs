@@ -14,6 +14,13 @@
  *   scripts/.cache/accounts-perf-sf-commission.json — Salesforce Opportunity.Commission__c
  *       (negotiated commission rate %) per provider, joined via dim_provider_opportunity
  *       (provider_id → won opportunity_id) then SF soqlQuery on those opportunity Ids.
+ *   scripts/.cache/accounts-perf-sf-segment.json — Salesforce
+ *       Account.Account_Management_Segment__c (SMB / Mid-market / Enterprise / Others)
+ *       per provider, joined the same way (provider_id → won opportunity → Account).
+ *       This is the current source of truth for the per-account segment shown under
+ *       each account name — Databricks business_segment_v2 lags SF reclassifications
+ *       (e.g. Chili's moved to Enterprise in SF), so SF overrides it for display and
+ *       the Databricks value is only a fallback when SF has no segment.
  *
  * Databricks tables used (catalog `main`):
  *   ng_delivery.dim_provider_opportunity  — provider_id ↔ SF opportunity owner + provider_activated_ts
@@ -37,6 +44,7 @@ import {
   buildMonthlyByProvider,
   buildQualityByProvider,
   buildCommissionRateByProvider,
+  buildSegmentByProvider,
   assembleAccount,
   rollupByMonth,
   rollupQualityTotals,
@@ -67,6 +75,16 @@ function main() {
     console.warn("[build-accounts-performance] no accounts-perf-sf-commission.json cache — commission will be empty");
   }
   const commissionRateByProvider = buildCommissionRateByProvider(commissionRows);
+
+  // SF per-account segment: [provider_id, Account.Account_Management_Segment__c, opportunity_id]
+  // Overrides the stale Databricks business_segment_v2 for display (falls back to it if SF has none).
+  let segmentRows = [];
+  try {
+    segmentRows = readMcpResult("accounts-perf-sf-segment.json");
+  } catch {
+    console.warn("[build-accounts-performance] no accounts-perf-sf-segment.json cache — using Databricks segment");
+  }
+  const segmentByProvider = buildSegmentByProvider(segmentRows);
 
   // quality: [provider_id, month, orders, avail_v, avail_w, acc_v, acc_w, rej_v,
   //           rej_w, prep_v, prep_w, rat_v, rat_w, late_v, late_w]
@@ -103,6 +121,7 @@ function main() {
         monthlyByProvider,
         qualityByProvider,
         commissionRateByProvider,
+        segmentByProvider,
       }),
     );
   }
@@ -198,11 +217,16 @@ function main() {
   dashboard.accountsPerformance = accountsPerformance;
   fs.writeFileSync(dashboardPath, `${JSON.stringify(dashboard, null, 2)}\n`);
 
+  const segFromSf = accounts.filter((a) => a.businessSegmentSource === "salesforce").length;
+  const segFromDb = accounts.filter((a) => a.businessSegmentSource === "databricks").length;
+  const segNone = accounts.filter((a) => a.businessSegmentSource == null).length;
+
   console.log(
     `[build-accounts-performance] ${accounts.length} accounts across ${agents.length} reps ` +
       `(${skippedNonRoster} non-roster rows skipped); months ${monthsCovered.join(", ")}; ` +
       `GMV €${totalGmv.toLocaleString("en-IE")}; commission source: ${accountsWithSfRate} SF rate, ` +
-      `${accountsWithDbFallback} Databricks fallback, ${accountsWithoutCommission} none (“—”).`,
+      `${accountsWithDbFallback} Databricks fallback, ${accountsWithoutCommission} none (“—”); ` +
+      `segment source: ${segFromSf} SF, ${segFromDb} Databricks fallback, ${segNone} none.`,
   );
 }
 

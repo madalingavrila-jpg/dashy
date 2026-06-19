@@ -379,7 +379,12 @@ export type AccountsPerformanceAccount = {
   agentId: string;
   agentName: string;
   segment: "complex" | "density" | "inbound";
+  /** Per-account business segment shown under the name. Sourced from Salesforce
+   * Account_Management_Segment__c (SMB / Mid-market / Enterprise / Others), falling
+   * back to the Databricks business_segment_v2 only when SF has no segment. */
   businessSegment?: string;
+  /** Where businessSegment came from: "salesforce" | "databricks" | null. */
+  businessSegmentSource?: "salesforce" | "databricks" | null;
   launchDate: string | null;
   monthly: AccountsPerformanceMonth[];
   sparkline: AccountsPerformanceSparkPoint[];

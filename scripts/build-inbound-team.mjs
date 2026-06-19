@@ -52,6 +52,7 @@ import {
   buildMonthlyByProvider,
   buildQualityByProvider,
   buildCommissionRateByProvider,
+  buildSegmentByProvider,
   assembleAccount,
   rollupByMonth,
   rollupQualityTotals,
@@ -231,10 +232,17 @@ try {
 } catch {
   console.warn("[build-inbound-team] no accounts-perf-sf-commission.json — commission will be empty");
 }
+let segmentRows = [];
+try {
+  segmentRows = readMcpResult("accounts-perf-sf-segment.json");
+} catch {
+  console.warn("[build-inbound-team] no accounts-perf-sf-segment.json — using Databricks segment");
+}
 
 const monthlyByProvider = buildMonthlyByProvider(monthlyRows);
 const qualityByProvider = buildQualityByProvider(qualityRows);
 const commissionRateByProvider = buildCommissionRateByProvider(commissionRows);
+const segmentByProvider = buildSegmentByProvider(segmentRows);
 
 /** Build accounts-performance accounts for one rep (by owner email). */
 function accountsForOwner(email, agentId, agentName) {
@@ -250,6 +258,7 @@ function accountsForOwner(email, agentId, agentName) {
         monthlyByProvider,
         qualityByProvider,
         commissionRateByProvider,
+        segmentByProvider,
       }),
     );
   }
