@@ -13,6 +13,7 @@ const SECTIONS = [
   "mops",
   "agents",
   "my-pipeline",
+  "inbound",
 ];
 const required = [
   "out/index.html",

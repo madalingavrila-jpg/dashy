@@ -232,6 +232,42 @@ Map to `salesPipeline.accounts.won`.
 | `salesPipeline.accounts` | won / activated / backlog tabs |
 | `salesPipeline.hitlist` | Priority list from sheet + SF |
 
+## Inbound team tab
+
+The **Inbound team** tab (`/inbound`, `dashboard.inboundTeam`) is scoped to two
+inbound RO reps and is **deliberately isolated** from every other tab:
+
+| Rep | Owner ID | Email |
+|-----|----------|-------|
+| Ana-Maria Preda | `005Ts00000BtHpvIAF` | ana.preda@bolt.eu |
+| Catalin Corbeanu | `005Qs00000OLyBRIA1` | catalin.corbeanu@aceolution.com |
+
+They live in `INBOUND_OWNER_IDS` (lib/agent-segments) — **not** in
+`COMPLEX_OWNER_IDS`/`DENSITY_OWNER_IDS`. `isTeamAgent` and `agentSegment` return
+false/null for them, so they never appear in Overview, MTD, Weekly, WoW,
+Accounts, or MyPipeline. Keep it that way.
+
+Build: `node scripts/build-inbound-team.mjs` (merge-only, mirrors
+build-my-pipeline). Run after `build-dashboard-data.mjs`. Data is **actuals only**
+(no targets). Per person it computes MTD won/activated (+ item lists), weekly
+history/metrics/breakdown, WoW current-vs-prior rows, and accounts performance —
+reusing the MTD/weekly accumulators (via an inbound classifier) and the EXACT
+accounts-performance math.
+
+### Inbound Salesforce exports (`scripts/.cache/`)
+
+All scoped to `OwnerId IN ('005Ts00000BtHpvIAF','005Qs00000OLyBRIA1')` — the
+team exports exclude these owners, so these are separate caches:
+
+- `sf-inbound-won-mtd.json` — `Won_Date__c = THIS_MONTH`, RecordType `Sales Opportunity`.
+- `sf-inbound-won-ytd-bydate.json` — `Won_Date__c = THIS_YEAR` (drives weekly Closed Won + YTD).
+- `sf-inbound-stage-history-2026-h1.json` / `-h2.json` — `OpportunityFieldHistory` StageName transitions (Jan–Mar / Apr–Jun split to stay under the 2000-row SOQL cap).
+- `sf-inbound-weekly-2026.json` — open + won/activated opps 2026 (New Opportunity leads by week).
+
+Databricks: the inbound build **reuses** the team `accounts-perf-*.json` caches
+(a full RO pull that already includes both inbound owners) and filters by
+`opportunity_owner_email`. No separate Databricks export needed.
+
 ## Verify locally
 
 ```bash

@@ -382,7 +382,7 @@ export type AccountsPerformanceAccount = {
   city: string;
   agentId: string;
   agentName: string;
-  segment: "complex" | "density";
+  segment: "complex" | "density" | "inbound";
   businessSegment?: string;
   launchDate: string | null;
   monthly: AccountsPerformanceMonth[];
@@ -446,6 +446,72 @@ export type AccountsPerformance = {
   accounts: AccountsPerformanceAccount[];
 };
 
+/** Per-week status counts for one inbound rep (drill-down accounts on current week only). */
+export type InboundWeeklyBreakdownRow = WeeklyStatusCounts & {
+  week: string;
+  accounts?: Partial<Record<WeeklyStatusKey, WeeklyAccountEvent[]>>;
+};
+
+export type InboundRepAccountsPerformance = {
+  totals: {
+    accounts: number;
+    gmv: number;
+    orders: number;
+    commission: number;
+    aov: number;
+    quality?: AccountsPerformanceQualityTotals;
+  };
+  byMonth: AccountsPerformanceByMonth[];
+  dataMonthMax: string | null;
+  accounts: AccountsPerformanceAccount[];
+};
+
+/** One inbound rep — actuals only (no predefined targets). */
+export type InboundRep = {
+  ownerId: string;
+  name: string;
+  email: string;
+  mtd: {
+    won: number;
+    activated: number;
+    wonItems: MtdItem[];
+    activatedItems: MtdItem[];
+  };
+  weekly: {
+    metrics: WeeklyMetric[];
+    history: WeeklyHistoryRow[];
+    breakdown: InboundWeeklyBreakdownRow[];
+  };
+  wow: {
+    currentWeek: string;
+    priorWeek: string;
+    rows: WowReportRow[];
+  };
+  accountsPerformance: InboundRepAccountsPerformance;
+};
+
+/** Inbound team tab — two reps, broken down per person; actuals only. */
+export type InboundTeam = {
+  generatedAt: string;
+  monthKey: string;
+  monthLabel: string;
+  currentWeek: string;
+  windowDays: number;
+  country: string;
+  currency: string;
+  dataMonthMax: string | null;
+  reps: InboundRep[];
+  totals: {
+    reps: number;
+    wonMtd: number;
+    activatedMtd: number;
+    accounts90d: number;
+    gmv: number;
+    orders: number;
+    commission: number;
+  };
+};
+
 export type MyPipelineItemType = "opportunity" | "lead" | "account";
 
 /** A single open-pipeline record (raw, as stored in data/dashboard.json). */
@@ -497,6 +563,7 @@ export type DashboardRawData = {
   updatedAt: string;
   salesforceInstanceUrl?: string;
   accountsPerformance?: AccountsPerformance;
+  inboundTeam?: InboundTeam;
   salesPipeline: {
     totals: {
       won: PipelineTotal;
@@ -740,6 +807,7 @@ export type DashboardModel = {
   hitlist: HitlistViewRow[];
   mops?: MopsView;
   accountsPerformance?: AccountsPerformance;
+  inboundTeam?: InboundTeam;
   myPipeline?: MyPipelineView;
   settings: {
     timezone: string;

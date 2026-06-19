@@ -940,6 +940,7 @@ function toDashboardModel(
       }),
     mops: buildMopsView(data.mops) ?? emptyMopsView(),
     accountsPerformance: data.accountsPerformance,
+    inboundTeam: data.inboundTeam,
     myPipeline: buildMyPipelineView(salesPipeline.myPipeline, instanceUrl),
     settings: data.settings ?? defaultSettings(),
   };
@@ -995,6 +996,23 @@ function slimDashboardModelForApi(model: DashboardModel): DashboardModel {
     ? { ...model.myPipeline, items: [], cities: [], stages: [] }
     : undefined;
 
+  // Inbound: the per-rep account lists are large; keep MTD/weekly/WoW aggregates
+  // and per-account totals, but drop the heavy account arrays. The full lists are
+  // served lazily by /api/dashboard/inbound, sliced from the non-slim model.
+  const inboundTeam = model.inboundTeam
+    ? {
+        ...model.inboundTeam,
+        reps: model.inboundTeam.reps.map((rep) => ({
+          ...rep,
+          weekly: {
+            ...rep.weekly,
+            breakdown: rep.weekly.breakdown.map((row) => ({ ...row, accounts: undefined })),
+          },
+          accountsPerformance: { ...rep.accountsPerformance, accounts: [] },
+        })),
+      }
+    : undefined;
+
   return {
     ...model,
     mtdHistory,
@@ -1003,6 +1021,7 @@ function slimDashboardModelForApi(model: DashboardModel): DashboardModel {
       statusBreakdown,
     },
     accountsPerformance,
+    inboundTeam,
     myPipeline,
   };
 }
@@ -1024,7 +1043,8 @@ export type DashboardSection =
   | "accounts-performance"
   | "mops"
   | "agents"
-  | "my-pipeline";
+  | "my-pipeline"
+  | "inbound";
 
 let cachedPayload: DashboardCacheEntry | null = null;
 let loadingPromise: Promise<DashboardCacheEntry> | null = null;
@@ -1038,6 +1058,7 @@ export const DASHBOARD_SECTIONS: DashboardSection[] = [
   "mops",
   "agents",
   "my-pipeline",
+  "inbound",
 ];
 
 export function sliceDashboardSection(
@@ -1102,6 +1123,12 @@ export function sliceDashboardSection(
         updatedAt: model.updatedAt,
         salesforceInstanceUrl: model.salesforceInstanceUrl,
         myPipeline: model.myPipeline,
+      };
+    case "inbound":
+      return {
+        updatedAt: model.updatedAt,
+        salesforceInstanceUrl: model.salesforceInstanceUrl,
+        inboundTeam: model.inboundTeam,
       };
     default:
       return { updatedAt: model.updatedAt };

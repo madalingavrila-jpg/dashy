@@ -15,10 +15,16 @@ type AccountsPerformanceTableProps = {
   loading?: boolean;
 };
 
-function segmentBadge(segment: "complex" | "density") {
-  return segment === "complex"
-    ? "bg-primary-container/40 text-on-primary-container"
-    : "bg-tertiary-container/40 text-on-tertiary-container";
+function segmentBadge(segment: "complex" | "density" | "inbound") {
+  if (segment === "complex") return "bg-primary-container/40 text-on-primary-container";
+  if (segment === "inbound") return "bg-secondary-container/40 text-on-secondary-container";
+  return "bg-tertiary-container/40 text-on-tertiary-container";
+}
+
+function segmentLabel(segment: "complex" | "density" | "inbound") {
+  if (segment === "complex") return "Complex";
+  if (segment === "inbound") return "Inbound";
+  return "Density";
 }
 
 type Tone = "good" | "warn" | "bad" | "muted";
@@ -274,7 +280,7 @@ export function AccountsPerformanceTable({
                         account.segment,
                       )}`}
                     >
-                      {account.segment === "complex" ? "Complex" : "Density"}
+                      {segmentLabel(account.segment)}
                     </span>
                   </td>
                   <td className="px-xs py-xs align-top text-[11px] text-on-surface-variant">

@@ -16,7 +16,8 @@ export type DashboardSection =
   | "accounts-performance"
   | "mops"
   | "agents"
-  | "my-pipeline";
+  | "my-pipeline"
+  | "inbound";
 
 export type HealthInfo = {
   ok: boolean;

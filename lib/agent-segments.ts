@@ -33,6 +33,16 @@ export const DENSITY_OWNER_IDS = new Set([
   "005Ts000006V3vpIAC",
 ]);
 
+/**
+ * Inbound RO reps — surfaced ONLY in the dedicated "Inbound team" tab and kept
+ * deliberately OUT of the Complex/Density rosters. isTeamAgent stays false and
+ * agentSegment returns null for them, so they never leak into other tabs.
+ */
+export const INBOUND_OWNER_IDS = new Set([
+  "005Ts00000BtHpvIAF", // Ana-Maria Preda (ana.preda@bolt.eu)
+  "005Qs00000OLyBRIA1", // Catalin Corbeanu (catalin.corbeanu@aceolution.com)
+]);
+
 function normalizeName(name: string): string {
   return name.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
 }
@@ -88,6 +98,23 @@ export function isDensityAgent(name: string, ownerId?: string): boolean {
 
 export function isTeamAgent(name: string, ownerId?: string): boolean {
   return isComplexAgent(name, ownerId) || isDensityAgent(name, ownerId);
+}
+
+/**
+ * Inbound RO rep match (owner id, then fuzzy name). Independent of the
+ * Complex/Density rosters — used only by the Inbound team tab. Never treated as
+ * a team agent, so inbound reps stay out of every other tab.
+ */
+export function isInboundAgent(name: string, ownerId?: string): boolean {
+  if (ownerId && INBOUND_OWNER_IDS.has(ownerId)) return true;
+
+  const n = normalizeName(name);
+  if (!n) return false;
+
+  if (/\bana\b/.test(n) && /preda/.test(n)) return true;
+  if (/corbeanu/.test(n)) return true;
+
+  return false;
 }
 
 export function agentSegment(name: string, ownerId?: string): "complex" | "density" | null {
