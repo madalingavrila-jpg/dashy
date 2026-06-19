@@ -357,6 +357,25 @@ export type AccountsPerformanceMonth = {
 
 export type AccountsPerformanceSparkPoint = { month: string; value: number };
 
+/**
+ * Operational availability & performance metrics for an account, pulled from
+ * Databricks `ng_delivery.fact_provider_monthly` and aggregated as an
+ * order/weight-weighted average over the same launch→date months as GMV.
+ * Percentages are stored 0–100; `rating` is 0–5; null means no signal in period.
+ */
+export type AccountsPerformanceQuality = {
+  availabilityPct: number | null;
+  acceptancePct: number | null;
+  rejectionPct: number | null;
+  prepMinutes: number | null;
+  rating: number | null;
+  lateDeliveryPct: number | null;
+  /** Delivered orders summed over the reference months — weight for team roll-ups. */
+  refOrders: number;
+  /** Number of months with any quality signal in the reference window. */
+  monthsCovered: number;
+};
+
 export type AccountsPerformanceAccount = {
   id: string;
   accountName: string;
@@ -372,6 +391,7 @@ export type AccountsPerformanceAccount = {
   totalOrders: number;
   totalCommission: number;
   aov: number;
+  quality?: AccountsPerformanceQuality;
 };
 
 export type AccountsPerformanceAgentSummary = {
@@ -393,6 +413,16 @@ export type AccountsPerformanceByMonth = {
   accounts: number;
 };
 
+export type AccountsPerformanceQualityTotals = {
+  availabilityPct: number | null;
+  acceptancePct: number | null;
+  rejectionPct: number | null;
+  prepMinutes: number | null;
+  rating: number | null;
+  lateDeliveryPct: number | null;
+  accountsWithSignal: number;
+};
+
 export type AccountsPerformance = {
   generatedAt: string;
   windowDays: number;
@@ -400,12 +430,16 @@ export type AccountsPerformance = {
   currency: string;
   dataMonthMax: string | null;
   metricsNote: string;
+  /** Human-readable reference period for the availability/performance block. */
+  qualityPeriod?: string;
+  qualityNote?: string;
   totals: {
     accounts: number;
     gmv: number;
     orders: number;
     commission: number;
     aov: number;
+    quality?: AccountsPerformanceQualityTotals;
   };
   byMonth: AccountsPerformanceByMonth[];
   agents: AccountsPerformanceAgentSummary[];

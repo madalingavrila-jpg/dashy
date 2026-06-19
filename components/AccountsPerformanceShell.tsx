@@ -90,6 +90,31 @@ export function AccountsPerformanceShell() {
     };
   }, [filteredAccounts]);
 
+  const quality = useMemo(() => {
+    const rollup = (key: "availabilityPct" | "acceptancePct" | "rejectionPct" | "prepMinutes" | "rating" | "lateDeliveryPct") => {
+      let sv = 0;
+      let sw = 0;
+      for (const a of filteredAccounts) {
+        const q = a.quality;
+        const v = q?.[key];
+        if (q == null || v == null) continue;
+        const w = q.refOrders > 0 ? q.refOrders : 1;
+        sv += v * w;
+        sw += w;
+      }
+      return sw > 0 ? sv / sw : null;
+    };
+    return {
+      availabilityPct: rollup("availabilityPct"),
+      acceptancePct: rollup("acceptancePct"),
+      rejectionPct: rollup("rejectionPct"),
+      prepMinutes: rollup("prepMinutes"),
+      rating: rollup("rating"),
+      lateDeliveryPct: rollup("lateDeliveryPct"),
+      count: filteredAccounts.filter((a) => a.quality).length,
+    };
+  }, [filteredAccounts]);
+
   const byMonth = useMemo(() => {
     const map = new Map<string, { month: string; gmv: number; orders: number; commission: number }>();
     for (const month of months) map.set(month, { month, gmv: 0, orders: 0, commission: 0 });
@@ -115,9 +140,19 @@ export function AccountsPerformanceShell() {
     { label: "AOV", value: formatEur(totals.aov), icon: "shopping_basket" },
   ];
 
+  const fmtPct = (value: number | null, digits = 1) =>
+    value == null ? "—" : `${value.toFixed(digits)}%`;
+  const qualityCards = [
+    { label: "Availability", value: fmtPct(quality.availabilityPct), icon: "schedule", hint: "Share of open hours active" },
+    { label: "Rating", value: quality.rating == null ? "—" : `${quality.rating.toFixed(2)}/5`, icon: "star", hint: "Avg customer rating" },
+    { label: "Prep time", value: quality.prepMinutes == null ? "—" : `${quality.prepMinutes.toFixed(1)} min`, icon: "skillet", hint: "Avg minutes to prepare" },
+    { label: "Acceptance", value: fmtPct(quality.acceptancePct), icon: "task_alt", hint: "Order acceptance rate" },
+    { label: "Late deliveries", value: fmtPct(quality.lateDeliveryPct), icon: "timer", hint: "Late-delivered order rate" },
+  ];
+
   const subtitle = ap
-    ? `${ap.windowDays}-day window · ${ap.country} · activated accounts with Bolt Food GMV, orders, AOV & commission by month`
-    : "Accounts activated in the last 90 days with Bolt Food GMV, orders, AOV & commission.";
+    ? `${ap.windowDays}-day window · ${ap.country} · activated accounts with Bolt Food GMV, orders, AOV, commission & availability/performance by month`
+    : "Accounts activated in the last 90 days with Bolt Food GMV, orders, AOV, commission & availability/performance.";
 
   return (
     <div className="mx-auto max-w-[1500px] space-y-md">
@@ -142,6 +177,31 @@ export function AccountsPerformanceShell() {
             </h3>
           </div>
         ))}
+      </section>
+
+      <section className="space-y-xs">
+        <div className="flex items-center gap-xs px-xs text-on-surface-variant">
+          <span className="material-symbols-outlined text-[16px] text-won">monitoring</span>
+          <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
+            Availability &amp; performance
+          </p>
+          <span className="text-[11px] text-on-surface-variant">
+            {ap?.qualityPeriod ?? "launch → date, order-weighted"} · {quality.count} accounts
+          </span>
+        </div>
+        <div className="grid grid-cols-2 gap-md md:grid-cols-5">
+          {qualityCards.map((card) => (
+            <div key={card.label} className="glass-card rounded-xl p-md" title={card.hint}>
+              <div className="flex items-center gap-xs text-on-surface-variant">
+                <span className="material-symbols-outlined text-[18px] text-won">{card.icon}</span>
+                <p className="text-label-md font-label-md">{card.label}</p>
+              </div>
+              <h3 className="mt-xs text-headline-md font-headline-md font-extrabold text-on-surface">
+                {loading && !ap ? "…" : card.value}
+              </h3>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="flex flex-col gap-sm rounded-xl border border-outline-variant bg-surface-container-low p-md md:flex-row md:items-end md:justify-between">
@@ -249,6 +309,11 @@ export function AccountsPerformanceShell() {
         {ap?.metricsNote ? (
           <p className="px-xs text-[11px] leading-relaxed text-on-surface-variant">
             {ap.metricsNote}
+          </p>
+        ) : null}
+        {ap?.qualityNote ? (
+          <p className="px-xs text-[11px] leading-relaxed text-on-surface-variant">
+            {ap.qualityNote}
           </p>
         ) : null}
       </section>

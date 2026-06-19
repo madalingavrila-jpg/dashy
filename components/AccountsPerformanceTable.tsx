@@ -20,6 +20,47 @@ function segmentBadge(segment: "complex" | "density") {
     : "bg-tertiary-container/40 text-on-tertiary-container";
 }
 
+type Tone = "good" | "warn" | "bad" | "muted";
+
+function toneClass(tone: Tone): string {
+  switch (tone) {
+    case "good":
+      return "text-won";
+    case "warn":
+      return "text-amber-600";
+    case "bad":
+      return "text-error";
+    default:
+      return "text-on-surface";
+  }
+}
+
+/** Higher-is-better metric → tone by thresholds. */
+function toneHigh(value: number | null | undefined, good: number, warn: number): Tone {
+  if (value == null) return "muted";
+  if (value >= good) return "good";
+  if (value < warn) return "bad";
+  return "warn";
+}
+
+/** Lower-is-better metric (prep, late, rejection) → tone by thresholds. */
+function toneLow(value: number | null | undefined, good: number, warn: number): Tone {
+  if (value == null) return "muted";
+  if (value <= good) return "good";
+  if (value > warn) return "bad";
+  return "warn";
+}
+
+function pctStr(value: number | null | undefined, digits = 1): string {
+  return value == null ? "—" : `${value.toFixed(digits)}%`;
+}
+
+function QualityValue({ value, tone }: { value: string; tone: Tone }) {
+  return (
+    <span className={`text-body-md font-semibold ${toneClass(tone)}`}>{value}</span>
+  );
+}
+
 function formatLaunch(date: string | null): string {
   if (!date) return "—";
   const parsed = new Date(date);
@@ -91,7 +132,7 @@ export function AccountsPerformanceTable({
   return (
     <div className="glass-card overflow-hidden rounded-xl">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[920px] border-collapse text-left">
+        <table className="w-full min-w-[1320px] border-collapse text-left">
           <thead>
             <tr className="border-b border-outline-variant bg-surface-container-low">
               <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">
@@ -106,7 +147,13 @@ export function AccountsPerformanceTable({
               >
                 {monthLabel(selectedMonth)}
               </th>
-              <th className="px-md py-sm text-right text-label-md font-bold text-on-surface-variant">
+              <th
+                className="border-l border-outline-variant px-md py-sm text-center text-label-md font-bold text-on-surface-variant"
+                colSpan={6}
+              >
+                Availability &amp; performance · launch → date
+              </th>
+              <th className="border-l border-outline-variant px-md py-sm text-right text-label-md font-bold text-on-surface-variant">
                 Launch → date
               </th>
             </tr>
@@ -119,7 +166,43 @@ export function AccountsPerformanceTable({
               <th className="px-md pb-xs text-right font-semibold">Orders</th>
               <th className="px-md pb-xs text-right font-semibold">AOV</th>
               <th className="px-md pb-xs text-right font-semibold">Commission</th>
-              <th className="px-md pb-xs text-right font-semibold">
+              <th
+                className="border-l border-outline-variant px-md pb-xs text-right font-semibold"
+                title="Share of open hours the restaurant was active (provider_active_rate)"
+              >
+                Availability
+              </th>
+              <th
+                className="px-md pb-xs text-right font-semibold"
+                title="Average customer rating, out of 5"
+              >
+                Rating
+              </th>
+              <th
+                className="px-md pb-xs text-right font-semibold"
+                title="Average minutes to prepare an order"
+              >
+                Prep
+              </th>
+              <th
+                className="px-md pb-xs text-right font-semibold"
+                title="Order acceptance rate"
+              >
+                Accept
+              </th>
+              <th
+                className="px-md pb-xs text-right font-semibold"
+                title="Order rejection rate (lower is better)"
+              >
+                Reject
+              </th>
+              <th
+                className="px-md pb-xs text-right font-semibold"
+                title="Late-delivered order rate (lower is better)"
+              >
+                Late
+              </th>
+              <th className="border-l border-outline-variant px-md pb-xs text-right font-semibold">
                 GMV trend · total · L1/L2/L3 since launch
               </th>
             </tr>
@@ -169,7 +252,50 @@ export function AccountsPerformanceTable({
                   <td className="px-md py-sm text-right text-body-md text-on-surface">
                     {hasMonth ? formatEur(month!.commission) : "—"}
                   </td>
-                  <td className="px-md py-sm">
+                  {(() => {
+                    const q = account.quality;
+                    return (
+                      <>
+                        <td className="border-l border-outline-variant/40 px-md py-sm text-right">
+                          <QualityValue
+                            value={pctStr(q?.availabilityPct)}
+                            tone={toneHigh(q?.availabilityPct, 95, 85)}
+                          />
+                        </td>
+                        <td className="px-md py-sm text-right">
+                          <QualityValue
+                            value={q?.rating != null ? q.rating.toFixed(2) : "—"}
+                            tone={toneHigh(q?.rating, 4.5, 4)}
+                          />
+                        </td>
+                        <td className="px-md py-sm text-right">
+                          <QualityValue
+                            value={q?.prepMinutes != null ? `${q.prepMinutes.toFixed(1)}m` : "—"}
+                            tone={toneLow(q?.prepMinutes, 20, 30)}
+                          />
+                        </td>
+                        <td className="px-md py-sm text-right">
+                          <QualityValue
+                            value={pctStr(q?.acceptancePct)}
+                            tone={toneHigh(q?.acceptancePct, 98, 95)}
+                          />
+                        </td>
+                        <td className="px-md py-sm text-right">
+                          <QualityValue
+                            value={pctStr(q?.rejectionPct, 2)}
+                            tone={toneLow(q?.rejectionPct, 1, 3)}
+                          />
+                        </td>
+                        <td className="px-md py-sm text-right">
+                          <QualityValue
+                            value={pctStr(q?.lateDeliveryPct)}
+                            tone={toneLow(q?.lateDeliveryPct, 20, 35)}
+                          />
+                        </td>
+                      </>
+                    );
+                  })()}
+                  <td className="border-l border-outline-variant/40 px-md py-sm">
                     <div className="flex flex-col items-end gap-xs">
                       <div className="flex items-center justify-end gap-sm">
                         <Sparkline points={account.sparkline} colorClass="text-won" />
