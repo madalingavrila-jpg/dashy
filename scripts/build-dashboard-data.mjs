@@ -22,6 +22,7 @@ import {
 } from "../lib/mtd-history.mjs";
 import {
   accumulateWeeklyStatusFromHistory,
+  accumulateWeeklyClosedWonFromWonDate,
   accumulateNewOpportunityFallback,
   breakdownStoreToHistory,
   countWeeklyLeads,
@@ -137,6 +138,9 @@ const stageHistoryExport =
 const pipelineExport = process.env.SF_PIPELINE_EXPORT ?? join(root, "scripts/.cache/sf-pipeline-open.json");
 /** Won_Date__c = THIS_MONTH — Sales Opportunity (SF dashboard Won Date MTD). */
 const wonExport = process.env.SF_WON_EXPORT ?? join(root, "scripts/.cache/sf-won-mtd.json");
+/** Won_Date__c = THIS_YEAR — Sales Opportunity. Drives weekly Closed Won (ISO week of Won_Date__c). */
+const wonYtdByDateExport =
+  process.env.SF_WON_YTD_EXPORT ?? join(root, "scripts/.cache/sf-won-ytd-bydate.json");
 const wonRecentExport = join(root, "scripts/.cache/sf-won-recent.json");
 const wonCacheDir = join(root, "scripts/.cache");
 const mopsCasesExport =
@@ -147,6 +151,9 @@ const weeklyData = parseSfJson(weeklyExport);
 const stageHistoryData = parseSfJson(stageHistoryExport);
 const pipelineData = parseSfJson(pipelineExport);
 const wonData = parseSfJson(wonExport);
+const wonYtdByDateData = existsSync(wonYtdByDateExport)
+  ? parseSfJson(wonYtdByDateExport)
+  : { records: [] };
 const wonRecentData = existsSync(wonRecentExport) ? parseSfJson(wonRecentExport) : { records: [] };
 const extraWonExports = readdirSync(wonCacheDir)
   .filter((name) => /^sf-won-\d{4}-\d{2}\.json$/.test(name))
@@ -327,10 +334,19 @@ function isoWeekRangeLabel(year, week) {
 const currentWeekYear = Number(currentWeekKey.slice(0, 4));
 const currentWeekLabelText = `${weekLabel(currentWeekKey)} · ${isoWeekRangeLabel(currentWeekYear, currentWeekNum)}`;
 
-// Weekly status breakdown — all buckets from OpportunityFieldHistory (first INTO stage)
+// Weekly status breakdown:
+//  - Qualified / Negotiations / Active: OpportunityFieldHistory (first INTO stage).
+//  - Closed Won: canonical Won definition (Won_Date__c, Sales Opportunity) bucketed
+//    by ISO week of Won_Date__c — same rule as MTD Won, NOT field-history transitions.
 const weeklyBreakdownStore = initWeeklyBreakdownStore(currentWeekNum);
 accumulateWeeklyStatusFromHistory(
   stageHistoryData.records,
+  weeklyBreakdownStore,
+  agentSegment,
+  isExcludedAgent,
+);
+accumulateWeeklyClosedWonFromWonDate(
+  wonYtdByDateData.records,
   weeklyBreakdownStore,
   agentSegment,
   isExcludedAgent,
