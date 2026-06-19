@@ -55,6 +55,14 @@ function pctStr(value: number | null | undefined, digits = 1): string {
   return value == null ? "—" : `${value.toFixed(digits)}%`;
 }
 
+/** Compact euro (e.g. €1.2k) for dense trend/launch cells. */
+function eurShort(value: number): string {
+  return `€${new Intl.NumberFormat("en-IE", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(value)}`;
+}
+
 function QualityValue({ value, tone }: { value: string; tone: Tone }) {
   return (
     <span className={`text-body-md font-semibold ${toneClass(tone)}`}>{value}</span>
@@ -132,77 +140,77 @@ export function AccountsPerformanceTable({
   return (
     <div className="glass-card overflow-hidden rounded-xl">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[1320px] border-collapse text-left">
+        <table className="w-full min-w-[1080px] border-collapse text-left">
           <thead>
             <tr className="border-b border-outline-variant bg-surface-container-low">
-              <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">
+              <th className="sticky left-0 z-20 bg-surface-container-low px-sm py-xs text-label-md font-bold text-on-surface-variant">
                 Account
               </th>
-              <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">City</th>
-              <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">Agent</th>
-              <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">Launch</th>
+              <th className="px-sm py-xs text-label-md font-bold text-on-surface-variant">City</th>
+              <th className="px-sm py-xs text-label-md font-bold text-on-surface-variant">Agent</th>
+              <th className="px-sm py-xs text-label-md font-bold text-on-surface-variant">Launch</th>
               <th
-                className="px-md py-sm text-right text-label-md font-bold text-on-surface-variant"
+                className="border-l border-outline-variant px-sm py-xs text-right text-label-md font-bold text-on-surface-variant"
                 colSpan={4}
               >
                 {monthLabel(selectedMonth)}
               </th>
               <th
-                className="border-l border-outline-variant px-md py-sm text-center text-label-md font-bold text-on-surface-variant"
+                className="border-l border-outline-variant px-sm py-xs text-center text-label-md font-bold text-on-surface-variant"
                 colSpan={6}
               >
                 Availability &amp; performance · launch → date
               </th>
-              <th className="border-l border-outline-variant px-md py-sm text-right text-label-md font-bold text-on-surface-variant">
+              <th className="border-l border-outline-variant px-sm py-xs text-right text-label-md font-bold text-on-surface-variant">
                 Launch → date
               </th>
             </tr>
-            <tr className="border-b border-outline-variant text-[11px] uppercase tracking-wide text-on-surface-variant">
-              <th className="px-md pb-xs" />
-              <th className="px-md pb-xs" />
-              <th className="px-md pb-xs" />
-              <th className="px-md pb-xs" />
-              <th className="px-md pb-xs text-right font-semibold">GMV</th>
-              <th className="px-md pb-xs text-right font-semibold">Orders</th>
-              <th className="px-md pb-xs text-right font-semibold">AOV</th>
-              <th className="px-md pb-xs text-right font-semibold">Commission</th>
+            <tr className="border-b border-outline-variant text-[10px] uppercase tracking-wide text-on-surface-variant">
+              <th className="sticky left-0 z-20 bg-surface-container-low px-sm pb-xs" />
+              <th className="px-sm pb-xs" />
+              <th className="px-sm pb-xs" />
+              <th className="px-sm pb-xs" />
+              <th className="border-l border-outline-variant px-xs pb-xs text-right font-semibold">GMV</th>
+              <th className="px-xs pb-xs text-right font-semibold">Orders</th>
+              <th className="px-xs pb-xs text-right font-semibold">AOV</th>
+              <th className="px-xs pb-xs text-right font-semibold">Comm.</th>
               <th
-                className="border-l border-outline-variant px-md pb-xs text-right font-semibold"
+                className="border-l border-outline-variant px-xs pb-xs text-right font-semibold"
                 title="Share of open hours the restaurant was active (provider_active_rate)"
               >
-                Availability
+                Avail.
               </th>
               <th
-                className="px-md pb-xs text-right font-semibold"
+                className="px-xs pb-xs text-right font-semibold"
                 title="Average customer rating, out of 5"
               >
                 Rating
               </th>
               <th
-                className="px-md pb-xs text-right font-semibold"
+                className="px-xs pb-xs text-right font-semibold"
                 title="Average minutes to prepare an order"
               >
                 Prep
               </th>
               <th
-                className="px-md pb-xs text-right font-semibold"
+                className="px-xs pb-xs text-right font-semibold"
                 title="Order acceptance rate"
               >
                 Accept
               </th>
               <th
-                className="px-md pb-xs text-right font-semibold"
+                className="px-xs pb-xs text-right font-semibold"
                 title="Order rejection rate (lower is better)"
               >
                 Reject
               </th>
               <th
-                className="px-md pb-xs text-right font-semibold"
+                className="px-xs pb-xs text-right font-semibold"
                 title="Late-delivered order rate (lower is better)"
               >
                 Late
               </th>
-              <th className="border-l border-outline-variant px-md pb-xs text-right font-semibold">
+              <th className="border-l border-outline-variant px-sm pb-xs text-right font-semibold">
                 GMV trend · total · L1/L2/L3 since launch
               </th>
             </tr>
@@ -214,79 +222,89 @@ export function AccountsPerformanceTable({
               return (
                 <tr
                   key={account.id}
-                  className="border-b border-outline-variant/50 transition-colors hover:bg-surface-container-low"
+                  className="group border-b border-outline-variant/50 transition-colors hover:bg-surface-container-low"
                 >
-                  <td className="px-md py-sm">
-                    <p className="text-body-md font-semibold text-on-surface">
+                  <td className="sticky left-0 z-10 bg-surface px-sm py-xs transition-colors group-hover:bg-surface-container-low">
+                    <p
+                      className="max-w-[180px] truncate text-body-md font-semibold text-on-surface"
+                      title={account.accountName}
+                    >
                       {account.accountName}
                     </p>
                     {account.businessSegment ? (
                       <p className="text-[11px] text-on-surface-variant">{account.businessSegment}</p>
                     ) : null}
                   </td>
-                  <td className="px-md py-sm text-body-md text-on-surface-variant">
-                    {account.city}
+                  <td className="px-sm py-xs text-body-md text-on-surface-variant">
+                    <span className="block max-w-[120px] truncate" title={account.city}>
+                      {account.city}
+                    </span>
                   </td>
-                  <td className="px-md py-sm">
-                    <span className="text-body-md text-on-surface">{account.agentName}</span>
+                  <td className="px-sm py-xs">
                     <span
-                      className={`ml-xs inline-flex rounded-full px-xs py-[1px] text-[10px] font-bold ${segmentBadge(
+                      className="block max-w-[140px] truncate text-body-md text-on-surface"
+                      title={account.agentName}
+                    >
+                      {account.agentName}
+                    </span>
+                    <span
+                      className={`mt-[2px] inline-flex rounded-full px-xs py-[1px] text-[10px] font-bold ${segmentBadge(
                         account.segment,
                       )}`}
                     >
                       {account.segment === "complex" ? "Complex" : "Density"}
                     </span>
                   </td>
-                  <td className="px-md py-sm text-body-md text-on-surface-variant">
+                  <td className="whitespace-nowrap px-sm py-xs text-[12px] text-on-surface-variant">
                     {formatLaunch(account.launchDate)}
                   </td>
-                  <td className="px-md py-sm text-right text-body-md font-semibold text-on-surface">
+                  <td className="whitespace-nowrap border-l border-outline-variant/40 px-xs py-xs text-right text-[13px] font-semibold text-on-surface">
                     {hasMonth ? formatEur(month!.gmv) : "—"}
                   </td>
-                  <td className="px-md py-sm text-right text-body-md text-on-surface">
+                  <td className="whitespace-nowrap px-xs py-xs text-right text-[13px] text-on-surface">
                     {hasMonth ? formatInt(month!.orders) : "—"}
                   </td>
-                  <td className="px-md py-sm text-right text-body-md text-on-surface">
+                  <td className="whitespace-nowrap px-xs py-xs text-right text-[13px] text-on-surface">
                     {hasMonth && month!.orders > 0 ? formatEur(month!.aov) : "—"}
                   </td>
-                  <td className="px-md py-sm text-right text-body-md text-on-surface">
+                  <td className="whitespace-nowrap px-xs py-xs text-right text-[13px] text-on-surface">
                     {hasMonth ? formatEur(month!.commission) : "—"}
                   </td>
                   {(() => {
                     const q = account.quality;
                     return (
                       <>
-                        <td className="border-l border-outline-variant/40 px-md py-sm text-right">
+                        <td className="border-l border-outline-variant/40 px-xs py-xs text-right">
                           <QualityValue
                             value={pctStr(q?.availabilityPct)}
                             tone={toneHigh(q?.availabilityPct, 95, 85)}
                           />
                         </td>
-                        <td className="px-md py-sm text-right">
+                        <td className="px-xs py-xs text-right">
                           <QualityValue
                             value={q?.rating != null ? q.rating.toFixed(2) : "—"}
                             tone={toneHigh(q?.rating, 4.5, 4)}
                           />
                         </td>
-                        <td className="px-md py-sm text-right">
+                        <td className="px-xs py-xs text-right">
                           <QualityValue
                             value={q?.prepMinutes != null ? `${q.prepMinutes.toFixed(1)}m` : "—"}
                             tone={toneLow(q?.prepMinutes, 20, 30)}
                           />
                         </td>
-                        <td className="px-md py-sm text-right">
+                        <td className="px-xs py-xs text-right">
                           <QualityValue
                             value={pctStr(q?.acceptancePct)}
                             tone={toneHigh(q?.acceptancePct, 98, 95)}
                           />
                         </td>
-                        <td className="px-md py-sm text-right">
+                        <td className="px-xs py-xs text-right">
                           <QualityValue
                             value={pctStr(q?.rejectionPct, 2)}
                             tone={toneLow(q?.rejectionPct, 1, 3)}
                           />
                         </td>
-                        <td className="px-md py-sm text-right">
+                        <td className="px-xs py-xs text-right">
                           <QualityValue
                             value={pctStr(q?.lateDeliveryPct)}
                             tone={toneLow(q?.lateDeliveryPct, 20, 35)}
@@ -295,23 +313,26 @@ export function AccountsPerformanceTable({
                       </>
                     );
                   })()}
-                  <td className="border-l border-outline-variant/40 px-md py-sm">
+                  <td className="border-l border-outline-variant/40 px-sm py-xs">
                     <div className="flex flex-col items-end gap-xs">
-                      <div className="flex items-center justify-end gap-sm">
+                      <div className="flex items-center justify-end gap-xs">
                         <Sparkline points={account.sparkline} colorClass="text-won" />
-                        <span className="w-20 text-right text-body-md font-semibold text-on-surface">
-                          {formatEur(account.totalGmv)}
+                        <span
+                          className="w-16 text-right text-[13px] font-semibold text-on-surface"
+                          title={formatEur(account.totalGmv)}
+                        >
+                          {eurShort(account.totalGmv)}
                         </span>
                       </div>
                       {(() => {
                         const cells = launchMonths(account, dataMonthMax);
                         if (!cells) return null;
                         return (
-                          <div className="flex flex-wrap justify-end gap-xs">
+                          <div className="flex justify-end gap-base">
                             {cells.map((cell) => (
                               <div
                                 key={cell.label}
-                                className="flex min-w-[104px] flex-col rounded-md border border-outline-variant/60 bg-surface-container-low px-xs py-[3px] text-right"
+                                className="flex min-w-[52px] flex-col items-end rounded border border-outline-variant/60 bg-surface-container-low px-xs py-[2px] text-right"
                                 title={`${cell.label} · ${monthLabel(cell.month)} · ${
                                   cell.gmv != null
                                     ? formatEur(cell.gmv)
@@ -320,18 +341,18 @@ export function AccountsPerformanceTable({
                                       : "no GMV"
                                 }`}
                               >
-                                <span className="text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">
-                                  {cell.label} · {monthLabel(cell.month)}
+                                <span className="text-[9px] font-bold uppercase tracking-wide text-on-surface-variant">
+                                  {cell.label}
                                 </span>
                                 <span
-                                  className={`text-label-md font-semibold ${
+                                  className={`text-[12px] font-semibold ${
                                     cell.gmv != null ? "text-on-surface" : "text-on-surface-variant"
                                   }`}
                                 >
                                   {cell.gmv != null
-                                    ? formatEur(cell.gmv)
+                                    ? eurShort(cell.gmv)
                                     : cell.pending
-                                      ? "pending"
+                                      ? "·"
                                       : "—"}
                                 </span>
                               </div>
