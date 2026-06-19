@@ -86,6 +86,7 @@ apiRouter.get("/status", (_req, res) => {
       "/api/dashboard/mtd",
       "/api/dashboard/weekly",
       "/api/dashboard/accounts",
+      "/api/dashboard/accounts-performance",
       "/api/dashboard/mops",
       "/api/dashboard/agents",
     ],

@@ -13,6 +13,7 @@ export type DashboardSection =
   | "mtd"
   | "weekly"
   | "accounts"
+  | "accounts-performance"
   | "mops"
   | "agents";
 

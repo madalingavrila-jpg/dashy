@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
 import {
+  loadFullDashboardModel,
   serializeDashboardApi,
   sliceDashboardSection,
 } from "../dist/src/services/dashboard.js";
@@ -13,7 +14,19 @@ const outDir = path.join(root, "out", "api");
 const outFile = path.join(outDir, "dashboard.json");
 const sectionDir = path.join(outDir, "dashboard");
 
-const SECTIONS = ["overview", "mtd", "weekly", "accounts", "mops", "agents"];
+const SECTIONS = [
+  "overview",
+  "mtd",
+  "weekly",
+  "accounts",
+  "accounts-performance",
+  "mops",
+  "agents",
+];
+
+// Sections that keep their heavy drill-down data must be sliced from the full
+// (non-slim) model — the slimmed payload drops these arrays to stay under cap.
+const FULL_MODEL_SECTIONS = new Set(["accounts-performance"]);
 
 fs.mkdirSync(sectionDir, { recursive: true });
 
@@ -39,9 +52,11 @@ const json = await serializeDashboardApi();
 const fullSizes = writeWithCompression(outFile, json);
 
 const model = JSON.parse(json);
+const fullModel = await loadFullDashboardModel();
 let sectionBytes = 0;
 for (const section of SECTIONS) {
-  const sectionJson = JSON.stringify(sliceDashboardSection(model, section));
+  const source = FULL_MODEL_SECTIONS.has(section) ? fullModel : model;
+  const sectionJson = JSON.stringify(sliceDashboardSection(source, section));
   const sectionFile = path.join(sectionDir, `${section}.json`);
   const sizes = writeWithCompression(sectionFile, sectionJson);
   sectionBytes += sizes.raw;

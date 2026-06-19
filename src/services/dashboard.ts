@@ -835,6 +835,7 @@ function toDashboardModel(
         };
       }),
     mops: buildMopsView(data.mops) ?? emptyMopsView(),
+    accountsPerformance: data.accountsPerformance,
     settings: data.settings ?? defaultSettings(),
   };
 }
@@ -873,6 +874,14 @@ function slimDashboardModelForApi(model: DashboardModel): DashboardModel {
     };
   });
 
+  // The per-account array is large; keep only summary aggregates in the full
+  // /api/dashboard payload (it must stay under the verify-build cap). The heavy
+  // `accounts` list is served lazily by the dedicated section endpoint, which is
+  // sliced from the non-slim model in precompute.
+  const accountsPerformance = model.accountsPerformance
+    ? { ...model.accountsPerformance, accounts: [] }
+    : undefined;
+
   return {
     ...model,
     mtdHistory,
@@ -880,6 +889,7 @@ function slimDashboardModelForApi(model: DashboardModel): DashboardModel {
       ...model.weeklyPerformance,
       statusBreakdown,
     },
+    accountsPerformance,
   };
 }
 
@@ -897,6 +907,7 @@ export type DashboardSection =
   | "mtd"
   | "weekly"
   | "accounts"
+  | "accounts-performance"
   | "mops"
   | "agents";
 
@@ -908,6 +919,7 @@ export const DASHBOARD_SECTIONS: DashboardSection[] = [
   "mtd",
   "weekly",
   "accounts",
+  "accounts-performance",
   "mops",
   "agents",
 ];
@@ -953,6 +965,11 @@ export function sliceDashboardSection(
         updatedAt: model.updatedAt,
         salesforceInstanceUrl: model.salesforceInstanceUrl,
         accounts: model.accounts,
+      };
+    case "accounts-performance":
+      return {
+        updatedAt: model.updatedAt,
+        accountsPerformance: model.accountsPerformance,
       };
     case "mops":
       return {
@@ -1041,6 +1058,16 @@ function cacheIsFresh(source: { path: string; mtimeMs: number }): boolean {
   }
   const ageMs = Date.now() - cachedPayload.cachedAtMs;
   return ageMs < config.dashyCacheTtlMs;
+}
+
+/**
+ * Build the full (non-slim) dashboard model. Used by the precompute step to
+ * slice large sections (e.g. accounts-performance) that are deliberately
+ * stripped from the slimmed /api/dashboard payload.
+ */
+export async function loadFullDashboardModel(): Promise<DashboardModel> {
+  const { data, source } = await loadRawData();
+  return toDashboardModel(data, source);
 }
 
 export async function serializeDashboardApi(): Promise<string> {

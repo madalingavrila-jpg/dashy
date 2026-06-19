@@ -343,9 +343,75 @@ export type IntegrationSetting = {
   icon: string;
 };
 
+export type AccountsPerformanceMonth = {
+  month: string;
+  gmv: number;
+  orders: number;
+  aov: number;
+  commission: number;
+};
+
+export type AccountsPerformanceSparkPoint = { month: string; value: number };
+
+export type AccountsPerformanceAccount = {
+  id: string;
+  accountName: string;
+  city: string;
+  agentId: string;
+  agentName: string;
+  segment: "complex" | "density";
+  businessSegment?: string;
+  launchDate: string | null;
+  monthly: AccountsPerformanceMonth[];
+  sparkline: AccountsPerformanceSparkPoint[];
+  totalGmv: number;
+  totalOrders: number;
+  totalCommission: number;
+  aov: number;
+};
+
+export type AccountsPerformanceAgentSummary = {
+  agentId: string;
+  name: string;
+  segment: "complex" | "density";
+  accounts: number;
+  gmv: number;
+  orders: number;
+  commission: number;
+};
+
+export type AccountsPerformanceByMonth = {
+  month: string;
+  gmv: number;
+  orders: number;
+  commission: number;
+  aov: number;
+  accounts: number;
+};
+
+export type AccountsPerformance = {
+  generatedAt: string;
+  windowDays: number;
+  country: string;
+  currency: string;
+  dataMonthMax: string | null;
+  metricsNote: string;
+  totals: {
+    accounts: number;
+    gmv: number;
+    orders: number;
+    commission: number;
+    aov: number;
+  };
+  byMonth: AccountsPerformanceByMonth[];
+  agents: AccountsPerformanceAgentSummary[];
+  accounts: AccountsPerformanceAccount[];
+};
+
 export type DashboardRawData = {
   updatedAt: string;
   salesforceInstanceUrl?: string;
+  accountsPerformance?: AccountsPerformance;
   salesPipeline: {
     totals: {
       won: PipelineTotal;
@@ -538,6 +604,7 @@ export type DashboardModel = {
   };
   hitlist: HitlistViewRow[];
   mops?: MopsView;
+  accountsPerformance?: AccountsPerformance;
   settings: {
     timezone: string;
     locale: string;

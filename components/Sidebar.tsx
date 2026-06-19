@@ -11,6 +11,7 @@ const navItems = [
   { icon: "flag", label: "MTD & Tiers", href: "/mtd" },
   { icon: "compare_arrows", label: "WoW Reports", href: "/wow" },
   { icon: "priority_high", label: "Hitlist", href: "/hitlist" },
+  { icon: "storefront", label: "Accounts performance", href: "/accounts-performance" },
   { icon: "support_agent", label: "MOPS", href: "/mops" },
 ];
 

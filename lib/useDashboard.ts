@@ -98,6 +98,7 @@ function mergePartialModel(
     wowReports: partial.wowReports ?? base.wowReports,
     hitlist: partial.hitlist ?? base.hitlist,
     mops: partial.mops ?? base.mops,
+    accountsPerformance: partial.accountsPerformance ?? base.accountsPerformance,
   };
 }
 

@@ -4,7 +4,15 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-const SECTIONS = ["overview", "mtd", "weekly", "accounts", "mops", "agents"];
+const SECTIONS = [
+  "overview",
+  "mtd",
+  "weekly",
+  "accounts",
+  "accounts-performance",
+  "mops",
+  "agents",
+];
 const required = [
   "out/index.html",
   "dist/src/server.js",
