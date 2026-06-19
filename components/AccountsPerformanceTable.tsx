@@ -62,7 +62,11 @@ function pctStr(value: number | null | undefined, digits = 1): string {
   return value == null ? "—" : `${value.toFixed(digits)}%`;
 }
 
-/** Take rate = commission / GMV × 100; null when GMV is 0 (divide-by-zero guard). */
+/**
+ * Gross take rate = commission / gross GMV × 100; null when GMV is 0
+ * (divide-by-zero guard). The `gmv` field is GMV *before discounts*
+ * (Databricks `total_gmv_before_discounts_eur`), so this is the gross take rate.
+ */
 function takeRate(commission: number, gmv: number): number | null {
   return gmv > 0 ? (commission / gmv) * 100 : null;
 }
@@ -341,14 +345,14 @@ export function AccountsPerformanceTable({
     <div className="glass-card overflow-hidden rounded-xl">
       <table className="w-full table-fixed border-collapse text-left text-[13px]">
         <colgroup>
-          <col className="w-[17%]" />
+          <col className="w-[16%]" />
           <col className="w-[10%]" />
           <col className="w-[11%]" />
           <col className="w-[7%]" />
           <col className="w-[9%]" />
           <col className="w-[6%]" />
           <col className="w-[7%]" />
-          <col className="w-[10%]" />
+          <col className="w-[11%]" />
           <col className="w-[6%]" />
           <col className="w-[6%]" />
           <col className="w-[11%]" />
@@ -392,7 +396,7 @@ export function AccountsPerformanceTable({
               sortKey="gmv"
               className={numTh}
               align="right"
-              title={`GMV · ${monthLabel(selectedMonth)}`}
+              title={`GMV before discounts (gross) · ${monthLabel(selectedMonth)}`}
               active={sort.key === "gmv"}
               dir={sort.dir}
               onSort={onSort}
@@ -412,14 +416,14 @@ export function AccountsPerformanceTable({
               sortKey="aov"
               className={numTh}
               align="right"
-              title={`AOV · ${monthLabel(selectedMonth)}`}
+              title={`AOV = gross GMV (before discounts) ÷ delivered orders · ${monthLabel(selectedMonth)}`}
               active={sort.key === "aov"}
               dir={sort.dir}
               onSort={onSort}
             />
             <th
               className={numTh}
-              title={`Partner commission € and take rate (% of GMV) · ${monthLabel(selectedMonth)}`}
+              title={`Partner commission € and gross take rate (commission ÷ gross GMV, before discounts) · ${monthLabel(selectedMonth)}`}
               aria-sort={
                 sort.key === "commission" || sort.key === "commissionPct"
                   ? sort.dir === "asc"
@@ -459,9 +463,9 @@ export function AccountsPerformanceTable({
                   className={`group/sort inline-flex items-center gap-[1px] rounded transition-colors hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
                     sort.key === "commissionPct" ? "text-on-surface" : ""
                   }`}
-                  title="Sort by take rate (% of GMV)"
+                  title="Sort by gross take rate (commission ÷ gross GMV, before discounts)"
                 >
-                  <span>%</span>
+                  <span>% br</span>
                   <span
                     className={`material-symbols-outlined text-[14px] ${
                       sort.key === "commissionPct"
@@ -587,9 +591,9 @@ export function AccountsPerformanceTable({
                     className="px-xs py-xs text-right align-top"
                     title={
                       hasMonth
-                        ? `${formatEur(month!.commission)} · take rate ${pctStr(
+                        ? `${formatEur(month!.commission)} · gross take rate ${pctStr(
                             takeRate(month!.commission, month!.gmv),
-                          )} of GMV`
+                          )} of gross GMV (before discounts)`
                         : undefined
                     }
                   >
