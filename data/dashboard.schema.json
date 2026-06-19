@@ -337,6 +337,44 @@
             }
           }
         },
+        "totalLiveOnboarding": {
+          "type": "number",
+          "description": "Total opportunities in onboarding (Contract sent → Ready to Activate) for the 12 team reps."
+        },
+        "onboardingByAgent": {
+          "type": "array",
+          "description": "Per-agent breakdown of opportunities currently in onboarding (team reps only).",
+          "items": {
+            "type": "object",
+            "required": ["ownerId", "name", "segment", "count"],
+            "properties": {
+              "ownerId": { "type": "string" },
+              "name": { "type": "string" },
+              "segment": { "type": "string", "enum": ["complex", "density"] },
+              "count": { "type": "number" },
+              "moreCount": { "type": "number" },
+              "stageCounts": {
+                "type": "object",
+                "additionalProperties": { "type": "number" }
+              },
+              "accounts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["id", "name", "city", "stage"],
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "city": { "type": "string" },
+                    "stage": { "type": "string" },
+                    "sfOpportunityId": { "type": "string" },
+                    "sfAccountId": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
         "openCaseStatuses": {
           "type": "array",
           "items": {

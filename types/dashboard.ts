@@ -252,12 +252,34 @@ export type MopsMetric = {
   icon?: string;
 };
 
+export type MopsOnboardingAccountRow = {
+  id: string;
+  name: string;
+  city: string;
+  stage: string;
+  sfOpportunityId?: string;
+  sfAccountId?: string;
+};
+
+export type MopsOnboardingAgentRow = {
+  ownerId: string;
+  name: string;
+  segment: "complex" | "density";
+  count: number;
+  stageCounts?: Record<string, number>;
+  accounts?: MopsOnboardingAccountRow[];
+  /** Accounts beyond the per-agent payload cap (true total stays in `count`). */
+  moreCount?: number;
+};
+
 export type MopsData = {
   dashboardId: string;
   dashboardTitle: string;
   dashboardUrl: string;
   salesforceInstanceUrl?: string;
   metrics: MopsMetric[];
+  totalLiveOnboarding?: number;
+  onboardingByAgent?: MopsOnboardingAgentRow[];
   openCaseStatuses?: Array<{ status: string; count: number }>;
   openCaseRecordTypes?: Array<{ recordType: string; count: number }>;
   openByOwner?: MopsOwnerRow[];
@@ -274,10 +296,28 @@ export type MopsOwnerViewRow = {
   count: string;
 };
 
+export type MopsOnboardingAccountViewRow = MopsOnboardingAccountRow & {
+  sfAccountUrl?: string | null;
+  sfOpportunityUrl?: string | null;
+};
+
+export type MopsOnboardingAgentViewRow = {
+  ownerId: string;
+  name: string;
+  segment: string;
+  segmentColor: string;
+  count: string;
+  stageSummary: string;
+  moreCount: number;
+  accounts: MopsOnboardingAccountViewRow[];
+};
+
 export type MopsView = {
   dashboardTitle: string;
   dashboardUrl: string;
   metrics: MetricCard[];
+  totalLiveOnboarding: string;
+  onboardingByAgent: MopsOnboardingAgentViewRow[];
   openCaseStatuses: Array<{ status: string; count: string }>;
   openCaseRecordTypes: Array<{ recordType: string; count: string }>;
   openByOwner: MopsOwnerViewRow[];

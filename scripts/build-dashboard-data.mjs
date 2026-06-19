@@ -46,6 +46,20 @@ const SALES_STAGES = [
   "Closed Won",
 ];
 const ONBOARDING_STAGES = ["Onboarding Checklist", "Onboarding", "Ready to Activate", "Activated"];
+/**
+ * Opportunities actively going through onboarding for the 12 team reps:
+ * signed (Contract sent) through Ready to Activate. Excludes Activated (done)
+ * and the terminal "Closed Won" archive bucket (~2.5k historical records that
+ * never moved to onboarding/activation and are not live work).
+ */
+const LIVE_ONBOARDING_STAGES = [
+  "Contract sent",
+  "Onboarding Checklist",
+  "Onboarding",
+  "Ready to Activate",
+];
+/** Cap accounts kept per agent in the payload; true totals stay in `count`. */
+const MOPS_ONBOARDING_ACCOUNT_CAP = 40;
 const MOPS_DASHBOARD_ID = "01ZTs000000Bx9dMAC";
 const MOPS_DASHBOARD_URL = `https://boltfood.lightning.force.com/lightning/r/Dashboard/${MOPS_DASHBOARD_ID}/view`;
 const MOPS_SF_INSTANCE = "https://boltfood.lightning.force.com";
@@ -116,6 +130,8 @@ const wonRecentExport = join(root, "scripts/.cache/sf-won-recent.json");
 const wonCacheDir = join(root, "scripts/.cache");
 const mopsCasesExport =
   process.env.SF_MOPS_CASES_EXPORT ?? join(root, "scripts/.cache/sf-mops-cases.json");
+const mopsOnboardingExport =
+  process.env.SF_MOPS_ONBOARDING_EXPORT ?? join(root, "scripts/.cache/sf-mops-onboarding.json");
 const weeklyData = parseSfJson(weeklyExport);
 const stageHistoryData = parseSfJson(stageHistoryExport);
 const pipelineData = parseSfJson(pipelineExport);
@@ -130,8 +146,59 @@ const mergedWonRecords = mergeWonExportRecords([wonMtdRecords, wonRecentData]);
 const mtdHistoryStore = buildHybridMtdStore(wonMtdRecords, stageHistoryData.records);
 const mtdHistory = buildMtdHistoryFromHybrid(wonMtdRecords, stageHistoryData.records);
 const mopsCasesData = parseSfJson(mopsCasesExport);
+const mopsOnboardingData = existsSync(mopsOnboardingExport)
+  ? parseSfJson(mopsOnboardingExport)
+  : { records: [] };
 
-function buildMopsSection(casesData) {
+/** Per-agent breakdown of opportunities currently in onboarding (team reps only). */
+function buildOnboardingByAgent(onboardingData) {
+  const byAgent = new Map();
+
+  for (const opp of onboardingData.records ?? []) {
+    if (!LIVE_ONBOARDING_STAGES.includes(opp.StageName)) continue;
+    const ownerId = opp.OwnerId;
+    const ownerName = opp.Owner?.Name ?? "Unknown";
+    const enriched = enrichAgent({ ownerId, name: ownerName });
+    if (!enriched) continue;
+
+    if (!byAgent.has(ownerId)) {
+      byAgent.set(ownerId, {
+        ownerId,
+        name: ownerName,
+        segment: enriched.segment,
+        count: 0,
+        stageCounts: {},
+        accounts: [],
+      });
+    }
+
+    const agent = byAgent.get(ownerId);
+    const stage = stageDisplay(opp.StageName);
+    agent.count += 1;
+    agent.stageCounts[stage] = (agent.stageCounts[stage] ?? 0) + 1;
+    agent.accounts.push({
+      id: opp.Id,
+      name: opp.Account?.Name ?? opp.Name,
+      city: opp.Account?.BillingCity ?? "—",
+      stage,
+      sfOpportunityId: opp.Id,
+      sfAccountId: opp.AccountId,
+    });
+  }
+
+  const rows = [...byAgent.values()].sort((a, b) => b.count - a.count);
+  for (const agent of rows) {
+    if (agent.accounts.length > MOPS_ONBOARDING_ACCOUNT_CAP) {
+      agent.moreCount = agent.accounts.length - MOPS_ONBOARDING_ACCOUNT_CAP;
+      agent.accounts = agent.accounts.slice(0, MOPS_ONBOARDING_ACCOUNT_CAP);
+    }
+  }
+  const totalLiveOnboarding = rows.reduce((sum, row) => sum + row.count, 0);
+  return { onboardingByAgent: rows, totalLiveOnboarding };
+}
+
+function buildMopsSection(casesData, onboardingData) {
+  const { onboardingByAgent, totalLiveOnboarding } = buildOnboardingByAgent(onboardingData);
   const openCases = casesData.openCases ?? 0;
   const openNewOnboarding = casesData.openNewOnboarding ?? 0;
   const openOtherCases = Math.max(0, openCases - openNewOnboarding);
@@ -143,6 +210,13 @@ function buildMopsSection(casesData) {
     dashboardUrl: MOPS_DASHBOARD_URL,
     salesforceInstanceUrl: MOPS_SF_INSTANCE,
     metrics: [
+      {
+        id: "onboarding-live",
+        label: "Accounts in onboarding",
+        value: totalLiveOnboarding,
+        subtitle: "Contract sent → Ready to Activate (opps)",
+        icon: "rocket_launch",
+      },
       {
         id: "open-cases",
         label: "Open cases",
@@ -176,6 +250,8 @@ function buildMopsSection(casesData) {
           ]
         : []),
     ],
+    totalLiveOnboarding,
+    onboardingByAgent,
     openCaseStatuses: casesData.openByStatus ?? [],
     openCaseRecordTypes: casesData.openByRecordType ?? [],
     openByOwner: casesData.openByOwner ?? [],
@@ -191,7 +267,7 @@ function buildMopsSection(casesData) {
   };
 }
 
-const mops = buildMopsSection(mopsCasesData);
+const mops = buildMopsSection(mopsCasesData, mopsOnboardingData);
 
 const now = new Date().toISOString();
 // Dynamic current ISO week (Europe/Bucharest) — was hardcoded to a June-11

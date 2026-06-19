@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { MetricCards } from "@/components/MetricCards";
 import { MopsCasesTable } from "@/components/MopsCasesTable";
+import { MopsOnboardingTable } from "@/components/MopsOnboardingTable";
 import { useDashboard } from "@/lib/useDashboard";
 
 const SF_DASHBOARD_URL =
@@ -17,7 +18,7 @@ export function MopsShell() {
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
         title="MOps"
-        subtitle="Open case workload — non-closed MOps cases only."
+        subtitle="Live onboarding pipeline by agent + open MOps case workload."
         updatedAt={model?.updatedAt}
         loading={loading}
         actions={
@@ -38,13 +39,40 @@ export function MopsShell() {
       <section className="space-y-sm">
         <div>
           <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
-            {mops?.dashboardTitle ?? "[MOps] Open cases"}
+            MOps overview
           </p>
           <p className="text-body-md text-on-surface-variant">
-            Open MOps cases only — closed cases are excluded from this view.
+            Live onboarding opportunities and open case workload at a glance.
           </p>
         </div>
         <MetricCards metrics={mops?.metrics} loading={loading} columns={4} />
+      </section>
+
+      <section className="space-y-sm">
+        <div>
+          <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
+            Onboarding pipeline (opportunities)
+          </p>
+          <p className="text-body-md text-on-surface-variant">
+            Accounts each agent currently has in onboarding — sales opportunities, not cases.
+          </p>
+        </div>
+        <MopsOnboardingTable
+          agents={mops?.onboardingByAgent}
+          total={mops?.totalLiveOnboarding}
+          loading={loading}
+        />
+      </section>
+
+      <section className="space-y-sm">
+        <div>
+          <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
+            Case workload (cases)
+          </p>
+          <p className="text-body-md text-on-surface-variant">
+            Open MOps cases only — closed cases are excluded from the views below.
+          </p>
+        </div>
       </section>
 
       {mops?.openCaseStatuses?.length ? (
