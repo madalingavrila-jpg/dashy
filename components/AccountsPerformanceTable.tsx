@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import type { AccountsPerformanceAccount } from "@/types/dashboard";
 import { Sparkline } from "@/components/Sparkline";
 
@@ -142,6 +142,142 @@ function DetailStat({
   );
 }
 
+type SortKey =
+  | "account"
+  | "city"
+  | "agent"
+  | "launch"
+  | "gmv"
+  | "orders"
+  | "aov"
+  | "commission"
+  | "rating"
+  | "availability"
+  | "total";
+
+type SortDir = "asc" | "desc";
+
+/** Text columns default to A→Z; every metric/date column defaults to high→low. */
+function defaultDir(key: SortKey): SortDir {
+  return key === "account" || key === "city" || key === "agent" ? "asc" : "desc";
+}
+
+/** Sort value for a column: a string for text columns, a number (or null) otherwise. */
+function sortValue(
+  account: AccountsPerformanceAccount,
+  key: SortKey,
+  selectedMonth: string,
+): string | number | null {
+  const month = account.monthly.find((m) => m.month === selectedMonth);
+  switch (key) {
+    case "account":
+      return account.accountName ?? "";
+    case "city":
+      return account.city ?? "";
+    case "agent":
+      return account.agentName ?? "";
+    case "launch": {
+      if (!account.launchDate) return null;
+      const t = Date.parse(account.launchDate);
+      return Number.isNaN(t) ? null : t;
+    }
+    case "gmv":
+      return month ? month.gmv : null;
+    case "orders":
+      return month ? month.orders : null;
+    case "aov":
+      return month && month.orders > 0 ? month.aov : null;
+    case "commission":
+      return month ? month.commission : null;
+    case "rating":
+      return account.quality?.rating ?? null;
+    case "availability":
+      return account.quality?.availabilityPct ?? null;
+    case "total":
+      return account.totalGmv;
+    default:
+      return null;
+  }
+}
+
+function compareAccounts(
+  a: AccountsPerformanceAccount,
+  b: AccountsPerformanceAccount,
+  key: SortKey,
+  dir: SortDir,
+  selectedMonth: string,
+): number {
+  const mult = dir === "asc" ? 1 : -1;
+  const va = sortValue(a, key, selectedMonth);
+  const vb = sortValue(b, key, selectedMonth);
+
+  let primary: number;
+  if (typeof va === "string" || typeof vb === "string") {
+    primary =
+      mult *
+      String(va ?? "").localeCompare(String(vb ?? ""), undefined, { sensitivity: "base" });
+  } else {
+    // Missing numeric values always sink to the bottom, regardless of direction.
+    if (va == null && vb == null) primary = 0;
+    else if (va == null) primary = 1;
+    else if (vb == null) primary = -1;
+    else primary = mult * (va - vb);
+  }
+  if (primary !== 0) return primary;
+  // Stable tie-break: heaviest launch-to-date GMV first, then name A→Z.
+  return (
+    b.totalGmv - a.totalGmv ||
+    String(a.accountName ?? "").localeCompare(String(b.accountName ?? ""))
+  );
+}
+
+/** Clickable column header that toggles asc/desc and exposes aria-sort. */
+function SortHeader({
+  label,
+  sortKey,
+  className,
+  align = "left",
+  title,
+  active,
+  dir,
+  onSort,
+}: {
+  label: string;
+  sortKey: SortKey;
+  className: string;
+  align?: "left" | "right";
+  title?: string;
+  active: boolean;
+  dir: SortDir;
+  onSort: (key: SortKey) => void;
+}) {
+  const icon = active ? (dir === "asc" ? "arrow_upward" : "arrow_downward") : "unfold_more";
+  return (
+    <th
+      className={className}
+      title={title}
+      aria-sort={active ? (dir === "asc" ? "ascending" : "descending") : "none"}
+    >
+      <button
+        type="button"
+        onClick={() => onSort(sortKey)}
+        className={`group/sort inline-flex w-full items-center gap-[2px] rounded transition-colors hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
+          align === "right" ? "justify-end" : "justify-start"
+        } ${active ? "text-on-surface" : ""}`}
+      >
+        <span>{label}</span>
+        <span
+          className={`material-symbols-outlined text-[14px] ${
+            active ? "opacity-100" : "opacity-30 group-hover/sort:opacity-60"
+          }`}
+        >
+          {icon}
+        </span>
+      </button>
+    </th>
+  );
+}
+
 export function AccountsPerformanceTable({
   accounts,
   selectedMonth,
@@ -152,6 +288,22 @@ export function AccountsPerformanceTable({
   loading,
 }: AccountsPerformanceTableProps) {
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [sort, setSort] = useState<{ key: SortKey; dir: SortDir }>({ key: "gmv", dir: "desc" });
+
+  const onSort = (key: SortKey) =>
+    setSort((prev) =>
+      prev.key === key
+        ? { key, dir: prev.dir === "asc" ? "desc" : "asc" }
+        : { key, dir: defaultDir(key) },
+    );
+
+  const sortedAccounts = useMemo(
+    () =>
+      accounts
+        .slice()
+        .sort((a, b) => compareAccounts(a, b, sort.key, sort.dir, selectedMonth)),
+    [accounts, sort, selectedMonth],
+  );
 
   const toggle = (id: string) =>
     setExpanded((prev) => {
@@ -195,38 +347,112 @@ export function AccountsPerformanceTable({
         </colgroup>
         <thead>
           <tr className="border-b border-outline-variant bg-surface-container-low">
-            <th className={thBase}>Account</th>
-            <th className={thBase}>City</th>
-            <th className={thBase}>Agent</th>
-            <th className={thBase}>Launch</th>
-            <th className={numTh} title={`GMV · ${monthLabel(selectedMonth)}`}>
-              GMV
-            </th>
-            <th className={numTh} title={`Orders · ${monthLabel(selectedMonth)}`}>
-              Ord.
-            </th>
-            <th className={numTh} title={`AOV · ${monthLabel(selectedMonth)}`}>
-              AOV
-            </th>
-            <th className={numTh} title={`Partner commission · ${monthLabel(selectedMonth)}`}>
-              Comm.
-            </th>
-            <th className={numTh} title="Average customer rating, out of 5">
-              Rating
-            </th>
-            <th
+            <SortHeader
+              label="Account"
+              sortKey="account"
+              className={thBase}
+              active={sort.key === "account"}
+              dir={sort.dir}
+              onSort={onSort}
+            />
+            <SortHeader
+              label="City"
+              sortKey="city"
+              className={thBase}
+              active={sort.key === "city"}
+              dir={sort.dir}
+              onSort={onSort}
+            />
+            <SortHeader
+              label="Agent"
+              sortKey="agent"
+              className={thBase}
+              active={sort.key === "agent"}
+              dir={sort.dir}
+              onSort={onSort}
+            />
+            <SortHeader
+              label="Launch"
+              sortKey="launch"
+              className={thBase}
+              active={sort.key === "launch"}
+              dir={sort.dir}
+              onSort={onSort}
+            />
+            <SortHeader
+              label="GMV"
+              sortKey="gmv"
               className={numTh}
+              align="right"
+              title={`GMV · ${monthLabel(selectedMonth)}`}
+              active={sort.key === "gmv"}
+              dir={sort.dir}
+              onSort={onSort}
+            />
+            <SortHeader
+              label="Ord."
+              sortKey="orders"
+              className={numTh}
+              align="right"
+              title={`Orders · ${monthLabel(selectedMonth)}`}
+              active={sort.key === "orders"}
+              dir={sort.dir}
+              onSort={onSort}
+            />
+            <SortHeader
+              label="AOV"
+              sortKey="aov"
+              className={numTh}
+              align="right"
+              title={`AOV · ${monthLabel(selectedMonth)}`}
+              active={sort.key === "aov"}
+              dir={sort.dir}
+              onSort={onSort}
+            />
+            <SortHeader
+              label="Comm."
+              sortKey="commission"
+              className={numTh}
+              align="right"
+              title={`Partner commission · ${monthLabel(selectedMonth)}`}
+              active={sort.key === "commission"}
+              dir={sort.dir}
+              onSort={onSort}
+            />
+            <SortHeader
+              label="Rating"
+              sortKey="rating"
+              className={numTh}
+              align="right"
+              title="Average customer rating, out of 5"
+              active={sort.key === "rating"}
+              dir={sort.dir}
+              onSort={onSort}
+            />
+            <SortHeader
+              label="Avail."
+              sortKey="availability"
+              className={numTh}
+              align="right"
               title="Share of open hours the restaurant was active (provider_active_rate)"
-            >
-              Avail.
-            </th>
-            <th className={numTh} title="GMV trend & total, launch → date">
-              Trend · total
-            </th>
+              active={sort.key === "availability"}
+              dir={sort.dir}
+              onSort={onSort}
+            />
+            <SortHeader
+              label="Trend · total"
+              sortKey="total"
+              className={numTh}
+              align="right"
+              title="GMV trend & total, launch → date"
+              active={sort.key === "total"}
+              dir={sort.dir}
+              onSort={onSort}
+            />
           </tr>
         </thead>
         <tbody>
-          {accounts.map((account) => {
+          {sortedAccounts.map((account) => {
             const month = account.monthly.find((m) => m.month === selectedMonth);
             const hasMonth = Boolean(month);
             const q = account.quality;
