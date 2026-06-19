@@ -1,6 +1,6 @@
 {
-  "openCases": 92,
-  "openNewOnboarding": 54,
+  "openCases": 93,
+  "openNewOnboarding": 55,
   "openByStatus": [
     {
       "status": "Menu & Assets",
@@ -8,7 +8,7 @@
     },
     {
       "status": "Onboarding Qualify",
-      "count": 34
+      "count": 35
     },
     {
       "status": "Menu Update",
@@ -22,7 +22,7 @@
   "openByRecordType": [
     {
       "recordType": "New Onboarding",
-      "count": 54
+      "count": 55
     },
     {
       "recordType": "Self Signup",
@@ -33,11 +33,11 @@
       "count": 11
     },
     {
-      "recordType": "Expansion",
+      "recordType": "New Merchant Venue",
       "count": 4
     },
     {
-      "recordType": "New Merchant Venue",
+      "recordType": "Expansion",
       "count": 4
     },
     {
@@ -54,7 +54,7 @@
     {
       "ownerId": "00GTs000000wXy5MAE",
       "name": "Romania",
-      "count": 14
+      "count": 15
     },
     {
       "ownerId": "005Ts00000C6g2TIAR",
@@ -118,6 +118,15 @@
     }
   ],
   "records": [
+    {
+      "id": "500Qs00000mJK1DIAW",
+      "caseNumber": "00068148",
+      "subject": "Pizza Rebela Donatella Onboarding",
+      "status": "Onboarding Qualify",
+      "ownerId": "00GTs000000wXy5MAE",
+      "ownerName": "Romania",
+      "recordType": "New Onboarding"
+    },
     {
       "id": "500Qs00000mJ7bqIAC",
       "caseNumber": "00068144",

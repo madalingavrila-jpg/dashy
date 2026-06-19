@@ -5,13 +5,13 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jL7pQIAS"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jLFlPIAW"
       },
-      "Id": "006Qs00000jL7pQIAS",
-      "Name": "Pizza Rebela Donatella",
+      "Id": "006Qs00000jLFlPIAW",
+      "Name": "The Final Tacos",
       "StageName": "New Opportunity",
-      "CreatedDate": "2026-06-19T07:42:53.000+0000",
-      "LastModifiedDate": "2026-06-19T07:42:57.000+0000",
+      "CreatedDate": "2026-06-19T07:52:39.000+0000",
+      "LastModifiedDate": "2026-06-19T07:55:28.000+0000",
       "CloseDate": "2026-06-30",
       "OwnerId": "005Ts000005c4hFIAQ",
       "Owner": {
@@ -21,13 +21,13 @@
         },
         "Name": "Corneliu-Ștefan Radu"
       },
-      "AccountId": "001Qs00000pzLBzIAM",
+      "AccountId": "001Qs00000pzA3jIAE",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pzLBzIAM"
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pzA3jIAE"
         },
-        "Name": "Pizza Rebela Donatella",
+        "Name": "The Final Tacos",
         "BillingCity": null
       }
     },

@@ -5,11 +5,38 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jLFlPIAW"
+      },
+      "Id": "006Qs00000jLFlPIAW",
+      "Name": "The Final Tacos",
+      "StageName": "New Opportunity",
+      "CloseDate": "2026-06-30",
+      "OwnerId": "005Ts000005c4hFIAQ",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000005c4hFIAQ"
+        },
+        "Name": "Corneliu-Ștefan Radu"
+      },
+      "AccountId": "001Qs00000pzA3jIAE",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000pzA3jIAE"
+        },
+        "Name": "The Final Tacos",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000jL7pQIAS"
       },
       "Id": "006Qs00000jL7pQIAS",
       "Name": "Pizza Rebela Donatella",
-      "StageName": "New Opportunity",
+      "StageName": "Onboarding",
       "CloseDate": "2026-06-30",
       "OwnerId": "005Ts000005c4hFIAQ",
       "Owner": {
@@ -26,7 +53,7 @@
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000pzLBzIAM"
         },
         "Name": "Pizza Rebela Donatella",
-        "BillingCity": null
+        "BillingCity": "Brasov"
       }
     },
     {
@@ -10265,33 +10292,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWeoIAH"
-      },
-      "Id": "006Qs00000ZIWeoIAH",
-      "Name": "Gyros House",
-      "StageName": "Reachout",
-      "CloseDate": "2025-11-12",
-      "OwnerId": "005Ts00000BtGPDIA3",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
-        },
-        "Name": "Daniel-Alexandru Boboc"
-      },
-      "AccountId": "001Qs00000cJJ9GIAW",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJJ9GIAW"
-        },
-        "Name": "Patiseria LUCA - Otopeni",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWi2IAH"
       },
       "Id": "006Qs00000ZIWi2IAH",
@@ -10319,33 +10319,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWbaIAH"
-      },
-      "Id": "006Qs00000ZIWbaIAH",
-      "Name": "Gyros House",
-      "StageName": "Reachout",
-      "CloseDate": "2025-11-12",
-      "OwnerId": "005Ts00000BtGPDIA3",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
-        },
-        "Name": "Daniel-Alexandru Boboc"
-      },
-      "AccountId": "001Qs00000cJGhfIAG",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJGhfIAG"
-        },
-        "Name": "Patiseria LUCA - Otopeni",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWdCIAX"
       },
       "Id": "006Qs00000ZIWdCIAX",
@@ -10365,6 +10338,60 @@
         "attributes": {
           "type": "Account",
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJU1JIAW"
+        },
+        "Name": "Patiseria LUCA - Otopeni",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWeoIAH"
+      },
+      "Id": "006Qs00000ZIWeoIAH",
+      "Name": "Gyros House",
+      "StageName": "Reachout",
+      "CloseDate": "2025-11-12",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000cJJ9GIAW",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJJ9GIAW"
+        },
+        "Name": "Patiseria LUCA - Otopeni",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWbaIAH"
+      },
+      "Id": "006Qs00000ZIWbaIAH",
+      "Name": "Gyros House",
+      "StageName": "Reachout",
+      "CloseDate": "2025-11-12",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000cJGhfIAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJGhfIAG"
         },
         "Name": "Patiseria LUCA - Otopeni",
         "BillingCity": null
@@ -10400,33 +10427,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIKoyIAH"
-      },
-      "Id": "006Qs00000ZIKoyIAH",
-      "Name": "Gyros House",
-      "StageName": "Reachout",
-      "CloseDate": "2025-11-12",
-      "OwnerId": "005Ts00000BtGPDIA3",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
-        },
-        "Name": "Daniel-Alexandru Boboc"
-      },
-      "AccountId": "001Qs00000cJCz2IAG",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJCz2IAG"
-        },
-        "Name": "Patiseria LUCA - Otopeni",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWWkIAP"
       },
       "Id": "006Qs00000ZIWWkIAP",
@@ -10454,9 +10454,9 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZISUnIAP"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIKoyIAH"
       },
-      "Id": "006Qs00000ZISUnIAP",
+      "Id": "006Qs00000ZIKoyIAH",
       "Name": "Gyros House",
       "StageName": "Reachout",
       "CloseDate": "2025-11-12",
@@ -10468,11 +10468,11 @@
         },
         "Name": "Daniel-Alexandru Boboc"
       },
-      "AccountId": "001Qs00000cJJpEIAW",
+      "AccountId": "001Qs00000cJCz2IAG",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJJpEIAW"
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJCz2IAG"
         },
         "Name": "Patiseria LUCA - Otopeni",
         "BillingCity": null
@@ -10508,9 +10508,9 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWV8IAP"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZISUnIAP"
       },
-      "Id": "006Qs00000ZIWV8IAP",
+      "Id": "006Qs00000ZISUnIAP",
       "Name": "Gyros House",
       "StageName": "Reachout",
       "CloseDate": "2025-11-12",
@@ -10522,11 +10522,11 @@
         },
         "Name": "Daniel-Alexandru Boboc"
       },
-      "AccountId": "001Qs00000cJKq9IAG",
+      "AccountId": "001Qs00000cJJpEIAW",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJKq9IAG"
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJJpEIAW"
         },
         "Name": "Patiseria LUCA - Otopeni",
         "BillingCity": null
@@ -10554,6 +10554,60 @@
         "attributes": {
           "type": "Account",
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJTzhIAG"
+        },
+        "Name": "Patiseria LUCA - Otopeni",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWV8IAP"
+      },
+      "Id": "006Qs00000ZIWV8IAP",
+      "Name": "Gyros House",
+      "StageName": "Reachout",
+      "CloseDate": "2025-11-12",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000cJKq9IAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJKq9IAG"
+        },
+        "Name": "Patiseria LUCA - Otopeni",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIMScIAP"
+      },
+      "Id": "006Qs00000ZIMScIAP",
+      "Name": "Gyros House",
+      "StageName": "Reachout",
+      "CloseDate": "2025-11-12",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000cJEvzIAG",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJEvzIAG"
         },
         "Name": "Patiseria LUCA - Otopeni",
         "BillingCity": null
@@ -10608,33 +10662,6 @@
         "attributes": {
           "type": "Account",
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJ25SIAS"
-        },
-        "Name": "Patiseria LUCA - Otopeni",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIMScIAP"
-      },
-      "Id": "006Qs00000ZIMScIAP",
-      "Name": "Gyros House",
-      "StageName": "Reachout",
-      "CloseDate": "2025-11-12",
-      "OwnerId": "005Ts00000BtGPDIA3",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
-        },
-        "Name": "Daniel-Alexandru Boboc"
-      },
-      "AccountId": "001Qs00000cJEvzIAG",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJEvzIAG"
         },
         "Name": "Patiseria LUCA - Otopeni",
         "BillingCity": null
@@ -10805,6 +10832,33 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWIEIA5"
+      },
+      "Id": "006Qs00000ZIWIEIA5",
+      "Name": "Gyros House",
+      "StageName": "Reachout",
+      "CloseDate": "2025-11-12",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
+        },
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Qs00000cJJVqIAO",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJJVqIAO"
+        },
+        "Name": "Patiseria LUCA - Otopeni",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWGcIAP"
       },
       "Id": "006Qs00000ZIWGcIAP",
@@ -10851,33 +10905,6 @@
         "attributes": {
           "type": "Account",
           "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJSFeIAO"
-        },
-        "Name": "Patiseria LUCA - Otopeni",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Qs00000ZIWIEIA5"
-      },
-      "Id": "006Qs00000ZIWIEIA5",
-      "Name": "Gyros House",
-      "StageName": "Reachout",
-      "CloseDate": "2025-11-12",
-      "OwnerId": "005Ts00000BtGPDIA3",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts00000BtGPDIA3"
-        },
-        "Name": "Daniel-Alexandru Boboc"
-      },
-      "AccountId": "001Qs00000cJJVqIAO",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Qs00000cJJVqIAO"
         },
         "Name": "Patiseria LUCA - Otopeni",
         "BillingCity": null
@@ -11642,6 +11669,33 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSnE5IAL"
+      },
+      "Id": "006Ts00000MSnE5IAL",
+      "Name": "Quosmo Papyl",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts00000WhWbnIAF",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000WhWbnIAF"
+        },
+        "Name": "Quosmo Papyl",
+        "BillingCity": "Timisoara"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSnE6IAL"
       },
       "Id": "006Ts00000MSnE6IAL",
@@ -11696,60 +11750,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSnE8IAL"
-      },
-      "Id": "006Ts00000MSnE8IAL",
-      "Name": "krema",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts00000bxYlBIAU",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000bxYlBIAU"
-        },
-        "Name": "krema",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSnE5IAL"
-      },
-      "Id": "006Ts00000MSnE5IAL",
-      "Name": "Quosmo Papyl",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts00000WhWbnIAF",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000WhWbnIAF"
-        },
-        "Name": "Quosmo Papyl",
-        "BillingCity": "Timisoara"
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSnE2IAL"
       },
       "Id": "006Ts00000MSnE2IAL",
@@ -11771,6 +11771,33 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts00000UDkIKIA1"
         },
         "Name": "REVIBE COFFEE",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSnE8IAL"
+      },
+      "Id": "006Ts00000MSnE8IAL",
+      "Name": "krema",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts00000bxYlBIAU",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts00000bxYlBIAU"
+        },
+        "Name": "krema",
         "BillingCity": null
       }
     },
@@ -12020,6 +12047,33 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfeBIAT"
+      },
+      "Id": "006Ts00000MSfeBIAT",
+      "Name": "Sultana Sweets",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005nuwZIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuwZIAQ"
+        },
+        "Name": "Sultana Sweets",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfeEIAT"
       },
       "Id": "006Ts00000MSfeEIAT",
@@ -12041,6 +12095,33 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts000005nxKnIAI"
         },
         "Name": "zhh pizza",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfeAIAT"
+      },
+      "Id": "006Ts00000MSfeAIAT",
+      "Name": "Restaurant Arizona",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005nuvFIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuvFIAQ"
+        },
+        "Name": "Restaurant Arizona",
         "BillingCity": null
       }
     },
@@ -12074,10 +12155,10 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfeBIAT"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfe6IAD"
       },
-      "Id": "006Ts00000MSfeBIAT",
-      "Name": "Sultana Sweets",
+      "Id": "006Ts00000MSfe6IAD",
+      "Name": "Tango",
       "StageName": "New Opportunity",
       "CloseDate": "2025-11-05",
       "OwnerId": "005Ts000006V3vpIAC",
@@ -12088,13 +12169,13 @@
         },
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Ts000005nuwZIAQ",
+      "AccountId": "001Ts000005nsJmIAI",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuwZIAQ"
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nsJmIAI"
         },
-        "Name": "Sultana Sweets",
+        "Name": "Tango",
         "BillingCity": null
       }
     },
@@ -12155,10 +12236,10 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfeAIAT"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfe1IAD"
       },
-      "Id": "006Ts00000MSfeAIAT",
-      "Name": "Restaurant Arizona",
+      "Id": "006Ts00000MSfe1IAD",
+      "Name": "Traditional Barraca",
       "StageName": "New Opportunity",
       "CloseDate": "2025-11-05",
       "OwnerId": "005Ts000006V3vpIAC",
@@ -12169,13 +12250,13 @@
         },
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Ts000005nuvFIAQ",
+      "AccountId": "001Ts000005nqcRIAQ",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuvFIAQ"
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqcRIAQ"
         },
-        "Name": "Restaurant Arizona",
+        "Name": "Traditional Barraca",
         "BillingCity": null
       }
     },
@@ -12209,6 +12290,33 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdqIAD"
+      },
+      "Id": "006Ts00000MSfdqIAD",
+      "Name": "Pizza Royal Timisoara",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005nqQfIAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqQfIAI"
+        },
+        "Name": "Pizza Royal Timisoara",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfe3IAD"
       },
       "Id": "006Ts00000MSfe3IAD",
@@ -12236,10 +12344,10 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfe1IAD"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdlIAD"
       },
-      "Id": "006Ts00000MSfe1IAD",
-      "Name": "Traditional Barraca",
+      "Id": "006Ts00000MSfdlIAD",
+      "Name": "Sorrento Pizza & Pasta",
       "StageName": "New Opportunity",
       "CloseDate": "2025-11-05",
       "OwnerId": "005Ts000006V3vpIAC",
@@ -12250,13 +12358,13 @@
         },
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Ts000005nqcRIAQ",
+      "AccountId": "001Ts000005nqQVIAY",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqcRIAQ"
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqQVIAY"
         },
-        "Name": "Traditional Barraca",
+        "Name": "Sorrento Pizza & Pasta",
         "BillingCity": null
       }
     },
@@ -12317,10 +12425,10 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfe6IAD"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdIIAT"
       },
-      "Id": "006Ts00000MSfe6IAD",
-      "Name": "Tango",
+      "Id": "006Ts00000MSfdIIAT",
+      "Name": "Olive Bistro",
       "StageName": "New Opportunity",
       "CloseDate": "2025-11-05",
       "OwnerId": "005Ts000006V3vpIAC",
@@ -12331,40 +12439,13 @@
         },
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Ts000005nsJmIAI",
+      "AccountId": "001Ts000005nq35IAA",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nsJmIAI"
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nq35IAA"
         },
-        "Name": "Tango",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdqIAD"
-      },
-      "Id": "006Ts00000MSfdqIAD",
-      "Name": "Pizza Royal Timisoara",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005nqQfIAI",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqQfIAI"
-        },
-        "Name": "Pizza Royal Timisoara",
+        "Name": "Olive Bistro",
         "BillingCity": null
       }
     },
@@ -12398,6 +12479,33 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdCIAT"
+      },
+      "Id": "006Ts00000MSfdCIAT",
+      "Name": "Sandy’s Diner",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005npsLIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005npsLIAQ"
+        },
+        "Name": "Sandy’s Diner",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdSIAT"
       },
       "Id": "006Ts00000MSfdSIAT",
@@ -12425,10 +12533,10 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdIIAT"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfd7IAD"
       },
-      "Id": "006Ts00000MSfdIIAT",
-      "Name": "Olive Bistro",
+      "Id": "006Ts00000MSfd7IAD",
+      "Name": "Scârț, a Chill Place",
       "StageName": "New Opportunity",
       "CloseDate": "2025-11-05",
       "OwnerId": "005Ts000006V3vpIAC",
@@ -12439,40 +12547,13 @@
         },
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Ts000005nq35IAA",
+      "AccountId": "001Ts000005nps4IAA",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nq35IAA"
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nps4IAA"
         },
-        "Name": "Olive Bistro",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdaIAD"
-      },
-      "Id": "006Ts00000MSfdaIAD",
-      "Name": "Pulcinella",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005nqPvIAI",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqPvIAI"
-        },
-        "Name": "Pulcinella",
+        "Name": "Scârț, a Chill Place",
         "BillingCity": null
       }
     },
@@ -12506,6 +12587,33 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdaIAD"
+      },
+      "Id": "006Ts00000MSfdaIAD",
+      "Name": "Pulcinella",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005nqPvIAI",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqPvIAI"
+        },
+        "Name": "Pulcinella",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfd9IAD"
       },
       "Id": "006Ts00000MSfd9IAD",
@@ -12527,60 +12635,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts000005npsDIAQ"
         },
         "Name": "Restaurant Mistyk (fost Pepper Steak&Shake)",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdfIAD"
-      },
-      "Id": "006Ts00000MSfdfIAD",
-      "Name": "Mozaic Indian Food",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005nqQBIAY",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqQBIAY"
-        },
-        "Name": "Mozaic Indian Food",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdCIAT"
-      },
-      "Id": "006Ts00000MSfdCIAT",
-      "Name": "Sandy’s Diner",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005npsLIAQ",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005npsLIAQ"
-        },
-        "Name": "Sandy’s Diner",
         "BillingCity": null
       }
     },
@@ -12641,10 +12695,10 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfd7IAD"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdfIAD"
       },
-      "Id": "006Ts00000MSfd7IAD",
-      "Name": "Scârț, a Chill Place",
+      "Id": "006Ts00000MSfdfIAD",
+      "Name": "Mozaic Indian Food",
       "StageName": "New Opportunity",
       "CloseDate": "2025-11-05",
       "OwnerId": "005Ts000006V3vpIAC",
@@ -12655,40 +12709,13 @@
         },
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Ts000005nps4IAA",
+      "AccountId": "001Ts000005nqQBIAY",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nps4IAA"
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqQBIAY"
         },
-        "Name": "Scârț, a Chill Place",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSfdlIAD"
-      },
-      "Id": "006Ts00000MSfdlIAD",
-      "Name": "Sorrento Pizza & Pasta",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005nqQVIAY",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqQVIAY"
-        },
-        "Name": "Sorrento Pizza & Pasta",
+        "Name": "Mozaic Indian Food",
         "BillingCity": null
       }
     },
@@ -12722,10 +12749,10 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVhIAP"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVoIAP"
       },
-      "Id": "006Ts00000MSLVhIAP",
-      "Name": "In Familie",
+      "Id": "006Ts00000MSLVoIAP",
+      "Name": "Eat like a Man Timisoara",
       "StageName": "New Opportunity",
       "CloseDate": "2025-11-05",
       "OwnerId": "005Ts000006V3vpIAC",
@@ -12736,40 +12763,13 @@
         },
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Ts000005nuvBIAQ",
+      "AccountId": "001Ts000005nviWIAQ",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuvBIAQ"
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nviWIAQ"
         },
-        "Name": "In Familie",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLViIAP"
-      },
-      "Id": "006Ts00000MSLViIAP",
-      "Name": "Grill to Chill deal",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005nuvEIAQ",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuvEIAQ"
-        },
-        "Name": "Grill to Chill deal",
+        "Name": "Eat like a Man Timisoara",
         "BillingCity": null
       }
     },
@@ -12803,10 +12803,10 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVjIAP"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVhIAP"
       },
-      "Id": "006Ts00000MSLVjIAP",
-      "Name": "Două boabe",
+      "Id": "006Ts00000MSLVhIAP",
+      "Name": "In Familie",
       "StageName": "New Opportunity",
       "CloseDate": "2025-11-05",
       "OwnerId": "005Ts000006V3vpIAC",
@@ -12817,94 +12817,13 @@
         },
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Ts000005nuwXIAQ",
+      "AccountId": "001Ts000005nuvBIAQ",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuwXIAQ"
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuvBIAQ"
         },
-        "Name": "Două boabe",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVbIAP"
-      },
-      "Id": "006Ts00000MSLVbIAP",
-      "Name": "Casa Uno",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005nr0UIAQ",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nr0UIAQ"
-        },
-        "Name": "Casa Uno",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVcIAP"
-      },
-      "Id": "006Ts00000MSLVcIAP",
-      "Name": "Go Fresh",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005nrKYIAY",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nrKYIAY"
-        },
-        "Name": "Go Fresh",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVkIAP"
-      },
-      "Id": "006Ts00000MSLVkIAP",
-      "Name": "L'Office Bistro & Lounge deal",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005nuwaIAA",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuwaIAA"
-        },
-        "Name": "L'Office Bistro & Lounge deal",
+        "Name": "In Familie",
         "BillingCity": null
       }
     },
@@ -12938,6 +12857,168 @@
     {
       "attributes": {
         "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLViIAP"
+      },
+      "Id": "006Ts00000MSLViIAP",
+      "Name": "Grill to Chill deal",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005nuvEIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuvEIAQ"
+        },
+        "Name": "Grill to Chill deal",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVZIA5"
+      },
+      "Id": "006Ts00000MSLVZIA5",
+      "Name": "BUN BUN FOODTRUCK deal",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005nqpHIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqpHIAQ"
+        },
+        "Name": "BUN BUN FOODTRUCK deal",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVbIAP"
+      },
+      "Id": "006Ts00000MSLVbIAP",
+      "Name": "Casa Uno",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005nr0UIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nr0UIAQ"
+        },
+        "Name": "Casa Uno",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVjIAP"
+      },
+      "Id": "006Ts00000MSLVjIAP",
+      "Name": "Două boabe",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005nuwXIAQ",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuwXIAQ"
+        },
+        "Name": "Două boabe",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVcIAP"
+      },
+      "Id": "006Ts00000MSLVcIAP",
+      "Name": "Go Fresh",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005nrKYIAY",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nrKYIAY"
+        },
+        "Name": "Go Fresh",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLUzIAP"
+      },
+      "Id": "006Ts00000MSLUzIAP",
+      "Name": "'@FABRIKA",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005nqAJIAY",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqAJIAY"
+        },
+        "Name": "'@FABRIKA",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLV0IAP"
       },
       "Id": "006Ts00000MSLV0IAP",
@@ -12959,6 +13040,33 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqAKIAY"
         },
         "Name": "Grill Bison",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLUwIAP"
+      },
+      "Id": "006Ts00000MSLUwIAP",
+      "Name": "La Taverna Giroc",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005npz9IAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005npz9IAA"
+        },
+        "Name": "La Taverna Giroc",
         "BillingCity": null
       }
     },
@@ -12992,10 +13100,10 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLUzIAP"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLUgIAP"
       },
-      "Id": "006Ts00000MSLUzIAP",
-      "Name": "'@FABRIKA",
+      "Id": "006Ts00000MSLUgIAP",
+      "Name": "Hrana Pamantului",
       "StageName": "New Opportunity",
       "CloseDate": "2025-11-05",
       "OwnerId": "005Ts000006V3vpIAC",
@@ -13006,13 +13114,13 @@
         },
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Ts000005nqAJIAY",
+      "AccountId": "001Ts000005nFPLIA2",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqAJIAY"
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nFPLIA2"
         },
-        "Name": "'@FABRIKA",
+        "Name": "Hrana Pamantului",
         "BillingCity": null
       }
     },
@@ -13073,10 +13181,10 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVZIA5"
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVkIAP"
       },
-      "Id": "006Ts00000MSLVZIA5",
-      "Name": "BUN BUN FOODTRUCK deal",
+      "Id": "006Ts00000MSLVkIAP",
+      "Name": "L'Office Bistro & Lounge deal",
       "StageName": "New Opportunity",
       "CloseDate": "2025-11-05",
       "OwnerId": "005Ts000006V3vpIAC",
@@ -13087,40 +13195,13 @@
         },
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Ts000005nqpHIAQ",
+      "AccountId": "001Ts000005nuwaIAA",
       "Account": {
         "attributes": {
           "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nqpHIAQ"
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuwaIAA"
         },
-        "Name": "BUN BUN FOODTRUCK deal",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLUwIAP"
-      },
-      "Id": "006Ts00000MSLUwIAP",
-      "Name": "La Taverna Giroc",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005npz9IAA",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005npz9IAA"
-        },
-        "Name": "La Taverna Giroc",
+        "Name": "L'Office Bistro & Lounge deal",
         "BillingCity": null
       }
     },
@@ -13154,87 +13235,6 @@
     {
       "attributes": {
         "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVmIAP"
-      },
-      "Id": "006Ts00000MSLVmIAP",
-      "Name": "Donuterie Iulius Town Timisoara",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005nuwdIAA",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuwdIAA"
-        },
-        "Name": "Donuterie Iulius Town Timisoara",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLUgIAP"
-      },
-      "Id": "006Ts00000MSLUgIAP",
-      "Name": "Hrana Pamantului",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005nFPLIA2",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nFPLIA2"
-        },
-        "Name": "Hrana Pamantului",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVoIAP"
-      },
-      "Id": "006Ts00000MSLVoIAP",
-      "Name": "Eat like a Man Timisoara",
-      "StageName": "New Opportunity",
-      "CloseDate": "2025-11-05",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
-        },
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Ts000005nviWIAQ",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nviWIAQ"
-        },
-        "Name": "Eat like a Man Timisoara",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
         "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVnIAP"
       },
       "Id": "006Ts00000MSLVnIAP",
@@ -13256,6 +13256,33 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts000005nvdsIAA"
         },
         "Name": "Fastfood Dani",
+        "BillingCity": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000MSLVmIAP"
+      },
+      "Id": "006Ts00000MSLVmIAP",
+      "Name": "Donuterie Iulius Town Timisoara",
+      "StageName": "New Opportunity",
+      "CloseDate": "2025-11-05",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "attributes": {
+          "type": "User",
+          "url": "/services/data/v64.0/sobjects/User/005Ts000006V3vpIAC"
+        },
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Ts000005nuwdIAA",
+      "Account": {
+        "attributes": {
+          "type": "Account",
+          "url": "/services/data/v64.0/sobjects/Account/001Ts000005nuwdIAA"
+        },
+        "Name": "Donuterie Iulius Town Timisoara",
         "BillingCity": null
       }
     },
@@ -13472,33 +13499,6 @@
           "url": "/services/data/v64.0/sobjects/Account/001Ts00000e8a2dIAA"
         },
         "Name": "Teo",
-        "BillingCity": null
-      }
-    },
-    {
-      "attributes": {
-        "type": "Opportunity",
-        "url": "/services/data/v64.0/sobjects/Opportunity/006Ts00000M0QHCIA3"
-      },
-      "Id": "006Ts00000M0QHCIA3",
-      "Name": "Bazz Bazz",
-      "StageName": "Contract sent",
-      "CloseDate": "2025-10-29",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "attributes": {
-          "type": "User",
-          "url": "/services/data/v64.0/sobjects/User/005Ts000002AX4nIAG"
-        },
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Ts00000e842dIAA",
-      "Account": {
-        "attributes": {
-          "type": "Account",
-          "url": "/services/data/v64.0/sobjects/Account/001Ts00000e842dIAA"
-        },
-        "Name": "Bazz Bazz",
         "BillingCity": null
       }
     }
