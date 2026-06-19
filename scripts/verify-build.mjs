@@ -12,6 +12,7 @@ const SECTIONS = [
   "accounts-performance",
   "mops",
   "agents",
+  "my-pipeline",
 ];
 const required = [
   "out/index.html",

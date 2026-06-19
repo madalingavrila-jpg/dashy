@@ -446,6 +446,53 @@ export type AccountsPerformance = {
   accounts: AccountsPerformanceAccount[];
 };
 
+export type MyPipelineItemType = "opportunity" | "lead" | "account";
+
+/** A single open-pipeline record (raw, as stored in data/dashboard.json). */
+export type MyPipelineRawItem = {
+  type: MyPipelineItemType;
+  id: string;
+  name: string;
+  /** Opportunity stage, Lead status, or representative account stage (display form). */
+  stage: string;
+  rawStage?: string | null;
+  account?: string | null;
+  accountId?: string | null;
+  city?: string | null;
+  date?: string | null;
+  ownerId: string;
+  ownerName: string;
+  segment: "complex" | "density";
+  /** Accounts only: number of open opportunities on this account. */
+  openOpps?: number;
+};
+
+export type MyPipelineAgentSummaryRaw = {
+  ownerId: string;
+  name: string;
+  segment: "complex" | "density";
+  /** Authoritative open counts from Salesforce (may exceed embedded `shown`). */
+  totals: { opportunities: number; leads: number; accounts: number };
+  /** Records actually embedded in the payload (capped). */
+  shown: { opportunities: number; leads: number; accounts: number };
+};
+
+export type MyPipelineRaw = {
+  generatedAt: string;
+  stagesIncluded: string[];
+  stagesExcluded: string[];
+  caps: { newOpportunityPerAgent: number; leadsPerAgent: number };
+  totals: {
+    opportunities: number;
+    leads: number;
+    accounts: number;
+    opportunitiesShown: number;
+    leadsShown: number;
+  };
+  agents: MyPipelineAgentSummaryRaw[];
+  items: MyPipelineRawItem[];
+};
+
 export type DashboardRawData = {
   updatedAt: string;
   salesforceInstanceUrl?: string;
@@ -494,6 +541,7 @@ export type DashboardRawData = {
     };
     hitlist: HitlistRow[];
     mtdHistory?: MtdHistoryMonth[];
+    myPipeline?: MyPipelineRaw;
   };
   settings?: {
     timezone: string;
@@ -587,6 +635,55 @@ export type HitlistViewRow = {
   notes?: string;
 };
 
+export type MyPipelineItemView = {
+  type: MyPipelineItemType;
+  typeLabel: string;
+  id: string;
+  name: string;
+  stage: string;
+  account: string | null;
+  city: string;
+  date: string | null;
+  ownerId: string;
+  ownerName: string;
+  segment: "complex" | "density";
+  segmentLabel: string;
+  openOpps?: number;
+  url: string | null;
+};
+
+export type MyPipelineAgentSummaryView = {
+  ownerId: string;
+  name: string;
+  segment: "complex" | "density";
+  segmentLabel: string;
+  opportunities: number;
+  leads: number;
+  accounts: number;
+  opportunitiesShown: number;
+  leadsShown: number;
+};
+
+export type MyPipelineView = {
+  generatedAt: string;
+  stagesIncluded: string[];
+  stagesExcluded: string[];
+  caps: { newOpportunityPerAgent: number; leadsPerAgent: number };
+  totals: {
+    opportunities: number;
+    leads: number;
+    accounts: number;
+    opportunitiesShown: number;
+    leadsShown: number;
+  };
+  agents: MyPipelineAgentSummaryView[];
+  items: MyPipelineItemView[];
+  cities: string[];
+  stages: string[];
+  leadsListUrl: string | null;
+  opportunitiesListUrl: string | null;
+};
+
 export type DashboardModel = {
   updatedAt: string;
   salesforceInstanceUrl: string;
@@ -643,6 +740,7 @@ export type DashboardModel = {
   hitlist: HitlistViewRow[];
   mops?: MopsView;
   accountsPerformance?: AccountsPerformance;
+  myPipeline?: MyPipelineView;
   settings: {
     timezone: string;
     locale: string;

@@ -18,6 +18,23 @@ export function salesforceOpportunityUrl(
   return `${base}/lightning/r/Opportunity/${opportunityId}/view`;
 }
 
+export function salesforceLeadUrl(
+  leadId: string | undefined,
+  instanceUrl = DEFAULT_INSTANCE,
+): string | null {
+  if (!leadId) return null;
+  const base = instanceUrl.replace(/\/$/, "");
+  return `${base}/lightning/r/Lead/${leadId}/view`;
+}
+
+export function salesforceObjectListUrl(
+  object: "Opportunity" | "Lead" | "Account",
+  instanceUrl = DEFAULT_INSTANCE,
+): string {
+  const base = instanceUrl.replace(/\/$/, "");
+  return `${base}/lightning/o/${object}/list`;
+}
+
 export function salesforceCaseUrl(
   caseId: string | undefined,
   instanceUrl = DEFAULT_INSTANCE,

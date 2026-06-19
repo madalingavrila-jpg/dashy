@@ -1,0 +1,31 @@
+{
+  "_comment": "Authoritative open-pipeline counts per rep from Salesforce GROUP BY (19 Jun 2026). opps = open Sales Opportunity stages (New Opportunity, Reachout, Contacting DCM, First Pitch, Negotiations, Contract sent). leadsOpen = Lead IsConverted=false AND Status != 'Disqualified'. Used for accurate totals where embedded lists are capped.",
+  "opps": {
+    "005Ts000002AX4nIAG": { "New Opportunity": 296, "Contacting DCM": 1, "First Pitch": 1, "Negotiations": 44, "Contract sent": 24, "total": 366 },
+    "005Ts00000BtX53IAF": { "New Opportunity": 490, "First Pitch": 1, "Negotiations": 146, "Contract sent": 62, "total": 699 },
+    "005Qs00000N2Hh3IAF": { "New Opportunity": 1, "total": 1 },
+    "005Ts000005c4hFIAQ": { "New Opportunity": 57, "Reachout": 10, "Negotiations": 18, "Contract sent": 8, "total": 93 },
+    "005Ts00000BtZV3IAN": { "New Opportunity": 162, "Negotiations": 41, "Contract sent": 33, "total": 236 },
+    "005Qs00000Pr1HKIAZ": { "New Opportunity": 2, "total": 2 },
+    "005Ts000001Ak10IAC": { "New Opportunity": 7, "Contract sent": 9, "total": 16 },
+    "005Ts000002AWIQIA4": { "New Opportunity": 506, "Contacting DCM": 18, "First Pitch": 3, "Negotiations": 50, "Contract sent": 6, "total": 583 },
+    "005Ts0000060ICnIAM": { "New Opportunity": 240, "Negotiations": 34, "Contract sent": 19, "total": 293 },
+    "005Ts000006V3vpIAC": { "New Opportunity": 265, "Negotiations": 22, "Contract sent": 42, "total": 329 },
+    "005Ts00000BtGPDIA3": { "New Opportunity": 305, "Reachout": 33, "Negotiations": 59, "Contract sent": 12, "total": 409 },
+    "005Qs00000Mxc6EIAR": { "New Opportunity": 13, "Negotiations": 1, "total": 14 }
+  },
+  "leadsOpen": {
+    "005Ts00000BtGPDIA3": 4939,
+    "005Ts000001Ak10IAC": 3053,
+    "005Ts000002AWIQIA4": 2297,
+    "005Ts000006V3vpIAC": 230,
+    "005Ts000002AX4nIAG": 93,
+    "005Ts00000BtX53IAF": 42,
+    "005Qs00000N2Hh3IAF": 11,
+    "005Ts00000BtZV3IAN": 8,
+    "005Qs00000Mxc6EIAR": 7,
+    "005Ts0000060ICnIAM": 7,
+    "005Ts000005c4hFIAQ": 4,
+    "005Qs00000Pr1HKIAZ": 0
+  }
+}

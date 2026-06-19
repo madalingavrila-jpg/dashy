@@ -22,11 +22,12 @@ const SECTIONS = [
   "accounts-performance",
   "mops",
   "agents",
+  "my-pipeline",
 ];
 
 // Sections that keep their heavy drill-down data must be sliced from the full
 // (non-slim) model — the slimmed payload drops these arrays to stay under cap.
-const FULL_MODEL_SECTIONS = new Set(["accounts-performance"]);
+const FULL_MODEL_SECTIONS = new Set(["accounts-performance", "my-pipeline"]);
 
 fs.mkdirSync(sectionDir, { recursive: true });
 

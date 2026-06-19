@@ -12,6 +12,9 @@ import type {
   MetricCard,
   MopsData,
   MopsView,
+  MyPipelineRaw,
+  MyPipelineView,
+  MyPipelineItemView,
   TeamProgressView,
   TrendDirection,
   WeeklyMetric,
@@ -39,6 +42,8 @@ import {
   accountsFilterUrl,
   salesforceAccountUrl,
   salesforceCaseUrl,
+  salesforceLeadUrl,
+  salesforceObjectListUrl,
   salesforceOpportunityUrl,
 } from "../../lib/salesforce.js";
 import {
@@ -642,6 +647,78 @@ function buildMopsView(mops: MopsData | undefined): MopsView | undefined {
   };
 }
 
+const MY_PIPELINE_TYPE_LABEL: Record<MyPipelineItemView["type"], string> = {
+  opportunity: "Opportunity",
+  lead: "Lead",
+  account: "Account",
+};
+
+function buildMyPipelineView(
+  raw: MyPipelineRaw | undefined,
+  instanceUrl: string,
+): MyPipelineView | undefined {
+  if (!raw) return undefined;
+
+  const items: MyPipelineItemView[] = (raw.items ?? []).map((item) => {
+    const segmentLabel = item.segment === "complex" ? "Complex" : "Density";
+    const url =
+      item.type === "lead"
+        ? salesforceLeadUrl(item.id, instanceUrl)
+        : item.type === "account"
+          ? salesforceAccountUrl(item.accountId ?? item.id, instanceUrl)
+          : salesforceOpportunityUrl(item.id, instanceUrl);
+    return {
+      type: item.type,
+      typeLabel: MY_PIPELINE_TYPE_LABEL[item.type],
+      id: item.id,
+      name: item.name,
+      stage: item.stage,
+      account: item.account ?? null,
+      city: item.city && item.city !== "—" ? item.city : "—",
+      date: item.date ?? null,
+      ownerId: item.ownerId,
+      ownerName: item.ownerName,
+      segment: item.segment,
+      segmentLabel,
+      openOpps: item.openOpps,
+      url,
+    };
+  });
+
+  const cities = [...new Set(items.map((i) => i.city).filter((c) => c && c !== "—"))].sort(
+    (a, b) => a.localeCompare(b),
+  );
+  const stages = [
+    ...new Set(items.filter((i) => i.type === "opportunity").map((i) => i.stage)),
+  ].sort((a, b) => a.localeCompare(b));
+
+  const agents = (raw.agents ?? []).map((agent) => ({
+    ownerId: agent.ownerId,
+    name: agent.name,
+    segment: agent.segment,
+    segmentLabel: agent.segment === "complex" ? "Complex" : "Density",
+    opportunities: agent.totals.opportunities,
+    leads: agent.totals.leads,
+    accounts: agent.totals.accounts,
+    opportunitiesShown: agent.shown.opportunities,
+    leadsShown: agent.shown.leads,
+  }));
+
+  return {
+    generatedAt: raw.generatedAt,
+    stagesIncluded: raw.stagesIncluded ?? [],
+    stagesExcluded: raw.stagesExcluded ?? [],
+    caps: raw.caps ?? { newOpportunityPerAgent: 0, leadsPerAgent: 0 },
+    totals: raw.totals,
+    agents,
+    items,
+    cities,
+    stages,
+    leadsListUrl: salesforceObjectListUrl("Lead", instanceUrl),
+    opportunitiesListUrl: salesforceObjectListUrl("Opportunity", instanceUrl),
+  };
+}
+
 function placeholderModel(source: DataSourceStatus, error?: string): DashboardModel {
   const message =
     error ??
@@ -844,6 +921,7 @@ function toDashboardModel(
       }),
     mops: buildMopsView(data.mops) ?? emptyMopsView(),
     accountsPerformance: data.accountsPerformance,
+    myPipeline: buildMyPipelineView(salesPipeline.myPipeline, instanceUrl),
     settings: data.settings ?? defaultSettings(),
   };
 }
@@ -890,6 +968,14 @@ function slimDashboardModelForApi(model: DashboardModel): DashboardModel {
     ? { ...model.accountsPerformance, accounts: [] }
     : undefined;
 
+  // The MyPipeline item list is large; keep only summary aggregates in the full
+  // /api/dashboard payload (must stay under the verify-build cap). The heavy
+  // `items` list is served lazily by /api/dashboard/my-pipeline, which is
+  // sliced from the non-slim model in precompute.
+  const myPipeline = model.myPipeline
+    ? { ...model.myPipeline, items: [], cities: [], stages: [] }
+    : undefined;
+
   return {
     ...model,
     mtdHistory,
@@ -898,6 +984,7 @@ function slimDashboardModelForApi(model: DashboardModel): DashboardModel {
       statusBreakdown,
     },
     accountsPerformance,
+    myPipeline,
   };
 }
 
@@ -917,7 +1004,8 @@ export type DashboardSection =
   | "accounts"
   | "accounts-performance"
   | "mops"
-  | "agents";
+  | "agents"
+  | "my-pipeline";
 
 let cachedPayload: DashboardCacheEntry | null = null;
 let loadingPromise: Promise<DashboardCacheEntry> | null = null;
@@ -930,6 +1018,7 @@ export const DASHBOARD_SECTIONS: DashboardSection[] = [
   "accounts-performance",
   "mops",
   "agents",
+  "my-pipeline",
 ];
 
 export function sliceDashboardSection(
@@ -988,6 +1077,12 @@ export function sliceDashboardSection(
       return {
         updatedAt: model.updatedAt,
         agents: model.agents,
+      };
+    case "my-pipeline":
+      return {
+        updatedAt: model.updatedAt,
+        salesforceInstanceUrl: model.salesforceInstanceUrl,
+        myPipeline: model.myPipeline,
       };
     default:
       return { updatedAt: model.updatedAt };

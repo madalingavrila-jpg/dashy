@@ -7,6 +7,7 @@ import { Logo } from "@/components/Logo";
 const navItems = [
   { icon: "dashboard", label: "Overview", href: "/" },
   { icon: "groups", label: "Teams", href: "/pipeline" },
+  { icon: "account_tree", label: "MyPipeline", href: "/my-pipeline" },
   { icon: "calendar_view_week", label: "Weekly", href: "/weekly" },
   { icon: "flag", label: "MTD & Tiers", href: "/mtd" },
   { icon: "compare_arrows", label: "WoW Reports", href: "/wow" },

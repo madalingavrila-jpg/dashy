@@ -99,6 +99,7 @@ function mergePartialModel(
     hitlist: partial.hitlist ?? base.hitlist,
     mops: partial.mops ?? base.mops,
     accountsPerformance: partial.accountsPerformance ?? base.accountsPerformance,
+    myPipeline: partial.myPipeline ?? base.myPipeline,
   };
 }
 

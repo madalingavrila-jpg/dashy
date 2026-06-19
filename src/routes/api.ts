@@ -89,6 +89,7 @@ apiRouter.get("/status", (_req, res) => {
       "/api/dashboard/accounts-performance",
       "/api/dashboard/mops",
       "/api/dashboard/agents",
+      "/api/dashboard/my-pipeline",
     ],
     dataFlow:
       "Cursor (Salesforce MCP + Bolt Sheet MCP) → data/dashboard.json (slim at source) → build precompute → /api/dashboard/*",
