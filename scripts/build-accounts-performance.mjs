@@ -6,8 +6,9 @@
  * Source caches (written by the agent via the Databricks MCP):
  *   scripts/.cache/accounts-perf-accounts.json  — one row per provider activated in the
  *       last 90 days (RO, won Sales Opportunity), with the activation opportunity owner.
- *   scripts/.cache/accounts-perf-monthly.json    — monthly GMV / delivered orders /
- *       provider commission (EUR) per provider since 2026-01.
+ *   scripts/.cache/accounts-perf-monthly.json    — monthly GROSS GMV (before discounts) /
+ *       delivered orders / provider commission (EUR) per provider since 2026-01, plus
+ *       net (after-discount) GMV and campaign discount as context columns.
  *   scripts/.cache/accounts-perf-quality.json    — monthly availability & performance
  *       value/weight pairs per provider since 2026-01 (fact_provider_monthly).
  *
@@ -48,7 +49,8 @@ function main() {
   // accounts: [provider_id, owner_name, owner_email, activated_date, provider_name,
   //            vendor_name, city_name, business_segment_v2, provider_status, first_order_date]
   const accountRows = readMcpResult("accounts-perf-accounts.json");
-  // monthly: [provider_id, month, gmv, orders, commission]
+  // monthly: [provider_id, month, gmv_before_discounts (GROSS), orders, commission,
+  //           gmv_after_discounts (NET, context), campaign_discount (context)]
   const monthlyRows = readMcpResult("accounts-perf-monthly.json");
 
   const monthlyByProvider = buildMonthlyByProvider(monthlyRows);
@@ -123,6 +125,8 @@ function main() {
   const totalGmv = accounts.reduce((s, a) => s + a.totalGmv, 0);
   const totalOrders = accounts.reduce((s, a) => s + a.totalOrders, 0);
   const totalCommission = accounts.reduce((s, a) => s + a.totalCommission, 0);
+  const totalGmvNet = accounts.reduce((s, a) => s + (a.totalGmvNet ?? 0), 0);
+  const totalDiscount = accounts.reduce((s, a) => s + (a.totalDiscount ?? 0), 0);
 
   // Team quality roll-up: each account's launch→date metric weighted by its
   // delivered orders in the window (availability uses the same weight as a proxy).
@@ -136,8 +140,11 @@ function main() {
     currency: "EUR",
     dataMonthMax: monthsCovered.length ? monthsCovered[monthsCovered.length - 1] : null,
     metricsNote:
-      "GMV before discounts, delivered orders, and provider commission (EUR) from Bolt Food " +
-      "(Databricks fact_provider_monthly). Accounts = restaurants activated in the last 90 days " +
+      "All € figures are GROSS (before discounts). GMV = total_gmv_before_discounts_eur; " +
+      "AOV = gross GMV ÷ delivered orders; commission = provider commission (EUR) and the take " +
+      "rate (% br) = commission ÷ gross GMV. Net (after-discount) GMV and the campaign discount are " +
+      "shown only as context in each account's expanded detail — the headline columns never use them. " +
+      "Source: Databricks fact_provider_monthly. Accounts = restaurants activated in the last 90 days " +
       "(SF won Sales Opportunity → provider activation), attributed to the activating rep.",
     qualityPeriod: "Launch → date (order-weighted average across each account's active months)",
     qualityNote:
@@ -150,6 +157,8 @@ function main() {
     totals: {
       accounts: accounts.length,
       gmv: totalGmv,
+      gmvNet: Math.round(totalGmvNet),
+      discount: Math.round(totalDiscount),
       orders: totalOrders,
       commission: totalCommission,
       aov: totalOrders > 0 ? round(totalGmv / totalOrders, 1) : 0,

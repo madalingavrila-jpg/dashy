@@ -343,6 +343,16 @@ export function AccountsPerformanceTable({
 
   return (
     <div className="glass-card overflow-hidden rounded-xl">
+      <div className="flex flex-wrap items-center gap-x-md gap-y-1 border-b border-outline-variant bg-surface-container-low px-md py-xs text-[11px] text-on-surface-variant">
+        <span className="inline-flex items-center gap-1 font-semibold text-on-surface">
+          <span className="material-symbols-outlined text-[14px] text-won">info</span>
+          All € values are gross (before discounts)
+        </span>
+        <span>GMV = before-discount GMV</span>
+        <span>AOV = gross GMV ÷ delivered orders</span>
+        <span>% br = commission ÷ gross GMV</span>
+        <span className="opacity-70">net (after-discount) GMV &amp; discount shown per account on expand</span>
+      </div>
       <table className="w-full table-fixed border-collapse text-left text-[13px]">
         <colgroup>
           <col className="w-[16%]" />
@@ -392,7 +402,7 @@ export function AccountsPerformanceTable({
               onSort={onSort}
             />
             <SortHeader
-              label="GMV"
+              label="GMV gross"
               sortKey="gmv"
               className={numTh}
               align="right"
@@ -412,7 +422,7 @@ export function AccountsPerformanceTable({
               onSort={onSort}
             />
             <SortHeader
-              label="AOV"
+              label="AOV gross"
               sortKey="aov"
               className={numTh}
               align="right"
@@ -577,7 +587,17 @@ export function AccountsPerformanceTable({
                   </td>
                   <td
                     className="px-xs py-xs text-right align-top font-semibold text-on-surface"
-                    title={hasMonth ? formatEur(month!.gmv) : undefined}
+                    title={
+                      hasMonth
+                        ? `Gross GMV (before discounts) ${formatEur(month!.gmv)}${
+                            month!.gmvNet != null
+                              ? ` · net ${formatEur(month!.gmvNet)} · discount ${formatEur(
+                                  month!.discount ?? month!.gmv - month!.gmvNet,
+                                )}`
+                              : ""
+                          }`
+                        : undefined
+                    }
                   >
                     {hasMonth ? eurShort(month!.gmv) : "—"}
                   </td>
@@ -642,9 +662,15 @@ export function AccountsPerformanceTable({
                                 <div
                                   key={m.month}
                                   className="min-w-[112px] rounded-md border border-outline-variant/60 bg-surface px-sm py-xs"
-                                  title={`${monthLabel(m.month)} · GMV ${formatEur(
+                                  title={`${monthLabel(m.month)} · gross GMV ${formatEur(
                                     m.gmv,
-                                  )} · ${formatInt(m.orders)} orders · AOV ${
+                                  )}${
+                                    m.gmvNet != null
+                                      ? ` · net ${formatEur(m.gmvNet)} · discount ${formatEur(
+                                          m.discount ?? m.gmv - m.gmvNet,
+                                        )}`
+                                      : ""
+                                  } · ${formatInt(m.orders)} orders · AOV ${
                                     m.orders > 0 ? formatEur(m.aov) : "—"
                                   } · commission ${formatEur(m.commission)}`}
                                 >
@@ -661,6 +687,12 @@ export function AccountsPerformanceTable({
                                   <span className="block text-[10px] text-on-surface-variant">
                                     comm {eurShort(m.commission)}
                                   </span>
+                                  {m.gmvNet != null ? (
+                                    <span className="block text-[10px] text-on-surface-variant/80">
+                                      net {eurShort(m.gmvNet)} · −
+                                      {eurShort(m.discount ?? m.gmv - m.gmvNet)} disc
+                                    </span>
+                                  ) : null}
                                 </div>
                               ))
                             ) : (
@@ -743,14 +775,39 @@ export function AccountsPerformanceTable({
                             <p className="mb-xs text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">
                               Launch → date totals
                             </p>
-                            <div className="flex gap-xs">
-                              <DetailStat label="GMV" value={formatEur(account.totalGmv)} />
+                            <div className="flex flex-wrap gap-xs">
+                              <DetailStat
+                                label="GMV gross"
+                                value={formatEur(account.totalGmv)}
+                                hint="GMV before discounts (Databricks total_gmv_before_discounts_eur)"
+                              />
                               <DetailStat label="Orders" value={formatInt(account.totalOrders)} />
-                              <DetailStat label="AOV" value={formatEur(account.aov)} />
+                              <DetailStat
+                                label="AOV gross"
+                                value={formatEur(account.aov)}
+                                hint="Gross GMV ÷ delivered orders"
+                              />
                               <DetailStat
                                 label="Commission"
                                 value={formatEur(account.totalCommission)}
+                                hint={`Provider commission · gross take rate ${pctStr(
+                                  takeRate(account.totalCommission, account.totalGmv),
+                                )} of gross GMV`}
                               />
+                              {account.totalGmvNet != null ? (
+                                <DetailStat
+                                  label="GMV net"
+                                  value={formatEur(account.totalGmvNet)}
+                                  hint="After-discount GMV — context only, not used for headline figures"
+                                />
+                              ) : null}
+                              {account.totalDiscount != null ? (
+                                <DetailStat
+                                  label="Discount"
+                                  value={formatEur(account.totalDiscount)}
+                                  hint="Campaign discount (gross − net GMV)"
+                                />
+                              ) : null}
                             </div>
                           </div>
                         </div>

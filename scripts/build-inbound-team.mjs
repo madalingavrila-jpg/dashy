@@ -254,11 +254,15 @@ function accountsPerformanceForRep(accounts) {
   const totalGmv = accounts.reduce((s, a) => s + a.totalGmv, 0);
   const totalOrders = accounts.reduce((s, a) => s + a.totalOrders, 0);
   const totalCommission = accounts.reduce((s, a) => s + a.totalCommission, 0);
+  const totalGmvNet = accounts.reduce((s, a) => s + (a.totalGmvNet ?? 0), 0);
+  const totalDiscount = accounts.reduce((s, a) => s + (a.totalDiscount ?? 0), 0);
 
   return {
     totals: {
       accounts: accounts.length,
       gmv: totalGmv,
+      gmvNet: Math.round(totalGmvNet),
+      discount: Math.round(totalDiscount),
       orders: totalOrders,
       commission: totalCommission,
       aov: totalOrders > 0 ? round(totalGmv / totalOrders, 1) : 0,

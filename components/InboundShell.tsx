@@ -172,7 +172,7 @@ function RepSection({ rep, loading }: { rep: InboundRep; loading?: boolean }) {
     { label: "Won MTD", value: formatInteger(rep.mtd.won), accent: "text-won" },
     { label: "Active MTD", value: formatInteger(rep.mtd.activated), accent: "text-activated" },
     { label: "Accounts 90d", value: formatInteger(ap.totals.accounts), accent: "text-on-surface" },
-    { label: "GMV", value: formatEurCompact(ap.totals.gmv), accent: "text-on-surface" },
+    { label: "GMV gross", value: formatEurCompact(ap.totals.gmv), accent: "text-on-surface" },
   ];
 
   const weekMetrics = mapWeeklyMetricViews(rep.weekly.metrics);
@@ -275,7 +275,7 @@ export function InboundShell() {
         { label: "Won MTD", value: formatInteger(inbound.totals.wonMtd), icon: "emoji_events" },
         { label: "Activated MTD", value: formatInteger(inbound.totals.activatedMtd), icon: "rocket_launch" },
         { label: "Accounts (90d)", value: formatInteger(inbound.totals.accounts90d), icon: "storefront" },
-        { label: "GMV (launch → date)", value: formatEurCompact(inbound.totals.gmv), icon: "payments" },
+        { label: "GMV gross", value: formatEurCompact(inbound.totals.gmv), icon: "payments" },
         { label: "Commission", value: formatEurCompact(inbound.totals.commission), icon: "percent" },
       ]
     : [];

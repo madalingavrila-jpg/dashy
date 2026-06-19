@@ -337,10 +337,16 @@ export type IntegrationSetting = {
 
 export type AccountsPerformanceMonth = {
   month: string;
+  /** GROSS GMV before discounts (Databricks total_gmv_before_discounts_eur). */
   gmv: number;
   orders: number;
+  /** Gross AOV = gross GMV ÷ delivered orders. */
   aov: number;
   commission: number;
+  /** NET GMV after discounts — context only, never used for headline figures. */
+  gmvNet?: number | null;
+  /** Campaign discount (EUR) = gross − net — context only. */
+  discount?: number | null;
 };
 
 export type AccountsPerformanceSparkPoint = { month: string; value: number };
@@ -375,9 +381,14 @@ export type AccountsPerformanceAccount = {
   launchDate: string | null;
   monthly: AccountsPerformanceMonth[];
   sparkline: AccountsPerformanceSparkPoint[];
+  /** GROSS GMV (before discounts), launch → date. */
   totalGmv: number;
   totalOrders: number;
   totalCommission: number;
+  /** NET GMV (after discounts), launch → date — context only. */
+  totalGmvNet?: number;
+  /** Campaign discount (EUR), launch → date — context only. */
+  totalDiscount?: number;
   aov: number;
   quality?: AccountsPerformanceQuality;
 };
@@ -395,6 +406,8 @@ export type AccountsPerformanceAgentSummary = {
 export type AccountsPerformanceByMonth = {
   month: string;
   gmv: number;
+  gmvNet?: number;
+  discount?: number;
   orders: number;
   commission: number;
   aov: number;
@@ -424,6 +437,8 @@ export type AccountsPerformance = {
   totals: {
     accounts: number;
     gmv: number;
+    gmvNet?: number;
+    discount?: number;
     orders: number;
     commission: number;
     aov: number;
@@ -444,6 +459,8 @@ export type InboundRepAccountsPerformance = {
   totals: {
     accounts: number;
     gmv: number;
+    gmvNet?: number;
+    discount?: number;
     orders: number;
     commission: number;
     aov: number;

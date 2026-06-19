@@ -133,11 +133,29 @@ export function AccountsPerformanceShell() {
   const maxMonthGmv = Math.max(...byMonth.map((m) => m.gmv), 1);
 
   const cards = [
-    { label: "Accounts activated", value: formatInteger(totals.accounts), icon: "storefront" },
-    { label: "GMV (launch → date)", value: formatEurCompact(totals.gmv), icon: "payments" },
-    { label: "Orders", value: formatInteger(totals.orders), icon: "receipt_long" },
-    { label: "Commission", value: formatEurCompact(totals.commission), icon: "percent" },
-    { label: "AOV", value: formatEur(totals.aov), icon: "shopping_basket" },
+    { label: "Accounts activated", value: formatInteger(totals.accounts), icon: "storefront", hint: undefined },
+    {
+      label: "GMV gross",
+      value: formatEurCompact(totals.gmv),
+      icon: "payments",
+      hint: "GMV before discounts (launch → date)",
+    },
+    { label: "Orders", value: formatInteger(totals.orders), icon: "receipt_long", hint: undefined },
+    {
+      label: "Commission",
+      value: formatEurCompact(totals.commission),
+      icon: "percent",
+      hint:
+        totals.gmv > 0
+          ? `Provider commission · gross take rate ${((totals.commission / totals.gmv) * 100).toFixed(1)}% of gross GMV`
+          : "Provider commission",
+    },
+    {
+      label: "AOV gross",
+      value: formatEur(totals.aov),
+      icon: "shopping_basket",
+      hint: "Gross GMV ÷ delivered orders",
+    },
   ];
 
   const fmtPct = (value: number | null, digits = 1) =>
@@ -151,8 +169,8 @@ export function AccountsPerformanceShell() {
   ];
 
   const subtitle = ap
-    ? `${ap.windowDays}-day window · ${ap.country} · activated accounts with Bolt Food GMV, orders, AOV, commission & availability/performance by month`
-    : "Accounts activated in the last 90 days with Bolt Food GMV, orders, AOV, commission & availability/performance.";
+    ? `${ap.windowDays}-day window · ${ap.country} · activated accounts with Bolt Food gross GMV (before discounts), orders, gross AOV, commission & availability/performance by month`
+    : "Accounts activated in the last 90 days with Bolt Food gross GMV (before discounts), orders, gross AOV, commission & availability/performance.";
 
   return (
     <div className="mx-auto max-w-[1500px] space-y-md">
@@ -167,7 +185,7 @@ export function AccountsPerformanceShell() {
 
       <section className="grid grid-cols-2 gap-md md:grid-cols-5">
         {cards.map((card) => (
-          <div key={card.label} className="glass-card rounded-xl p-md">
+          <div key={card.label} className="glass-card rounded-xl p-md" title={card.hint}>
             <div className="flex items-center gap-xs text-on-surface-variant">
               <span className="material-symbols-outlined text-[18px]">{card.icon}</span>
               <p className="text-label-md font-label-md">{card.label}</p>
