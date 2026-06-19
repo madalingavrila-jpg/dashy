@@ -2,6 +2,27 @@
 
 This app does **not** call Salesforce or Looker at runtime. You (the Cursor agent) fetch live data via MCP, optionally upload to Google Sheet via Bolt MCP, and write `data/dashboard.json`.
 
+## Refresh all data — one command
+
+**`npm run refresh-all`** (aliases: `npm run data:build`, `npm run data:refresh`) is THE single
+"refresh all data" task. It runs `scripts/build-all-data.mjs`, the orchestrator that rebuilds
+**every** section from the cached SF + Databricks exports, in dependency order:
+
+1. `build-dashboard-data.mjs` → Overview/MTD, Weekly, WoW, MOPS, Accounts (writes the base
+   `data/dashboard.json`; merge-preserves the sections below so a standalone run never wipes them)
+2. `build-my-pipeline.mjs` → `salesPipeline.myPipeline`
+3. `build-accounts-performance.mjs` → `accountsPerformance` (Databricks)
+4. `build-inbound-team.mjs` → `inboundTeam`
+
+It is **idempotent**: re-running refreshes all sections in place and never leaves a partial/empty
+tab. `npm run build` then regenerates the precomputed API and runs `verify-build.mjs`, which **fails
+loudly** if `inboundTeam.reps`, `accountsPerformance.accounts`, or `salesPipeline.myPipeline.items`
+is empty, or if `totals.won == totals.activated`.
+
+The full **"refresh date"** flow (pull fresh from all sources, then rebuild + deploy) is:
+**refresh the SF + Databricks caches via MCP → `npm run refresh-all` → `npm run build` → commit +
+push `boltable/main`.** `scripts/refresh-and-deploy.sh` automates exactly this (launchd).
+
 ## Workflow
 
 1. Query **Salesforce MCP** for pipeline, Won, Activated, accounts, opportunities.
@@ -9,7 +30,23 @@ This app does **not** call Salesforce or Looker at runtime. You (the Cursor agen
 3. Map results to `data/dashboard.json` using `data/dashboard.schema.json`.
 4. Set `updatedAt` to the current ISO timestamp.
 5. **Slim at source:** `build-dashboard-data.mjs` calls `lib/slim-dashboard-source.mjs` — keeps MTD/weekly **aggregates for all periods**, but drill-down lists only for the **current month** and **current ISO week**; caps account tabs at 28 with SF list URLs. Re-run `node scripts/slim-dashboard-json.mjs` after manual JSON edits.
-6. Commit `data/dashboard.json` and push — Paketo redeploys dashy on Boltable.
+6. Rebuild **all** sections with `npm run refresh-all` (orchestrator), not just `build-dashboard-data.mjs`. Then `npm run build`.
+7. Commit `data/dashboard.json` and push — Paketo redeploys dashy on Boltable.
+
+**Overview totals + snapshot are DERIVED, never hardcoded:**
+- `salesPipeline.totals.won` / `totals.activated` (YTD) are computed in `build-dashboard-data.mjs`
+  from the canonical MTD store — Won = Σ per-month `Won_Date__c` counts (team), Activated = Σ
+  per-month field-history Activated counts (team). They **must differ** (Won ≠ Activated; verify-build
+  asserts this). `previousValue` = cumulative through the end of the prior month.
+- `salesPipeline.snapshot` funnel comes from `scripts/.cache/sf-pipeline-stage-counts.json`
+  (SF `GROUP BY StageName`, RecordType `Sales Opportunity` == Romania). Refresh it every pull:
+  `SELECT StageName, COUNT(Id) cnt FROM Opportunity WHERE RecordType.Name = 'Sales Opportunity' GROUP BY StageName`.
+- `mtdAchievement.leadsMtd` / `qualifiedMtd` are derived (New Opportunity created MTD; first
+  transitions INTO Contacting DCM / First Pitch MTD), not literals.
+
+**Tracking year is dynamic:** `lib/weekly-stages-build.mjs` (`currentTrackingYear()`) and
+`lib/weekDateRange.ts` (`DASHBOARD_WEEK_YEAR`) derive the year from the current Europe/Bucharest
+date — no literal `2026` to break on 2027-01-01. Override with `WEEKLY_TRACKING_YEAR` for backfills.
 
 Optional: publish full JSON to Google Sheet and set `DASHBOARD_SHEET_URL` on Boltable instead of repo file.
 
@@ -88,7 +125,7 @@ Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.m
 | **Won MTD** | `Won_Date__c = THIS_MONTH` | **Sales Opportunity** only | `Won_Date__c` (Europe/Bucharest) |
 | **Activated MTD** | first transition INTO `Activated` | Sales Opportunity only | `OpportunityFieldHistory.CreatedDate` |
 
-Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore()` — won from `accumulateMtdWonFromWonDate()`, activated from `accumulateMtdActivatedFromStageHistory()`. Prior months in `mtdHistory` fall back to field-history Closed Won when no Won_Date export exists (`sf-won-YYYY-MM.json`).
+Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore()` — won from `accumulateMtdWonFromWonDate()`, activated from `accumulateMtdActivatedFromStageHistory()`. **ALL months** (current and prior) count Won from `Won_Date__c` via the full-year export (`sf-won-ytd-bydate.json`, merged with the THIS_MONTH export). There is **no** field-history "Closed Won" fallback — it double-counted bulk stage backfills (e.g. phantom January inflation for Mihnea) and broke the canonical-Won contract. `build-dashboard-data.mjs` therefore feeds the merged Won_Date records (YTD + THIS_MONTH) into `buildHybridMtdStore`.
 
 Exclude Teodor Domnica and Andrei-Sebastian Caba (`EXCLUDED_OWNER_IDS`). 12 team reps only.
 

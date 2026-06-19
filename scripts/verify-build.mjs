@@ -44,11 +44,66 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
+let dashboard;
 try {
-  JSON.parse(fs.readFileSync(path.join(root, "data/dashboard.json"), "utf8"));
+  dashboard = JSON.parse(fs.readFileSync(path.join(root, "data/dashboard.json"), "utf8"));
 } catch (error) {
   const message = error instanceof Error ? error.message : "invalid JSON";
   console.error(`[verify-build] data/dashboard.json is not valid JSON: ${message}`);
+  process.exit(1);
+}
+
+// --- Non-empty section guards -------------------------------------------------
+// Fail loudly on a partial refresh (e.g. a builder that didn't run or wiped a
+// tab). These sections are produced by the orchestrator (scripts/build-all-data.mjs);
+// an empty one means the deploy would ship a blank tab.
+const dataErrors = [];
+
+const sp = dashboard.salesPipeline ?? {};
+const inboundReps = dashboard.inboundTeam?.reps;
+if (!Array.isArray(inboundReps) || inboundReps.length === 0) {
+  dataErrors.push("inboundTeam.reps is empty — run `npm run refresh-all` (build-inbound-team).");
+}
+const apAccounts = dashboard.accountsPerformance?.accounts;
+if (!Array.isArray(apAccounts) || apAccounts.length === 0) {
+  dataErrors.push(
+    "accountsPerformance.accounts is empty — run `npm run refresh-all` (build-accounts-performance).",
+  );
+}
+const mpItems = sp.myPipeline?.items;
+if (!Array.isArray(mpItems) || mpItems.length === 0) {
+  dataErrors.push("salesPipeline.myPipeline.items is empty — run `npm run refresh-all` (build-my-pipeline).");
+}
+
+// --- Won ≠ Activated invariant (Overview totals must be derived, not equal) ---
+const wonTotal = sp.totals?.won?.value;
+const activatedTotal = sp.totals?.activated?.value;
+if (typeof wonTotal !== "number" || wonTotal <= 0) {
+  dataErrors.push(`salesPipeline.totals.won.value is not a positive number (${wonTotal}).`);
+}
+if (typeof activatedTotal !== "number" || activatedTotal <= 0) {
+  dataErrors.push(`salesPipeline.totals.activated.value is not a positive number (${activatedTotal}).`);
+}
+if (
+  typeof wonTotal === "number" &&
+  typeof activatedTotal === "number" &&
+  wonTotal === activatedTotal
+) {
+  dataErrors.push(
+    `salesPipeline.totals.won (${wonTotal}) === totals.activated (${activatedTotal}) — ` +
+      "Won and Activated must be distinct metrics (see AGENTS.md: Won ≠ Activated).",
+  );
+}
+
+// Snapshot funnel must carry live counts (de-hardcoded), not all zeros.
+const snapshotSales = sp.snapshot?.sales;
+if (!Array.isArray(snapshotSales) || !snapshotSales.some((s) => (s?.count ?? 0) > 0)) {
+  dataErrors.push("salesPipeline.snapshot.sales has no positive stage counts — stage-counts export missing?");
+}
+
+if (dataErrors.length > 0) {
+  console.error("[verify-build] dashboard data failed validation:");
+  for (const err of dataErrors) console.error(`  - ${err}`);
   process.exit(1);
 }
 

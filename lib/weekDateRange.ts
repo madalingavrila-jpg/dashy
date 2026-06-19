@@ -1,8 +1,14 @@
-/** ISO week year for the 2026 weekly history slice in dashboard data. */
-export const DASHBOARD_WEEK_YEAR = 2026;
-
 const BUCHAREST = "Europe/Bucharest";
 const DEFAULT_LOCALE = "en-GB";
+
+/**
+ * ISO week year used to format weekly-history date ranges. Derived from the
+ * current Europe/Bucharest calendar year instead of a literal `2026` so labels
+ * keep rendering correctly after the 2027-01-01 rollover.
+ */
+export const DASHBOARD_WEEK_YEAR = Number(
+  new Intl.DateTimeFormat("en-CA", { timeZone: BUCHAREST, year: "numeric" }).format(new Date()),
+);
 
 export type WeekDateRangeOptions = {
   locale?: string;

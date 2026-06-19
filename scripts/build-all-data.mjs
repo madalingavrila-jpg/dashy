@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+/**
+ * Orchestrator — THE single "refresh all data" entry point.
+ *
+ * Rebuilds EVERY dashboard section from the cached Salesforce + Databricks
+ * exports under scripts/.cache/, in dependency order, into data/dashboard.json:
+ *
+ *   1. build-dashboard-data.mjs    → Overview/MTD, Weekly, WoW, MOPS, Accounts
+ *      (writes a fresh base dashboard.json; merge-preserves the sections below)
+ *   2. build-my-pipeline.mjs       → salesPipeline.myPipeline   (merge)
+ *   3. build-accounts-performance  → accountsPerformance        (merge, Databricks)
+ *   4. build-inbound-team.mjs      → inboundTeam                (merge)
+ *
+ * Each step reads + rewrites data/dashboard.json, so order matters and a single
+ * run can NEVER leave the file with empty/partial sections. Re-running is
+ * idempotent — it refreshes all sections in place and never wipes a tab. The
+ * day/week/month/quarter/year reporting logic lives inside the individual
+ * builders and is preserved unchanged here.
+ *
+ * Refreshing the underlying caches (Salesforce + Databricks via MCP) is done by
+ * the Cursor agent in scripts/refresh-and-deploy.sh; this orchestrator turns
+ * those refreshed caches into the dashboard payload. Run `npm run build`
+ * afterwards to regenerate the precomputed API artifacts and verify them.
+ *
+ * Usage: `npm run refresh-all`  (alias: `npm run data:build`)
+ */
+import { spawnSync } from "node:child_process";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const here = dirname(fileURLToPath(import.meta.url));
+
+const STEPS = [
+  { label: "Overview/MTD/Weekly/WoW/MOPS/Accounts", script: "build-dashboard-data.mjs" },
+  { label: "MyPipeline", script: "build-my-pipeline.mjs" },
+  { label: "Accounts performance (Databricks)", script: "build-accounts-performance.mjs" },
+  { label: "Inbound team", script: "build-inbound-team.mjs" },
+];
+
+let ok = 0;
+for (const [index, step] of STEPS.entries()) {
+  const n = index + 1;
+  console.log(`\n[build-all-data] (${n}/${STEPS.length}) ${step.label} — ${step.script}`);
+  const result = spawnSync(process.execPath, [join(here, step.script)], {
+    stdio: "inherit",
+    env: process.env,
+  });
+  if (result.status !== 0) {
+    console.error(
+      `\n[build-all-data] FAILED at step ${n}/${STEPS.length} (${step.script}) ` +
+        `exit=${result.status ?? "signal"}. data/dashboard.json may be partial — ` +
+        "fix the source/cache and re-run `npm run refresh-all`. Not deploying.",
+    );
+    process.exit(result.status ?? 1);
+  }
+  ok += 1;
+}
+
+console.log(
+  `\n[build-all-data] OK — rebuilt all ${ok} sections into data/dashboard.json. ` +
+    "Run `npm run build` to regenerate + verify the API artifacts.",
+);

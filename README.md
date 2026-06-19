@@ -103,11 +103,16 @@ Config files: `project.toml`, `Procfile`.
 
 | Script | Description |
 |--------|-------------|
+| **`npm run refresh-all`** | **Rebuild ALL dashboard sections** from cached SF + Databricks exports (orchestrator — Overview/MTD, Weekly, WoW, MOPS, Accounts performance, MyPipeline, Inbound). Idempotent; never wipes a tab. Aliases: `npm run data:build`, `npm run data:refresh`. |
 | `npm run dev` | Next.js dev server |
 | `npm run dev:server` | Express + API (requires prior build) |
 | `npm run build:boltable` | Production build for Boltable |
 | `npm run start:server` | Serve static export + API |
 | `node scripts/slim-dashboard-json.mjs` | Re-slim existing `data/dashboard.json` in place |
+
+**Refresh all data (one command):** refresh the SF + Databricks caches under `scripts/.cache/` via
+MCP, then run `npm run refresh-all && npm run build`, commit `data/dashboard.json`, and push
+`boltable/main`. `scripts/refresh-and-deploy.sh` automates this end-to-end. See `AGENTS.md`.
 
 ## Design reference
 

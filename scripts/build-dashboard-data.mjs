@@ -26,6 +26,8 @@ import {
   accumulateNewOpportunityFallback,
   breakdownStoreToHistory,
   countWeeklyLeads,
+  countMtdLeads,
+  countMtdQualified,
   deriveWeeklyHistory,
   initWeeklyBreakdownStore,
   weekKey,
@@ -158,11 +160,19 @@ const wonRecentData = existsSync(wonRecentExport) ? parseSfJson(wonRecentExport)
 const extraWonExports = readdirSync(wonCacheDir)
   .filter((name) => /^sf-won-\d{4}-\d{2}\.json$/.test(name))
   .map((name) => parseSfJson(join(wonCacheDir, name)));
-/** THIS_MONTH export (+ monthly archives) — authoritative for Won MTD; exclude sf-won-recent (Activated). */
-const wonMtdRecords = mergeWonExportRecords([wonData, ...extraWonExports]);
-const mergedWonRecords = mergeWonExportRecords([wonMtdRecords, wonRecentData]);
-const mtdHistoryStore = buildHybridMtdStore(wonMtdRecords, stageHistoryData.records);
-const mtdHistory = buildMtdHistoryFromHybrid(wonMtdRecords, stageHistoryData.records);
+/**
+ * Canonical Won source for ALL months: the full-year Won_Date export (THIS_YEAR)
+ * merged with the THIS_MONTH export (+ monthly archives), deduped by Id. The
+ * THIS_MONTH export carries the freshest current-month wins (it is refreshed more
+ * often than the YTD pull), so merging it in keeps the current month exact.
+ * buildHybridMtdStore counts Won from Won_Date__c for every month (no
+ * field-history "Closed Won" fallback), so prior months reconcile to the SF
+ * Won-Date dashboard instead of bulk stage backfills.
+ */
+const wonAllRecords = mergeWonExportRecords([wonYtdByDateData, wonData, ...extraWonExports]);
+const mergedWonRecords = mergeWonExportRecords([wonData, ...extraWonExports, wonRecentData]);
+const mtdHistoryStore = buildHybridMtdStore(wonAllRecords, stageHistoryData.records);
+const mtdHistory = buildMtdHistoryFromHybrid(wonAllRecords, stageHistoryData.records);
 const mopsCasesData = parseSfJson(mopsCasesExport);
 const mopsOnboardingData = existsSync(mopsOnboardingExport)
   ? parseSfJson(mopsOnboardingExport)
@@ -371,20 +381,36 @@ function metricRow(label, key) {
   return { label, value: cur, previousValue: prev, changePercent: pctChange(cur, prev) };
 }
 
-// Snapshot from stage counts (Romania Sales Opportunity)
-const snapshotCounts = {
-  "New Opportunity": 1443,
-  Reachout: 43,
-  "Contacting DCM": 10,
-  "First Pitch": 5,
-  Negotiations: 110,
-  "Contract sent": 159,
-  "Closed Won": 58,
-  "Onboarding Checklist": 5,
-  Onboarding: 36,
-  "Ready to Activate": 51,
-  Activated: 2366,
-};
+// Snapshot from live stage counts (Romania Sales Opportunity), derived from the
+// SF GROUP BY StageName export (scripts/.cache/sf-pipeline-stage-counts.json):
+//   SELECT StageName, COUNT(Id) cnt FROM Opportunity
+//   WHERE RecordType.Name = 'Sales Opportunity' AND <RO filter> GROUP BY StageName
+// Was a hardcoded literal map; now refreshed from Salesforce on every data pull.
+const stageCountsExport =
+  process.env.SF_STAGE_COUNTS_EXPORT ?? join(root, "scripts/.cache/sf-pipeline-stage-counts.json");
+function loadStageCounts(path) {
+  if (!existsSync(path)) {
+    throw new Error(
+      `[build-dashboard-data] missing stage-counts export ${path}. ` +
+        "Refresh it via the Salesforce MCP (GROUP BY StageName) before building.",
+    );
+  }
+  const payload = parseSfJson(path);
+  const counts = {};
+  for (const rec of payload.records ?? []) {
+    const stage = rec.StageName;
+    if (!stage) continue;
+    // Aggregate alias may be cnt / expr0 / COUNT(Id); fall back to any numeric field.
+    const value =
+      rec.cnt ??
+      rec.expr0 ??
+      rec["COUNT(Id)"] ??
+      Object.values(rec).find((v) => typeof v === "number");
+    counts[stage] = Number(value) || 0;
+  }
+  return counts;
+}
+const snapshotCounts = loadStageCounts(stageCountsExport);
 
 const salesSnapshot = SALES_STAGES.map((s) => ({
   stage: stageDisplay(s),
@@ -457,10 +483,15 @@ const agents = filterTeamAgents(
   ),
 ).sort((a, b) => b.pipelineCount - a.pipelineCount);
 
-const mtdAchievement = buildMtdAchievement(agents, mtdMonthLabel, {
-  leadsMtd: 173,
-  qualifiedMtd: 15,
-});
+// Leads / Qualified MTD derived from SF exports (Europe/Bucharest month) — was hardcoded.
+const leadsMtd = countMtdLeads(weeklyData.records, agentSegment, isExcludedAgent, mtdMonthKey);
+const qualifiedMtd = countMtdQualified(
+  stageHistoryData.records,
+  agentSegment,
+  isExcludedAgent,
+  mtdMonthKey,
+);
+const mtdAchievement = buildMtdAchievement(agents, mtdMonthLabel, { leadsMtd, qualifiedMtd });
 
 // Pipeline accounts by stage
 const pipelineAccounts = (pipelineData.records ?? []).map((o) => mapAccount(o, "backlog"));
@@ -489,10 +520,46 @@ const hitlist = [
   { id: "hit-005", priority: 5, company: "Log Out", city: "Baia Mare", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "Contract sent", sfOpportunityId: "001Ts00000788NzIAI", notes: "Not yet started" },
 ];
 
-const wonYtd = 1426;
-const activatedYtd = 1426;
-const wonYtdPrev = 940;
-const activatedYtdPrev = 940;
+// YTD totals derived from the canonical MTD store (was hardcoded 1426/1426,
+// which violated Won≠Activated). Won = Σ per-month Won_Date counts for the
+// current year; Activated = Σ per-month field-history Activated counts.
+// previousValue = cumulative through the END of the prior month, so the trend
+// reflects this (partial) month's contribution. Both are team-rep scoped.
+function ytdTotalsFromStore(store, year) {
+  let won = 0;
+  let activated = 0;
+  let wonThisMonth = 0;
+  let activatedThisMonth = 0;
+  const yearPrefix = `${year}-`;
+  for (const [monthKey, monthAgents] of store) {
+    if (!monthKey.startsWith(yearPrefix)) continue;
+    let monthWon = 0;
+    let monthActivated = 0;
+    for (const agent of monthAgents.values()) {
+      if (agentSegment(agent.name, agent.ownerId) && !isExcludedAgent(agent.name, agent.ownerId)) {
+        monthWon += agent.wonMtd ?? 0;
+        monthActivated += agent.activatedMtd ?? 0;
+      }
+    }
+    won += monthWon;
+    activated += monthActivated;
+    if (monthKey === mtdMonthKey) {
+      wonThisMonth = monthWon;
+      activatedThisMonth = monthActivated;
+    }
+  }
+  return {
+    won,
+    activated,
+    wonPrev: won - wonThisMonth,
+    activatedPrev: activated - activatedThisMonth,
+  };
+}
+const ytdTotals = ytdTotalsFromStore(mtdHistoryStore, Number(mtdYear));
+const wonYtd = ytdTotals.won;
+const activatedYtd = ytdTotals.activated;
+const wonYtdPrev = ytdTotals.wonPrev;
+const activatedYtdPrev = ytdTotals.activatedPrev;
 
 const dashboard = {
   updatedAt: now,
@@ -571,10 +638,33 @@ const dashboard = {
 };
 
 const slimmed = slimDashboardRawData(dashboard);
-writeFileSync(join(root, "data/dashboard.json"), `${JSON.stringify(slimmed, null, 2)}\n`);
+
+// Merge-preserve: build-dashboard-data only owns the Overview/MTD/Weekly/WoW/MOPS
+// sections. The myPipeline, accountsPerformance, and inboundTeam sections are
+// produced by their own builders (run after this one by scripts/build-all-data.mjs).
+// Carry forward any existing copies so a *standalone* run of this script never
+// wipes those tabs — the orchestrator then refreshes them in place.
+const dashboardPath = join(root, "data/dashboard.json");
+if (existsSync(dashboardPath)) {
+  try {
+    const prev = parseSfJson(dashboardPath);
+    if (prev.accountsPerformance) slimmed.accountsPerformance = prev.accountsPerformance;
+    if (prev.inboundTeam) slimmed.inboundTeam = prev.inboundTeam;
+    if (prev.salesPipeline?.myPipeline) {
+      slimmed.salesPipeline.myPipeline = prev.salesPipeline.myPipeline;
+    }
+  } catch {
+    // Corrupt/old file — proceed with a clean write; the orchestrator rebuilds the rest.
+  }
+}
+
+writeFileSync(dashboardPath, `${JSON.stringify(slimmed, null, 2)}\n`);
 console.log("Wrote data/dashboard.json", {
   agents: agents.length,
   history: history.length,
-  mtdHistoryMonths: mtdHistory.map((m) => m.monthKey).join(", "),
+  totals: { wonYtd, activatedYtd },
+  leadsMtd,
+  qualifiedMtd,
+  mtdHistoryMonths: mtdHistory.map((m) => `${m.monthKey}:${m.mtdAchievement.actualWon}/${m.mtdAchievement.actualActivated}`).join(", "),
   weeks: history.map((h) => h.week).join(", "),
 });

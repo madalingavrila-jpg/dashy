@@ -1,18 +1,18 @@
 {
-  "updatedAt": "2026-06-19T14:00:46.507Z",
+  "updatedAt": "2026-06-19T14:56:45.843Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
       "won": {
-        "value": 1426,
-        "previousValue": 940,
-        "changePercent": 51.7,
+        "value": 1003,
+        "previousValue": 854,
+        "changePercent": 17.4,
         "period": "YTD"
       },
       "activated": {
-        "value": 1426,
-        "previousValue": 940,
-        "changePercent": 51.7,
+        "value": 916,
+        "previousValue": 799,
+        "changePercent": 14.6,
         "period": "YTD"
       }
     },
@@ -20,7 +20,7 @@
       "sales": [
         {
           "stage": "New Opportunity",
-          "count": 1443
+          "count": 3549
         },
         {
           "stage": "Reachout",
@@ -28,19 +28,19 @@
         },
         {
           "stage": "Contacting Decision Maker",
-          "count": 10
+          "count": 19
         },
         {
           "stage": "1st Pitch",
-          "count": 5
+          "count": 7
         },
         {
           "stage": "Negotiation",
-          "count": 110
+          "count": 710
         },
         {
           "stage": "Contract sent",
-          "count": 159
+          "count": 351
         },
         {
           "stage": "Won",
@@ -50,30 +50,30 @@
       "onboarding": [
         {
           "stage": "Signed / Onb Checklist",
-          "count": 5
+          "count": 41
         },
         {
           "stage": "Onboarding",
-          "count": 36
+          "count": 46
         },
         {
           "stage": "Ready for TA",
-          "count": 51
+          "count": 67
         },
         {
           "stage": "Activated",
-          "count": 2366
+          "count": 7588
         }
       ]
     },
     "mtdAchievement": {
       "month": "June 2026",
       "targetWon": 260,
-      "actualWon": 146,
+      "actualWon": 149,
       "targetActivated": 215,
       "actualActivated": 117,
-      "leadsMtd": 173,
-      "qualifiedMtd": 15,
+      "leadsMtd": 61,
+      "qualifiedMtd": 5,
       "complexRepCount": 5,
       "densityRepCount": 7,
       "tiers": [
@@ -86,7 +86,7 @@
         {
           "name": "Density",
           "target": 210,
-          "actual": 128,
+          "actual": 131,
           "type": "won"
         },
         {
@@ -3019,7 +3019,7 @@
         },
         "wonMtd": 22,
         "activatedMtd": 16,
-        "wonYtd": 13,
+        "wonYtd": 15,
         "segment": "density",
         "mtdTarget": 30
       },
@@ -3033,9 +3033,9 @@
           "Ready for TA": 5,
           "New Opportunity": 61
         },
-        "wonMtd": 17,
+        "wonMtd": 19,
         "activatedMtd": 3,
-        "wonYtd": 3,
+        "wonYtd": 4,
         "segment": "density",
         "mtdTarget": 30
       },
@@ -3051,7 +3051,7 @@
         },
         "wonMtd": 9,
         "activatedMtd": 23,
-        "wonYtd": 18,
+        "wonYtd": 19,
         "segment": "density",
         "mtdTarget": 30
       },
@@ -3069,7 +3069,7 @@
         },
         "wonMtd": 23,
         "activatedMtd": 17,
-        "wonYtd": 14,
+        "wonYtd": 18,
         "segment": "density",
         "mtdTarget": 30
       },
@@ -3088,7 +3088,7 @@
         },
         "wonMtd": 24,
         "activatedMtd": 16,
-        "wonYtd": 12,
+        "wonYtd": 13,
         "segment": "density",
         "mtdTarget": 30
       },
@@ -3105,7 +3105,7 @@
         },
         "wonMtd": 11,
         "activatedMtd": 8,
-        "wonYtd": 8,
+        "wonYtd": 9,
         "segment": "complex",
         "mtdTarget": 10
       },
@@ -3153,9 +3153,9 @@
           "Signed / Onb Checklist": 1,
           "Ready for TA": 2
         },
-        "wonMtd": 14,
+        "wonMtd": 15,
         "activatedMtd": 10,
-        "wonYtd": 10,
+        "wonYtd": 11,
         "segment": "density",
         "mtdTarget": 30
       },
@@ -3197,7 +3197,7 @@
         },
         "wonMtd": 2,
         "activatedMtd": 2,
-        "wonYtd": 2,
+        "wonYtd": 3,
         "segment": "complex",
         "mtdTarget": 10
       }
@@ -4479,7 +4479,7 @@
             "ownerId": "005Ts000006V3vpIAC",
             "name": "Oroles Roșu",
             "segment": "density",
-            "wonMtd": 17,
+            "wonMtd": 19,
             "activatedMtd": 3,
             "wonItems": [
               {
@@ -4617,6 +4617,22 @@
                 "closeDate": "2026-06-04",
                 "sfOpportunityId": "006Qs00000ihGWRIA2",
                 "sfAccountId": "001Qs00000ovnLpIAI"
+              },
+              {
+                "id": "006Qs00000jMZhyIAG",
+                "name": "Pasta All'Ouevo",
+                "city": "—",
+                "closeDate": "2026-06-19",
+                "sfOpportunityId": "006Qs00000jMZhyIAG",
+                "sfAccountId": "001Qs00000q0uyjIAA"
+              },
+              {
+                "id": "006Qs00000jMam6IAC",
+                "name": "Delicii la Tuci",
+                "city": "—",
+                "closeDate": "2026-06-19",
+                "sfOpportunityId": "006Qs00000jMam6IAC",
+                "sfAccountId": "001Qs00000q0m1vIAA"
               }
             ],
             "activatedItems": [
@@ -4650,7 +4666,7 @@
             "ownerId": "005Ts000001Ak10IAC",
             "name": "Silviu-Mihnea Voicu",
             "segment": "density",
-            "wonMtd": 14,
+            "wonMtd": 15,
             "activatedMtd": 10,
             "wonItems": [
               {
@@ -4764,6 +4780,14 @@
                 "closeDate": "2026-06-02",
                 "sfOpportunityId": "006Qs00000icbLOIAY",
                 "sfAccountId": "001Qs00000opA29IAE"
+              },
+              {
+                "id": "006Qs00000j1phiIAA",
+                "name": "Cin Cin by Risto",
+                "city": "—",
+                "closeDate": "2026-06-19",
+                "sfOpportunityId": "006Qs00000j1phiIAA",
+                "sfAccountId": "001Qs00000pRONRIA4"
               }
             ],
             "activatedItems": [
@@ -5436,7 +5460,7 @@
         "mtdAchievement": {
           "month": "June 2026",
           "targetWon": 250,
-          "actualWon": 146,
+          "actualWon": 149,
           "targetActivated": 207,
           "actualActivated": 117,
           "leadsMtd": 0,
@@ -5453,7 +5477,7 @@
             {
               "name": "Density",
               "target": 210,
-              "actual": 128,
+              "actual": 131,
               "type": "won"
             },
             {
@@ -5476,20 +5500,11 @@
         "monthLabel": "May 2026",
         "agents": [
           {
-            "ownerId": "005Ts000002AWIQIA4",
-            "name": "Eusebiu Hanganu",
+            "ownerId": "005Ts00000BtGPDIA3",
+            "name": "Daniel-Alexandru Boboc",
             "segment": "density",
-            "wonMtd": 33,
-            "activatedMtd": 32,
-            "wonItems": [],
-            "activatedItems": []
-          },
-          {
-            "ownerId": "005Ts000001Ak10IAC",
-            "name": "Silviu-Mihnea Voicu",
-            "segment": "density",
-            "wonMtd": 31,
-            "activatedMtd": 31,
+            "wonMtd": 35,
+            "activatedMtd": 34,
             "wonItems": [],
             "activatedItems": []
           },
@@ -5497,16 +5512,16 @@
             "ownerId": "005Ts00000BtZV3IAN",
             "name": "Borcaeas Georgian",
             "segment": "density",
-            "wonMtd": 30,
+            "wonMtd": 34,
             "activatedMtd": 30,
             "wonItems": [],
             "activatedItems": []
           },
           {
-            "ownerId": "005Ts000006V3vpIAC",
-            "name": "Oroles Roșu",
+            "ownerId": "005Ts000002AX4nIAG",
+            "name": "Ciprian Teodorescu",
             "segment": "density",
-            "wonMtd": 28,
+            "wonMtd": 34,
             "activatedMtd": 27,
             "wonItems": [],
             "activatedItems": []
@@ -5515,26 +5530,35 @@
             "ownerId": "005Ts00000BtX53IAF",
             "name": "Daniel-Marian Toltică",
             "segment": "density",
-            "wonMtd": 27,
+            "wonMtd": 31,
             "activatedMtd": 32,
             "wonItems": [],
             "activatedItems": []
           },
           {
-            "ownerId": "005Ts00000BtGPDIA3",
-            "name": "Daniel-Alexandru Boboc",
+            "ownerId": "005Ts000002AWIQIA4",
+            "name": "Eusebiu Hanganu",
             "segment": "density",
-            "wonMtd": 25,
-            "activatedMtd": 34,
+            "wonMtd": 30,
+            "activatedMtd": 32,
             "wonItems": [],
             "activatedItems": []
           },
           {
-            "ownerId": "005Ts000002AX4nIAG",
-            "name": "Ciprian Teodorescu",
+            "ownerId": "005Ts000006V3vpIAC",
+            "name": "Oroles Roșu",
             "segment": "density",
-            "wonMtd": 22,
+            "wonMtd": 29,
             "activatedMtd": 27,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts000001Ak10IAC",
+            "name": "Silviu-Mihnea Voicu",
+            "segment": "density",
+            "wonMtd": 23,
+            "activatedMtd": 31,
             "wonItems": [],
             "activatedItems": []
           },
@@ -5542,7 +5566,7 @@
             "ownerId": "005Qs00000Mxc6EIAR",
             "name": "Paul-Daniel Rîngheanu",
             "segment": "complex",
-            "wonMtd": 17,
+            "wonMtd": 21,
             "activatedMtd": 18,
             "wonItems": [],
             "activatedItems": []
@@ -5551,7 +5575,7 @@
             "ownerId": "005Qs00000N2Hh3IAF",
             "name": "Andrei-Georgian Pătru",
             "segment": "complex",
-            "wonMtd": 6,
+            "wonMtd": 9,
             "activatedMtd": 6,
             "wonItems": [],
             "activatedItems": []
@@ -5564,34 +5588,43 @@
             "activatedMtd": 4,
             "wonItems": [],
             "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts000005c4hFIAQ",
+            "name": "Corneliu-Ștefan Radu",
+            "segment": "complex",
+            "wonMtd": 2,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
           }
         ],
         "mtdAchievement": {
           "month": "May 2026",
-          "targetWon": 240,
-          "actualWon": 223,
-          "targetActivated": 199,
+          "targetWon": 250,
+          "actualWon": 252,
+          "targetActivated": 207,
           "actualActivated": 241,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
-          "complexRepCount": 3,
+          "complexRepCount": 4,
           "densityRepCount": 7,
           "tiers": [
             {
               "name": "Complex",
-              "target": 30,
-              "actual": 27,
+              "target": 40,
+              "actual": 36,
               "type": "won"
             },
             {
               "name": "Density",
               "target": 210,
-              "actual": 196,
+              "actual": 216,
               "type": "won"
             },
             {
               "name": "Complex",
-              "target": 24,
+              "target": 32,
               "actual": 28,
               "type": "activated"
             },
@@ -5609,20 +5642,20 @@
         "monthLabel": "April 2026",
         "agents": [
           {
-            "ownerId": "005Ts000001Ak10IAC",
-            "name": "Silviu-Mihnea Voicu",
+            "ownerId": "005Ts00000BtGPDIA3",
+            "name": "Daniel-Alexandru Boboc",
             "segment": "density",
-            "wonMtd": 31,
-            "activatedMtd": 22,
+            "wonMtd": 32,
+            "activatedMtd": 21,
             "wonItems": [],
             "activatedItems": []
           },
           {
-            "ownerId": "005Ts000006V3vpIAC",
-            "name": "Oroles Roșu",
+            "ownerId": "005Ts000001Ak10IAC",
+            "name": "Silviu-Mihnea Voicu",
             "segment": "density",
-            "wonMtd": 26,
-            "activatedMtd": 25,
+            "wonMtd": 29,
+            "activatedMtd": 22,
             "wonItems": [],
             "activatedItems": []
           },
@@ -5630,7 +5663,7 @@
             "ownerId": "005Ts00000BtZV3IAN",
             "name": "Borcaeas Georgian",
             "segment": "density",
-            "wonMtd": 24,
+            "wonMtd": 28,
             "activatedMtd": 27,
             "wonItems": [],
             "activatedItems": []
@@ -5639,7 +5672,7 @@
             "ownerId": "005Ts000002AX4nIAG",
             "name": "Ciprian Teodorescu",
             "segment": "density",
-            "wonMtd": 22,
+            "wonMtd": 26,
             "activatedMtd": 26,
             "wonItems": [],
             "activatedItems": []
@@ -5648,7 +5681,7 @@
             "ownerId": "005Ts000002AWIQIA4",
             "name": "Eusebiu Hanganu",
             "segment": "density",
-            "wonMtd": 22,
+            "wonMtd": 25,
             "activatedMtd": 21,
             "wonItems": [],
             "activatedItems": []
@@ -5657,35 +5690,17 @@
             "ownerId": "005Ts00000BtX53IAF",
             "name": "Daniel-Marian Toltică",
             "segment": "density",
-            "wonMtd": 21,
+            "wonMtd": 20,
             "activatedMtd": 22,
             "wonItems": [],
             "activatedItems": []
           },
           {
-            "ownerId": "005Ts00000BtGPDIA3",
-            "name": "Daniel-Alexandru Boboc",
+            "ownerId": "005Ts000006V3vpIAC",
+            "name": "Oroles Roșu",
             "segment": "density",
-            "wonMtd": 18,
-            "activatedMtd": 21,
-            "wonItems": [],
-            "activatedItems": []
-          },
-          {
-            "ownerId": "005Qs00000N2Hh3IAF",
-            "name": "Andrei-Georgian Pătru",
-            "segment": "complex",
-            "wonMtd": 10,
-            "activatedMtd": 11,
-            "wonItems": [],
-            "activatedItems": []
-          },
-          {
-            "ownerId": "005Ts0000060ICnIAM",
-            "name": "Ionut-Mădălin Gavrilă",
-            "segment": "complex",
-            "wonMtd": 9,
-            "activatedMtd": 9,
+            "wonMtd": 20,
+            "activatedMtd": 25,
             "wonItems": [],
             "activatedItems": []
           },
@@ -5693,38 +5708,74 @@
             "ownerId": "005Qs00000Mxc6EIAR",
             "name": "Paul-Daniel Rîngheanu",
             "segment": "complex",
-            "wonMtd": 0,
+            "wonMtd": 14,
             "activatedMtd": 1,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts0000060ICnIAM",
+            "name": "Ionut-Mădălin Gavrilă",
+            "segment": "complex",
+            "wonMtd": 7,
+            "activatedMtd": 9,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000N2Hh3IAF",
+            "name": "Andrei-Georgian Pătru",
+            "segment": "complex",
+            "wonMtd": 5,
+            "activatedMtd": 11,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts000005c4hFIAQ",
+            "name": "Corneliu-Ștefan Radu",
+            "segment": "complex",
+            "wonMtd": 5,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000Pr1HKIAZ",
+            "name": "Vlad-Bogdan Popa",
+            "segment": "complex",
+            "wonMtd": 1,
+            "activatedMtd": 0,
             "wonItems": [],
             "activatedItems": []
           }
         ],
         "mtdAchievement": {
           "month": "April 2026",
-          "targetWon": 240,
-          "actualWon": 183,
-          "targetActivated": 199,
+          "targetWon": 260,
+          "actualWon": 212,
+          "targetActivated": 215,
           "actualActivated": 185,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
-          "complexRepCount": 3,
+          "complexRepCount": 5,
           "densityRepCount": 7,
           "tiers": [
             {
               "name": "Complex",
-              "target": 30,
-              "actual": 19,
+              "target": 50,
+              "actual": 32,
               "type": "won"
             },
             {
               "name": "Density",
               "target": 210,
-              "actual": 164,
+              "actual": 180,
               "type": "won"
             },
             {
               "name": "Complex",
-              "target": 24,
+              "target": 40,
               "actual": 21,
               "type": "activated"
             },
@@ -5745,17 +5796,17 @@
             "ownerId": "005Ts00000BtZV3IAN",
             "name": "Borcaeas Georgian",
             "segment": "density",
-            "wonMtd": 27,
+            "wonMtd": 26,
             "activatedMtd": 26,
             "wonItems": [],
             "activatedItems": []
           },
           {
-            "ownerId": "005Ts000001Ak10IAC",
-            "name": "Silviu-Mihnea Voicu",
+            "ownerId": "005Ts000002AX4nIAG",
+            "name": "Ciprian Teodorescu",
             "segment": "density",
-            "wonMtd": 26,
-            "activatedMtd": 1,
+            "wonMtd": 23,
+            "activatedMtd": 22,
             "wonItems": [],
             "activatedItems": []
           },
@@ -5763,7 +5814,7 @@
             "ownerId": "005Ts00000BtX53IAF",
             "name": "Daniel-Marian Toltică",
             "segment": "density",
-            "wonMtd": 23,
+            "wonMtd": 22,
             "activatedMtd": 24,
             "wonItems": [],
             "activatedItems": []
@@ -5772,26 +5823,8 @@
             "ownerId": "005Ts000002AWIQIA4",
             "name": "Eusebiu Hanganu",
             "segment": "density",
-            "wonMtd": 22,
+            "wonMtd": 20,
             "activatedMtd": 22,
-            "wonItems": [],
-            "activatedItems": []
-          },
-          {
-            "ownerId": "005Ts000002AX4nIAG",
-            "name": "Ciprian Teodorescu",
-            "segment": "density",
-            "wonMtd": 21,
-            "activatedMtd": 22,
-            "wonItems": [],
-            "activatedItems": []
-          },
-          {
-            "ownerId": "005Ts00000BtGPDIA3",
-            "name": "Daniel-Alexandru Boboc",
-            "segment": "density",
-            "wonMtd": 19,
-            "activatedMtd": 21,
             "wonItems": [],
             "activatedItems": []
           },
@@ -5805,10 +5838,19 @@
             "activatedItems": []
           },
           {
+            "ownerId": "005Ts00000BtGPDIA3",
+            "name": "Daniel-Alexandru Boboc",
+            "segment": "density",
+            "wonMtd": 15,
+            "activatedMtd": 21,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
             "ownerId": "005Qs00000N2Hh3IAF",
             "name": "Andrei-Georgian Pătru",
             "segment": "complex",
-            "wonMtd": 7,
+            "wonMtd": 13,
             "activatedMtd": 7,
             "wonItems": [],
             "activatedItems": []
@@ -5817,7 +5859,7 @@
             "ownerId": "005Ts000005c4hFIAQ",
             "name": "Corneliu-Ștefan Radu",
             "segment": "complex",
-            "wonMtd": 6,
+            "wonMtd": 7,
             "activatedMtd": 6,
             "wonItems": [],
             "activatedItems": []
@@ -5826,38 +5868,56 @@
             "ownerId": "005Ts0000060ICnIAM",
             "name": "Ionut-Mădălin Gavrilă",
             "segment": "complex",
-            "wonMtd": 4,
+            "wonMtd": 6,
             "activatedMtd": 2,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts000001Ak10IAC",
+            "name": "Silviu-Mihnea Voicu",
+            "segment": "density",
+            "wonMtd": 5,
+            "activatedMtd": 1,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000Mxc6EIAR",
+            "name": "Paul-Daniel Rîngheanu",
+            "segment": "complex",
+            "wonMtd": 1,
+            "activatedMtd": 0,
             "wonItems": [],
             "activatedItems": []
           }
         ],
         "mtdAchievement": {
           "month": "March 2026",
-          "targetWon": 240,
-          "actualWon": 172,
-          "targetActivated": 199,
+          "targetWon": 250,
+          "actualWon": 155,
+          "targetActivated": 207,
           "actualActivated": 150,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
-          "complexRepCount": 3,
+          "complexRepCount": 4,
           "densityRepCount": 7,
           "tiers": [
             {
               "name": "Complex",
-              "target": 30,
-              "actual": 17,
+              "target": 40,
+              "actual": 27,
               "type": "won"
             },
             {
               "name": "Density",
               "target": 210,
-              "actual": 155,
+              "actual": 128,
               "type": "won"
             },
             {
               "name": "Complex",
-              "target": 24,
+              "target": 32,
               "actual": 15,
               "type": "activated"
             },
@@ -5875,20 +5935,20 @@
         "monthLabel": "February 2026",
         "agents": [
           {
-            "ownerId": "005Ts000001Ak10IAC",
-            "name": "Silviu-Mihnea Voicu",
+            "ownerId": "005Ts00000BtX53IAF",
+            "name": "Daniel-Marian Toltică",
             "segment": "density",
-            "wonMtd": 54,
-            "activatedMtd": 2,
+            "wonMtd": 29,
+            "activatedMtd": 21,
             "wonItems": [],
             "activatedItems": []
           },
           {
-            "ownerId": "005Ts000006V3vpIAC",
-            "name": "Oroles Roșu",
+            "ownerId": "005Ts00000BtGPDIA3",
+            "name": "Daniel-Alexandru Boboc",
             "segment": "density",
-            "wonMtd": 22,
-            "activatedMtd": 21,
+            "wonMtd": 23,
+            "activatedMtd": 18,
             "wonItems": [],
             "activatedItems": []
           },
@@ -5896,7 +5956,7 @@
             "ownerId": "005Ts00000BtZV3IAN",
             "name": "Borcaeas Georgian",
             "segment": "density",
-            "wonMtd": 21,
+            "wonMtd": 22,
             "activatedMtd": 21,
             "wonItems": [],
             "activatedItems": []
@@ -5911,38 +5971,20 @@
             "activatedItems": []
           },
           {
-            "ownerId": "005Ts00000BtX53IAF",
-            "name": "Daniel-Marian Toltică",
-            "segment": "density",
-            "wonMtd": 19,
-            "activatedMtd": 21,
-            "wonItems": [],
-            "activatedItems": []
-          },
-          {
-            "ownerId": "005Ts00000BtGPDIA3",
-            "name": "Daniel-Alexandru Boboc",
-            "segment": "density",
-            "wonMtd": 18,
-            "activatedMtd": 18,
-            "wonItems": [],
-            "activatedItems": []
-          },
-          {
             "ownerId": "005Ts000002AWIQIA4",
             "name": "Eusebiu Hanganu",
             "segment": "density",
-            "wonMtd": 17,
+            "wonMtd": 20,
             "activatedMtd": 17,
             "wonItems": [],
             "activatedItems": []
           },
           {
-            "ownerId": "005Ts000005c4hFIAQ",
-            "name": "Corneliu-Ștefan Radu",
-            "segment": "complex",
-            "wonMtd": 15,
-            "activatedMtd": 16,
+            "ownerId": "005Ts000006V3vpIAC",
+            "name": "Oroles Roșu",
+            "segment": "density",
+            "wonMtd": 18,
+            "activatedMtd": 21,
             "wonItems": [],
             "activatedItems": []
           },
@@ -5950,38 +5992,65 @@
             "ownerId": "005Ts0000060ICnIAM",
             "name": "Ionut-Mădălin Gavrilă",
             "segment": "complex",
-            "wonMtd": 5,
+            "wonMtd": 4,
             "activatedMtd": 5,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts000001Ak10IAC",
+            "name": "Silviu-Mihnea Voicu",
+            "segment": "density",
+            "wonMtd": 3,
+            "activatedMtd": 2,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts000005c4hFIAQ",
+            "name": "Corneliu-Ștefan Radu",
+            "segment": "complex",
+            "wonMtd": 1,
+            "activatedMtd": 16,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000Pr1HKIAZ",
+            "name": "Vlad-Bogdan Popa",
+            "segment": "complex",
+            "wonMtd": 1,
+            "activatedMtd": 0,
             "wonItems": [],
             "activatedItems": []
           }
         ],
         "mtdAchievement": {
           "month": "February 2026",
-          "targetWon": 230,
-          "actualWon": 191,
-          "targetActivated": 191,
+          "targetWon": 240,
+          "actualWon": 141,
+          "targetActivated": 199,
           "actualActivated": 142,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
-          "complexRepCount": 2,
+          "complexRepCount": 3,
           "densityRepCount": 7,
           "tiers": [
             {
               "name": "Complex",
-              "target": 20,
-              "actual": 20,
+              "target": 30,
+              "actual": 6,
               "type": "won"
             },
             {
               "name": "Density",
               "target": 210,
-              "actual": 171,
+              "actual": 135,
               "type": "won"
             },
             {
               "name": "Complex",
-              "target": 16,
+              "target": 24,
               "actual": 21,
               "type": "activated"
             },
@@ -5999,11 +6068,29 @@
         "monthLabel": "January 2026",
         "agents": [
           {
-            "ownerId": "005Ts000001Ak10IAC",
-            "name": "Silviu-Mihnea Voicu",
+            "ownerId": "005Ts000002AX4nIAG",
+            "name": "Ciprian Teodorescu",
             "segment": "density",
-            "wonMtd": 257,
-            "activatedMtd": 0,
+            "wonMtd": 16,
+            "activatedMtd": 15,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts000005c4hFIAQ",
+            "name": "Corneliu-Ștefan Radu",
+            "segment": "complex",
+            "wonMtd": 16,
+            "activatedMtd": 10,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts000006V3vpIAC",
+            "name": "Oroles Roșu",
+            "segment": "density",
+            "wonMtd": 15,
+            "activatedMtd": 11,
             "wonItems": [],
             "activatedItems": []
           },
@@ -6017,37 +6104,10 @@
             "activatedItems": []
           },
           {
-            "ownerId": "005Ts000002AX4nIAG",
-            "name": "Ciprian Teodorescu",
-            "segment": "density",
-            "wonMtd": 11,
-            "activatedMtd": 15,
-            "wonItems": [],
-            "activatedItems": []
-          },
-          {
             "ownerId": "005Ts00000BtZV3IAN",
             "name": "Borcaeas Georgian",
             "segment": "density",
-            "wonMtd": 10,
-            "activatedMtd": 10,
-            "wonItems": [],
-            "activatedItems": []
-          },
-          {
-            "ownerId": "005Ts000006V3vpIAC",
-            "name": "Oroles Roșu",
-            "segment": "density",
-            "wonMtd": 10,
-            "activatedMtd": 11,
-            "wonItems": [],
-            "activatedItems": []
-          },
-          {
-            "ownerId": "005Ts000002AWIQIA4",
-            "name": "Eusebiu Hanganu",
-            "segment": "density",
-            "wonMtd": 9,
+            "wonMtd": 11,
             "activatedMtd": 10,
             "wonItems": [],
             "activatedItems": []
@@ -6056,16 +6116,16 @@
             "ownerId": "005Ts00000BtX53IAF",
             "name": "Daniel-Marian Toltică",
             "segment": "density",
-            "wonMtd": 6,
+            "wonMtd": 11,
             "activatedMtd": 10,
             "wonItems": [],
             "activatedItems": []
           },
           {
-            "ownerId": "005Ts000005c4hFIAQ",
-            "name": "Corneliu-Ștefan Radu",
-            "segment": "complex",
-            "wonMtd": 5,
+            "ownerId": "005Ts000002AWIQIA4",
+            "name": "Eusebiu Hanganu",
+            "segment": "density",
+            "wonMtd": 8,
             "activatedMtd": 10,
             "wonItems": [],
             "activatedItems": []
@@ -6074,7 +6134,7 @@
             "ownerId": "005Ts0000060ICnIAM",
             "name": "Ionut-Mădălin Gavrilă",
             "segment": "complex",
-            "wonMtd": 2,
+            "wonMtd": 4,
             "activatedMtd": 4,
             "wonItems": [],
             "activatedItems": []
@@ -6082,25 +6142,25 @@
         ],
         "mtdAchievement": {
           "month": "January 2026",
-          "targetWon": 230,
-          "actualWon": 323,
-          "targetActivated": 191,
+          "targetWon": 200,
+          "actualWon": 94,
+          "targetActivated": 166,
           "actualActivated": 81,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 2,
-          "densityRepCount": 7,
+          "densityRepCount": 6,
           "tiers": [
             {
               "name": "Complex",
               "target": 20,
-              "actual": 7,
+              "actual": 20,
               "type": "won"
             },
             {
               "name": "Density",
-              "target": 210,
-              "actual": 316,
+              "target": 180,
+              "actual": 74,
               "type": "won"
             },
             {
@@ -6111,7 +6171,7 @@
             },
             {
               "name": "Density",
-              "target": 175,
+              "target": 150,
               "actual": 67,
               "type": "activated"
             }
@@ -6120,8 +6180,364 @@
       }
     ],
     "accounts": {
-      "won": [],
+      "won": [
+        {
+          "id": "006Qs00000j1phiIAA",
+          "name": "Cin Cin by Risto",
+          "city": "—",
+          "owner": "Silviu-Mihnea Voicu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pRONRIA4",
+          "sfOpportunityId": "006Qs00000j1phiIAA",
+          "ownerId": "005Ts000001Ak10IAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jMZhyIAG",
+          "name": "Pasta All'Ouevo",
+          "city": "—",
+          "owner": "Oroles Roșu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000q0uyjIAA",
+          "sfOpportunityId": "006Qs00000jMZhyIAG",
+          "ownerId": "005Ts000006V3vpIAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jMam6IAC",
+          "name": "Delicii la Tuci",
+          "city": "—",
+          "owner": "Oroles Roșu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000q0m1vIAA",
+          "sfOpportunityId": "006Qs00000jMam6IAC",
+          "ownerId": "005Ts000006V3vpIAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jLFlPIAW",
+          "name": "The Final Tacos",
+          "city": "Brasov",
+          "owner": "Corneliu-Ștefan Radu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pzA3jIAE",
+          "sfOpportunityId": "006Qs00000jLFlPIAW",
+          "ownerId": "005Ts000005c4hFIAQ",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jL7pQIAS",
+          "name": "Pizza Rebela Donatella by Ando's",
+          "city": "Brasov",
+          "owner": "Corneliu-Ștefan Radu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pzLBzIAM",
+          "sfOpportunityId": "006Qs00000jL7pQIAS",
+          "ownerId": "005Ts000005c4hFIAQ",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jJn1WIAS",
+          "name": "Old Hound",
+          "city": "—",
+          "owner": "Daniel-Marian Toltică",
+          "tier": "Standard",
+          "stage": "Ready for TA",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pv9CUIAY",
+          "sfOpportunityId": "006Qs00000jJn1WIAS",
+          "ownerId": "005Ts00000BtX53IAF",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000iqMo8IAE",
+          "name": "Restaurant Bulevard M",
+          "city": "—",
+          "owner": "Silviu-Mihnea Voicu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-15",
+          "sfAccountId": "001Qs00000op5PBIAY",
+          "sfOpportunityId": "006Qs00000iqMo8IAE",
+          "ownerId": "005Ts000001Ak10IAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jLBTDIA4",
+          "name": "Azima",
+          "city": "Brasov",
+          "owner": "Corneliu-Ștefan Radu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pzNbuIAE",
+          "sfOpportunityId": "006Qs00000jLBTDIA4",
+          "ownerId": "005Ts000005c4hFIAQ",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jArnXIAS",
+          "name": "VATRUSHKA",
+          "city": "—",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000p7RHSIA2",
+          "sfOpportunityId": "006Qs00000jArnXIAS",
+          "ownerId": "005Ts000002AWIQIA4",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jJScCIAW",
+          "name": "Dolci di Fabio",
+          "city": "—",
+          "owner": "Oroles Roșu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pum31IAA",
+          "sfOpportunityId": "006Qs00000jJScCIAW",
+          "ownerId": "005Ts000006V3vpIAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jIBMUIA4",
+          "name": "H Kebab",
+          "city": "—",
+          "owner": "Oroles Roșu",
+          "tier": "Standard",
+          "stage": "Ready for TA",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000psr20IAA",
+          "sfOpportunityId": "006Qs00000jIBMUIA4",
+          "ownerId": "005Ts000006V3vpIAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jFAmkIAG",
+          "name": "WaffleZ",
+          "city": "—",
+          "owner": "Daniel-Marian Toltică",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000podCAIAY",
+          "sfOpportunityId": "006Qs00000jFAmkIAG",
+          "ownerId": "005Ts00000BtX53IAF",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jBc04IAC",
+          "name": "AM PM Pub",
+          "city": "—",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000owzsoIAA",
+          "sfOpportunityId": "006Qs00000jBc04IAC",
+          "ownerId": "005Ts000002AWIQIA4",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jJVocIAG",
+          "name": "Favoritfood",
+          "city": "—",
+          "owner": "Oroles Roșu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000puiloIAA",
+          "sfOpportunityId": "006Qs00000jJVocIAG",
+          "ownerId": "005Ts000006V3vpIAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jEuA7IAK",
+          "name": "Pizarrio",
+          "city": "—",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000poN93IAE",
+          "sfOpportunityId": "006Qs00000jEuA7IAK",
+          "ownerId": "005Ts000002AWIQIA4",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000izM7BIAU",
+          "name": "PIZZA 212 SLICE BAR",
+          "city": "—",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pMVnrIAG",
+          "sfOpportunityId": "006Qs00000izM7BIAU",
+          "ownerId": "005Ts000002AWIQIA4",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000izCVyIAM",
+          "name": "Kebapci",
+          "city": "—",
+          "owner": "Oroles Roșu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pM5jjIAC",
+          "sfOpportunityId": "006Qs00000izCVyIAM",
+          "ownerId": "005Ts000006V3vpIAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jC4yvIAC",
+          "name": "Duc Tam Phuc",
+          "city": "—",
+          "owner": "Oroles Roșu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000piroEIAQ",
+          "sfOpportunityId": "006Qs00000jC4yvIAC",
+          "ownerId": "005Ts000006V3vpIAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jCgXrIAK",
+          "name": "The Millenial Burger",
+          "city": "—",
+          "owner": "Oroles Roșu",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pjilvIAA",
+          "sfOpportunityId": "006Qs00000jCgXrIAK",
+          "ownerId": "005Ts000006V3vpIAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000istKmIAI",
+          "name": "Club One",
+          "city": "—",
+          "owner": "Borcaeas Georgian",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "won",
+          "closedDate": "2026-06-30",
+          "sfAccountId": "001Qs00000pCHETIA4",
+          "sfOpportunityId": "006Qs00000istKmIAI",
+          "ownerId": "005Ts00000BtZV3IAN",
+          "segment": "density"
+        }
+      ],
       "activated": [
+        {
+          "id": "006Qs00000isTwaIAE",
+          "name": "Shaorma la Jar by Adam",
+          "city": "—",
+          "owner": "Daniel-Marian Toltică",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-19",
+          "activatedDate": "2026-06-19",
+          "sfAccountId": "001Qs00000pBxlyIAC",
+          "sfOpportunityId": "006Qs00000isTwaIAE",
+          "ownerId": "005Ts00000BtX53IAF",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000hAe3SIAS",
+          "name": "Super Mama",
+          "city": "SIBIU",
+          "owner": "Corneliu-Ștefan Radu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-18",
+          "activatedDate": "2026-06-18",
+          "sfAccountId": "001Qs00000mmhqPIAQ",
+          "sfOpportunityId": "006Qs00000hAe3SIAS",
+          "ownerId": "005Ts000005c4hFIAQ",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000jF3i2IAC",
+          "name": "Mo's Burgers",
+          "city": "SIBIU",
+          "owner": "Corneliu-Ștefan Radu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-19",
+          "activatedDate": "2026-06-19",
+          "sfAccountId": "001Qs00000poesyIAA",
+          "sfOpportunityId": "006Qs00000jF3i2IAC",
+          "ownerId": "005Ts000005c4hFIAQ",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000j7mhCIAQ",
+          "name": "Sushi Factory",
+          "city": "—",
+          "owner": "Oroles Roșu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-19",
+          "activatedDate": "2026-06-19",
+          "sfAccountId": "001Qs00000pcjTaIAI",
+          "sfOpportunityId": "006Qs00000j7mhCIAQ",
+          "ownerId": "005Ts000006V3vpIAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000i0IZvIAM",
+          "name": "THE BIG BOOM EVENTS",
+          "city": "—",
+          "owner": "Daniel-Marian Toltică",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-19",
+          "activatedDate": "2026-06-19",
+          "sfAccountId": "001Qs00000n2ZPQIA2",
+          "sfOpportunityId": "006Qs00000i0IZvIAM",
+          "ownerId": "005Ts00000BtX53IAF",
+          "segment": "density"
+        },
         {
           "id": "006Qs00000j8gg6IAA",
           "name": "Four Star Pizza Delivery",
@@ -6138,17 +6554,107 @@
           "segment": "density"
         },
         {
-          "id": "006Qs00000isVIQIA2",
-          "name": "Metaphor Coffee Roasters",
+          "id": "006Qs00000j7vdyIAA",
+          "name": "Los Primos",
           "city": "—",
           "owner": "Eusebiu Hanganu",
           "tier": "Standard",
           "stage": "Activated",
           "status": "activated",
+          "closedDate": "2026-06-19",
+          "activatedDate": "2026-06-19",
+          "sfAccountId": "001Qs00000ksuPQIAY",
+          "sfOpportunityId": "006Qs00000j7vdyIAA",
+          "ownerId": "005Ts000002AWIQIA4",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000j7GxOIAU",
+          "name": "Bottega Sensoria",
+          "city": "—",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-19",
+          "activatedDate": "2026-06-19",
+          "sfAccountId": "001Ts00000FTeRKIA1",
+          "sfOpportunityId": "006Qs00000j7GxOIAU",
+          "ownerId": "005Ts000002AWIQIA4",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000iiKo6IAE",
+          "name": "Chernomorka",
+          "city": "—",
+          "owner": "Ionut-Mădălin Gavrilă",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
           "closedDate": "2026-06-18",
           "activatedDate": "2026-06-18",
-          "sfAccountId": "001Qs00000pBwUnIAK",
-          "sfOpportunityId": "006Qs00000isVIQIA2",
+          "sfAccountId": "001Qs00000ox7lSIAQ",
+          "sfOpportunityId": "006Qs00000iiKo6IAE",
+          "ownerId": "005Ts0000060ICnIAM",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000izOosIAE",
+          "name": "Beirut Deli",
+          "city": "—",
+          "owner": "Borcaeas Georgian",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-16",
+          "activatedDate": "2026-06-16",
+          "sfAccountId": "001Qs00000pMNonIAG",
+          "sfOpportunityId": "006Qs00000izOosIAE",
+          "ownerId": "005Ts00000BtZV3IAN",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000itHF0IAM",
+          "name": "Pizza Venezia",
+          "city": "—",
+          "owner": "Daniel-Alexandru Boboc",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-17",
+          "activatedDate": "2026-06-17",
+          "sfAccountId": "001Qs00000l92MHIAY",
+          "sfOpportunityId": "006Qs00000itHF0IAM",
+          "ownerId": "005Ts00000BtGPDIA3",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000iwwbmIAA",
+          "name": "Pizza Epic",
+          "city": "—",
+          "owner": "Daniel-Alexandru Boboc",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-15",
+          "activatedDate": "2026-06-15",
+          "sfAccountId": "001Qs00000pIJJrIAO",
+          "sfOpportunityId": "006Qs00000iwwbmIAA",
+          "ownerId": "005Ts00000BtGPDIA3",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000iyxIRIAY",
+          "name": "1902 Athletic Pub",
+          "city": "—",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-14",
+          "activatedDate": "2026-06-14",
+          "sfAccountId": "001Qs00000pKyInIAK",
+          "sfOpportunityId": "006Qs00000iyxIRIAY",
           "ownerId": "005Ts000002AWIQIA4",
           "segment": "density"
         },
@@ -6168,143 +6674,8 @@
           "segment": "density"
         },
         {
-          "id": "006Qs00000i4xg8IAA",
-          "name": "SMASH BURGER POINT",
-          "city": "—",
-          "owner": "Oroles Roșu",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-18",
-          "activatedDate": "2026-06-18",
-          "sfAccountId": "001Qs00000o16l0IAA",
-          "sfOpportunityId": "006Qs00000i4xg8IAA",
-          "ownerId": "005Ts000006V3vpIAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000hAe3SIAS",
-          "name": "Super Mama",
-          "city": "SIBIU",
-          "owner": "Corneliu-Ștefan Radu",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-18",
-          "activatedDate": "2026-06-18",
-          "sfAccountId": "001Qs00000mmhqPIAQ",
-          "sfOpportunityId": "006Qs00000hAe3SIAS",
-          "ownerId": "005Ts000005c4hFIAQ",
-          "segment": "density"
-        },
-        {
-          "id": "006Ts00000B1g4iIAB",
-          "name": "TAVERNA RACILOR IASI",
-          "city": "—",
-          "owner": "Daniel-Alexandru Boboc",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-17",
-          "activatedDate": "2026-06-17",
-          "sfAccountId": "001Ts00000JIPqsIAH",
-          "sfOpportunityId": "006Ts00000B1g4iIAB",
-          "ownerId": "005Ts00000BtGPDIA3",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000itHF0IAM",
-          "name": "Pizza Venezia",
-          "city": "—",
-          "owner": "Daniel-Alexandru Boboc",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-17",
-          "activatedDate": "2026-06-17",
-          "sfAccountId": "001Qs00000l92MHIAY",
-          "sfOpportunityId": "006Qs00000itHF0IAM",
-          "ownerId": "005Ts00000BtGPDIA3",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000ihGWRIA2",
-          "name": "Casa Mia",
-          "city": "—",
-          "owner": "Oroles Roșu",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-17",
-          "activatedDate": "2026-06-17",
-          "sfAccountId": "001Qs00000ovnLpIAI",
-          "sfOpportunityId": "006Qs00000ihGWRIA2",
-          "ownerId": "005Ts000006V3vpIAC",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000ixUVPIA2",
-          "name": "La Cratita Vesela",
-          "city": "—",
-          "owner": "Borcaeas Georgian",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-17",
-          "activatedDate": "2026-06-17",
-          "sfAccountId": "001Qs00000pJCePIAW",
-          "sfOpportunityId": "006Qs00000ixUVPIA2",
-          "ownerId": "005Ts00000BtZV3IAN",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000hsBVdIAM",
-          "name": "Master Truck A/S",
-          "city": "—",
-          "owner": "Daniel-Alexandru Boboc",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-17",
-          "activatedDate": "2026-06-17",
-          "sfAccountId": "001Qs00000njyiPIAQ",
-          "sfOpportunityId": "006Qs00000hsBVdIAM",
-          "ownerId": "005Ts00000BtGPDIA3",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000i0yEBIAY",
-          "name": "Liberty Bagels",
-          "city": "—",
-          "owner": "Eusebiu Hanganu",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-16",
-          "activatedDate": "2026-06-16",
-          "sfAccountId": "001Qs00000nwKBrIAM",
-          "sfOpportunityId": "006Qs00000i0yEBIAY",
-          "ownerId": "005Ts000002AWIQIA4",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000hp7DDIAY",
-          "name": "Brutaria cu Maia",
-          "city": "—",
-          "owner": "Borcaeas Georgian",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-16",
-          "activatedDate": "2026-06-16",
-          "sfAccountId": "001Qs00000nfCMDIA2",
-          "sfOpportunityId": "006Qs00000hp7DDIAY",
-          "ownerId": "005Ts00000BtZV3IAN",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000isYWSIA2",
-          "name": "Korean corn dog",
+          "id": "006Qs00000ivux1IAA",
+          "name": "Tut Amun Coffee",
           "city": "—",
           "owner": "Daniel-Marian Toltică",
           "tier": "Standard",
@@ -6312,8 +6683,8 @@
           "status": "activated",
           "closedDate": "2026-06-16",
           "activatedDate": "2026-06-16",
-          "sfAccountId": "001Qs00000pC1r2IAC",
-          "sfOpportunityId": "006Qs00000isYWSIA2",
+          "sfAccountId": "001Qs00000pH96TIAS",
+          "sfOpportunityId": "006Qs00000ivux1IAA",
           "ownerId": "005Ts00000BtX53IAF",
           "segment": "density"
         },
@@ -6333,153 +6704,33 @@
           "segment": "density"
         },
         {
-          "id": "006Qs00000iaqtCIAQ",
-          "name": "Sweets by the Sea",
-          "city": "Constanta",
-          "owner": "Ciprian Teodorescu",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-16",
-          "activatedDate": "2026-06-16",
-          "sfAccountId": "001Qs00000on0WjIAI",
-          "sfOpportunityId": "006Qs00000iaqtCIAQ",
-          "ownerId": "005Ts000002AX4nIAG",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000izOosIAE",
-          "name": "Beirut Deli",
-          "city": "—",
-          "owner": "Borcaeas Georgian",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-16",
-          "activatedDate": "2026-06-16",
-          "sfAccountId": "001Qs00000pMNonIAG",
-          "sfOpportunityId": "006Qs00000izOosIAE",
-          "ownerId": "005Ts00000BtZV3IAN",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000ivux1IAA",
-          "name": "Tut Amun Coffee",
+          "id": "006Qs00000iwX5WIAU",
+          "name": "Panini Station",
           "city": "—",
           "owner": "Daniel-Marian Toltică",
           "tier": "Standard",
           "stage": "Activated",
           "status": "activated",
-          "closedDate": "2026-06-16",
-          "activatedDate": "2026-06-16",
-          "sfAccountId": "001Qs00000pH96TIAS",
-          "sfOpportunityId": "006Qs00000ivux1IAA",
+          "closedDate": "2026-06-19",
+          "activatedDate": "2026-06-19",
+          "sfAccountId": "001Qs00000pHoG1IAK",
+          "sfOpportunityId": "006Qs00000iwX5WIAU",
           "ownerId": "005Ts00000BtX53IAF",
           "segment": "density"
         },
         {
-          "id": "006Qs00000iwwbmIAA",
-          "name": "Pizza Epic",
+          "id": "006Qs00000iwJ0zIAE",
+          "name": "Kong Burger",
           "city": "—",
-          "owner": "Daniel-Alexandru Boboc",
+          "owner": "Daniel-Marian Toltică",
           "tier": "Standard",
           "stage": "Activated",
           "status": "activated",
-          "closedDate": "2026-06-15",
-          "activatedDate": "2026-06-15",
-          "sfAccountId": "001Qs00000pIJJrIAO",
-          "sfOpportunityId": "006Qs00000iwwbmIAA",
-          "ownerId": "005Ts00000BtGPDIA3",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000isPcqIAE",
-          "name": "Koko Loko Burgers",
-          "city": "—",
-          "owner": "Ciprian Teodorescu",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-15",
-          "activatedDate": "2026-06-15",
-          "sfAccountId": "0017Q000018iegZQAQ",
-          "sfOpportunityId": "006Qs00000isPcqIAE",
-          "ownerId": "005Ts000002AX4nIAG",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000iw6RuIAI",
-          "name": "Shaorma la Chef Duran",
-          "city": "—",
-          "owner": "Borcaeas Georgian",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-14",
-          "activatedDate": "2026-06-14",
-          "sfAccountId": "001Qs00000pGpz6IAC",
-          "sfOpportunityId": "006Qs00000iw6RuIAI",
-          "ownerId": "005Ts00000BtZV3IAN",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000gybICIAY",
-          "name": "Crazy Schnitzel",
-          "city": "—",
-          "owner": "Eusebiu Hanganu",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-14",
-          "activatedDate": "2026-06-14",
-          "sfAccountId": "001Qs00000mYe5zIAC",
-          "sfOpportunityId": "006Qs00000gybICIAY",
-          "ownerId": "005Ts000002AWIQIA4",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000hlreRIAQ",
-          "name": "Sapori • Pizza & More",
-          "city": "—",
-          "owner": "Eusebiu Hanganu",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-14",
-          "activatedDate": "2026-06-14",
-          "sfAccountId": "001Qs00000naCPtIAM",
-          "sfOpportunityId": "006Qs00000hlreRIAQ",
-          "ownerId": "005Ts000002AWIQIA4",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000iyxIRIAY",
-          "name": "1902 Athletic Pub",
-          "city": "—",
-          "owner": "Eusebiu Hanganu",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-14",
-          "activatedDate": "2026-06-14",
-          "sfAccountId": "001Qs00000pKyInIAK",
-          "sfOpportunityId": "006Qs00000iyxIRIAY",
-          "ownerId": "005Ts000002AWIQIA4",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000iFcRsIAK",
-          "name": "Los Chomperos",
-          "city": "—",
-          "owner": "Eusebiu Hanganu",
-          "tier": "Standard",
-          "stage": "Activated",
-          "status": "activated",
-          "closedDate": "2026-06-14",
-          "activatedDate": "2026-06-14",
-          "sfAccountId": "001Qs00000n00gmIAA",
-          "sfOpportunityId": "006Qs00000iFcRsIAK",
-          "ownerId": "005Ts000002AWIQIA4",
+          "closedDate": "2026-06-19",
+          "activatedDate": "2026-06-19",
+          "sfAccountId": "001Qs00000pHkdzIAC",
+          "sfOpportunityId": "006Qs00000iwJ0zIAE",
+          "ownerId": "005Ts00000BtX53IAF",
           "segment": "density"
         },
         {
@@ -6498,18 +6749,63 @@
           "segment": "density"
         },
         {
-          "id": "006Qs00000iehufIAA",
-          "name": "Beef Up",
+          "id": "006Qs00000iweyGIAQ",
+          "name": "B3ton Restobar Militari",
           "city": "—",
-          "owner": "Ciprian Teodorescu",
+          "owner": "Borcaeas Georgian",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-12",
+          "activatedDate": "2026-06-12",
+          "sfAccountId": "001Qs00000pI86jIAC",
+          "sfOpportunityId": "006Qs00000iweyGIAQ",
+          "ownerId": "005Ts00000BtZV3IAN",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000iw6RuIAI",
+          "name": "Shaorma la Chef Duran",
+          "city": "—",
+          "owner": "Borcaeas Georgian",
           "tier": "Standard",
           "stage": "Activated",
           "status": "activated",
           "closedDate": "2026-06-14",
           "activatedDate": "2026-06-14",
-          "sfAccountId": "001Qs00000osCKSIA2",
-          "sfOpportunityId": "006Qs00000iehufIAA",
-          "ownerId": "005Ts000002AX4nIAG",
+          "sfAccountId": "001Qs00000pGpz6IAC",
+          "sfOpportunityId": "006Qs00000iw6RuIAI",
+          "ownerId": "005Ts00000BtZV3IAN",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000ixUVPIA2",
+          "name": "La Cratita Vesela",
+          "city": "—",
+          "owner": "Borcaeas Georgian",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-17",
+          "activatedDate": "2026-06-17",
+          "sfAccountId": "001Qs00000pJCePIAW",
+          "sfOpportunityId": "006Qs00000ixUVPIA2",
+          "ownerId": "005Ts00000BtZV3IAN",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000isYWSIA2",
+          "name": "Korean corn dog",
+          "city": "—",
+          "owner": "Daniel-Marian Toltică",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-16",
+          "activatedDate": "2026-06-16",
+          "sfAccountId": "001Qs00000pC1r2IAC",
+          "sfOpportunityId": "006Qs00000isYWSIA2",
+          "ownerId": "005Ts00000BtX53IAF",
           "segment": "density"
         },
         {
@@ -6528,18 +6824,63 @@
           "segment": "density"
         },
         {
-          "id": "006Qs00000iBfuYIAS",
-          "name": "Piateta Cotroceni",
+          "id": "006Qs00000isylrIAA",
+          "name": "Origini Cluj Napoca",
           "city": "—",
-          "owner": "Borcaeas Georgian",
+          "owner": "Silviu-Mihnea Voicu",
           "tier": "Standard",
           "stage": "Activated",
           "status": "activated",
-          "closedDate": "2026-06-13",
-          "activatedDate": "2026-06-13",
-          "sfAccountId": "001Qs00000oBmXZIA0",
-          "sfOpportunityId": "006Qs00000iBfuYIAS",
-          "ownerId": "005Ts00000BtZV3IAN",
+          "closedDate": "2026-06-09",
+          "activatedDate": "2026-06-09",
+          "sfAccountId": "001Qs00000p6n0fIAA",
+          "sfOpportunityId": "006Qs00000isylrIAA",
+          "ownerId": "005Ts000001Ak10IAC",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000i0yEBIAY",
+          "name": "Liberty Bagels",
+          "city": "—",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-16",
+          "activatedDate": "2026-06-16",
+          "sfAccountId": "001Qs00000nwKBrIAM",
+          "sfOpportunityId": "006Qs00000i0yEBIAY",
+          "ownerId": "005Ts000002AWIQIA4",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000isVIQIA2",
+          "name": "Metaphor Coffee Roasters",
+          "city": "—",
+          "owner": "Eusebiu Hanganu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-18",
+          "activatedDate": "2026-06-18",
+          "sfAccountId": "001Qs00000pBwUnIAK",
+          "sfOpportunityId": "006Qs00000isVIQIA2",
+          "ownerId": "005Ts000002AWIQIA4",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000isYctIAE",
+          "name": "Mofticios by Koko Loko",
+          "city": "—",
+          "owner": "Ciprian Teodorescu",
+          "tier": "Standard",
+          "stage": "Activated",
+          "status": "activated",
+          "closedDate": "2026-06-12",
+          "activatedDate": "2026-06-12",
+          "sfAccountId": "001Ts00000ILBiyIAH",
+          "sfOpportunityId": "006Qs00000isYctIAE",
+          "ownerId": "005Ts000002AX4nIAG",
           "segment": "density"
         }
       ],
@@ -6939,7 +7280,7 @@
       ],
       "meta": {
         "won": {
-          "total": 0,
+          "total": 20,
           "listUrl": "https://bolt-eu.lightning.force.com/lightning/o/Opportunity/list"
         },
         "activated": {
@@ -7010,7 +7351,7 @@
       }
     ],
     "myPipeline": {
-      "generatedAt": "2026-06-19T13:41:25.961Z",
+      "generatedAt": "2026-06-19T14:56:45.035Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -42784,31 +43125,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-06-19T11:45:58.049Z",
+        "lastSync": "2026-06-19T14:56:44.133Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-06-19T11:45:58.049Z",
+        "lastSync": "2026-06-19T14:56:44.133Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-06-19T11:45:58.049Z",
+        "lastSync": "2026-06-19T14:56:44.133Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-06-19T11:45:58.049Z",
+        "lastSync": "2026-06-19T14:56:44.133Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-06-19T12:44:19.542Z",
+    "generatedAt": "2026-06-19T14:56:45.296Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -75976,7 +76317,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-06-19T14:00:46.507Z",
+    "generatedAt": "2026-06-19T14:56:45.843Z",
     "monthKey": "2026-06",
     "monthLabel": "June 2026",
     "currentWeek": "W25",
