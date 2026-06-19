@@ -34,21 +34,36 @@ function readBuildInfo(): BuildInfo | null {
   }
 }
 
+// Resolve immutable artifact state once at module load so /api/health never
+// touches the filesystem (or throws) on the request path. These values are
+// baked at build time and do not change during the process lifetime, so the
+// health probe stays instant even under memory pressure or a data-load failure.
+const BUILD_INFO = readBuildInfo();
+const STATIC_READY = fs.existsSync(path.join(config.staticDir, "index.html"));
+const DASHBOARD_PRECOMPUTED = fs.existsSync(getPrecomputedApiPath());
+const DASHBOARD_SECTIONS_PRECOMPUTED = precomputedSectionsReady();
+
 apiRouter.get("/health", (_req, res) => {
-  const staticIndex = path.join(config.staticDir, "index.html");
-  const precomputed = getPrecomputedApiPath();
-  const buildInfo = readBuildInfo();
-  res.json({
+  // The liveness probe must succeed regardless of dashboard data state so a
+  // failed/slow data load can never make Boltable mark the container unhealthy.
+  let dashboardCacheReady = false;
+  try {
+    dashboardCacheReady = getCachedDashboardBuffer() !== null;
+  } catch {
+    dashboardCacheReady = false;
+  }
+
+  res.status(200).json({
     ok: true,
     app: "dashy",
     time: new Date().toISOString(),
     uptime: Math.round(process.uptime()),
-    gitSha: buildInfo?.gitSha ?? null,
-    builtAt: buildInfo?.builtAt ?? null,
-    staticReady: fs.existsSync(staticIndex),
-    dashboardCacheReady: getCachedDashboardBuffer() !== null,
-    dashboardPrecomputed: fs.existsSync(precomputed),
-    dashboardSectionsPrecomputed: precomputedSectionsReady(),
+    gitSha: BUILD_INFO?.gitSha ?? null,
+    builtAt: BUILD_INFO?.builtAt ?? null,
+    staticReady: STATIC_READY,
+    dashboardCacheReady,
+    dashboardPrecomputed: DASHBOARD_PRECOMPUTED,
+    dashboardSectionsPrecomputed: DASHBOARD_SECTIONS_PRECOMPUTED,
     cacheTtlMs: config.dashyCacheTtlMs,
   });
 });
