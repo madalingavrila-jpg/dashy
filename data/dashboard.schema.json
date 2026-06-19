@@ -339,41 +339,21 @@
         },
         "totalLiveOnboarding": {
           "type": "number",
-          "description": "Total opportunities in onboarding (Contract sent → Ready to Activate) for the 12 team reps."
+          "description": "Total opportunities in onboarding (Onboarding Checklist → Onboarding → Escalation) for the 12 team reps. Excludes Ready to Activate."
         },
         "onboardingByAgent": {
           "type": "array",
-          "description": "Per-agent breakdown of opportunities currently in onboarding (team reps only).",
-          "items": {
-            "type": "object",
-            "required": ["ownerId", "name", "segment", "count"],
-            "properties": {
-              "ownerId": { "type": "string" },
-              "name": { "type": "string" },
-              "segment": { "type": "string", "enum": ["complex", "density"] },
-              "count": { "type": "number" },
-              "moreCount": { "type": "number" },
-              "stageCounts": {
-                "type": "object",
-                "additionalProperties": { "type": "number" }
-              },
-              "accounts": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "required": ["id", "name", "city", "stage"],
-                  "properties": {
-                    "id": { "type": "string" },
-                    "name": { "type": "string" },
-                    "city": { "type": "string" },
-                    "stage": { "type": "string" },
-                    "sfOpportunityId": { "type": "string" },
-                    "sfAccountId": { "type": "string" }
-                  }
-                }
-              }
-            }
-          }
+          "description": "Per-agent breakdown of opportunities currently in onboarding (team reps only). Excludes Ready to Activate (see readyToActivateByAgent).",
+          "items": { "$ref": "#/$defs/mopsAgentBreakdown" }
+        },
+        "totalReadyToActivate": {
+          "type": "number",
+          "description": "Total opportunities in the Ready to Activate stage (onboarding complete, awaiting go-live) for the 12 team reps."
+        },
+        "readyToActivateByAgent": {
+          "type": "array",
+          "description": "Per-agent breakdown of opportunities in the Ready to Activate stage (team reps only), shown in parallel with onboardingByAgent.",
+          "items": { "$ref": "#/$defs/mopsAgentBreakdown" }
         },
         "openCaseStatuses": {
           "type": "array",
@@ -449,6 +429,36 @@
     }
   },
   "$defs": {
+    "mopsAgentBreakdown": {
+      "type": "object",
+      "required": ["ownerId", "name", "segment", "count"],
+      "properties": {
+        "ownerId": { "type": "string" },
+        "name": { "type": "string" },
+        "segment": { "type": "string", "enum": ["complex", "density"] },
+        "count": { "type": "number" },
+        "moreCount": { "type": "number" },
+        "stageCounts": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        },
+        "accounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "city", "stage"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "city": { "type": "string" },
+              "stage": { "type": "string" },
+              "sfOpportunityId": { "type": "string" },
+              "sfAccountId": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
     "weeklyStatusCounts": {
       "type": "object",
       "required": ["qualified", "negotiations", "closedWon", "active"],

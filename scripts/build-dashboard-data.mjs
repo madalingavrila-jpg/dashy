@@ -47,13 +47,15 @@ const SALES_STAGES = [
 ];
 const ONBOARDING_STAGES = ["Onboarding Checklist", "Onboarding", "Ready to Activate", "Activated"];
 /**
- * Onboarding = opportunities still being onboarded (not yet Activated) for the
- * 12 team reps. Includes the signed "Onboarding Checklist" stage plus every
- * stage between Won and Activated. "Activated" is the live end state.
+ * Onboarding = opportunities still being onboarded (not yet Ready to Activate)
+ * for the 12 team reps. Includes the signed "Onboarding Checklist" stage plus
+ * the in-flight onboarding stages. "Ready to Activate" is split OUT into its own
+ * parallel per-agent section (see READY_TO_ACTIVATE_STAGES). "Activated" is the
+ * live end state.
  *
  * Verified against live Salesforce (19 Jun 2026), RecordType "Sales Opportunity":
- *   Onboarding Checklist (21), Onboarding (38), Escalation (1),
- *   Ready to Activate (42) → 102 opps.
+ *   Onboarding Checklist (21), Onboarding (38), Escalation (1) → 60 onboarding opps.
+ *   Ready to Activate (42) → tracked separately.
  * Excluded: "Contract sent" (pre-Won), "Closed Won" (the Won bucket itself),
  * "Activated" (done), and "Closed Lost".
  */
@@ -61,8 +63,12 @@ const LIVE_ONBOARDING_STAGES = [
   "Onboarding Checklist",
   "Onboarding",
   "Escalation",
-  "Ready to Activate",
 ];
+/**
+ * Ready to Activate = onboarding-complete opps awaiting go-live, shown in a
+ * parallel per-agent section alongside onboarding. ~42 opps (19 Jun 2026).
+ */
+const READY_TO_ACTIVATE_STAGES = ["Ready to Activate"];
 /** Cap accounts kept per agent in the payload; true totals stay in `count`. */
 const MOPS_ONBOARDING_ACCOUNT_CAP = 40;
 const MOPS_DASHBOARD_ID = "01ZTs000000Bx9dMAC";
@@ -155,12 +161,12 @@ const mopsOnboardingData = existsSync(mopsOnboardingExport)
   ? parseSfJson(mopsOnboardingExport)
   : { records: [] };
 
-/** Per-agent breakdown of opportunities currently in onboarding (team reps only). */
-function buildOnboardingByAgent(onboardingData) {
+/** Per-agent breakdown of opportunities in the given stage set (team reps only). */
+function buildAgentBreakdown(onboardingData, stages) {
   const byAgent = new Map();
 
   for (const opp of onboardingData.records ?? []) {
-    if (!LIVE_ONBOARDING_STAGES.includes(opp.StageName)) continue;
+    if (!stages.includes(opp.StageName)) continue;
     const ownerId = opp.OwnerId;
     const ownerName = opp.Owner?.Name ?? "Unknown";
     const enriched = enrichAgent({ ownerId, name: ownerName });
@@ -198,12 +204,19 @@ function buildOnboardingByAgent(onboardingData) {
       agent.accounts = agent.accounts.slice(0, MOPS_ONBOARDING_ACCOUNT_CAP);
     }
   }
-  const totalLiveOnboarding = rows.reduce((sum, row) => sum + row.count, 0);
-  return { onboardingByAgent: rows, totalLiveOnboarding };
+  const total = rows.reduce((sum, row) => sum + row.count, 0);
+  return { rows, total };
 }
 
 function buildMopsSection(casesData, onboardingData) {
-  const { onboardingByAgent, totalLiveOnboarding } = buildOnboardingByAgent(onboardingData);
+  const { rows: onboardingByAgent, total: totalLiveOnboarding } = buildAgentBreakdown(
+    onboardingData,
+    LIVE_ONBOARDING_STAGES,
+  );
+  const { rows: readyToActivateByAgent, total: totalReadyToActivate } = buildAgentBreakdown(
+    onboardingData,
+    READY_TO_ACTIVATE_STAGES,
+  );
   const openCases = casesData.openCases ?? 0;
   const openNewOnboarding = casesData.openNewOnboarding ?? 0;
   const openOtherCases = Math.max(0, openCases - openNewOnboarding);
@@ -219,8 +232,15 @@ function buildMopsSection(casesData, onboardingData) {
         id: "onboarding-live",
         label: "Accounts in onboarding",
         value: totalLiveOnboarding,
-        subtitle: "Onb Checklist → Ready to Activate (opps)",
+        subtitle: "Onb Checklist → Onboarding → Escalation (opps)",
         icon: "rocket_launch",
+      },
+      {
+        id: "ready-to-activate",
+        label: "Ready to Activate",
+        value: totalReadyToActivate,
+        subtitle: "Onboarding complete, awaiting go-live (opps)",
+        icon: "bolt",
       },
       {
         id: "open-cases",
@@ -257,6 +277,8 @@ function buildMopsSection(casesData, onboardingData) {
     ],
     totalLiveOnboarding,
     onboardingByAgent,
+    totalReadyToActivate,
+    readyToActivateByAgent,
     openCaseStatuses: casesData.openByStatus ?? [],
     openCaseRecordTypes: casesData.openByRecordType ?? [],
     openByOwner: casesData.openByOwner ?? [],

@@ -1,12 +1,19 @@
 "use client";
 
 import { Fragment, useState } from "react";
+import type { ReactNode } from "react";
 import type { MopsOnboardingAgentViewRow } from "@/types/dashboard";
 
 type MopsOnboardingTableProps = {
   agents?: MopsOnboardingAgentViewRow[];
   total?: string;
   loading?: boolean;
+  title?: string;
+  description?: ReactNode;
+  totalSuffix?: string;
+  countColLabel?: string;
+  emptyLabel?: string;
+  loadingLabel?: string;
 };
 
 function segmentBadge(color: string, label: string) {
@@ -17,24 +24,40 @@ function segmentBadge(color: string, label: string) {
   );
 }
 
-export function MopsOnboardingTable({ agents, total, loading }: MopsOnboardingTableProps) {
+export function MopsOnboardingTable({
+  agents,
+  total,
+  loading,
+  title = "Onboarding by agent",
+  description,
+  totalSuffix = "accounts in onboarding",
+  countColLabel = "In onboarding",
+  emptyLabel = "No accounts in onboarding for team reps.",
+  loadingLabel = "Loading onboarding data…",
+}: MopsOnboardingTableProps) {
   const [expanded, setExpanded] = useState<string | null>(null);
+
+  const defaultDescription = (
+    <>
+      Sales opportunities (not cases) — team reps only, every onboarding stage not yet ready to
+      activate (Onboarding Checklist → Onboarding → Escalation). Excludes Contract sent, Ready to
+      Activate, Activated, and closed deals. Click a row to see that agent&apos;s accounts.
+    </>
+  );
 
   return (
     <div className="glass-card overflow-hidden rounded-xl">
       <div className="border-b border-outline-variant p-lg">
         <div className="flex flex-wrap items-center justify-between gap-sm">
-          <h3 className="text-title-lg font-title-lg font-bold">Onboarding by agent</h3>
+          <h3 className="text-title-lg font-title-lg font-bold">{title}</h3>
           {total ? (
             <span className="rounded-lg bg-primary-container/30 px-md py-xs text-label-md font-semibold text-primary">
-              {total} accounts in onboarding
+              {total} {totalSuffix}
             </span>
           ) : null}
         </div>
         <p className="text-body-md text-on-surface-variant">
-          Sales opportunities (not cases) — team reps only, every onboarding stage not yet activated
-          (Onboarding Checklist → Onboarding → Ready to Activate). Excludes Contract sent, Activated,
-          and closed deals. Click a row to see that agent&apos;s accounts.
+          {description ?? defaultDescription}
         </p>
       </div>
       <div className="overflow-x-auto">
@@ -48,7 +71,7 @@ export function MopsOnboardingTable({ agents, total, loading }: MopsOnboardingTa
                 Segment
               </th>
               <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
-                In onboarding
+                {countColLabel}
               </th>
               <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
                 By stage
@@ -62,13 +85,13 @@ export function MopsOnboardingTable({ agents, total, loading }: MopsOnboardingTa
             {loading && !agents?.length ? (
               <tr>
                 <td colSpan={5} className="px-lg py-xl text-center text-on-surface-variant">
-                  Loading onboarding data…
+                  {loadingLabel}
                 </td>
               </tr>
             ) : !agents?.length ? (
               <tr>
                 <td colSpan={5} className="px-lg py-xl text-center text-on-surface-variant">
-                  No accounts in onboarding for team reps.
+                  {emptyLabel}
                 </td>
               </tr>
             ) : (

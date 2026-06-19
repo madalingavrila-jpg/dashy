@@ -588,27 +588,31 @@ function buildMopsView(mops: MopsData | undefined): MopsView | undefined {
     };
   });
 
-  const onboardingByAgent = (mops.onboardingByAgent ?? []).map((agent) => {
-    const segment = agentSegmentStyle(agent.segment);
-    const stageSummary = Object.entries(agent.stageCounts ?? {})
-      .sort((a, b) => b[1] - a[1])
-      .map(([stage, count]) => `${stage} (${count})`)
-      .join(" · ");
-    return {
-      ownerId: agent.ownerId,
-      name: agent.name,
-      segment: segment.label,
-      segmentColor: segment.color,
-      count: formatInteger(agent.count),
-      stageSummary,
-      moreCount: agent.moreCount ?? 0,
-      accounts: (agent.accounts ?? []).map((account) => ({
-        ...account,
-        sfAccountUrl: salesforceAccountUrl(account.sfAccountId, instanceUrl),
-        sfOpportunityUrl: salesforceOpportunityUrl(account.sfOpportunityId, instanceUrl),
-      })),
-    };
-  });
+  const mapAgentRows = (rows: MopsData["onboardingByAgent"]) =>
+    (rows ?? []).map((agent) => {
+      const segment = agentSegmentStyle(agent.segment);
+      const stageSummary = Object.entries(agent.stageCounts ?? {})
+        .sort((a, b) => b[1] - a[1])
+        .map(([stage, count]) => `${stage} (${count})`)
+        .join(" · ");
+      return {
+        ownerId: agent.ownerId,
+        name: agent.name,
+        segment: segment.label,
+        segmentColor: segment.color,
+        count: formatInteger(agent.count),
+        stageSummary,
+        moreCount: agent.moreCount ?? 0,
+        accounts: (agent.accounts ?? []).map((account) => ({
+          ...account,
+          sfAccountUrl: salesforceAccountUrl(account.sfAccountId, instanceUrl),
+          sfOpportunityUrl: salesforceOpportunityUrl(account.sfOpportunityId, instanceUrl),
+        })),
+      };
+    });
+
+  const onboardingByAgent = mapAgentRows(mops.onboardingByAgent);
+  const readyToActivateByAgent = mapAgentRows(mops.readyToActivateByAgent);
 
   return {
     dashboardTitle: mops.dashboardTitle,
@@ -616,6 +620,8 @@ function buildMopsView(mops: MopsData | undefined): MopsView | undefined {
     metrics,
     totalLiveOnboarding: formatInteger(mops.totalLiveOnboarding ?? 0),
     onboardingByAgent,
+    totalReadyToActivate: formatInteger(mops.totalReadyToActivate ?? 0),
+    readyToActivateByAgent,
     openCaseStatuses: (mops.openCaseStatuses ?? []).map((row) => ({
       status: row.status,
       count: formatInteger(row.count),
@@ -713,6 +719,8 @@ function emptyMopsView(): MopsView {
     metrics: [],
     totalLiveOnboarding: "—",
     onboardingByAgent: [],
+    totalReadyToActivate: "—",
+    readyToActivateByAgent: [],
     openCaseStatuses: [],
     openCaseRecordTypes: [],
     openByOwner: [],

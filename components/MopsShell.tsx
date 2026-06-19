@@ -67,6 +67,35 @@ export function MopsShell() {
       <section className="space-y-sm">
         <div>
           <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
+            Ready to Activate (opportunities)
+          </p>
+          <p className="text-body-md text-on-surface-variant">
+            Accounts each agent has finished onboarding and is awaiting go-live — tracked separately
+            from the onboarding pipeline above.
+          </p>
+        </div>
+        <MopsOnboardingTable
+          agents={mops?.readyToActivateByAgent}
+          total={mops?.totalReadyToActivate}
+          loading={loading}
+          title="Ready to Activate"
+          totalSuffix="accounts ready to activate"
+          countColLabel="Ready to activate"
+          loadingLabel="Loading Ready to Activate data…"
+          emptyLabel="No accounts ready to activate for team reps."
+          description={
+            <>
+              Sales opportunities (not cases) — team reps only, opportunities in the
+              &ldquo;Ready to Activate&rdquo; stage (onboarding complete, awaiting go-live). Click a
+              row to see that agent&apos;s accounts.
+            </>
+          }
+        />
+      </section>
+
+      <section className="space-y-sm">
+        <div>
+          <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
             Case workload (cases)
           </p>
           <p className="text-body-md text-on-surface-variant">

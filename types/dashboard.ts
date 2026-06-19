@@ -280,6 +280,8 @@ export type MopsData = {
   metrics: MopsMetric[];
   totalLiveOnboarding?: number;
   onboardingByAgent?: MopsOnboardingAgentRow[];
+  totalReadyToActivate?: number;
+  readyToActivateByAgent?: MopsOnboardingAgentRow[];
   openCaseStatuses?: Array<{ status: string; count: number }>;
   openCaseRecordTypes?: Array<{ recordType: string; count: number }>;
   openByOwner?: MopsOwnerRow[];
@@ -318,6 +320,8 @@ export type MopsView = {
   metrics: MetricCard[];
   totalLiveOnboarding: string;
   onboardingByAgent: MopsOnboardingAgentViewRow[];
+  totalReadyToActivate: string;
+  readyToActivateByAgent: MopsOnboardingAgentViewRow[];
   openCaseStatuses: Array<{ status: string; count: string }>;
   openCaseRecordTypes: Array<{ recordType: string; count: string }>;
   openByOwner: MopsOwnerViewRow[];
