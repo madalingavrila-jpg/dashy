@@ -11,6 +11,9 @@
  *       net (after-discount) GMV and campaign discount as context columns.
  *   scripts/.cache/accounts-perf-quality.json    — monthly availability & performance
  *       value/weight pairs per provider since 2026-01 (fact_provider_monthly).
+ *   scripts/.cache/accounts-perf-sf-commission.json — Salesforce Opportunity.Commission__c
+ *       (negotiated commission rate %) per provider, joined via dim_provider_opportunity
+ *       (provider_id → won opportunity_id) then SF soqlQuery on those opportunity Ids.
  *
  * Databricks tables used (catalog `main`):
  *   ng_delivery.dim_provider_opportunity  — provider_id ↔ SF opportunity owner + provider_activated_ts
@@ -33,6 +36,7 @@ import {
   round,
   buildMonthlyByProvider,
   buildQualityByProvider,
+  buildCommissionRateByProvider,
   assembleAccount,
   rollupByMonth,
   rollupQualityTotals,
@@ -54,6 +58,15 @@ function main() {
   const monthlyRows = readMcpResult("accounts-perf-monthly.json");
 
   const monthlyByProvider = buildMonthlyByProvider(monthlyRows);
+
+  // SF commission: [provider_id, Opportunity.Commission__c (rate %), opportunity_id]
+  let commissionRows = [];
+  try {
+    commissionRows = readMcpResult("accounts-perf-sf-commission.json");
+  } catch {
+    console.warn("[build-accounts-performance] no accounts-perf-sf-commission.json cache — commission will be empty");
+  }
+  const commissionRateByProvider = buildCommissionRateByProvider(commissionRows);
 
   // quality: [provider_id, month, orders, avail_v, avail_w, acc_v, acc_w, rej_v,
   //           rej_w, prep_v, prep_w, rat_v, rat_w, late_v, late_w]
@@ -89,6 +102,7 @@ function main() {
         segment,
         monthlyByProvider,
         qualityByProvider,
+        commissionRateByProvider,
       }),
     );
   }
@@ -116,7 +130,7 @@ function main() {
     a.accounts += 1;
     a.gmv += account.totalGmv;
     a.orders += account.totalOrders;
-    a.commission += account.totalCommission;
+    a.commission += account.totalCommission ?? 0;
   }
   const agents = [...agentMap.values()]
     .map((a) => ({ ...a, gmv: Math.round(a.gmv), commission: Math.round(a.commission) }))
@@ -124,9 +138,10 @@ function main() {
 
   const totalGmv = accounts.reduce((s, a) => s + a.totalGmv, 0);
   const totalOrders = accounts.reduce((s, a) => s + a.totalOrders, 0);
-  const totalCommission = accounts.reduce((s, a) => s + a.totalCommission, 0);
+  const totalCommission = accounts.reduce((s, a) => s + (a.totalCommission ?? 0), 0);
   const totalGmvNet = accounts.reduce((s, a) => s + (a.totalGmvNet ?? 0), 0);
   const totalDiscount = accounts.reduce((s, a) => s + (a.totalDiscount ?? 0), 0);
+  const accountsWithCommission = accounts.filter((a) => a.commissionRatePct != null).length;
 
   // Team quality roll-up: each account's launch→date metric weighted by its
   // delivered orders in the window (availability uses the same weight as a proxy).
@@ -140,12 +155,13 @@ function main() {
     currency: "EUR",
     dataMonthMax: monthsCovered.length ? monthsCovered[monthsCovered.length - 1] : null,
     metricsNote:
-      "All € figures are GROSS (before discounts). GMV = total_gmv_before_discounts_eur; " +
-      "AOV = gross GMV ÷ delivered orders; commission = provider commission (EUR) and the take " +
-      "rate (% br) = commission ÷ gross GMV. Net (after-discount) GMV and the campaign discount are " +
-      "shown only as context in each account's expanded detail — the headline columns never use them. " +
-      "Source: Databricks fact_provider_monthly. Accounts = restaurants activated in the last 90 days " +
-      "(SF won Sales Opportunity → provider activation), attributed to the activating rep.",
+      "GMV is GROSS (before discounts, Databricks total_gmv_before_discounts_eur); AOV = gross GMV ÷ " +
+      "delivered orders. Commission % is the Salesforce negotiated rate (Opportunity.Commission__c) " +
+      "and commission € = that rate × gross GMV; accounts with no SF commission rate show “—”. Net " +
+      "(after-discount) GMV and the campaign discount are context only, shown on expand. Sources: " +
+      "Databricks fact_provider_monthly (GMV/orders) + Salesforce Commission__c. Accounts = restaurants " +
+      "activated in the last 90 days (SF won Sales Opportunity → provider activation), attributed to the " +
+      "activating rep.",
     qualityPeriod: "Launch → date (order-weighted average across each account's active months)",
     qualityNote:
       "Availability = share of open hours the restaurant was active (provider_active_rate). " +
@@ -161,6 +177,7 @@ function main() {
       discount: Math.round(totalDiscount),
       orders: totalOrders,
       commission: totalCommission,
+      accountsWithCommission,
       aov: totalOrders > 0 ? round(totalGmv / totalOrders, 1) : 0,
       quality: qualityTotals,
     },

@@ -342,7 +342,8 @@ export type AccountsPerformanceMonth = {
   orders: number;
   /** Gross AOV = gross GMV ÷ delivered orders. */
   aov: number;
-  commission: number;
+  /** Commission € = SF commission rate × gross GMV; null when SF has no rate. */
+  commission: number | null;
   /** NET GMV after discounts — context only, never used for headline figures. */
   gmvNet?: number | null;
   /** Campaign discount (EUR) = gross − net — context only. */
@@ -384,11 +385,14 @@ export type AccountsPerformanceAccount = {
   /** GROSS GMV (before discounts), launch → date. */
   totalGmv: number;
   totalOrders: number;
-  totalCommission: number;
+  /** Commission € = SF rate × gross GMV (launch → date); null when no SF rate. */
+  totalCommission: number | null;
   /** NET GMV (after discounts), launch → date — context only. */
   totalGmvNet?: number;
   /** Campaign discount (EUR), launch → date — context only. */
   totalDiscount?: number;
+  /** Salesforce negotiated commission rate (Opportunity.Commission__c, %); null if unset. */
+  commissionRatePct?: number | null;
   aov: number;
   quality?: AccountsPerformanceQuality;
 };
@@ -413,6 +417,8 @@ export type AccountsPerformanceByMonth = {
   aov: number;
   accounts: number;
 };
+
+/** Per-month commission here is the SF-rate-derived € summed across accounts. */
 
 export type AccountsPerformanceQualityTotals = {
   availabilityPct: number | null;
@@ -441,6 +447,8 @@ export type AccountsPerformance = {
     discount?: number;
     orders: number;
     commission: number;
+    /** Number of accounts that have a Salesforce commission rate. */
+    accountsWithCommission?: number;
     aov: number;
     quality?: AccountsPerformanceQualityTotals;
   };

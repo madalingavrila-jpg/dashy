@@ -80,7 +80,7 @@ export function AccountsPerformanceShell() {
   const totals = useMemo(() => {
     const gmv = filteredAccounts.reduce((s, a) => s + a.totalGmv, 0);
     const orders = filteredAccounts.reduce((s, a) => s + a.totalOrders, 0);
-    const commission = filteredAccounts.reduce((s, a) => s + a.totalCommission, 0);
+    const commission = filteredAccounts.reduce((s, a) => s + (a.totalCommission ?? 0), 0);
     return {
       accounts: filteredAccounts.length,
       gmv,
@@ -124,7 +124,7 @@ export function AccountsPerformanceShell() {
         if (!bucket) continue;
         bucket.gmv += m.gmv;
         bucket.orders += m.orders;
-        bucket.commission += m.commission;
+        bucket.commission += m.commission ?? 0;
       }
     }
     return months.map((m) => map.get(m)!);
@@ -145,10 +145,7 @@ export function AccountsPerformanceShell() {
       label: "Commission",
       value: formatEurCompact(totals.commission),
       icon: "percent",
-      hint:
-        totals.gmv > 0
-          ? `Provider commission · gross take rate ${((totals.commission / totals.gmv) * 100).toFixed(1)}% of gross GMV`
-          : "Provider commission",
+      hint: "Salesforce commission (Opportunity.Commission__c rate × gross GMV), summed across accounts that have a SF commission rate",
     },
     {
       label: "AOV gross",

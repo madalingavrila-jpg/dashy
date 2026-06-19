@@ -51,6 +51,7 @@ import {
   round,
   buildMonthlyByProvider,
   buildQualityByProvider,
+  buildCommissionRateByProvider,
   assembleAccount,
   rollupByMonth,
   rollupQualityTotals,
@@ -224,9 +225,16 @@ try {
 } catch {
   console.warn("[build-inbound-team] no accounts-perf-quality.json — skipping quality metrics");
 }
+let commissionRows = [];
+try {
+  commissionRows = readMcpResult("accounts-perf-sf-commission.json");
+} catch {
+  console.warn("[build-inbound-team] no accounts-perf-sf-commission.json — commission will be empty");
+}
 
 const monthlyByProvider = buildMonthlyByProvider(monthlyRows);
 const qualityByProvider = buildQualityByProvider(qualityRows);
+const commissionRateByProvider = buildCommissionRateByProvider(commissionRows);
 
 /** Build accounts-performance accounts for one rep (by owner email). */
 function accountsForOwner(email, agentId, agentName) {
@@ -241,6 +249,7 @@ function accountsForOwner(email, agentId, agentName) {
         segment: SEGMENT,
         monthlyByProvider,
         qualityByProvider,
+        commissionRateByProvider,
       }),
     );
   }
@@ -253,7 +262,7 @@ function accountsPerformanceForRep(accounts) {
 
   const totalGmv = accounts.reduce((s, a) => s + a.totalGmv, 0);
   const totalOrders = accounts.reduce((s, a) => s + a.totalOrders, 0);
-  const totalCommission = accounts.reduce((s, a) => s + a.totalCommission, 0);
+  const totalCommission = accounts.reduce((s, a) => s + (a.totalCommission ?? 0), 0);
   const totalGmvNet = accounts.reduce((s, a) => s + (a.totalGmvNet ?? 0), 0);
   const totalDiscount = accounts.reduce((s, a) => s + (a.totalDiscount ?? 0), 0);
 

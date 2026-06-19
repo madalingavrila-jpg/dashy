@@ -62,13 +62,9 @@ function pctStr(value: number | null | undefined, digits = 1): string {
   return value == null ? "—" : `${value.toFixed(digits)}%`;
 }
 
-/**
- * Gross take rate = commission / gross GMV × 100; null when GMV is 0
- * (divide-by-zero guard). The `gmv` field is GMV *before discounts*
- * (Databricks `total_gmv_before_discounts_eur`), so this is the gross take rate.
- */
-function takeRate(commission: number, gmv: number): number | null {
-  return gmv > 0 ? (commission / gmv) * 100 : null;
+/** Commission percentage = the Salesforce negotiated rate (Opportunity.Commission__c). */
+function commissionPctOf(account: AccountsPerformanceAccount): number | null {
+  return account.commissionRatePct ?? null;
 }
 
 /** Compact euro (e.g. €1.2k) for dense trend/launch cells. */
@@ -200,7 +196,7 @@ function sortValue(
     case "commission":
       return month ? month.commission : null;
     case "commissionPct":
-      return month && month.gmv > 0 ? (month.commission / month.gmv) * 100 : null;
+      return account.commissionRatePct ?? null;
     case "rating":
       return account.quality?.rating ?? null;
     case "availability":
@@ -350,7 +346,7 @@ export function AccountsPerformanceTable({
         </span>
         <span>GMV = before-discount GMV</span>
         <span>AOV = gross GMV ÷ delivered orders</span>
-        <span>% br = commission ÷ gross GMV</span>
+        <span>Commission % = Salesforce rate (Commission__c); € = rate × gross GMV</span>
         <span className="opacity-70">net (after-discount) GMV &amp; discount shown per account on expand</span>
       </div>
       <table className="w-full table-fixed border-collapse text-left text-[13px]">
@@ -433,7 +429,7 @@ export function AccountsPerformanceTable({
             />
             <th
               className={numTh}
-              title={`Partner commission € and gross take rate (commission ÷ gross GMV, before discounts) · ${monthLabel(selectedMonth)}`}
+              title={`Commission € (Salesforce rate × gross GMV) and the Salesforce negotiated commission rate (Opportunity.Commission__c) · ${monthLabel(selectedMonth)}`}
               aria-sort={
                 sort.key === "commission" || sort.key === "commissionPct"
                   ? sort.dir === "asc"
@@ -473,9 +469,9 @@ export function AccountsPerformanceTable({
                   className={`group/sort inline-flex items-center gap-[1px] rounded transition-colors hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
                     sort.key === "commissionPct" ? "text-on-surface" : ""
                   }`}
-                  title="Sort by gross take rate (commission ÷ gross GMV, before discounts)"
+                  title="Sort by Salesforce commission rate (Opportunity.Commission__c)"
                 >
-                  <span>% br</span>
+                  <span>% SF</span>
                   <span
                     className={`material-symbols-outlined text-[14px] ${
                       sort.key === "commissionPct"
@@ -611,17 +607,20 @@ export function AccountsPerformanceTable({
                     className="px-xs py-xs text-right align-top"
                     title={
                       hasMonth
-                        ? `${formatEur(month!.commission)} · gross take rate ${pctStr(
-                            takeRate(month!.commission, month!.gmv),
-                          )} of gross GMV (before discounts)`
+                        ? `${month!.commission != null ? formatEur(month!.commission) : "no Salesforce commission rate"}` +
+                          `${
+                            account.commissionRatePct != null
+                              ? ` · Salesforce commission rate ${pctStr(account.commissionRatePct)} (Commission__c) × gross GMV`
+                              : ""
+                          }`
                         : undefined
                     }
                   >
                     <span className="block font-semibold text-on-surface">
-                      {hasMonth ? eurShort(month!.commission) : "—"}
+                      {hasMonth && month!.commission != null ? eurShort(month!.commission) : "—"}
                     </span>
                     <span className="block text-[11px] text-on-surface-variant">
-                      {hasMonth ? pctStr(takeRate(month!.commission, month!.gmv)) : "—"}
+                      {pctStr(commissionPctOf(account))}
                     </span>
                   </td>
                   <td className="px-xs py-xs text-right align-top">
@@ -672,7 +671,7 @@ export function AccountsPerformanceTable({
                                       : ""
                                   } · ${formatInt(m.orders)} orders · AOV ${
                                     m.orders > 0 ? formatEur(m.aov) : "—"
-                                  } · commission ${formatEur(m.commission)}`}
+                                  } · commission ${m.commission != null ? formatEur(m.commission) : "—"}`}
                                 >
                                   <span className="block text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">
                                     {monthLabel(m.month)}
@@ -685,7 +684,7 @@ export function AccountsPerformanceTable({
                                     {m.orders > 0 ? formatEur(m.aov) : "—"} AOV
                                   </span>
                                   <span className="block text-[10px] text-on-surface-variant">
-                                    comm {eurShort(m.commission)}
+                                    comm {m.commission != null ? eurShort(m.commission) : "—"}
                                   </span>
                                   {m.gmvNet != null ? (
                                     <span className="block text-[10px] text-on-surface-variant/80">
@@ -789,10 +788,23 @@ export function AccountsPerformanceTable({
                               />
                               <DetailStat
                                 label="Commission"
-                                value={formatEur(account.totalCommission)}
-                                hint={`Provider commission · gross take rate ${pctStr(
-                                  takeRate(account.totalCommission, account.totalGmv),
-                                )} of gross GMV`}
+                                value={
+                                  account.totalCommission != null
+                                    ? formatEur(account.totalCommission)
+                                    : "—"
+                                }
+                                hint={
+                                  account.commissionRatePct != null
+                                    ? `Salesforce commission rate ${pctStr(
+                                        account.commissionRatePct,
+                                      )} (Opportunity.Commission__c) × gross GMV`
+                                    : "No Salesforce commission rate on the activation opportunity"
+                                }
+                              />
+                              <DetailStat
+                                label="Commission %"
+                                value={pctStr(account.commissionRatePct)}
+                                hint="Salesforce negotiated rate (Opportunity.Commission__c)"
                               />
                               {account.totalGmvNet != null ? (
                                 <DetailStat
