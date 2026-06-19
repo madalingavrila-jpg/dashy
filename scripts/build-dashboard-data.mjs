@@ -47,15 +47,22 @@ const SALES_STAGES = [
 ];
 const ONBOARDING_STAGES = ["Onboarding Checklist", "Onboarding", "Ready to Activate", "Activated"];
 /**
- * Opportunities actively going through onboarding for the 12 team reps:
- * signed (Contract sent) through Ready to Activate. Excludes Activated (done)
- * and the terminal "Closed Won" archive bucket (~2.5k historical records that
- * never moved to onboarding/activation and are not live work).
+ * Onboarding = ANY stage strictly BETWEEN Won and Activated for the 12 team
+ * reps. "Won" is marked by Won_Date__c (the SF dashboard Won marker, also the
+ * picklist "Won" position); "Activated" is the live end state.
+ *
+ * Verified against live Salesforce (19 Jun 2026): only these stages carry
+ * Won_Date__c on every record and sit between picklist "Won" (idx 19) and
+ * "Activated" (idx 23):
+ *   Onboarding (38), Escalation (1), Ready to Activate (42) → 81 opps.
+ * Excluded: "Contract sent" and "Onboarding Checklist" (both PRE-Won — 0/215 and
+ * 0/21 records have Won_Date__c; "Onboarding Checklist" sits at picklist idx 18,
+ * before "Won"), "Closed Won" (the Won bucket itself), "Activated" (done), and
+ * "Closed Lost".
  */
 const LIVE_ONBOARDING_STAGES = [
-  "Contract sent",
-  "Onboarding Checklist",
   "Onboarding",
+  "Escalation",
   "Ready to Activate",
 ];
 /** Cap accounts kept per agent in the payload; true totals stay in `count`. */
@@ -214,7 +221,7 @@ function buildMopsSection(casesData, onboardingData) {
         id: "onboarding-live",
         label: "Accounts in onboarding",
         value: totalLiveOnboarding,
-        subtitle: "Contract sent → Ready to Activate (opps)",
+        subtitle: "Between Won and Activated (opps)",
         icon: "rocket_launch",
       },
       {

@@ -32,8 +32,9 @@ export function MopsOnboardingTable({ agents, total, loading }: MopsOnboardingTa
           ) : null}
         </div>
         <p className="text-body-md text-on-surface-variant">
-          Sales opportunities (not cases) — team reps only, Contract sent through Ready to Activate.
-          Excludes Activated and closed deals. Expand a row to see the accounts.
+          Sales opportunities (not cases) — team reps only, every stage between Won and Activated
+          (Onboarding → Ready to Activate). Excludes Contract sent, Onboarding Checklist (pre-Won),
+          Activated, and closed deals. Expand a row to see the accounts.
         </p>
       </div>
       <div className="overflow-x-auto">
