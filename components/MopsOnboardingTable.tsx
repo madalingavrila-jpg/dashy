@@ -32,9 +32,9 @@ export function MopsOnboardingTable({ agents, total, loading }: MopsOnboardingTa
           ) : null}
         </div>
         <p className="text-body-md text-on-surface-variant">
-          Sales opportunities (not cases) — team reps only, every stage between Won and Activated
-          (Onboarding → Ready to Activate). Excludes Contract sent, Onboarding Checklist (pre-Won),
-          Activated, and closed deals. Expand a row to see the accounts.
+          Sales opportunities (not cases) — team reps only, every onboarding stage not yet activated
+          (Onboarding Checklist → Onboarding → Ready to Activate). Excludes Contract sent, Activated,
+          and closed deals. Click a row to see that agent&apos;s accounts.
         </p>
       </div>
       <div className="overflow-x-auto">
@@ -74,10 +74,46 @@ export function MopsOnboardingTable({ agents, total, loading }: MopsOnboardingTa
             ) : (
               agents.map((agent) => {
                 const isOpen = expanded === agent.ownerId;
+                const hasAccounts = agent.accounts.length > 0;
+                const toggle = () => {
+                  if (!hasAccounts) return;
+                  setExpanded(isOpen ? null : agent.ownerId);
+                };
                 return (
                   <Fragment key={agent.ownerId}>
-                    <tr className="hover:bg-surface-container-low">
-                      <td className="px-lg py-md font-semibold text-on-surface">{agent.name}</td>
+                    <tr
+                      role={hasAccounts ? "button" : undefined}
+                      tabIndex={hasAccounts ? 0 : undefined}
+                      aria-expanded={hasAccounts ? isOpen : undefined}
+                      onClick={toggle}
+                      onKeyDown={(event) => {
+                        if (!hasAccounts) return;
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          toggle();
+                        }
+                      }}
+                      className={`transition-colors ${
+                        hasAccounts ? "cursor-pointer hover:bg-primary-container/15" : ""
+                      } ${isOpen ? "bg-primary-container/10" : ""}`}
+                    >
+                      <td className="px-lg py-md font-semibold text-on-surface">
+                        <div className="flex items-center gap-sm">
+                          {hasAccounts ? (
+                            <span
+                              className={`material-symbols-outlined text-[20px] text-primary transition-transform ${
+                                isOpen ? "rotate-90" : ""
+                              }`}
+                              aria-hidden="true"
+                            >
+                              chevron_right
+                            </span>
+                          ) : (
+                            <span className="inline-block w-[20px]" aria-hidden="true" />
+                          )}
+                          {agent.name}
+                        </div>
+                      </td>
                       <td className="px-lg py-md">
                         {segmentBadge(agent.segmentColor, agent.segment)}
                       </td>
@@ -88,17 +124,13 @@ export function MopsOnboardingTable({ agents, total, loading }: MopsOnboardingTa
                         {agent.stageSummary || "—"}
                       </td>
                       <td className="px-lg py-md">
-                        {agent.accounts.length > 0 ? (
-                          <button
-                            type="button"
-                            onClick={() => setExpanded(isOpen ? null : agent.ownerId)}
-                            className="flex items-center gap-xs rounded-lg px-sm py-xs text-label-md font-medium text-primary hover:bg-primary-container/20"
-                          >
+                        {hasAccounts ? (
+                          <span className="inline-flex items-center gap-xs rounded-lg px-sm py-xs text-label-md font-medium text-primary">
                             <span className="material-symbols-outlined text-[18px]">
                               {isOpen ? "expand_less" : "expand_more"}
                             </span>
-                            {isOpen ? "Hide" : "Show"} accounts
-                          </button>
+                            {isOpen ? "Hide" : "View"} accounts
+                          </span>
                         ) : (
                           "—"
                         )}

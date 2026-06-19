@@ -1,5 +1,5 @@
 {
-  "totalSize": 81,
+  "totalSize": 102,
   "done": true,
   "records": [
     {
@@ -21,24 +21,6 @@
       }
     },
     {
-      "Id": "006Qs00000jCCwNIAW",
-      "Name": "Casa Ghincea",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-16",
-      "CreatedDate": "2026-06-16T12:55:29.000+0000",
-      "LastStageChangeDate": "2026-06-18T16:30:11.000+0000",
-      "OwnerId": "005Qs00000N2Hh3IAF",
-      "Owner": {
-        "Name": "Andrei-Georgian Pătru"
-      },
-      "AccountId": "001Qs00000piyRSIAY",
-      "Account": {
-        "Name": "Casa Ghincea",
-        "BillingCity": "Craiova"
-      }
-    },
-    {
       "Id": "006Qs00000itE94IAE",
       "Name": "Ca la mama by 100% Original",
       "StageName": "Ready to Activate",
@@ -54,6 +36,24 @@
       "Account": {
         "Name": "Ca la mama by 100% Original",
         "BillingCity": "Timisoara"
+      }
+    },
+    {
+      "Id": "006Qs00000jCCwNIAW",
+      "Name": "Casa Ghincea",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-16",
+      "CreatedDate": "2026-06-16T12:55:29.000+0000",
+      "LastStageChangeDate": "2026-06-18T16:30:11.000+0000",
+      "OwnerId": "005Qs00000N2Hh3IAF",
+      "Owner": {
+        "Name": "Andrei-Georgian Pătru"
+      },
+      "AccountId": "001Qs00000piyRSIAY",
+      "Account": {
+        "Name": "Casa Ghincea",
+        "BillingCity": "Craiova"
       }
     },
     {
@@ -89,24 +89,6 @@
       "AccountId": "001Qs00000omqVlIAI",
       "Account": {
         "Name": "The Place",
-        "BillingCity": null
-      }
-    },
-    {
-      "Id": "006Qs00000if2e2IAA",
-      "Name": "Gratar La Palat",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-16",
-      "CreatedDate": "2026-06-03T12:16:27.000+0000",
-      "LastStageChangeDate": "2026-06-18T16:37:22.000+0000",
-      "OwnerId": "005Ts00000BtZV3IAN",
-      "Owner": {
-        "Name": "Borcaeas Georgian"
-      },
-      "AccountId": "001Qs00000osUqkIAE",
-      "Account": {
-        "Name": "Gratar La Palat",
         "BillingCity": null
       }
     },
@@ -147,20 +129,20 @@
       }
     },
     {
-      "Id": "006Qs00000hfouZIAQ",
-      "Name": "Minion",
+      "Id": "006Qs00000if2e2IAA",
+      "Name": "Gratar La Palat",
       "StageName": "Ready to Activate",
       "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-05-11",
-      "CreatedDate": "2026-05-11T12:18:03.000+0000",
-      "LastStageChangeDate": "2026-05-14T20:26:21.000+0000",
+      "Won_Date__c": "2026-06-16",
+      "CreatedDate": "2026-06-03T12:16:27.000+0000",
+      "LastStageChangeDate": "2026-06-18T16:37:22.000+0000",
       "OwnerId": "005Ts00000BtZV3IAN",
       "Owner": {
         "Name": "Borcaeas Georgian"
       },
-      "AccountId": "001Qs00000nRQC1IAO",
+      "AccountId": "001Qs00000osUqkIAE",
       "Account": {
-        "Name": "Minion",
+        "Name": "Gratar La Palat",
         "BillingCity": null
       }
     },
@@ -179,6 +161,42 @@
       "AccountId": "001Qs00000itjrMIAQ",
       "Account": {
         "Name": "Stefan&Lulu’s Garden",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000hfouZIAQ",
+      "Name": "Minion",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-05-11",
+      "CreatedDate": "2026-05-11T12:18:03.000+0000",
+      "LastStageChangeDate": "2026-05-14T20:26:21.000+0000",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000nRQC1IAO",
+      "Account": {
+        "Name": "Minion",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000ix2pGIAQ",
+      "Name": "Wurstwagen",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-15",
+      "CreatedDate": "2026-06-10T12:49:28.000+0000",
+      "LastStageChangeDate": "2026-06-17T11:50:34.000+0000",
+      "OwnerId": "005Ts00000BtZV3IAN",
+      "Owner": {
+        "Name": "Borcaeas Georgian"
+      },
+      "AccountId": "001Qs00000pHmitIAC",
+      "Account": {
+        "Name": "Wurstwagen",
         "BillingCity": null
       }
     },
@@ -237,38 +255,110 @@
       }
     },
     {
-      "Id": "006Qs00000ix2pGIAQ",
-      "Name": "Wurstwagen",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-15",
-      "CreatedDate": "2026-06-10T12:49:28.000+0000",
-      "LastStageChangeDate": "2026-06-17T11:50:34.000+0000",
-      "OwnerId": "005Ts00000BtZV3IAN",
-      "Owner": {
-        "Name": "Borcaeas Georgian"
-      },
-      "AccountId": "001Qs00000pHmitIAC",
-      "Account": {
-        "Name": "Wurstwagen",
-        "BillingCity": null
-      }
-    },
-    {
-      "Id": "006Ts000007M8cPIAS",
-      "Name": "Fryday Vaslui",
-      "StageName": "Onboarding",
-      "CloseDate": "2025-09-01",
-      "Won_Date__c": "2025-03-10",
-      "CreatedDate": "2024-09-04T06:07:14.000+0000",
-      "LastStageChangeDate": "2025-03-28T14:34:32.000+0000",
+      "Id": "006Ts00000ApvePIAR",
+      "Name": "Il Gusto Di Stella",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2025-01-30",
+      "Won_Date__c": null,
+      "CreatedDate": "2025-01-23T07:30:59.000+0000",
+      "LastStageChangeDate": "2025-01-23T11:23:29.000+0000",
       "OwnerId": "005Ts000002AX4nIAG",
       "Owner": {
         "Name": "Ciprian Teodorescu"
       },
-      "AccountId": "001Ts00000C7sORIAZ",
+      "AccountId": "001Ts00000ItldUIAR",
       "Account": {
-        "Name": "Fryday Vaslui",
+        "Name": "Il Gusto Di Stella",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts00000B0SsPIAV",
+      "Name": "Absolut Food",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2025-02-07",
+      "Won_Date__c": null,
+      "CreatedDate": "2025-01-29T14:18:59.000+0000",
+      "LastStageChangeDate": "2025-02-06T12:24:12.000+0000",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Ts00000EDMvcIAH",
+      "Account": {
+        "Name": "Absolut Food",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts00000IjnbZIAR",
+      "Name": "Simigeria Marghiloman",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2025-09-08",
+      "Won_Date__c": null,
+      "CreatedDate": "2025-09-01T13:54:56.000+0000",
+      "LastStageChangeDate": "2025-10-22T12:06:21.000+0000",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Ts00000UupDNIAZ",
+      "Account": {
+        "Name": "Simigeria Marghiloman",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts000007BA3GIAW",
+      "Name": "Mia Restaurant",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-09-03",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-08-27T10:30:11.000+0000",
+      "LastStageChangeDate": "2024-08-29T08:42:45.000+0000",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Ts00000BkGd9IAF",
+      "Account": {
+        "Name": "Mia Restaurant",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts00000A2hXzIAJ",
+      "Name": "Restaurant Steffy",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-12-19",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-12-19T15:51:28.000+0000",
+      "LastStageChangeDate": "2024-12-20T08:40:47.000+0000",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Ts0000078jgMIAQ",
+      "Account": {
+        "Name": "Restaurant Steffy",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000j1xAcIAI",
+      "Name": "Artpop Ice Cream",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-12",
+      "CreatedDate": "2026-06-12T06:50:07.000+0000",
+      "LastStageChangeDate": "2026-06-17T09:37:03.000+0000",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Qs00000pRGkxIAG",
+      "Account": {
+        "Name": "Artpop Ice Cream",
         "BillingCity": null
       }
     },
@@ -309,60 +399,6 @@
       }
     },
     {
-      "Id": "006Qs00000j1xAcIAI",
-      "Name": "Artpop Ice Cream",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-12",
-      "CreatedDate": "2026-06-12T06:50:07.000+0000",
-      "LastStageChangeDate": "2026-06-17T09:37:03.000+0000",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Qs00000pRGkxIAG",
-      "Account": {
-        "Name": "Artpop Ice Cream",
-        "BillingCity": null
-      }
-    },
-    {
-      "Id": "006Qs00000jDrcZIAS",
-      "Name": "1+1",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-17",
-      "CreatedDate": "2026-06-17T08:21:35.000+0000",
-      "LastStageChangeDate": "2026-06-17T08:30:53.000+0000",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Qs00000pnSkIIAU",
-      "Account": {
-        "Name": "1+1",
-        "BillingCity": null
-      }
-    },
-    {
-      "Id": "006Ts000008tNVfIAM",
-      "Name": "Spartan Targu Jiu",
-      "StageName": "Onboarding",
-      "CloseDate": "2024-12-06",
-      "Won_Date__c": "2025-03-11",
-      "CreatedDate": "2024-11-06T00:30:37.000+0000",
-      "LastStageChangeDate": "2025-03-28T11:19:32.000+0000",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Ts00000F15JiIAJ",
-      "Account": {
-        "Name": "Spartan Targu Jiu",
-        "BillingCity": null
-      }
-    },
-    {
       "Id": "006Ts000009fbXuIAI",
       "Name": "uno brasserie ag",
       "StageName": "Onboarding",
@@ -399,20 +435,74 @@
       }
     },
     {
-      "Id": "006Qs00000ihoReIAI",
-      "Name": "HARLEQUIN GARDEN MAMAIA",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-04",
-      "CreatedDate": "2026-06-04T10:49:37.000+0000",
-      "LastStageChangeDate": "2026-06-05T10:18:50.000+0000",
+      "Id": "006Ts000008tNVfIAM",
+      "Name": "Spartan Targu Jiu",
+      "StageName": "Onboarding",
+      "CloseDate": "2024-12-06",
+      "Won_Date__c": "2025-03-11",
+      "CreatedDate": "2024-11-06T00:30:37.000+0000",
+      "LastStageChangeDate": "2025-03-28T11:19:32.000+0000",
       "OwnerId": "005Ts000002AX4nIAG",
       "Owner": {
         "Name": "Ciprian Teodorescu"
       },
-      "AccountId": "001Qs00000owFy4IAE",
+      "AccountId": "001Ts00000F15JiIAJ",
       "Account": {
-        "Name": "HARLEQUIN GARDEN Mamaia",
+        "Name": "Spartan Targu Jiu",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000jDrcZIAS",
+      "Name": "1+1",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-17",
+      "CreatedDate": "2026-06-17T08:21:35.000+0000",
+      "LastStageChangeDate": "2026-06-17T08:30:53.000+0000",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Qs00000pnSkIIAU",
+      "Account": {
+        "Name": "1+1",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts000007M8cPIAS",
+      "Name": "Fryday Vaslui",
+      "StageName": "Onboarding",
+      "CloseDate": "2025-09-01",
+      "Won_Date__c": "2025-03-10",
+      "CreatedDate": "2024-09-04T06:07:14.000+0000",
+      "LastStageChangeDate": "2025-03-28T14:34:32.000+0000",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Ts00000C7sORIAZ",
+      "Account": {
+        "Name": "Fryday Vaslui",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000ievawIAA",
+      "Name": "CE LA VIE LOUNGE",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-03",
+      "CreatedDate": "2026-06-03T11:42:08.000+0000",
+      "LastStageChangeDate": "2026-06-04T07:15:01.000+0000",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Qs00000oUu54IAC",
+      "Account": {
+        "Name": "CE LA VIE LOUNGE",
         "BillingCity": null
       }
     },
@@ -507,42 +597,6 @@
       }
     },
     {
-      "Id": "006Qs00000iIEG6IAO",
-      "Name": "ZenBite Sushi",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-02",
-      "CreatedDate": "2026-05-26T08:04:19.000+0000",
-      "LastStageChangeDate": "2026-06-08T16:42:55.000+0000",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Qs00000oLDnAIAW",
-      "Account": {
-        "Name": "ZenBite Sushi",
-        "BillingCity": null
-      }
-    },
-    {
-      "Id": "006Qs00000ievawIAA",
-      "Name": "CE LA VIE LOUNGE",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-03",
-      "CreatedDate": "2026-06-03T11:42:08.000+0000",
-      "LastStageChangeDate": "2026-06-04T07:15:01.000+0000",
-      "OwnerId": "005Ts000002AX4nIAG",
-      "Owner": {
-        "Name": "Ciprian Teodorescu"
-      },
-      "AccountId": "001Qs00000oUu54IAC",
-      "Account": {
-        "Name": "CE LA VIE LOUNGE",
-        "BillingCity": null
-      }
-    },
-    {
       "Id": "006Qs00000ihzV9IAI",
       "Name": "Cofetaria Collage",
       "StageName": "Ready to Activate",
@@ -561,21 +615,57 @@
       }
     },
     {
-      "Id": "006Qs00000fDffHIAS",
-      "Name": "Restaurant Prima",
+      "Id": "006Qs00000iIEG6IAO",
+      "Name": "ZenBite Sushi",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-02",
+      "CreatedDate": "2026-05-26T08:04:19.000+0000",
+      "LastStageChangeDate": "2026-06-08T16:42:55.000+0000",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Qs00000oLDnAIAW",
+      "Account": {
+        "Name": "ZenBite Sushi",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000ihoReIAI",
+      "Name": "HARLEQUIN GARDEN MAMAIA",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-04",
+      "CreatedDate": "2026-06-04T10:49:37.000+0000",
+      "LastStageChangeDate": "2026-06-05T10:18:50.000+0000",
+      "OwnerId": "005Ts000002AX4nIAG",
+      "Owner": {
+        "Name": "Ciprian Teodorescu"
+      },
+      "AccountId": "001Qs00000owFy4IAE",
+      "Account": {
+        "Name": "HARLEQUIN GARDEN Mamaia",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000dT1C1IAK",
+      "Name": "Cartofii Mania",
       "StageName": "Onboarding",
-      "CloseDate": "2026-03-19",
-      "Won_Date__c": "2026-05-14",
-      "CreatedDate": "2026-03-12T09:31:10.000+0000",
-      "LastStageChangeDate": "2026-05-18T13:14:29.000+0000",
+      "CloseDate": "2026-03-31",
+      "Won_Date__c": "2026-01-27",
+      "CreatedDate": "2026-01-27T15:23:37.000+0000",
+      "LastStageChangeDate": "2026-01-28T09:15:38.000+0000",
       "OwnerId": "005Ts000005c4hFIAQ",
       "Owner": {
         "Name": "Corneliu-Ștefan Radu"
       },
-      "AccountId": "001Ts00000HLwefIAD",
+      "AccountId": "001Qs00000hdaKfIAI",
       "Account": {
-        "Name": "Restaurant Prima",
-        "BillingCity": "Sibiu"
+        "Name": "Cartofii Mania",
+        "BillingCity": "Brasov"
       }
     },
     {
@@ -597,21 +687,21 @@
       }
     },
     {
-      "Id": "006Qs00000dT1C1IAK",
-      "Name": "Cartofii Mania",
+      "Id": "006Qs00000fDffHIAS",
+      "Name": "Restaurant Prima",
       "StageName": "Onboarding",
-      "CloseDate": "2026-03-31",
-      "Won_Date__c": "2026-01-27",
-      "CreatedDate": "2026-01-27T15:23:37.000+0000",
-      "LastStageChangeDate": "2026-01-28T09:15:38.000+0000",
+      "CloseDate": "2026-03-19",
+      "Won_Date__c": "2026-05-14",
+      "CreatedDate": "2026-03-12T09:31:10.000+0000",
+      "LastStageChangeDate": "2026-05-18T13:14:29.000+0000",
       "OwnerId": "005Ts000005c4hFIAQ",
       "Owner": {
         "Name": "Corneliu-Ștefan Radu"
       },
-      "AccountId": "001Qs00000hdaKfIAI",
+      "AccountId": "001Ts00000HLwefIAD",
       "Account": {
-        "Name": "Cartofii Mania",
-        "BillingCity": "Brasov"
+        "Name": "Restaurant Prima",
+        "BillingCity": "Sibiu"
       }
     },
     {
@@ -669,6 +759,24 @@
       }
     },
     {
+      "Id": "006Ts00000IbJEFIA3",
+      "Name": "2DOORX",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2025-09-05",
+      "Won_Date__c": null,
+      "CreatedDate": "2025-08-29T06:49:27.000+0000",
+      "LastStageChangeDate": "2025-09-22T13:59:44.000+0000",
+      "OwnerId": "005Ts00000BtGPDIA3",
+      "Owner": {
+        "Name": "Daniel-Alexandru Boboc"
+      },
+      "AccountId": "001Ts00000TsABPIA3",
+      "Account": {
+        "Name": "2DOORX",
+        "BillingCity": "Targu Mures"
+      }
+    },
+    {
       "Id": "006Qs00000itEc8IAE",
       "Name": "La Zid",
       "StageName": "Ready to Activate",
@@ -683,6 +791,96 @@
       "AccountId": "001Qs00000pCkBXIA0",
       "Account": {
         "Name": "La Zid",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts00000A1WDvIAN",
+      "Name": "Concrete Cafe",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2025-01-18",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-12-19T09:57:36.000+0000",
+      "LastStageChangeDate": "2025-05-30T12:01:42.000+0000",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000HLoqlIAD",
+      "Account": {
+        "Name": "Concrete Cafe",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts00000B1fnDIAR",
+      "Name": "Restaurant Crystal",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2025-03-01",
+      "Won_Date__c": null,
+      "CreatedDate": "2025-01-30T08:04:09.000+0000",
+      "LastStageChangeDate": "2025-07-17T07:43:02.000+0000",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000JIP9ZIAX",
+      "Account": {
+        "Name": "Restaurant Crystal",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts00000KZTEwIAP",
+      "Name": "Burger House",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2025-10-09",
+      "Won_Date__c": null,
+      "CreatedDate": "2025-09-29T14:43:20.000+0000",
+      "LastStageChangeDate": "2025-09-29T17:04:39.000+0000",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000HMDgpIAH",
+      "Account": {
+        "Name": "Burger House",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts000008tN43IAE",
+      "Name": "Zvon Cafe",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-12-06",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-11-06T00:29:05.000+0000",
+      "LastStageChangeDate": "2025-08-08T12:30:53.000+0000",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000F14qUIAR",
+      "Account": {
+        "Name": "Zvon Cafe",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts00000A1Vm5IAF",
+      "Name": "Mia Piazzetta",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2025-01-18",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-12-19T09:56:19.000+0000",
+      "LastStageChangeDate": "2025-06-04T08:38:40.000+0000",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Ts00000HLoDdIAL",
+      "Account": {
+        "Name": "Mia Piazzetta",
         "BillingCity": null
       }
     },
@@ -741,24 +939,6 @@
       }
     },
     {
-      "Id": "006Qs00000isUpPIAU",
-      "Name": "Istanbul 34",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-10",
-      "CreatedDate": "2026-06-09T07:49:35.000+0000",
-      "LastStageChangeDate": "2026-06-11T13:49:19.000+0000",
-      "OwnerId": "005Ts00000BtX53IAF",
-      "Owner": {
-        "Name": "Daniel-Marian Toltică"
-      },
-      "AccountId": "001Qs00000pBvTtIAK",
-      "Account": {
-        "Name": "Istanbul 34",
-        "BillingCity": null
-      }
-    },
-    {
       "Id": "006Qs00000iiVuoIAE",
       "Name": "La Habib",
       "StageName": "Ready to Activate",
@@ -795,6 +975,24 @@
       }
     },
     {
+      "Id": "006Qs00000isUpPIAU",
+      "Name": "Istanbul 34",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-10",
+      "CreatedDate": "2026-06-09T07:49:35.000+0000",
+      "LastStageChangeDate": "2026-06-11T13:49:19.000+0000",
+      "OwnerId": "005Ts00000BtX53IAF",
+      "Owner": {
+        "Name": "Daniel-Marian Toltică"
+      },
+      "AccountId": "001Qs00000pBvTtIAK",
+      "Account": {
+        "Name": "Istanbul 34",
+        "BillingCity": null
+      }
+    },
+    {
       "Id": "006Qs00000i40ksIAA",
       "Name": "BOWLD HIM – Family Fresh Meals",
       "StageName": "Ready to Activate",
@@ -809,78 +1007,6 @@
       "AccountId": "001Qs00000n0ZchIAE",
       "Account": {
         "Name": "BOWLD HIM – Family Fresh Meals",
-        "BillingCity": null
-      }
-    },
-    {
-      "Id": "006Qs00000jBc04IAC",
-      "Name": "AM PM Pub",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-18",
-      "CreatedDate": "2026-06-16T11:53:35.000+0000",
-      "LastStageChangeDate": "2026-06-18T07:28:46.000+0000",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000owzsoIAA",
-      "Account": {
-        "Name": "AM PM Pub",
-        "BillingCity": null
-      }
-    },
-    {
-      "Id": "006Qs00000jBtX9IAK",
-      "Name": "Plăcintărescu",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-16",
-      "CreatedDate": "2026-06-16T11:29:18.000+0000",
-      "LastStageChangeDate": "2026-06-16T12:29:21.000+0000",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000piCwGIAU",
-      "Account": {
-        "Name": "Plăcintărescu",
-        "BillingCity": null
-      }
-    },
-    {
-      "Id": "006Qs00000j9G3eIAE",
-      "Name": "Ca Odinioară",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-22",
-      "Won_Date__c": "2026-06-15",
-      "CreatedDate": "2026-06-15T17:44:43.000+0000",
-      "LastStageChangeDate": "2026-06-15T17:51:51.000+0000",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000kHPHhIAO",
-      "Account": {
-        "Name": "Ca Odinioară",
-        "BillingCity": null
-      }
-    },
-    {
-      "Id": "006Qs00000jEuA7IAK",
-      "Name": "Pizarrio",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-18",
-      "CreatedDate": "2026-06-17T11:28:08.000+0000",
-      "LastStageChangeDate": "2026-06-18T06:59:47.000+0000",
-      "OwnerId": "005Ts000002AWIQIA4",
-      "Owner": {
-        "Name": "Eusebiu Hanganu"
-      },
-      "AccountId": "001Qs00000poN93IAE",
-      "Account": {
-        "Name": "Pizarrio",
         "BillingCity": null
       }
     },
@@ -903,6 +1029,42 @@
       }
     },
     {
+      "Id": "006Qs00000j9G3eIAE",
+      "Name": "Ca Odinioară",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-22",
+      "Won_Date__c": "2026-06-15",
+      "CreatedDate": "2026-06-15T17:44:43.000+0000",
+      "LastStageChangeDate": "2026-06-15T17:51:51.000+0000",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000kHPHhIAO",
+      "Account": {
+        "Name": "Ca Odinioară",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000jBc04IAC",
+      "Name": "AM PM Pub",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-18",
+      "CreatedDate": "2026-06-16T11:53:35.000+0000",
+      "LastStageChangeDate": "2026-06-18T07:28:46.000+0000",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000owzsoIAA",
+      "Account": {
+        "Name": "AM PM Pub",
+        "BillingCity": null
+      }
+    },
+    {
       "Id": "006Qs00000jArnXIAS",
       "Name": "Vatrushka",
       "StageName": "Onboarding",
@@ -921,20 +1083,38 @@
       }
     },
     {
-      "Id": "006Qs00000j8f7MIAQ",
-      "Name": "Zeyn Noire",
-      "StageName": "Ready to Activate",
+      "Id": "006Qs00000jEuA7IAK",
+      "Name": "Pizarrio",
+      "StageName": "Onboarding",
       "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-15",
-      "CreatedDate": "2026-06-15T13:55:56.000+0000",
-      "LastStageChangeDate": "2026-06-17T09:50:46.000+0000",
+      "Won_Date__c": "2026-06-18",
+      "CreatedDate": "2026-06-17T11:28:08.000+0000",
+      "LastStageChangeDate": "2026-06-18T06:59:47.000+0000",
       "OwnerId": "005Ts000002AWIQIA4",
       "Owner": {
         "Name": "Eusebiu Hanganu"
       },
-      "AccountId": "001Qs00000pcPRZIA2",
+      "AccountId": "001Qs00000poN93IAE",
       "Account": {
-        "Name": "Zeyn Noire",
+        "Name": "Pizarrio",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000jBtX9IAK",
+      "Name": "Plăcintărescu",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-16",
+      "CreatedDate": "2026-06-16T11:29:18.000+0000",
+      "LastStageChangeDate": "2026-06-16T12:29:21.000+0000",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000piCwGIAU",
+      "Account": {
+        "Name": "Plăcintărescu",
         "BillingCity": null
       }
     },
@@ -957,6 +1137,132 @@
       }
     },
     {
+      "Id": "006Qs00000j8f7MIAQ",
+      "Name": "Zeyn Noire",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-15",
+      "CreatedDate": "2026-06-15T13:55:56.000+0000",
+      "LastStageChangeDate": "2026-06-17T09:50:46.000+0000",
+      "OwnerId": "005Ts000002AWIQIA4",
+      "Owner": {
+        "Name": "Eusebiu Hanganu"
+      },
+      "AccountId": "001Qs00000pcPRZIA2",
+      "Account": {
+        "Name": "Zeyn Noire",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts000004VtwGIAS",
+      "Name": "Ristorante Monza",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-06-01",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-05-05T16:16:22.000+0000",
+      "LastStageChangeDate": null,
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts000005o1zQIAQ",
+      "Account": {
+        "Name": "Ristorante Monza",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts000004VtysIAC",
+      "Name": "Restaurant MOM",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-06-01",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-05-05T16:16:23.000+0000",
+      "LastStageChangeDate": null,
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts000005nqzFIAQ",
+      "Account": {
+        "Name": "Restaurant MOM",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts000008IJkMIAW",
+      "Name": "Cheezy Burgers &Crepes",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-10-20",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-10-13T02:28:17.000+0000",
+      "LastStageChangeDate": "2024-10-14T16:17:12.000+0000",
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts00000DqtgxIAB",
+      "Account": {
+        "Name": "Cheezy Burgers &Crepes",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts000008UP1CIAW",
+      "Name": "Lacivert",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-10-28",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-10-21T12:05:15.000+0000",
+      "LastStageChangeDate": "2024-11-21T10:01:53.000+0000",
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts00000EDI8mIAH",
+      "Account": {
+        "Name": "Lacivert",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts0000092cX3IAI",
+      "Name": "Adac Boutique House",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-11-18",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-11-11T19:30:32.000+0000",
+      "LastStageChangeDate": "2024-11-14T09:59:54.000+0000",
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "001Ts00000FIx9NIAT",
+      "Account": {
+        "Name": "Adac Boutique House",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Ts000009ntEHIAY",
+      "Name": "Oliv Bistro",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2025-01-21",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-12-10T15:19:44.000+0000",
+      "LastStageChangeDate": null,
+      "OwnerId": "005Ts0000060ICnIAM",
+      "Owner": {
+        "Name": "Ionut-Mădălin Gavrilă"
+      },
+      "AccountId": "0017Q000018iV4CQAU",
+      "Account": {
+        "Name": "Oliv Bistro",
+        "BillingCity": null
+      }
+    },
+    {
       "Id": "006Qs00000gCybNIAS",
       "Name": "Atelierul de tarte -  Foisor",
       "StageName": "Ready to Activate",
@@ -975,92 +1281,74 @@
       }
     },
     {
-      "Id": "006Qs00000j2KtmIAE",
-      "Name": "Faire Gicler",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-16",
-      "CreatedDate": "2026-06-12T09:32:19.000+0000",
-      "LastStageChangeDate": "2026-06-16T14:13:22.000+0000",
+      "Id": "006Ts000009wiJeIAI",
+      "Name": "Statia de Cafea",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-12-16",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-12-16T14:57:42.000+0000",
+      "LastStageChangeDate": "2024-12-17T13:13:11.000+0000",
       "OwnerId": "005Ts000006V3vpIAC",
       "Owner": {
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Qs00000pRp7sIAC",
+      "AccountId": "001Ts000005nqPLIAY",
       "Account": {
-        "Name": "Faire Gicler",
+        "Name": "Statia de Cafea",
         "BillingCity": null
       }
     },
     {
-      "Id": "006Qs00000iBlgdIAC",
-      "Name": "Mays Greek Taverna",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-09",
-      "CreatedDate": "2026-05-22T14:35:03.000+0000",
-      "LastStageChangeDate": "2026-06-09T08:46:00.000+0000",
+      "Id": "006Ts0000059gUOIAY",
+      "Name": "Statia de Cafea Vox",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-07-01",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-06-01T12:22:27.000+0000",
+      "LastStageChangeDate": "2024-12-17T13:31:34.000+0000",
       "OwnerId": "005Ts000006V3vpIAC",
       "Owner": {
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Qs00000oBaRkIAK",
+      "AccountId": "001Ts0000078Q0iIAE",
       "Account": {
-        "Name": "Mays Greek Taverna",
+        "Name": "Statia de Cafea Vox",
         "BillingCity": null
       }
     },
     {
-      "Id": "006Qs00000isrFiIAI",
-      "Name": "La Ceaun si Gratar",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-09",
-      "CreatedDate": "2026-06-09T08:27:54.000+0000",
-      "LastStageChangeDate": "2026-06-09T10:06:50.000+0000",
+      "Id": "006Ts000004VoNdIAK",
+      "Name": "Fiesta Food",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2024-06-01",
+      "Won_Date__c": null,
+      "CreatedDate": "2024-05-05T14:56:42.000+0000",
+      "LastStageChangeDate": null,
       "OwnerId": "005Ts000006V3vpIAC",
       "Owner": {
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Qs00000pCINDIA4",
+      "AccountId": "001Ts000005o1zWIAQ",
       "Account": {
-        "Name": "La Ceaun si Gratar",
+        "Name": "Fiesta Food",
         "BillingCity": null
       }
     },
     {
-      "Id": "006Qs00000itQIIIA2",
-      "Name": "Nuova Cucina",
+      "Id": "006Qs00000jCgXrIAK",
+      "Name": "The Millenial Burger",
       "StageName": "Onboarding",
       "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-09",
-      "CreatedDate": "2026-06-09T10:57:27.000+0000",
-      "LastStageChangeDate": "2026-06-09T13:25:53.000+0000",
+      "Won_Date__c": "2026-06-17",
+      "CreatedDate": "2026-06-16T15:05:16.000+0000",
+      "LastStageChangeDate": "2026-06-17T11:57:01.000+0000",
       "OwnerId": "005Ts000006V3vpIAC",
       "Owner": {
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Qs00000pCxQMIA0",
+      "AccountId": "001Qs00000pjilvIAA",
       "Account": {
-        "Name": "Nuova Cucina",
-        "BillingCity": null
-      }
-    },
-    {
-      "Id": "006Qs00000itX6sIAE",
-      "Name": "Braseria 46",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-09",
-      "CreatedDate": "2026-06-09T11:21:20.000+0000",
-      "LastStageChangeDate": "2026-06-09T13:28:40.000+0000",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Qs00000pChLdIAK",
-      "Account": {
-        "Name": "Braseria 46",
+        "Name": "The Millenial Burger",
         "BillingCity": null
       }
     },
@@ -1083,6 +1371,78 @@
       }
     },
     {
+      "Id": "006Qs00000itX6sIAE",
+      "Name": "Braseria 46",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-09",
+      "CreatedDate": "2026-06-09T11:21:20.000+0000",
+      "LastStageChangeDate": "2026-06-09T13:28:40.000+0000",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Qs00000pChLdIAK",
+      "Account": {
+        "Name": "Braseria 46",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000itQIIIA2",
+      "Name": "Nuova Cucina",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-09",
+      "CreatedDate": "2026-06-09T10:57:27.000+0000",
+      "LastStageChangeDate": "2026-06-09T13:25:53.000+0000",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Qs00000pCxQMIA0",
+      "Account": {
+        "Name": "Nuova Cucina",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000isrFiIAI",
+      "Name": "La Ceaun si Gratar",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-09",
+      "CreatedDate": "2026-06-09T08:27:54.000+0000",
+      "LastStageChangeDate": "2026-06-09T10:06:50.000+0000",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Qs00000pCINDIA4",
+      "Account": {
+        "Name": "La Ceaun si Gratar",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000iBlgdIAC",
+      "Name": "Mays Greek Taverna",
+      "StageName": "Onboarding",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-09",
+      "CreatedDate": "2026-05-22T14:35:03.000+0000",
+      "LastStageChangeDate": "2026-06-09T08:46:00.000+0000",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Qs00000oBaRkIAK",
+      "Account": {
+        "Name": "Mays Greek Taverna",
+        "BillingCity": null
+      }
+    },
+    {
       "Id": "006Qs00000jC4yvIAC",
       "Name": "Duc Tam Phuc",
       "StageName": "Onboarding",
@@ -1097,24 +1457,6 @@
       "AccountId": "001Qs00000piroEIAQ",
       "Account": {
         "Name": "Duc Tam Phuc",
-        "BillingCity": null
-      }
-    },
-    {
-      "Id": "006Qs00000jCgXrIAK",
-      "Name": "The Millenial Burger",
-      "StageName": "Onboarding",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-17",
-      "CreatedDate": "2026-06-16T15:05:16.000+0000",
-      "LastStageChangeDate": "2026-06-17T11:57:01.000+0000",
-      "OwnerId": "005Ts000006V3vpIAC",
-      "Owner": {
-        "Name": "Oroles Roșu"
-      },
-      "AccountId": "001Qs00000pjilvIAA",
-      "Account": {
-        "Name": "The Millenial Burger",
         "BillingCity": null
       }
     },
@@ -1155,20 +1497,38 @@
       }
     },
     {
-      "Id": "006Qs00000jIBMUIA4",
-      "Name": "H Kebab",
-      "StageName": "Ready to Activate",
+      "Id": "006Qs00000j2KtmIAE",
+      "Name": "Faire Gicler",
+      "StageName": "Onboarding",
       "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-18",
-      "CreatedDate": "2026-06-18T07:41:20.000+0000",
-      "LastStageChangeDate": "2026-06-19T08:05:22.000+0000",
+      "Won_Date__c": "2026-06-16",
+      "CreatedDate": "2026-06-12T09:32:19.000+0000",
+      "LastStageChangeDate": "2026-06-16T14:13:22.000+0000",
       "OwnerId": "005Ts000006V3vpIAC",
       "Owner": {
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Qs00000psr20IAA",
+      "AccountId": "001Qs00000pRp7sIAC",
       "Account": {
-        "Name": "H Kebab",
+        "Name": "Faire Gicler",
+        "BillingCity": null
+      }
+    },
+    {
+      "Id": "006Qs00000j38C2IAI",
+      "Name": "Al Dente",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-06-12",
+      "CreatedDate": "2026-06-12T12:48:49.000+0000",
+      "LastStageChangeDate": "2026-06-17T14:46:20.000+0000",
+      "OwnerId": "005Ts000006V3vpIAC",
+      "Owner": {
+        "Name": "Oroles Roșu"
+      },
+      "AccountId": "001Qs00000pSa3MIAS",
+      "Account": {
+        "Name": "Al Dente",
         "BillingCity": null
       }
     },
@@ -1191,20 +1551,20 @@
       }
     },
     {
-      "Id": "006Qs00000j38C2IAI",
-      "Name": "Al Dente",
+      "Id": "006Qs00000jIBMUIA4",
+      "Name": "H Kebab",
       "StageName": "Ready to Activate",
       "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-06-12",
-      "CreatedDate": "2026-06-12T12:48:49.000+0000",
-      "LastStageChangeDate": "2026-06-17T14:46:20.000+0000",
+      "Won_Date__c": "2026-06-18",
+      "CreatedDate": "2026-06-18T07:41:20.000+0000",
+      "LastStageChangeDate": "2026-06-19T08:05:22.000+0000",
       "OwnerId": "005Ts000006V3vpIAC",
       "Owner": {
         "Name": "Oroles Roșu"
       },
-      "AccountId": "001Qs00000pSa3MIAS",
+      "AccountId": "001Qs00000psr20IAA",
       "Account": {
-        "Name": "Al Dente",
+        "Name": "H Kebab",
         "BillingCity": null
       }
     },
@@ -1281,13 +1641,49 @@
       }
     },
     {
-      "Id": "006Qs00000h2ldCIAQ",
-      "Name": "Complex || Sushi Han Brasov",
+      "Id": "006Qs00000h2QoAIAU",
+      "Name": "Complex || Mamaliguta Ploiesti",
       "StageName": "Ready to Activate",
       "CloseDate": "2026-04-30",
       "Won_Date__c": "2026-04-29",
-      "CreatedDate": "2026-04-24T11:50:57.000+0000",
-      "LastStageChangeDate": "2026-05-08T18:31:47.000+0000",
+      "CreatedDate": "2026-04-24T12:32:21.000+0000",
+      "LastStageChangeDate": "2026-05-11T20:21:09.000+0000",
+      "OwnerId": "005Qs00000Mxc6EIAR",
+      "Owner": {
+        "Name": "Paul-Daniel Rîngheanu"
+      },
+      "AccountId": "001Qs00000mdVhtIAE",
+      "Account": {
+        "Name": "Mamaliguta & Sushi Han PH",
+        "BillingCity": "Ploiești"
+      }
+    },
+    {
+      "Id": "006Qs00000iMMgWIAW",
+      "Name": "The Hungry BUN",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-05-27",
+      "CreatedDate": "2026-05-27T12:26:04.000+0000",
+      "LastStageChangeDate": "2026-05-28T08:12:59.000+0000",
+      "OwnerId": "005Qs00000Mxc6EIAR",
+      "Owner": {
+        "Name": "Paul-Daniel Rîngheanu"
+      },
+      "AccountId": "001Qs00000oRbbPIAS",
+      "Account": {
+        "Name": "The Hungry BUN",
+        "BillingCity": "Ploiești"
+      }
+    },
+    {
+      "Id": "006Qs00000h2eiCIAQ",
+      "Name": "Complex || Mamaliguta Brasov",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2026-06-30",
+      "Won_Date__c": "2026-04-29",
+      "CreatedDate": "2026-04-24T11:48:29.000+0000",
+      "LastStageChangeDate": "2026-05-08T09:29:47.000+0000",
       "OwnerId": "005Qs00000Mxc6EIAR",
       "Owner": {
         "Name": "Paul-Daniel Rîngheanu"
@@ -1317,13 +1713,13 @@
       }
     },
     {
-      "Id": "006Qs00000h2eiCIAQ",
-      "Name": "Complex || Mamaliguta Brasov",
+      "Id": "006Qs00000h2ldCIAQ",
+      "Name": "Complex || Sushi Han Brasov",
       "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
+      "CloseDate": "2026-04-30",
       "Won_Date__c": "2026-04-29",
-      "CreatedDate": "2026-04-24T11:48:29.000+0000",
-      "LastStageChangeDate": "2026-05-08T09:29:47.000+0000",
+      "CreatedDate": "2026-04-24T11:50:57.000+0000",
+      "LastStageChangeDate": "2026-05-08T18:31:47.000+0000",
       "OwnerId": "005Qs00000Mxc6EIAR",
       "Owner": {
         "Name": "Paul-Daniel Rîngheanu"
@@ -1335,39 +1731,21 @@
       }
     },
     {
-      "Id": "006Qs00000iMMgWIAW",
-      "Name": "The Hungry BUN",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-06-30",
-      "Won_Date__c": "2026-05-27",
-      "CreatedDate": "2026-05-27T12:26:04.000+0000",
-      "LastStageChangeDate": "2026-05-28T08:12:59.000+0000",
-      "OwnerId": "005Qs00000Mxc6EIAR",
+      "Id": "006Qs00000iqMo8IAE",
+      "Name": "Restaurant Bulevard M",
+      "StageName": "Onboarding Checklist",
+      "CloseDate": "2026-06-15",
+      "Won_Date__c": null,
+      "CreatedDate": "2026-06-08T12:22:14.000+0000",
+      "LastStageChangeDate": "2026-06-18T16:29:06.000+0000",
+      "OwnerId": "005Ts000001Ak10IAC",
       "Owner": {
-        "Name": "Paul-Daniel Rîngheanu"
+        "Name": "Silviu-Mihnea Voicu"
       },
-      "AccountId": "001Qs00000oRbbPIAS",
+      "AccountId": "001Qs00000op5PBIAY",
       "Account": {
-        "Name": "The Hungry BUN",
-        "BillingCity": "Ploiești"
-      }
-    },
-    {
-      "Id": "006Qs00000h2QoAIAU",
-      "Name": "Complex || Mamaliguta Ploiesti",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2026-04-30",
-      "Won_Date__c": "2026-04-29",
-      "CreatedDate": "2026-04-24T12:32:21.000+0000",
-      "LastStageChangeDate": "2026-05-11T20:21:09.000+0000",
-      "OwnerId": "005Qs00000Mxc6EIAR",
-      "Owner": {
-        "Name": "Paul-Daniel Rîngheanu"
-      },
-      "AccountId": "001Qs00000mdVhtIAE",
-      "Account": {
-        "Name": "Mamaliguta & Sushi Han PH",
-        "BillingCity": "Ploiești"
+        "Name": "Restaurant Bulevard M",
+        "BillingCity": null
       }
     },
     {
@@ -1425,24 +1803,6 @@
       }
     },
     {
-      "Id": "006Ts00000LbGgBIAV",
-      "Name": "McNeil",
-      "StageName": "Ready to Activate",
-      "CloseDate": "2025-10-23",
-      "Won_Date__c": "2026-04-17",
-      "CreatedDate": "2025-10-16T07:21:20.000+0000",
-      "LastStageChangeDate": "2026-04-23T08:47:05.000+0000",
-      "OwnerId": "005Qs00000Pr1HKIAZ",
-      "Owner": {
-        "Name": "Vlad-Bogdan Popa"
-      },
-      "AccountId": "001Ts0000078H6lIAE",
-      "Account": {
-        "Name": "McNeil",
-        "BillingCity": "Oradea"
-      }
-    },
-    {
       "Id": "006Ts0000059WIoIAM",
       "Name": "Picco Pollo",
       "StageName": "Ready to Activate",
@@ -1458,6 +1818,24 @@
       "Account": {
         "Name": "Picco Pollo",
         "BillingCity": "Bihor"
+      }
+    },
+    {
+      "Id": "006Ts00000LbGgBIAV",
+      "Name": "McNeil",
+      "StageName": "Ready to Activate",
+      "CloseDate": "2025-10-23",
+      "Won_Date__c": "2026-04-17",
+      "CreatedDate": "2025-10-16T07:21:20.000+0000",
+      "LastStageChangeDate": "2026-04-23T08:47:05.000+0000",
+      "OwnerId": "005Qs00000Pr1HKIAZ",
+      "Owner": {
+        "Name": "Vlad-Bogdan Popa"
+      },
+      "AccountId": "001Ts0000078H6lIAE",
+      "Account": {
+        "Name": "McNeil",
+        "BillingCity": "Oradea"
       }
     }
   ]

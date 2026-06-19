@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-19T10:01:16.720Z",
+  "updatedAt": "2026-06-19T10:12:12.752Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -6648,8 +6648,8 @@
       {
         "id": "onboarding-live",
         "label": "Accounts in onboarding",
-        "value": 81,
-        "subtitle": "Between Won and Activated (opps)",
+        "value": 102,
+        "subtitle": "Onb Checklist → Ready to Activate (opps)",
         "icon": "rocket_launch"
       },
       {
@@ -6681,25 +6681,66 @@
         "icon": "pending"
       }
     ],
-    "totalLiveOnboarding": 81,
+    "totalLiveOnboarding": 102,
     "onboardingByAgent": [
       {
         "ownerId": "005Ts000002AX4nIAG",
         "name": "Ciprian Teodorescu",
         "segment": "density",
-        "count": 17,
+        "count": 22,
         "stageCounts": {
+          "Signed / Onb Checklist": 5,
           "Onboarding": 8,
           "Ready for TA": 9
         },
         "accounts": [
           {
-            "id": "006Ts000007M8cPIAS",
-            "name": "Fryday Vaslui",
+            "id": "006Ts00000ApvePIAR",
+            "name": "Il Gusto Di Stella",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts00000ApvePIAR",
+            "sfAccountId": "001Ts00000ItldUIAR"
+          },
+          {
+            "id": "006Ts00000B0SsPIAV",
+            "name": "Absolut Food",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts00000B0SsPIAV",
+            "sfAccountId": "001Ts00000EDMvcIAH"
+          },
+          {
+            "id": "006Ts00000IjnbZIAR",
+            "name": "Simigeria Marghiloman",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts00000IjnbZIAR",
+            "sfAccountId": "001Ts00000UupDNIAZ"
+          },
+          {
+            "id": "006Ts000007BA3GIAW",
+            "name": "Mia Restaurant",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts000007BA3GIAW",
+            "sfAccountId": "001Ts00000BkGd9IAF"
+          },
+          {
+            "id": "006Ts00000A2hXzIAJ",
+            "name": "Restaurant Steffy",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts00000A2hXzIAJ",
+            "sfAccountId": "001Ts0000078jgMIAQ"
+          },
+          {
+            "id": "006Qs00000j1xAcIAI",
+            "name": "Artpop Ice Cream",
             "city": "—",
             "stage": "Onboarding",
-            "sfOpportunityId": "006Ts000007M8cPIAS",
-            "sfAccountId": "001Ts00000C7sORIAZ"
+            "sfOpportunityId": "006Qs00000j1xAcIAI",
+            "sfAccountId": "001Qs00000pRGkxIAG"
           },
           {
             "id": "006Ts00000D4KtVIAV",
@@ -6718,30 +6759,6 @@
             "sfAccountId": "001Ts00000NNVtuIAH"
           },
           {
-            "id": "006Qs00000j1xAcIAI",
-            "name": "Artpop Ice Cream",
-            "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000j1xAcIAI",
-            "sfAccountId": "001Qs00000pRGkxIAG"
-          },
-          {
-            "id": "006Qs00000jDrcZIAS",
-            "name": "1+1",
-            "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000jDrcZIAS",
-            "sfAccountId": "001Qs00000pnSkIIAU"
-          },
-          {
-            "id": "006Ts000008tNVfIAM",
-            "name": "Spartan Targu Jiu",
-            "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Ts000008tNVfIAM",
-            "sfAccountId": "001Ts00000F15JiIAJ"
-          },
-          {
             "id": "006Ts000009fbXuIAI",
             "name": "Uno brasserie ag",
             "city": "—",
@@ -6758,12 +6775,36 @@
             "sfAccountId": "001Ts00000IMmJuIAL"
           },
           {
-            "id": "006Qs00000ihoReIAI",
-            "name": "HARLEQUIN GARDEN Mamaia",
+            "id": "006Ts000008tNVfIAM",
+            "name": "Spartan Targu Jiu",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Ts000008tNVfIAM",
+            "sfAccountId": "001Ts00000F15JiIAJ"
+          },
+          {
+            "id": "006Qs00000jDrcZIAS",
+            "name": "1+1",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000jDrcZIAS",
+            "sfAccountId": "001Qs00000pnSkIIAU"
+          },
+          {
+            "id": "006Ts000007M8cPIAS",
+            "name": "Fryday Vaslui",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Ts000007M8cPIAS",
+            "sfAccountId": "001Ts00000C7sORIAZ"
+          },
+          {
+            "id": "006Qs00000ievawIAA",
+            "name": "CE LA VIE LOUNGE",
             "city": "—",
             "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000ihoReIAI",
-            "sfAccountId": "001Qs00000owFy4IAE"
+            "sfOpportunityId": "006Qs00000ievawIAA",
+            "sfAccountId": "001Qs00000oUu54IAC"
           },
           {
             "id": "006Qs00000jCIouIAG",
@@ -6806,6 +6847,14 @@
             "sfAccountId": "001Qs00000l5kK9IAI"
           },
           {
+            "id": "006Qs00000ihzV9IAI",
+            "name": "Cofetaria Collage",
+            "city": "—",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000ihzV9IAI",
+            "sfAccountId": "001Qs00000owVZmIAM"
+          },
+          {
             "id": "006Qs00000iIEG6IAO",
             "name": "ZenBite Sushi",
             "city": "—",
@@ -6814,20 +6863,12 @@
             "sfAccountId": "001Qs00000oLDnAIAW"
           },
           {
-            "id": "006Qs00000ievawIAA",
-            "name": "CE LA VIE LOUNGE",
+            "id": "006Qs00000ihoReIAI",
+            "name": "HARLEQUIN GARDEN Mamaia",
             "city": "—",
             "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000ievawIAA",
-            "sfAccountId": "001Qs00000oUu54IAC"
-          },
-          {
-            "id": "006Qs00000ihzV9IAI",
-            "name": "Cofetaria Collage",
-            "city": "—",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000ihzV9IAI",
-            "sfAccountId": "001Qs00000owVZmIAM"
+            "sfOpportunityId": "006Qs00000ihoReIAI",
+            "sfAccountId": "001Qs00000owFy4IAE"
           }
         ]
       },
@@ -6835,51 +6876,44 @@
         "ownerId": "005Ts000006V3vpIAC",
         "name": "Oroles Roșu",
         "segment": "density",
-        "count": 16,
+        "count": 19,
         "stageCounts": {
+          "Signed / Onb Checklist": 3,
           "Onboarding": 10,
           "Ready for TA": 6
         },
         "accounts": [
           {
-            "id": "006Qs00000j2KtmIAE",
-            "name": "Faire Gicler",
+            "id": "006Ts000009wiJeIAI",
+            "name": "Statia de Cafea",
             "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000j2KtmIAE",
-            "sfAccountId": "001Qs00000pRp7sIAC"
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts000009wiJeIAI",
+            "sfAccountId": "001Ts000005nqPLIAY"
           },
           {
-            "id": "006Qs00000iBlgdIAC",
-            "name": "Mays Greek Taverna",
+            "id": "006Ts0000059gUOIAY",
+            "name": "Statia de Cafea Vox",
             "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000iBlgdIAC",
-            "sfAccountId": "001Qs00000oBaRkIAK"
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts0000059gUOIAY",
+            "sfAccountId": "001Ts0000078Q0iIAE"
           },
           {
-            "id": "006Qs00000isrFiIAI",
-            "name": "La Ceaun si Gratar",
+            "id": "006Ts000004VoNdIAK",
+            "name": "Fiesta Food",
             "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000isrFiIAI",
-            "sfAccountId": "001Qs00000pCINDIA4"
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts000004VoNdIAK",
+            "sfAccountId": "001Ts000005o1zWIAQ"
           },
           {
-            "id": "006Qs00000itQIIIA2",
-            "name": "Nuova Cucina",
+            "id": "006Qs00000jCgXrIAK",
+            "name": "The Millenial Burger",
             "city": "—",
             "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000itQIIIA2",
-            "sfAccountId": "001Qs00000pCxQMIA0"
-          },
-          {
-            "id": "006Qs00000itX6sIAE",
-            "name": "Braseria 46",
-            "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000itX6sIAE",
-            "sfAccountId": "001Qs00000pChLdIAK"
+            "sfOpportunityId": "006Qs00000jCgXrIAK",
+            "sfAccountId": "001Qs00000pjilvIAA"
           },
           {
             "id": "006Qs00000izCVyIAM",
@@ -6890,20 +6924,44 @@
             "sfAccountId": "001Qs00000pM5jjIAC"
           },
           {
+            "id": "006Qs00000itX6sIAE",
+            "name": "Braseria 46",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000itX6sIAE",
+            "sfAccountId": "001Qs00000pChLdIAK"
+          },
+          {
+            "id": "006Qs00000itQIIIA2",
+            "name": "Nuova Cucina",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000itQIIIA2",
+            "sfAccountId": "001Qs00000pCxQMIA0"
+          },
+          {
+            "id": "006Qs00000isrFiIAI",
+            "name": "La Ceaun si Gratar",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000isrFiIAI",
+            "sfAccountId": "001Qs00000pCINDIA4"
+          },
+          {
+            "id": "006Qs00000iBlgdIAC",
+            "name": "Mays Greek Taverna",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000iBlgdIAC",
+            "sfAccountId": "001Qs00000oBaRkIAK"
+          },
+          {
             "id": "006Qs00000jC4yvIAC",
             "name": "Duc Tam Phuc",
             "city": "—",
             "stage": "Onboarding",
             "sfOpportunityId": "006Qs00000jC4yvIAC",
             "sfAccountId": "001Qs00000piroEIAQ"
-          },
-          {
-            "id": "006Qs00000jCgXrIAK",
-            "name": "The Millenial Burger",
-            "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000jCgXrIAK",
-            "sfAccountId": "001Qs00000pjilvIAA"
           },
           {
             "id": "006Qs00000jJScCIAW",
@@ -6922,12 +6980,20 @@
             "sfAccountId": "001Qs00000puiloIAA"
           },
           {
-            "id": "006Qs00000jIBMUIA4",
-            "name": "H Kebab",
+            "id": "006Qs00000j2KtmIAE",
+            "name": "Faire Gicler",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000j2KtmIAE",
+            "sfAccountId": "001Qs00000pRp7sIAC"
+          },
+          {
+            "id": "006Qs00000j38C2IAI",
+            "name": "Al Dente",
             "city": "—",
             "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000jIBMUIA4",
-            "sfAccountId": "001Qs00000psr20IAA"
+            "sfOpportunityId": "006Qs00000j38C2IAI",
+            "sfAccountId": "001Qs00000pSa3MIAS"
           },
           {
             "id": "006Qs00000j7PW2IAM",
@@ -6938,12 +7004,12 @@
             "sfAccountId": "001Qs00000pcEnrIAE"
           },
           {
-            "id": "006Qs00000j38C2IAI",
-            "name": "Al Dente",
+            "id": "006Qs00000jIBMUIA4",
+            "name": "H Kebab",
             "city": "—",
             "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000j38C2IAI",
-            "sfAccountId": "001Qs00000pSa3MIAS"
+            "sfOpportunityId": "006Qs00000jIBMUIA4",
+            "sfAccountId": "001Qs00000psr20IAA"
           },
           {
             "id": "006Qs00000izrAwIAI",
@@ -6968,6 +7034,115 @@
             "stage": "Ready for TA",
             "sfOpportunityId": "006Ts00000GaDOvIAN",
             "sfAccountId": "001Ts00000UoOKTIA3"
+          }
+        ]
+      },
+      {
+        "ownerId": "005Ts00000BtX53IAF",
+        "name": "Daniel-Marian Toltică",
+        "segment": "density",
+        "count": 12,
+        "stageCounts": {
+          "Signed / Onb Checklist": 5,
+          "Onboarding": 3,
+          "Ready for TA": 4
+        },
+        "accounts": [
+          {
+            "id": "006Ts00000A1WDvIAN",
+            "name": "Concrete Cafe",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts00000A1WDvIAN",
+            "sfAccountId": "001Ts00000HLoqlIAD"
+          },
+          {
+            "id": "006Ts00000B1fnDIAR",
+            "name": "Restaurant Crystal",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts00000B1fnDIAR",
+            "sfAccountId": "001Ts00000JIP9ZIAX"
+          },
+          {
+            "id": "006Ts00000KZTEwIAP",
+            "name": "Burger House",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts00000KZTEwIAP",
+            "sfAccountId": "001Ts00000HMDgpIAH"
+          },
+          {
+            "id": "006Ts000008tN43IAE",
+            "name": "Zvon Cafe",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts000008tN43IAE",
+            "sfAccountId": "001Ts00000F14qUIAR"
+          },
+          {
+            "id": "006Ts00000A1Vm5IAF",
+            "name": "Mia Piazzetta",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts00000A1Vm5IAF",
+            "sfAccountId": "001Ts00000HLoDdIAL"
+          },
+          {
+            "id": "006Qs00000izCSkIAM",
+            "name": "Tutungeria ta",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000izCSkIAM",
+            "sfAccountId": "001Qs00000oIsV1IAK"
+          },
+          {
+            "id": "006Qs00000jFAmkIAG",
+            "name": "WaffleZ",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000jFAmkIAG",
+            "sfAccountId": "001Qs00000podCAIAY"
+          },
+          {
+            "id": "006Qs00000jJn1WIAS",
+            "name": "Old Hound",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000jJn1WIAS",
+            "sfAccountId": "001Qs00000pv9CUIAY"
+          },
+          {
+            "id": "006Qs00000iiVuoIAE",
+            "name": "La Habib",
+            "city": "—",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000iiVuoIAE",
+            "sfAccountId": "001Qs00000oxN0bIAE"
+          },
+          {
+            "id": "006Qs00000iiTg7IAE",
+            "name": "Tabiet Bistro",
+            "city": "—",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000iiTg7IAE",
+            "sfAccountId": "001Qs00000ox5lMIAQ"
+          },
+          {
+            "id": "006Qs00000isUpPIAU",
+            "name": "Istanbul 34",
+            "city": "—",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000isUpPIAU",
+            "sfAccountId": "001Qs00000pBvTtIAK"
+          },
+          {
+            "id": "006Qs00000i40ksIAA",
+            "name": "BOWLD HIM – Family Fresh Meals",
+            "city": "—",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000i40ksIAA",
+            "sfAccountId": "001Qs00000n0ZchIAE"
           }
         ]
       },
@@ -6998,14 +7173,6 @@
             "sfAccountId": "001Qs00000omqVlIAI"
           },
           {
-            "id": "006Qs00000if2e2IAA",
-            "name": "Gratar La Palat",
-            "city": "—",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000if2e2IAA",
-            "sfAccountId": "001Qs00000osUqkIAE"
-          },
-          {
             "id": "006Qs00000iqA5DIAU",
             "name": "Focado Express",
             "city": "—",
@@ -7022,12 +7189,12 @@
             "sfAccountId": "001Qs00000p7cmXIAQ"
           },
           {
-            "id": "006Qs00000hfouZIAQ",
-            "name": "Minion",
+            "id": "006Qs00000if2e2IAA",
+            "name": "Gratar La Palat",
             "city": "—",
             "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000hfouZIAQ",
-            "sfAccountId": "001Qs00000nRQC1IAO"
+            "sfOpportunityId": "006Qs00000if2e2IAA",
+            "sfAccountId": "001Qs00000osUqkIAE"
           },
           {
             "id": "006Qs00000ePyEsIAK",
@@ -7036,6 +7203,22 @@
             "stage": "Ready for TA",
             "sfOpportunityId": "006Qs00000ePyEsIAK",
             "sfAccountId": "001Qs00000itjrMIAQ"
+          },
+          {
+            "id": "006Qs00000hfouZIAQ",
+            "name": "Minion",
+            "city": "—",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000hfouZIAQ",
+            "sfAccountId": "001Qs00000nRQC1IAO"
+          },
+          {
+            "id": "006Qs00000ix2pGIAQ",
+            "name": "Wurstwagen",
+            "city": "—",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000ix2pGIAQ",
+            "sfAccountId": "001Qs00000pHmitIAC"
           },
           {
             "id": "006Qs00000jBZF4IAO",
@@ -7060,14 +7243,6 @@
             "stage": "Ready for TA",
             "sfOpportunityId": "006Qs00000ixAmpIAE",
             "sfAccountId": "001Qs00000pIjFtIAK"
-          },
-          {
-            "id": "006Qs00000ix2pGIAQ",
-            "name": "Wurstwagen",
-            "city": "—",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000ix2pGIAQ",
-            "sfAccountId": "001Qs00000pHmitIAC"
           }
         ]
       },
@@ -7082,20 +7257,12 @@
         },
         "accounts": [
           {
-            "id": "006Qs00000jBc04IAC",
-            "name": "AM PM Pub",
+            "id": "006Qs00000izM7BIAU",
+            "name": "PIZZA 212 SLICE BAR",
             "city": "—",
             "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000jBc04IAC",
-            "sfAccountId": "001Qs00000owzsoIAA"
-          },
-          {
-            "id": "006Qs00000jBtX9IAK",
-            "name": "Plăcintărescu",
-            "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000jBtX9IAK",
-            "sfAccountId": "001Qs00000piCwGIAU"
+            "sfOpportunityId": "006Qs00000izM7BIAU",
+            "sfAccountId": "001Qs00000pMVnrIAG"
           },
           {
             "id": "006Qs00000j9G3eIAE",
@@ -7106,20 +7273,12 @@
             "sfAccountId": "001Qs00000kHPHhIAO"
           },
           {
-            "id": "006Qs00000jEuA7IAK",
-            "name": "Pizarrio",
+            "id": "006Qs00000jBc04IAC",
+            "name": "AM PM Pub",
             "city": "—",
             "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000jEuA7IAK",
-            "sfAccountId": "001Qs00000poN93IAE"
-          },
-          {
-            "id": "006Qs00000izM7BIAU",
-            "name": "PIZZA 212 SLICE BAR",
-            "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000izM7BIAU",
-            "sfAccountId": "001Qs00000pMVnrIAG"
+            "sfOpportunityId": "006Qs00000jBc04IAC",
+            "sfAccountId": "001Qs00000owzsoIAA"
           },
           {
             "id": "006Qs00000jArnXIAS",
@@ -7130,12 +7289,20 @@
             "sfAccountId": "001Qs00000p7RHSIA2"
           },
           {
-            "id": "006Qs00000j8f7MIAQ",
-            "name": "Zeyn Noire",
+            "id": "006Qs00000jEuA7IAK",
+            "name": "Pizarrio",
             "city": "—",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000j8f7MIAQ",
-            "sfAccountId": "001Qs00000pcPRZIA2"
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000jEuA7IAK",
+            "sfAccountId": "001Qs00000poN93IAE"
+          },
+          {
+            "id": "006Qs00000jBtX9IAK",
+            "name": "Plăcintărescu",
+            "city": "—",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000jBtX9IAK",
+            "sfAccountId": "001Qs00000piCwGIAU"
           },
           {
             "id": "006Qs00000iwg3zIAA",
@@ -7144,74 +7311,82 @@
             "stage": "Ready for TA",
             "sfOpportunityId": "006Qs00000iwg3zIAA",
             "sfAccountId": "001Qs00000pI4HnIAK"
+          },
+          {
+            "id": "006Qs00000j8f7MIAQ",
+            "name": "Zeyn Noire",
+            "city": "—",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000j8f7MIAQ",
+            "sfAccountId": "001Qs00000pcPRZIA2"
           }
         ]
       },
       {
-        "ownerId": "005Ts00000BtX53IAF",
-        "name": "Daniel-Marian Toltică",
-        "segment": "density",
+        "ownerId": "005Ts0000060ICnIAM",
+        "name": "Ionut-Mădălin Gavrilă",
+        "segment": "complex",
         "count": 7,
         "stageCounts": {
-          "Onboarding": 3,
-          "Ready for TA": 4
+          "Signed / Onb Checklist": 6,
+          "Ready for TA": 1
         },
         "accounts": [
           {
-            "id": "006Qs00000izCSkIAM",
-            "name": "Tutungeria ta",
+            "id": "006Ts000004VtwGIAS",
+            "name": "Ristorante Monza",
             "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000izCSkIAM",
-            "sfAccountId": "001Qs00000oIsV1IAK"
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts000004VtwGIAS",
+            "sfAccountId": "001Ts000005o1zQIAQ"
           },
           {
-            "id": "006Qs00000jFAmkIAG",
-            "name": "WaffleZ",
+            "id": "006Ts000004VtysIAC",
+            "name": "Restaurant MOM",
             "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000jFAmkIAG",
-            "sfAccountId": "001Qs00000podCAIAY"
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts000004VtysIAC",
+            "sfAccountId": "001Ts000005nqzFIAQ"
           },
           {
-            "id": "006Qs00000jJn1WIAS",
-            "name": "Old Hound",
+            "id": "006Ts000008IJkMIAW",
+            "name": "Cheezy Burgers &Crepes",
             "city": "—",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000jJn1WIAS",
-            "sfAccountId": "001Qs00000pv9CUIAY"
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts000008IJkMIAW",
+            "sfAccountId": "001Ts00000DqtgxIAB"
           },
           {
-            "id": "006Qs00000isUpPIAU",
-            "name": "Istanbul 34",
+            "id": "006Ts000008UP1CIAW",
+            "name": "Lacivert",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts000008UP1CIAW",
+            "sfAccountId": "001Ts00000EDI8mIAH"
+          },
+          {
+            "id": "006Ts0000092cX3IAI",
+            "name": "Adac Boutique House",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts0000092cX3IAI",
+            "sfAccountId": "001Ts00000FIx9NIAT"
+          },
+          {
+            "id": "006Ts000009ntEHIAY",
+            "name": "Oliv Bistro",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts000009ntEHIAY",
+            "sfAccountId": "0017Q000018iV4CQAU"
+          },
+          {
+            "id": "006Qs00000gCybNIAS",
+            "name": "Atelierul de tarte - Timpuri Noi",
             "city": "—",
             "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000isUpPIAU",
-            "sfAccountId": "001Qs00000pBvTtIAK"
-          },
-          {
-            "id": "006Qs00000iiVuoIAE",
-            "name": "La Habib",
-            "city": "—",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000iiVuoIAE",
-            "sfAccountId": "001Qs00000oxN0bIAE"
-          },
-          {
-            "id": "006Qs00000iiTg7IAE",
-            "name": "Tabiet Bistro",
-            "city": "—",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000iiTg7IAE",
-            "sfAccountId": "001Qs00000ox5lMIAQ"
-          },
-          {
-            "id": "006Qs00000i40ksIAA",
-            "name": "BOWLD HIM – Family Fresh Meals",
-            "city": "—",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000i40ksIAA",
-            "sfAccountId": "001Qs00000n0ZchIAE"
+            "sfOpportunityId": "006Qs00000gCybNIAS",
+            "sfAccountId": "001Qs00000laP6VIAU"
           }
         ]
       },
@@ -7225,12 +7400,12 @@
         },
         "accounts": [
           {
-            "id": "006Qs00000fDffHIAS",
-            "name": "Restaurant Prima",
-            "city": "Sibiu",
+            "id": "006Qs00000dT1C1IAK",
+            "name": "Cartofii Mania",
+            "city": "Brasov",
             "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000fDffHIAS",
-            "sfAccountId": "001Ts00000HLwefIAD"
+            "sfOpportunityId": "006Qs00000dT1C1IAK",
+            "sfAccountId": "001Qs00000hdaKfIAI"
           },
           {
             "id": "006Ts00000AoBfFIAV",
@@ -7241,12 +7416,12 @@
             "sfAccountId": "001Ts00000IqdR7IAJ"
           },
           {
-            "id": "006Qs00000dT1C1IAK",
-            "name": "Cartofii Mania",
-            "city": "Brasov",
+            "id": "006Qs00000fDffHIAS",
+            "name": "Restaurant Prima",
+            "city": "Sibiu",
             "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000dT1C1IAK",
-            "sfAccountId": "001Qs00000hdaKfIAI"
+            "sfOpportunityId": "006Qs00000fDffHIAS",
+            "sfAccountId": "001Ts00000HLwefIAD"
           },
           {
             "id": "006Qs00000jL7pQIAS",
@@ -7293,11 +7468,27 @@
             "sfAccountId": "001Qs00000pMF50IAG"
           },
           {
-            "id": "006Qs00000h2ldCIAQ",
+            "id": "006Qs00000h2QoAIAU",
+            "name": "Mamaliguta & Sushi Han PH",
+            "city": "Ploiești",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000h2QoAIAU",
+            "sfAccountId": "001Qs00000mdVhtIAE"
+          },
+          {
+            "id": "006Qs00000iMMgWIAW",
+            "name": "The Hungry BUN",
+            "city": "Ploiești",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000iMMgWIAW",
+            "sfAccountId": "001Qs00000oRbbPIAS"
+          },
+          {
+            "id": "006Qs00000h2eiCIAQ",
             "name": "Mamaliguta& Sushi Han BV",
             "city": "Ploiești",
             "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000h2ldCIAQ",
+            "sfOpportunityId": "006Qs00000h2eiCIAQ",
             "sfAccountId": "001Qs00000mdLPAIA2"
           },
           {
@@ -7309,64 +7500,12 @@
             "sfAccountId": "001Qs00000mdVhtIAE"
           },
           {
-            "id": "006Qs00000h2eiCIAQ",
+            "id": "006Qs00000h2ldCIAQ",
             "name": "Mamaliguta& Sushi Han BV",
             "city": "Ploiești",
             "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000h2eiCIAQ",
+            "sfOpportunityId": "006Qs00000h2ldCIAQ",
             "sfAccountId": "001Qs00000mdLPAIA2"
-          },
-          {
-            "id": "006Qs00000iMMgWIAW",
-            "name": "The Hungry BUN",
-            "city": "Ploiești",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000iMMgWIAW",
-            "sfAccountId": "001Qs00000oRbbPIAS"
-          },
-          {
-            "id": "006Qs00000h2QoAIAU",
-            "name": "Mamaliguta & Sushi Han PH",
-            "city": "Ploiești",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000h2QoAIAU",
-            "sfAccountId": "001Qs00000mdVhtIAE"
-          }
-        ]
-      },
-      {
-        "ownerId": "005Qs00000N2Hh3IAF",
-        "name": "Andrei-Georgian Pătru",
-        "segment": "complex",
-        "count": 3,
-        "stageCounts": {
-          "Onboarding": 1,
-          "Ready for TA": 2
-        },
-        "accounts": [
-          {
-            "id": "006Qs00000hlwasIAA",
-            "name": "Neata Omelette Bistro",
-            "city": "Timisoara",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000hlwasIAA",
-            "sfAccountId": "001Qs00000naK2RIAU"
-          },
-          {
-            "id": "006Qs00000jCCwNIAW",
-            "name": "Casa Ghincea",
-            "city": "Craiova",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000jCCwNIAW",
-            "sfAccountId": "001Qs00000piyRSIAY"
-          },
-          {
-            "id": "006Qs00000itE94IAE",
-            "name": "Ca la mama by 100% Original",
-            "city": "Timisoara",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000itE94IAE",
-            "sfAccountId": "001Qs00000pCBFQIA4"
           }
         ]
       },
@@ -7374,12 +7513,21 @@
         "ownerId": "005Ts000001Ak10IAC",
         "name": "Silviu-Mihnea Voicu",
         "segment": "density",
-        "count": 3,
+        "count": 4,
         "stageCounts": {
+          "Signed / Onb Checklist": 1,
           "Onboarding": 2,
           "Ready for TA": 1
         },
         "accounts": [
+          {
+            "id": "006Qs00000iqMo8IAE",
+            "name": "Restaurant Bulevard M",
+            "city": "—",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Qs00000iqMo8IAE",
+            "sfAccountId": "001Qs00000op5PBIAY"
+          },
           {
             "id": "006Qs00000itwN0IAI",
             "name": "PAPA",
@@ -7407,29 +7555,38 @@
         ]
       },
       {
-        "ownerId": "005Qs00000Pr1HKIAZ",
-        "name": "Vlad-Bogdan Popa",
+        "ownerId": "005Qs00000N2Hh3IAF",
+        "name": "Andrei-Georgian Pătru",
         "segment": "complex",
-        "count": 2,
+        "count": 3,
         "stageCounts": {
+          "Onboarding": 1,
           "Ready for TA": 2
         },
         "accounts": [
           {
-            "id": "006Ts00000LbGgBIAV",
-            "name": "McNeil",
-            "city": "Oradea",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Ts00000LbGgBIAV",
-            "sfAccountId": "001Ts0000078H6lIAE"
+            "id": "006Qs00000hlwasIAA",
+            "name": "Neata Omelette Bistro",
+            "city": "Timisoara",
+            "stage": "Onboarding",
+            "sfOpportunityId": "006Qs00000hlwasIAA",
+            "sfAccountId": "001Qs00000naK2RIAU"
           },
           {
-            "id": "006Ts0000059WIoIAM",
-            "name": "Picco Pollo",
-            "city": "Bihor",
+            "id": "006Qs00000itE94IAE",
+            "name": "Ca la mama by 100% Original",
+            "city": "Timisoara",
             "stage": "Ready for TA",
-            "sfOpportunityId": "006Ts0000059WIoIAM",
-            "sfAccountId": "001Ts0000078FfTIAU"
+            "sfOpportunityId": "006Qs00000itE94IAE",
+            "sfAccountId": "001Qs00000pCBFQIA4"
+          },
+          {
+            "id": "006Qs00000jCCwNIAW",
+            "name": "Casa Ghincea",
+            "city": "Craiova",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000jCCwNIAW",
+            "sfAccountId": "001Qs00000piyRSIAY"
           }
         ]
       },
@@ -7437,11 +7594,20 @@
         "ownerId": "005Ts00000BtGPDIA3",
         "name": "Daniel-Alexandru Boboc",
         "segment": "density",
-        "count": 1,
+        "count": 2,
         "stageCounts": {
+          "Signed / Onb Checklist": 1,
           "Ready for TA": 1
         },
         "accounts": [
+          {
+            "id": "006Ts00000IbJEFIA3",
+            "name": "2DOORX",
+            "city": "Targu Mures",
+            "stage": "Signed / Onb Checklist",
+            "sfOpportunityId": "006Ts00000IbJEFIA3",
+            "sfAccountId": "001Ts00000TsABPIA3"
+          },
           {
             "id": "006Qs00000itEc8IAE",
             "name": "La Zid",
@@ -7453,21 +7619,29 @@
         ]
       },
       {
-        "ownerId": "005Ts0000060ICnIAM",
-        "name": "Ionut-Mădălin Gavrilă",
+        "ownerId": "005Qs00000Pr1HKIAZ",
+        "name": "Vlad-Bogdan Popa",
         "segment": "complex",
-        "count": 1,
+        "count": 2,
         "stageCounts": {
-          "Ready for TA": 1
+          "Ready for TA": 2
         },
         "accounts": [
           {
-            "id": "006Qs00000gCybNIAS",
-            "name": "Atelierul de tarte - Timpuri Noi",
-            "city": "—",
+            "id": "006Ts0000059WIoIAM",
+            "name": "Picco Pollo",
+            "city": "Bihor",
             "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000gCybNIAS",
-            "sfAccountId": "001Qs00000laP6VIAU"
+            "sfOpportunityId": "006Ts0000059WIoIAM",
+            "sfAccountId": "001Ts0000078FfTIAU"
+          },
+          {
+            "id": "006Ts00000LbGgBIAV",
+            "name": "McNeil",
+            "city": "Oradea",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Ts00000LbGgBIAV",
+            "sfAccountId": "001Ts0000078H6lIAE"
           }
         ]
       }
@@ -8426,25 +8600,25 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-06-19T10:01:16.720Z",
+        "lastSync": "2026-06-19T10:12:12.752Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-06-19T10:01:16.720Z",
+        "lastSync": "2026-06-19T10:12:12.752Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-06-19T10:01:16.720Z",
+        "lastSync": "2026-06-19T10:12:12.752Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-06-19T10:01:16.720Z",
+        "lastSync": "2026-06-19T10:12:12.752Z",
         "icon": "dashboard"
       }
     ]
