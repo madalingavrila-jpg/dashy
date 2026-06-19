@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { WeeklyMetricsGrid, WeeklyHistoryChart } from "@/components/WeeklyCharts";
@@ -100,9 +100,57 @@ function MtdItemList({ title, items, accent }: { title: string; items: { id: str
   );
 }
 
-function RepSection({ rep, loading }: { rep: InboundRep; loading?: boolean }) {
+function CollapseBlock({
+  title,
+  icon,
+  defaultOpen = false,
+  hint,
+  children,
+}: {
+  title: string;
+  icon: string;
+  defaultOpen?: boolean;
+  hint?: string;
+  children: ReactNode;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className="rounded-xl border border-outline-variant/70 bg-surface-container-low">
+      <button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-sm rounded-xl px-md py-sm text-left transition-colors hover:bg-primary-container/15"
+      >
+        <span className="flex items-center gap-sm">
+          <span className="material-symbols-outlined text-[18px] text-primary" aria-hidden="true">
+            {icon}
+          </span>
+          <span className="text-label-md font-semibold uppercase tracking-wide text-primary">
+            {title}
+          </span>
+          {hint ? (
+            <span className="text-[11px] font-normal normal-case text-on-surface-variant">{hint}</span>
+          ) : null}
+        </span>
+        <span
+          className={`material-symbols-outlined text-[20px] text-primary transition-transform ${
+            open ? "rotate-90" : ""
+          }`}
+          aria-hidden="true"
+        >
+          chevron_right
+        </span>
+      </button>
+      {open ? <div className="space-y-sm border-t border-outline-variant/60 px-md py-md">{children}</div> : null}
+    </div>
+  );
+}
+
+function RepSection({ rep, loading, defaultOpen = false }: { rep: InboundRep; loading?: boolean; defaultOpen?: boolean }) {
   const ap = rep.accountsPerformance;
   const months = useMemo(() => ap.byMonth.map((m) => m.month), [ap]);
+  const [open, setOpen] = useState(defaultOpen);
   const [monthChoice, setMonthChoice] = useState<string>("");
   const selectedMonth =
     monthChoice && months.includes(monthChoice)
@@ -121,100 +169,110 @@ function RepSection({ rep, loading }: { rep: InboundRep; loading?: boolean }) {
     [ap.accounts, selectedMonth],
   );
 
-  const cards = [
-    { label: "Won MTD", value: formatInteger(rep.mtd.won), icon: "emoji_events", accent: "text-won" },
-    { label: "Activated MTD", value: formatInteger(rep.mtd.activated), icon: "rocket_launch", accent: "text-activated" },
-    { label: "Accounts (90d)", value: formatInteger(ap.totals.accounts), icon: "storefront", accent: "text-on-surface" },
-    { label: "GMV (launch → date)", value: formatEurCompact(ap.totals.gmv), icon: "payments", accent: "text-on-surface" },
-    { label: "Orders", value: formatInteger(ap.totals.orders), icon: "receipt_long", accent: "text-on-surface" },
-    { label: "Commission", value: formatEurCompact(ap.totals.commission), icon: "percent", accent: "text-on-surface" },
+  const kpis = [
+    { label: "Won MTD", value: formatInteger(rep.mtd.won), accent: "text-won" },
+    { label: "Active MTD", value: formatInteger(rep.mtd.activated), accent: "text-activated" },
+    { label: "Accounts 90d", value: formatInteger(ap.totals.accounts), accent: "text-on-surface" },
+    { label: "GMV", value: formatEurCompact(ap.totals.gmv), accent: "text-on-surface" },
   ];
 
   const weekMetrics = mapWeeklyMetricViews(rep.weekly.metrics);
+  const hasMtdItems = rep.mtd.wonItems.length > 0 || rep.mtd.activatedItems.length > 0;
 
   return (
-    <section className="space-y-md rounded-2xl border border-outline-variant bg-surface-container-lowest p-lg">
-      <div className="flex flex-wrap items-center justify-between gap-sm border-b border-outline-variant pb-sm">
-        <div className="flex items-center gap-sm">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary-container/50 text-on-secondary-container">
-            <span className="material-symbols-outlined">person</span>
+    <section className="rounded-2xl border border-outline-variant bg-surface-container-lowest">
+      <button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        aria-expanded={open}
+        className="flex w-full flex-wrap items-center justify-between gap-sm rounded-2xl px-md py-sm text-left transition-colors hover:bg-primary-container/10"
+      >
+        <span className="flex min-w-0 items-center gap-sm">
+          <span
+            className={`material-symbols-outlined text-[22px] text-primary transition-transform ${
+              open ? "rotate-90" : ""
+            }`}
+            aria-hidden="true"
+          >
+            chevron_right
           </span>
-          <div>
-            <h3 className="text-title-lg font-title-lg font-bold text-on-surface">{rep.name}</h3>
-            <p className="text-label-md text-on-surface-variant">{rep.email} · Inbound RO</p>
-          </div>
-        </div>
-        <span className="rounded-full bg-secondary-container/40 px-sm py-[2px] text-[11px] font-bold text-on-secondary-container">
-          Actuals only · no target
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary-container/50 text-on-secondary-container">
+            <span className="material-symbols-outlined text-[20px]">person</span>
+          </span>
+          <span className="min-w-0">
+            <span className="block truncate text-title-md font-bold text-on-surface">{rep.name}</span>
+            <span className="block truncate text-[11px] text-on-surface-variant">{rep.email} · Inbound RO</span>
+          </span>
         </span>
-      </div>
+        <span className="flex flex-wrap items-center gap-md">
+          {kpis.map((kpi) => (
+            <span key={kpi.label} className="text-right">
+              <span className="block text-[10px] font-semibold uppercase tracking-wide text-on-surface-variant">
+                {kpi.label}
+              </span>
+              <span className={`block text-title-md font-extrabold tabular-nums ${kpi.accent}`}>
+                {loading && !rep ? "…" : kpi.value}
+              </span>
+            </span>
+          ))}
+        </span>
+      </button>
 
-      <div className="grid grid-cols-2 gap-md md:grid-cols-3 lg:grid-cols-6">
-        {cards.map((card) => (
-          <div key={card.label} className="glass-card rounded-xl p-md">
-            <div className="flex items-center gap-xs text-on-surface-variant">
-              <span className={`material-symbols-outlined text-[18px] ${card.accent}`}>{card.icon}</span>
-              <p className="text-label-md font-label-md">{card.label}</p>
+      {open ? (
+        <div className="space-y-sm border-t border-outline-variant px-md pb-md pt-md">
+          {hasMtdItems ? (
+            <div className="flex flex-col gap-sm rounded-xl border border-outline-variant bg-surface-container-low p-md md:flex-row md:gap-lg">
+              <MtdItemList title="Won this month" items={rep.mtd.wonItems} accent="text-won" />
+              <MtdItemList title="Activated this month" items={rep.mtd.activatedItems} accent="text-activated" />
             </div>
-            <h4 className="mt-xs text-headline-md font-headline-md font-extrabold text-on-surface">
-              {loading && !rep ? "…" : card.value}
-            </h4>
-          </div>
-        ))}
-      </div>
+          ) : null}
 
-      {(rep.mtd.wonItems.length > 0 || rep.mtd.activatedItems.length > 0) && (
-        <div className="flex flex-col gap-sm rounded-xl border border-outline-variant bg-surface-container-low p-md md:flex-row md:gap-lg">
-          <MtdItemList title="Won this month" items={rep.mtd.wonItems} accent="text-won" />
-          <MtdItemList title="Activated this month" items={rep.mtd.activatedItems} accent="text-activated" />
-        </div>
-      )}
+          <CollapseBlock title="Weekly performance" icon="show_chart" defaultOpen>
+            <WeeklyMetricsGrid metrics={weekMetrics} loading={loading} />
+            <WeeklyHistoryChart history={rep.weekly.history} loading={loading} />
+          </CollapseBlock>
 
-      <div className="space-y-sm">
-        <p className="text-label-md font-semibold uppercase tracking-wide text-primary">Weekly performance</p>
-        <WeeklyMetricsGrid metrics={weekMetrics} loading={loading} />
-        <WeeklyHistoryChart history={rep.weekly.history} loading={loading} />
-      </div>
+          <CollapseBlock title="Week over week" icon="compare_arrows">
+            <WowReportsList reports={[repWowReport(rep)]} loading={loading} />
+          </CollapseBlock>
 
-      <div className="space-y-sm">
-        <p className="text-label-md font-semibold uppercase tracking-wide text-primary">Week over week</p>
-        <WowReportsList reports={[repWowReport(rep)]} loading={loading} />
-      </div>
-
-      <div className="space-y-sm">
-        <div className="flex flex-wrap items-end justify-between gap-sm">
-          <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
-            Accounts performance · activated last 90 days
-          </p>
-          {months.length > 0 && (
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-semibold uppercase tracking-wide text-on-surface-variant">
-                Month (table breakdown)
-              </label>
-              <select
-                value={selectedMonth}
-                onChange={(event) => setMonthChoice(event.target.value)}
-                className="min-w-[160px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
-              >
-                {months.map((month) => (
-                  <option key={month} value={month}>
-                    {monthLabel(month)}
-                  </option>
-                ))}
-              </select>
+          <CollapseBlock
+            title="Accounts performance"
+            icon="storefront"
+            hint="activated last 90 days"
+          >
+            <div className="flex flex-wrap items-end justify-end gap-sm">
+              {months.length > 0 && (
+                <div className="flex flex-col gap-1">
+                  <label className="text-[10px] font-semibold uppercase tracking-wide text-on-surface-variant">
+                    Month (table breakdown)
+                  </label>
+                  <select
+                    value={selectedMonth}
+                    onChange={(event) => setMonthChoice(event.target.value)}
+                    className="min-w-[160px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+                  >
+                    {months.map((month) => (
+                      <option key={month} value={month}>
+                        {monthLabel(month)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
-          )}
+            <AccountsPerformanceTable
+              accounts={accounts}
+              selectedMonth={selectedMonth}
+              monthLabel={monthLabel}
+              formatEur={formatEur}
+              formatInt={formatInteger}
+              dataMonthMax={ap.dataMonthMax}
+              loading={loading}
+            />
+          </CollapseBlock>
         </div>
-        <AccountsPerformanceTable
-          accounts={accounts}
-          selectedMonth={selectedMonth}
-          monthLabel={monthLabel}
-          formatEur={formatEur}
-          formatInt={formatInteger}
-          dataMonthMax={ap.dataMonthMax}
-          loading={loading}
-        />
-      </div>
+      ) : null}
     </section>
   );
 }
@@ -235,10 +293,10 @@ export function InboundShell() {
     : [];
 
   return (
-    <div className="mx-auto max-w-[1500px] space-y-lg">
+    <div className="mx-auto max-w-[1500px] space-y-md">
       <PageHeader
         title="Inbound team"
-        subtitle="Ana-Maria Preda & Catalin Corbeanu — inbound RO, broken down per person. Overview, weekly, WoW and accounts performance — actuals only."
+        subtitle="Ana-Maria Preda & Catalin Corbeanu — inbound RO, broken down per person. Expand a rep for weekly, WoW and accounts — actuals only."
         updatedAt={inbound?.generatedAt ?? model?.updatedAt}
         loading={loading}
       />
@@ -246,14 +304,14 @@ export function InboundShell() {
       <DataAlert error={error} sourceHint={sourceHint} />
 
       {inbound && (
-        <section className="grid grid-cols-2 gap-md md:grid-cols-3 lg:grid-cols-6">
+        <section className="grid grid-cols-3 gap-sm md:grid-cols-6">
           {rollupCards.map((card) => (
-            <div key={card.label} className="glass-card rounded-xl p-md">
+            <div key={card.label} className="glass-card rounded-xl p-sm">
               <div className="flex items-center gap-xs text-on-surface-variant">
-                <span className="material-symbols-outlined text-[18px] text-primary">{card.icon}</span>
-                <p className="text-label-md font-label-md">{card.label}</p>
+                <span className="material-symbols-outlined text-[16px] text-primary">{card.icon}</span>
+                <p className="text-[10px] font-semibold uppercase tracking-wide leading-tight">{card.label}</p>
               </div>
-              <h3 className="mt-xs text-headline-md font-headline-md font-extrabold text-on-surface">
+              <h3 className="mt-xs text-title-lg font-extrabold tabular-nums text-on-surface">
                 {card.value}
               </h3>
             </div>
@@ -271,8 +329,8 @@ export function InboundShell() {
         </div>
       )}
 
-      {(inbound?.reps ?? []).map((rep) => (
-        <RepSection key={rep.ownerId} rep={rep} loading={loading} />
+      {(inbound?.reps ?? []).map((rep, index) => (
+        <RepSection key={rep.ownerId} rep={rep} loading={loading} defaultOpen={index === 0} />
       ))}
     </div>
   );
