@@ -62,6 +62,11 @@ function pctStr(value: number | null | undefined, digits = 1): string {
   return value == null ? "—" : `${value.toFixed(digits)}%`;
 }
 
+/** Take rate = commission / GMV × 100; null when GMV is 0 (divide-by-zero guard). */
+function takeRate(commission: number, gmv: number): number | null {
+  return gmv > 0 ? (commission / gmv) * 100 : null;
+}
+
 /** Compact euro (e.g. €1.2k) for dense trend/launch cells. */
 function eurShort(value: number): string {
   return `€${new Intl.NumberFormat("en-IE", {
@@ -151,6 +156,7 @@ type SortKey =
   | "orders"
   | "aov"
   | "commission"
+  | "commissionPct"
   | "rating"
   | "availability"
   | "total";
@@ -189,6 +195,8 @@ function sortValue(
       return month && month.orders > 0 ? month.aov : null;
     case "commission":
       return month ? month.commission : null;
+    case "commissionPct":
+      return month && month.gmv > 0 ? (month.commission / month.gmv) * 100 : null;
     case "rating":
       return account.quality?.rating ?? null;
     case "availability":
@@ -333,17 +341,17 @@ export function AccountsPerformanceTable({
     <div className="glass-card overflow-hidden rounded-xl">
       <table className="w-full table-fixed border-collapse text-left text-[13px]">
         <colgroup>
-          <col className="w-[19%]" />
+          <col className="w-[17%]" />
+          <col className="w-[10%]" />
           <col className="w-[11%]" />
-          <col className="w-[13%]" />
           <col className="w-[7%]" />
           <col className="w-[9%]" />
           <col className="w-[6%]" />
           <col className="w-[7%]" />
-          <col className="w-[8%]" />
+          <col className="w-[10%]" />
           <col className="w-[6%]" />
           <col className="w-[6%]" />
-          <col className="w-[16%]" />
+          <col className="w-[11%]" />
         </colgroup>
         <thead>
           <tr className="border-b border-outline-variant bg-surface-container-low">
@@ -409,16 +417,67 @@ export function AccountsPerformanceTable({
               dir={sort.dir}
               onSort={onSort}
             />
-            <SortHeader
-              label="Comm."
-              sortKey="commission"
+            <th
               className={numTh}
-              align="right"
-              title={`Partner commission · ${monthLabel(selectedMonth)}`}
-              active={sort.key === "commission"}
-              dir={sort.dir}
-              onSort={onSort}
-            />
+              title={`Partner commission € and take rate (% of GMV) · ${monthLabel(selectedMonth)}`}
+              aria-sort={
+                sort.key === "commission" || sort.key === "commissionPct"
+                  ? sort.dir === "asc"
+                    ? "ascending"
+                    : "descending"
+                  : "none"
+              }
+            >
+              <div className="flex w-full items-center justify-end gap-[3px]">
+                <button
+                  type="button"
+                  onClick={() => onSort("commission")}
+                  className={`group/sort inline-flex items-center gap-[1px] rounded transition-colors hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
+                    sort.key === "commission" ? "text-on-surface" : ""
+                  }`}
+                  title="Sort by commission €"
+                >
+                  <span>Comm€</span>
+                  <span
+                    className={`material-symbols-outlined text-[14px] ${
+                      sort.key === "commission"
+                        ? "opacity-100"
+                        : "opacity-30 group-hover/sort:opacity-60"
+                    }`}
+                  >
+                    {sort.key === "commission"
+                      ? sort.dir === "asc"
+                        ? "arrow_upward"
+                        : "arrow_downward"
+                      : "unfold_more"}
+                  </span>
+                </button>
+                <span className="opacity-40">/</span>
+                <button
+                  type="button"
+                  onClick={() => onSort("commissionPct")}
+                  className={`group/sort inline-flex items-center gap-[1px] rounded transition-colors hover:text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
+                    sort.key === "commissionPct" ? "text-on-surface" : ""
+                  }`}
+                  title="Sort by take rate (% of GMV)"
+                >
+                  <span>%</span>
+                  <span
+                    className={`material-symbols-outlined text-[14px] ${
+                      sort.key === "commissionPct"
+                        ? "opacity-100"
+                        : "opacity-30 group-hover/sort:opacity-60"
+                    }`}
+                  >
+                    {sort.key === "commissionPct"
+                      ? sort.dir === "asc"
+                        ? "arrow_upward"
+                        : "arrow_downward"
+                      : "unfold_more"}
+                  </span>
+                </button>
+              </div>
+            </th>
             <SortHeader
               label="Rating"
               sortKey="rating"
@@ -525,10 +584,21 @@ export function AccountsPerformanceTable({
                     {hasMonth && month!.orders > 0 ? formatEur(month!.aov) : "—"}
                   </td>
                   <td
-                    className="px-xs py-xs text-right align-top font-semibold text-on-surface"
-                    title={hasMonth ? formatEur(month!.commission) : undefined}
+                    className="px-xs py-xs text-right align-top"
+                    title={
+                      hasMonth
+                        ? `${formatEur(month!.commission)} · take rate ${pctStr(
+                            takeRate(month!.commission, month!.gmv),
+                          )} of GMV`
+                        : undefined
+                    }
                   >
-                    {hasMonth ? eurShort(month!.commission) : "—"}
+                    <span className="block font-semibold text-on-surface">
+                      {hasMonth ? eurShort(month!.commission) : "—"}
+                    </span>
+                    <span className="block text-[11px] text-on-surface-variant">
+                      {hasMonth ? pctStr(takeRate(month!.commission, month!.gmv)) : "—"}
+                    </span>
                   </td>
                   <td className="px-xs py-xs text-right align-top">
                     <span className={`font-semibold ${toneClass(toneHigh(q?.rating, 4.5, 4))}`}>
@@ -544,9 +614,9 @@ export function AccountsPerformanceTable({
                   </td>
                   <td className="px-xs py-xs align-top">
                     <div className="flex items-center justify-end gap-xs">
-                      <Sparkline points={account.sparkline} colorClass="text-won" />
+                      <Sparkline points={account.sparkline} width={72} colorClass="text-won" />
                       <span
-                        className="w-14 shrink-0 text-right font-semibold text-on-surface"
+                        className="w-12 shrink-0 text-right font-semibold text-on-surface"
                         title={formatEur(account.totalGmv)}
                       >
                         {eurShort(account.totalGmv)}
