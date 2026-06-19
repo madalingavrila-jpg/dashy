@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { Sidebar } from "@/components/Sidebar";
 import { TopBar } from "@/components/TopBar";
 
@@ -6,11 +9,21 @@ type AppShellProps = {
 };
 
 export function AppShell({ children }: AppShellProps) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <>
-      <Sidebar />
-      <TopBar />
-      <main className="ml-[280px] mt-16 p-lg">{children}</main>
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      {sidebarOpen && (
+        <button
+          type="button"
+          aria-label="Close navigation menu"
+          onClick={() => setSidebarOpen(false)}
+          className="fixed inset-0 z-40 bg-on-surface/40 lg:hidden"
+        />
+      )}
+      <TopBar onMenuClick={() => setSidebarOpen(true)} />
+      <main className="mt-16 p-lg lg:ml-[280px]">{children}</main>
     </>
   );
 }

@@ -33,16 +33,19 @@ type WeeklyDetailPanelProps = {
   agentTimeline?: WeeklyDetailView[];
 };
 
+// Hex values mirror the Tailwind palette in tailwind.config.ts so the donut
+// colors match the rest of the app. Keep Won (green) and Activated (purple)
+// visually separate.
 function accentColor(accent: WeeklyStatusProgressView["accent"]): string {
   switch (accent) {
     case "won":
-      return "var(--color-won, #2e7d32)";
+      return "#059669";
     case "activated":
-      return "var(--color-activated, #1565c0)";
+      return "#7c3aed";
     case "secondary":
-      return "var(--color-secondary, #7b1fa2)";
+      return "#475569";
     default:
-      return "var(--color-primary, #006494)";
+      return "#1d4ed8";
   }
 }
 
@@ -85,7 +88,7 @@ function StatusDonut({ status, size = "md" }: { status: WeeklyStatusProgressView
       <div
         className="h-full w-full rounded-full"
         style={{
-          background: `conic-gradient(${color} ${pct * 3.6}deg, rgb(var(--surface-container) / 1) 0deg)`,
+          background: `conic-gradient(${color} ${pct * 3.6}deg, #e4eaf6 0deg)`,
         }}
       />
       <div

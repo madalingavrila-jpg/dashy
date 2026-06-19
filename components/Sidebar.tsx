@@ -25,11 +25,20 @@ function isActive(pathname: string, href: string): boolean {
   return pathname.startsWith(href);
 }
 
-export function Sidebar() {
+type SidebarProps = {
+  isOpen?: boolean;
+  onClose?: () => void;
+};
+
+export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed left-0 top-0 z-50 flex h-full w-[280px] flex-col border-r border-outline-variant bg-surface-container-lowest py-md px-xs">
+    <nav
+      className={`fixed left-0 top-0 z-50 flex h-full w-[280px] flex-col border-r border-outline-variant bg-surface-container-lowest py-md px-xs transition-transform duration-200 ease-out lg:translate-x-0 ${
+        isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
+      }`}
+    >
       <div className="mb-lg px-sm">
         <Logo size={40} subtitle="Ultimate Sales Dashboard" />
       </div>
@@ -51,6 +60,7 @@ export function Sidebar() {
             <Link
               key={item.label}
               href={item.href}
+              onClick={onClose}
               className={
                 active
                   ? "mx-xs my-1 flex items-center gap-sm rounded-lg bg-primary px-md py-sm text-label-md font-label-md text-on-primary transition-transform active:scale-[0.98]"
@@ -71,6 +81,7 @@ export function Sidebar() {
             <Link
               key={item.label}
               href={item.href}
+              onClick={onClose}
               className={
                 active
                   ? "mx-xs my-1 flex items-center gap-sm rounded-lg bg-primary px-md py-sm text-label-md font-label-md text-on-primary"
