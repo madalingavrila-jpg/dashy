@@ -74,7 +74,6 @@ const EMPTY_MODEL: DashboardModel = {
   agents: [],
   wowReports: [],
   accounts: { won: [], activated: [], backlog: [] },
-  hitlist: [],
   settings: { timezone: "Europe/Bucharest", locale: "en-GB", integrations: [] },
 };
 
@@ -96,7 +95,6 @@ function mergePartialModel(
     mtdHistory: partial.mtdHistory ?? base.mtdHistory,
     agents: partial.agents ?? base.agents,
     wowReports: partial.wowReports ?? base.wowReports,
-    hitlist: partial.hitlist ?? base.hitlist,
     mops: partial.mops ?? base.mops,
     accountsPerformance: partial.accountsPerformance ?? base.accountsPerformance,
     inboundTeam: partial.inboundTeam ?? base.inboundTeam,

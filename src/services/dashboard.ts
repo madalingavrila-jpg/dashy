@@ -8,7 +8,6 @@ import type {
   DashboardRawData,
   DataSourceStatus,
   FunnelStageView,
-  HitlistRow,
   MetricCard,
   MopsData,
   MopsView,
@@ -378,7 +377,7 @@ function accountStatusStyle(status: AccountRow["status"]): { label: string; colo
   return { label: "Backlog", color: "trend-neutral" };
 }
 
-function segmentStyle(segment: HitlistRow["segment"]): { label: string; color: string } {
+function segmentStyle(segment: "complex" | "density"): { label: string; color: string } {
   return agentSegmentStyle(segment);
 }
 
@@ -789,7 +788,6 @@ function placeholderModel(source: DataSourceStatus, error?: string): DashboardMo
     agents: [],
     wowReports: [],
     accounts: { won: [], activated: [], backlog: [] },
-    hitlist: [],
     mops: emptyMopsView(),
     settings: defaultSettings(),
   };
@@ -818,7 +816,7 @@ function toDashboardModel(
 ): DashboardModel {
   const { salesPipeline } = data;
   const instanceUrl = data.salesforceInstanceUrl ?? "https://bolt-eu.lightning.force.com";
-  const { mtdAchievement, weeklyPerformance, wowReports, accounts, hitlist, agents } =
+  const { mtdAchievement, weeklyPerformance, wowReports, accounts, agents } =
     salesPipeline;
 
   const wonProgress = mtdAchievement.targetWon
@@ -921,23 +919,6 @@ function toDashboardModel(
           }
         : undefined,
     },
-    hitlist: hitlist
-      .slice()
-      .sort((a, b) => a.priority - b.priority)
-      .map((row) => {
-        const segment = segmentStyle(row.segment);
-        return {
-          id: row.id,
-          priority: row.priority,
-          company: row.company,
-          city: row.city,
-          segment: segment.label,
-          segmentColor: segment.color,
-          owner: row.owner,
-          stage: row.stage,
-          notes: row.notes,
-        };
-      }),
     mops: buildMopsView(data.mops) ?? emptyMopsView(),
     accountsPerformance: data.accountsPerformance,
     inboundTeam: data.inboundTeam,
@@ -1080,7 +1061,6 @@ export function sliceDashboardSection(
         mtdAchievement: model.mtdAchievement,
         weeklyPerformance: model.weeklyPerformance,
         wowReports: model.wowReports,
-        hitlist: model.hitlist,
         settings: model.settings,
       };
     case "mtd":

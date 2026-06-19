@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-19T14:56:45.843Z",
+  "updatedAt": "2026-06-19T15:25:21.866Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -7293,65 +7293,8 @@
         }
       }
     },
-    "hitlist": [
-      {
-        "id": "hit-001",
-        "priority": 1,
-        "company": "Fendi Kebap",
-        "city": "Bucharest",
-        "segment": "complex",
-        "owner": "Ionut-Mădălin Gavrilă",
-        "stage": "New Opportunity",
-        "sfOpportunityId": "001Ts000005nwEPIAY",
-        "notes": "Complex tier 1A · market rank #2"
-      },
-      {
-        "id": "hit-002",
-        "priority": 2,
-        "company": "Zen Sushi",
-        "city": "Bucharest",
-        "segment": "complex",
-        "owner": "Ionut-Mădălin Gavrilă",
-        "stage": "New Opportunity",
-        "sfOpportunityId": "0017Q000018iaDDQAY",
-        "notes": "Complex tier 1A · market rank #4"
-      },
-      {
-        "id": "hit-003",
-        "priority": 3,
-        "company": "Jerry's Pizza",
-        "city": "Bucharest",
-        "segment": "complex",
-        "owner": "Ionut-Mădălin Gavrilă",
-        "stage": "Negotiations",
-        "sfOpportunityId": "001Ts00000JIIl2IAH",
-        "notes": "Complex tier 1A · market rank #5"
-      },
-      {
-        "id": "hit-004",
-        "priority": 4,
-        "company": "Kronburger",
-        "city": "Brasov",
-        "segment": "complex",
-        "owner": "Ionut-Mădălin Gavrilă",
-        "stage": "New Opportunity",
-        "sfOpportunityId": "001Ts00000785wcIAA",
-        "notes": "Stage 3 - Negotiation in progress"
-      },
-      {
-        "id": "hit-005",
-        "priority": 5,
-        "company": "Log Out",
-        "city": "Baia Mare",
-        "segment": "complex",
-        "owner": "Ionut-Mădălin Gavrilă",
-        "stage": "Contract sent",
-        "sfOpportunityId": "001Ts00000788NzIAI",
-        "notes": "Not yet started"
-      }
-    ],
     "myPipeline": {
-      "generatedAt": "2026-06-19T14:56:45.035Z",
+      "generatedAt": "2026-06-19T15:25:21.045Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -43125,31 +43068,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-06-19T14:56:44.133Z",
+        "lastSync": "2026-06-19T15:25:19.891Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-06-19T14:56:44.133Z",
+        "lastSync": "2026-06-19T15:25:19.891Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-06-19T14:56:44.133Z",
+        "lastSync": "2026-06-19T15:25:19.891Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-06-19T14:56:44.133Z",
+        "lastSync": "2026-06-19T15:25:19.891Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-06-19T14:56:45.296Z",
+    "generatedAt": "2026-06-19T15:25:21.292Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -76317,7 +76260,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-06-19T14:56:45.843Z",
+    "generatedAt": "2026-06-19T15:25:21.866Z",
     "monthKey": "2026-06",
     "monthLabel": "June 2026",
     "currentWeek": "W25",

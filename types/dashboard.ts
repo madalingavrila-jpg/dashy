@@ -328,18 +328,6 @@ export type MopsView = {
   openCasesList: MopsCaseViewRow[];
 };
 
-export type HitlistRow = {
-  id: string;
-  priority: number;
-  company: string;
-  city: string;
-  segment: "complex" | "density";
-  owner: string;
-  stage: string;
-  sfOpportunityId?: string;
-  notes?: string;
-};
-
 export type IntegrationSetting = {
   name: string;
   status: "connected" | "warning" | "disconnected";
@@ -606,7 +594,6 @@ export type DashboardRawData = {
         backlog: { total: number; listUrl: string };
       };
     };
-    hitlist: HitlistRow[];
     mtdHistory?: MtdHistoryMonth[];
     myPipeline?: MyPipelineRaw;
   };
@@ -688,18 +675,6 @@ export type AccountViewRow = {
   dateValue: string;
   sfAccountId?: string;
   sfAccountUrl?: string | null;
-};
-
-export type HitlistViewRow = {
-  id: string;
-  priority: number;
-  company: string;
-  city: string;
-  segment: string;
-  segmentColor: string;
-  owner: string;
-  stage: string;
-  notes?: string;
 };
 
 export type MyPipelineItemView = {
@@ -804,7 +779,6 @@ export type DashboardModel = {
     totals?: { won: number; activated: number; backlog: number };
     listUrls?: { won: string; activated: string; backlog: string };
   };
-  hitlist: HitlistViewRow[];
   mops?: MopsView;
   accountsPerformance?: AccountsPerformance;
   inboundTeam?: InboundTeam;

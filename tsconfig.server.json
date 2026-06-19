@@ -6,6 +6,7 @@
     "outDir": "dist",
     "rootDir": ".",
     "strict": true,
+    "allowJs": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -23,6 +24,7 @@
     "lib/weekDateRange.ts",
     "lib/salesforce.ts",
     "lib/agent-segments.ts",
+    "lib/agent-segments.mjs",
     "lib/weekly-stages.ts"
   ],
   "exclude": ["node_modules", "dist", "lib/targetConfig.ts", "lib/useDashboard.ts", "lib/api.ts"]

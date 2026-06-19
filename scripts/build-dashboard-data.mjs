@@ -511,15 +511,6 @@ for (const acc of [...pipelineAccounts, ...wonAccounts, ...recentWon]) {
   if (!accountsByStage[st].find((x) => x.id === acc.id)) accountsByStage[st].push(acc);
 }
 
-// Hitlist from sheet (top priority rows owned by complex team)
-const hitlist = [
-  { id: "hit-001", priority: 1, company: "Fendi Kebap", city: "Bucharest", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "New Opportunity", sfOpportunityId: "001Ts000005nwEPIAY", notes: "Complex tier 1A · market rank #2" },
-  { id: "hit-002", priority: 2, company: "Zen Sushi", city: "Bucharest", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "New Opportunity", sfOpportunityId: "0017Q000018iaDDQAY", notes: "Complex tier 1A · market rank #4" },
-  { id: "hit-003", priority: 3, company: "Jerry's Pizza", city: "Bucharest", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "Negotiations", sfOpportunityId: "001Ts00000JIIl2IAH", notes: "Complex tier 1A · market rank #5" },
-  { id: "hit-004", priority: 4, company: "Kronburger", city: "Brasov", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "New Opportunity", sfOpportunityId: "001Ts00000785wcIAA", notes: "Stage 3 - Negotiation in progress" },
-  { id: "hit-005", priority: 5, company: "Log Out", city: "Baia Mare", segment: "complex", owner: "Ionut-Mădălin Gavrilă", stage: "Contract sent", sfOpportunityId: "001Ts00000788NzIAI", notes: "Not yet started" },
-];
-
 // YTD totals derived from the canonical MTD store (was hardcoded 1426/1426,
 // which violated Won≠Activated). Won = Σ per-month Won_Date counts for the
 // current year; Activated = Σ per-month field-history Activated counts.
@@ -622,7 +613,6 @@ const dashboard = {
       backlog: pipelineAccounts.filter((a) => a.status === "backlog").slice(0, 100),
       all: [...pipelineAccounts, ...wonAccounts].slice(0, 500),
     },
-    hitlist,
   },
   mops,
   settings: {

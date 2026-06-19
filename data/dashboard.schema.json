@@ -24,7 +24,6 @@
         "weeklyPerformance",
         "wowReports",
         "accounts",
-        "hitlist",
         "agents"
       ],
       "properties": {
@@ -285,24 +284,6 @@
                 }
               },
               "mtdAchievement": { "$ref": "#/$defs/mtdAchievement" }
-            }
-          }
-        },
-        "hitlist": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": ["id", "priority", "company", "city", "segment", "owner", "stage"],
-            "properties": {
-              "id": { "type": "string" },
-              "priority": { "type": "integer" },
-              "company": { "type": "string" },
-              "city": { "type": "string" },
-              "segment": { "type": "string", "enum": ["complex", "density"] },
-              "owner": { "type": "string" },
-              "stage": { "type": "string" },
-              "sfOpportunityId": { "type": "string" },
-              "notes": { "type": "string" }
             }
           }
         }

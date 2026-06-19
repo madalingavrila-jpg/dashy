@@ -46,6 +46,15 @@ import {
   weekKey,
   weekLabel,
 } from "../lib/weekly-stages-build.mjs";
+import {
+  readMcpResult as readMcpResultFrom,
+  round,
+  buildMonthlyByProvider,
+  buildQualityByProvider,
+  assembleAccount,
+  rollupByMonth,
+  rollupQualityTotals,
+} from "../lib/accounts-performance-build.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(here, "..");
@@ -204,37 +213,8 @@ function weeklyForRep(ownerId) {
 }
 
 // --- Accounts performance (Databricks), inbound-scoped by owner email ---
-// Reuses the EXACT math from scripts/build-accounts-performance.mjs.
-function readMcpResult(file) {
-  const raw = fs.readFileSync(path.join(cacheDir, file), "utf8");
-  const start = raw.indexOf("{");
-  if (start < 0) throw new Error(`No JSON object in ${file}`);
-  const parsed = JSON.parse(raw.slice(start));
-  return parsed.data ?? [];
-}
-function round(value, digits = 2) {
-  const factor = 10 ** digits;
-  return Math.round((Number(value) || 0) * factor) / factor;
-}
-function weightedAvg(rows, valueKey, weightKey) {
-  let sv = 0;
-  let sw = 0;
-  for (const row of rows) {
-    const v = row[valueKey];
-    const w = row[weightKey];
-    if (v == null || w == null) continue;
-    const wn = Number(w);
-    const vn = Number(v);
-    if (!(wn > 0) || Number.isNaN(vn)) continue;
-    sv += vn * wn;
-    sw += wn;
-  }
-  if (sw <= 0) return null;
-  return sv / sw;
-}
-function pct(value, digits = 1) {
-  return value == null ? null : round(value * 100, digits);
-}
+// Reuses the EXACT shared math from lib/accounts-performance-build.mjs.
+const readMcpResult = (file) => readMcpResultFrom(cacheDir, file);
 
 const accountRows = readMcpResult("accounts-perf-accounts.json");
 const monthlyRows = readMcpResult("accounts-perf-monthly.json");
@@ -245,150 +225,35 @@ try {
   console.warn("[build-inbound-team] no accounts-perf-quality.json — skipping quality metrics");
 }
 
-const monthlyByProvider = new Map();
-for (const [providerId, month, gmv, orders, commission] of monthlyRows) {
-  if (!monthlyByProvider.has(providerId)) monthlyByProvider.set(providerId, []);
-  monthlyByProvider.get(providerId).push({
-    month,
-    gmv: round(gmv),
-    orders: Math.round(Number(orders) || 0),
-    commission: round(commission),
-  });
-}
-const qualityByProvider = new Map();
-for (const row of qualityRows) {
-  const [providerId, month, orders, av, aw, cv, cw, rjv, rjw, pv, pw, rtv, rtw, ltv, ltw] = row;
-  if (!qualityByProvider.has(providerId)) qualityByProvider.set(providerId, []);
-  qualityByProvider.get(providerId).push({
-    month,
-    orders: Math.round(Number(orders) || 0),
-    avail_v: av, avail_w: aw, acc_v: cv, acc_w: cw, rej_v: rjv, rej_w: rjw,
-    prep_v: pv, prep_w: pw, rat_v: rtv, rat_w: rtw, late_v: ltv, late_w: ltw,
-  });
-}
-function qualityForProvider(providerId, launchMonth) {
-  const rows = (qualityByProvider.get(providerId) ?? []).filter(
-    (r) => !launchMonth || r.month >= launchMonth,
-  );
-  if (!rows.length) return undefined;
-  const availability = weightedAvg(rows, "avail_v", "avail_w");
-  const acceptance = weightedAvg(rows, "acc_v", "acc_w");
-  const rejection = weightedAvg(rows, "rej_v", "rej_w");
-  const prep = weightedAvg(rows, "prep_v", "prep_w");
-  const rating = weightedAvg(rows, "rat_v", "rat_w");
-  const late = weightedAvg(rows, "late_v", "late_w");
-  const refOrders = rows.reduce((s, r) => s + r.orders, 0);
-  const monthsCovered = rows.filter(
-    (r) => r.avail_v != null || r.acc_v != null || r.rat_v != null,
-  ).length;
-  const quality = {
-    availabilityPct: pct(availability),
-    acceptancePct: pct(acceptance),
-    rejectionPct: pct(rejection, 2),
-    prepMinutes: prep == null ? null : round(prep, 1),
-    rating: rating == null ? null : round(rating, 2),
-    lateDeliveryPct: pct(late),
-    refOrders,
-    monthsCovered,
-  };
-  const hasSignal = [
-    quality.availabilityPct, quality.acceptancePct, quality.rejectionPct,
-    quality.prepMinutes, quality.rating, quality.lateDeliveryPct,
-  ].some((v) => v != null);
-  return hasSignal ? quality : undefined;
-}
+const monthlyByProvider = buildMonthlyByProvider(monthlyRows);
+const qualityByProvider = buildQualityByProvider(qualityRows);
 
 /** Build accounts-performance accounts for one rep (by owner email). */
 function accountsForOwner(email, agentId, agentName) {
   const accounts = [];
   for (const row of accountRows) {
-    const [
-      providerId, ownerName, ownerEmail, activatedDate, providerName,
-      vendorName, cityName, segmentRaw, , firstOrderDate,
-    ] = row;
+    const ownerEmail = row[2];
     if ((ownerEmail || "").toLowerCase() !== email.toLowerCase()) continue;
-
-    const launchDate = activatedDate || firstOrderDate || null;
-    const launchMonth = launchDate ? launchDate.slice(0, 7) : null;
-    const monthly = (monthlyByProvider.get(providerId) ?? [])
-      .slice()
-      .sort((a, b) => a.month.localeCompare(b.month))
-      .filter((m) => !launchMonth || m.month >= launchMonth)
-      .map((m) => ({
-        month: m.month,
-        gmv: Math.round(m.gmv),
-        orders: m.orders,
-        aov: m.orders > 0 ? round(m.gmv / m.orders, 1) : 0,
-        commission: Math.round(m.commission),
-      }));
-    const totalGmv = monthly.reduce((s, m) => s + m.gmv, 0);
-    const totalOrders = monthly.reduce((s, m) => s + m.orders, 0);
-    const totalCommission = monthly.reduce((s, m) => s + m.commission, 0);
-
-    accounts.push({
-      id: String(providerId),
-      accountName: (providerName || vendorName || `Provider ${providerId}`).trim(),
-      city: (cityName || "—").trim(),
-      agentId,
-      agentName,
-      segment: SEGMENT,
-      businessSegment: segmentRaw || undefined,
-      launchDate,
-      monthly,
-      sparkline: monthly.map((m) => ({ month: m.month, value: m.gmv })),
-      totalGmv,
-      totalOrders,
-      totalCommission,
-      aov: totalOrders > 0 ? round(totalGmv / totalOrders, 1) : 0,
-      quality: qualityForProvider(providerId, launchMonth),
-    });
+    accounts.push(
+      assembleAccount(row, {
+        agentId,
+        agentName,
+        segment: SEGMENT,
+        monthlyByProvider,
+        qualityByProvider,
+      }),
+    );
   }
   accounts.sort((a, b) => b.totalGmv - a.totalGmv);
   return accounts;
 }
 
-function rollupQuality(list, key, digits = 1) {
-  let sv = 0;
-  let sw = 0;
-  for (const a of list) {
-    const q = a.quality;
-    if (!q || q[key] == null) continue;
-    const w = q.refOrders > 0 ? q.refOrders : 1;
-    sv += q[key] * w;
-    sw += w;
-  }
-  return sw > 0 ? round(sv / sw, digits) : null;
-}
-
 function accountsPerformanceForRep(accounts) {
-  const byMonthMap = new Map();
-  for (const account of accounts) {
-    for (const m of account.monthly) {
-      if (!byMonthMap.has(m.month)) {
-        byMonthMap.set(m.month, { month: m.month, gmv: 0, orders: 0, commission: 0, accounts: 0 });
-      }
-      const bucket = byMonthMap.get(m.month);
-      bucket.gmv += m.gmv;
-      bucket.orders += m.orders;
-      bucket.commission += m.commission;
-      if (m.orders > 0 || m.gmv > 0) bucket.accounts += 1;
-    }
-  }
-  const byMonth = [...byMonthMap.values()]
-    .sort((a, b) => a.month.localeCompare(b.month))
-    .map((b) => ({
-      month: b.month,
-      gmv: Math.round(b.gmv),
-      orders: b.orders,
-      commission: Math.round(b.commission),
-      aov: b.orders > 0 ? round(b.gmv / b.orders, 1) : 0,
-      accounts: b.accounts,
-    }));
+  const byMonth = rollupByMonth(accounts);
 
   const totalGmv = accounts.reduce((s, a) => s + a.totalGmv, 0);
   const totalOrders = accounts.reduce((s, a) => s + a.totalOrders, 0);
   const totalCommission = accounts.reduce((s, a) => s + a.totalCommission, 0);
-  const accountsWithQuality = accounts.filter((a) => a.quality);
 
   return {
     totals: {
@@ -397,15 +262,7 @@ function accountsPerformanceForRep(accounts) {
       orders: totalOrders,
       commission: totalCommission,
       aov: totalOrders > 0 ? round(totalGmv / totalOrders, 1) : 0,
-      quality: {
-        availabilityPct: rollupQuality(accounts, "availabilityPct"),
-        acceptancePct: rollupQuality(accounts, "acceptancePct"),
-        rejectionPct: rollupQuality(accounts, "rejectionPct", 2),
-        prepMinutes: rollupQuality(accounts, "prepMinutes"),
-        rating: rollupQuality(accounts, "rating", 2),
-        lateDeliveryPct: rollupQuality(accounts, "lateDeliveryPct"),
-        accountsWithSignal: accountsWithQuality.length,
-      },
+      quality: rollupQualityTotals(accounts),
     },
     byMonth,
     dataMonthMax: byMonth.length ? byMonth[byMonth.length - 1].month : null,
