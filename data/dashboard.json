@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-22T09:41:05.706Z",
+  "updatedAt": "2026-06-22T11:09:09.723Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -20,7 +20,7 @@
       "sales": [
         {
           "stage": "New Opportunity",
-          "count": 3552
+          "count": 3551
         },
         {
           "stage": "Reachout",
@@ -32,7 +32,7 @@
         },
         {
           "stage": "1st Pitch",
-          "count": 7
+          "count": 6
         },
         {
           "stage": "Negotiation",
@@ -40,7 +40,7 @@
         },
         {
           "stage": "Contract sent",
-          "count": 349
+          "count": 351
         },
         {
           "stage": "Won",
@@ -54,11 +54,11 @@
         },
         {
           "stage": "Onboarding",
-          "count": 45
+          "count": 43
         },
         {
           "stage": "Ready for TA",
-          "count": 57
+          "count": 60
         },
         {
           "stage": "Activated",
@@ -6859,7 +6859,7 @@
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-06-22T09:41:04.821Z",
+      "generatedAt": "2026-06-22T11:09:08.778Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -42324,31 +42324,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-06-22T09:41:03.964Z",
+        "lastSync": "2026-06-22T11:09:07.864Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-06-22T09:41:03.964Z",
+        "lastSync": "2026-06-22T11:09:07.864Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-06-22T09:41:03.964Z",
+        "lastSync": "2026-06-22T11:09:07.864Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-06-22T09:41:03.964Z",
+        "lastSync": "2026-06-22T11:09:07.864Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-06-22T09:41:05.128Z",
+    "generatedAt": "2026-06-22T11:09:09.107Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -65298,7 +65298,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-06-22T09:41:05.706Z",
+    "generatedAt": "2026-06-22T11:09:09.723Z",
     "monthKey": "2026-06",
     "monthLabel": "June 2026",
     "currentWeek": "W26",
@@ -65332,14 +65332,6 @@
               "sfAccountId": "001Qs00000oyadMIAQ"
             },
             {
-              "id": "006Qs00000jCKFbIAO",
-              "name": "La Istanbul kebap",
-              "city": "—",
-              "closeDate": "2026-06-17",
-              "sfOpportunityId": "006Qs00000jCKFbIAO",
-              "sfAccountId": "001Qs00000oX4UtIAK"
-            },
-            {
               "id": "006Qs00000jEi94IAC",
               "name": "Holy Burger",
               "city": "Bucharest",
@@ -65348,12 +65340,12 @@
               "sfAccountId": "001Qs00000kqYfpIAE"
             },
             {
-              "id": "006Qs00000jCFxVIAW",
-              "name": "La TINE - Traditional",
+              "id": "006Qs00000jCKFbIAO",
+              "name": "La Istanbul kebap",
               "city": "—",
-              "closeDate": "2026-06-16",
-              "sfOpportunityId": "006Qs00000jCFxVIAW",
-              "sfAccountId": "001Qs00000pjLsZIAU"
+              "closeDate": "2026-06-17",
+              "sfOpportunityId": "006Qs00000jCKFbIAO",
+              "sfAccountId": "001Qs00000oX4UtIAK"
             },
             {
               "id": "006Qs00000jCGWwIAO",
@@ -65362,6 +65354,14 @@
               "closeDate": "2026-06-16",
               "sfOpportunityId": "006Qs00000jCGWwIAO",
               "sfAccountId": "001Qs00000pizX6IAI"
+            },
+            {
+              "id": "006Qs00000jCFxVIAW",
+              "name": "La TINE - Traditional",
+              "city": "—",
+              "closeDate": "2026-06-16",
+              "sfOpportunityId": "006Qs00000jCFxVIAW",
+              "sfAccountId": "001Qs00000pjLsZIAU"
             },
             {
               "id": "006Qs00000j8d8kIAA",
@@ -65380,14 +65380,6 @@
               "sfAccountId": "001Qs00000pdtyaIAA"
             },
             {
-              "id": "006Qs00000j8WwvIAE",
-              "name": "Patiseria Luca Pipera Plaza",
-              "city": "—",
-              "closeDate": "2026-06-15",
-              "sfOpportunityId": "006Qs00000j8WwvIAE",
-              "sfAccountId": "001Qs00000pdKPmIAM"
-            },
-            {
               "id": "006Qs00000j8emMIAQ",
               "name": "Patiseria Luca Piata Rahova",
               "city": "—",
@@ -65396,12 +65388,12 @@
               "sfAccountId": "001Qs00000pe0FFIAY"
             },
             {
-              "id": "006Qs00000iwPKtIAM",
-              "name": "Poke House",
+              "id": "006Qs00000j8WwvIAE",
+              "name": "Patiseria Luca Pipera Plaza",
               "city": "—",
-              "closeDate": "2026-06-10",
-              "sfOpportunityId": "006Qs00000iwPKtIAM",
-              "sfAccountId": "001Qs00000pHpqSIAS"
+              "closeDate": "2026-06-15",
+              "sfOpportunityId": "006Qs00000j8WwvIAE",
+              "sfAccountId": "001Qs00000pdKPmIAM"
             },
             {
               "id": "006Qs00000iwNPWIA2",
@@ -65418,6 +65410,14 @@
               "closeDate": "2026-06-10",
               "sfOpportunityId": "006Qs00000iwIEYIA2",
               "sfAccountId": "001Qs00000pHgtXIAS"
+            },
+            {
+              "id": "006Qs00000iwPKtIAM",
+              "name": "Poke House",
+              "city": "—",
+              "closeDate": "2026-06-10",
+              "sfOpportunityId": "006Qs00000iwPKtIAM",
+              "sfAccountId": "001Qs00000pHpqSIAS"
             },
             {
               "id": "006Qs00000ishRhIAI",
@@ -72635,9 +72635,17 @@
         "name": "Catalin Corbeanu",
         "email": "catalin.corbeanu@aceolution.com",
         "mtd": {
-          "won": 15,
+          "won": 16,
           "activated": 10,
           "wonItems": [
+            {
+              "id": "006Qs00000jAswWIAS",
+              "name": "BE ZONE",
+              "city": "Suceava",
+              "closeDate": "2026-06-22",
+              "sfOpportunityId": "006Qs00000jAswWIAS",
+              "sfAccountId": "001Qs00000peZWMIA2"
+            },
             {
               "id": "006Qs00000j03opIAA",
               "name": "Secret burger Hunedoara",
@@ -72645,14 +72653,6 @@
               "closeDate": "2026-06-18",
               "sfOpportunityId": "006Qs00000j03opIAA",
               "sfAccountId": "001Qs00000pIt2QIAS"
-            },
-            {
-              "id": "006Qs00000j7e5OIAQ",
-              "name": "Brasseria 1848",
-              "city": "Tulcea",
-              "closeDate": "2026-06-16",
-              "sfOpportunityId": "006Qs00000j7e5OIAQ",
-              "sfAccountId": "001Qs00000pZSVWIA4"
             },
             {
               "id": "006Qs00000idc8xIAA",
@@ -72679,12 +72679,12 @@
               "sfAccountId": "001Qs00000pMnPlIAK"
             },
             {
-              "id": "006Qs00000iB5hPIAS",
-              "name": "TOT DIN BEZEA BERTHELOT",
-              "city": "Bucharest",
-              "closeDate": "2026-06-10",
-              "sfOpportunityId": "006Qs00000iB5hPIAS",
-              "sfAccountId": "001Qs00000nwp1AIAQ"
+              "id": "006Qs00000j7e5OIAQ",
+              "name": "Brasseria 1848",
+              "city": "Tulcea",
+              "closeDate": "2026-06-16",
+              "sfOpportunityId": "006Qs00000j7e5OIAQ",
+              "sfAccountId": "001Qs00000pZSVWIA4"
             },
             {
               "id": "006Qs00000iFhkvIAC",
@@ -72695,12 +72695,12 @@
               "sfAccountId": "001Qs00000oGHeQIAW"
             },
             {
-              "id": "006Qs00000iSDFZIA4",
-              "name": "Dolcherie Sweets & More",
-              "city": "Oradea",
-              "closeDate": "2026-06-09",
-              "sfOpportunityId": "006Qs00000iSDFZIA4",
-              "sfAccountId": "001Qs00000oZkkvIAC"
+              "id": "006Qs00000iB5hPIAS",
+              "name": "TOT DIN BEZEA BERTHELOT",
+              "city": "Bucharest",
+              "closeDate": "2026-06-10",
+              "sfOpportunityId": "006Qs00000iB5hPIAS",
+              "sfAccountId": "001Qs00000nwp1AIAQ"
             },
             {
               "id": "006Qs00000i7SMRIA2",
@@ -72711,6 +72711,14 @@
               "sfAccountId": "001Qs00000ntlDNIAY"
             },
             {
+              "id": "006Qs00000iSDFZIA4",
+              "name": "Dolcherie Sweets & More",
+              "city": "Oradea",
+              "closeDate": "2026-06-09",
+              "sfOpportunityId": "006Qs00000iSDFZIA4",
+              "sfAccountId": "001Qs00000oZkkvIAC"
+            },
+            {
               "id": "006Qs00000iSVM6IAO",
               "name": "LOV Specialty Coffee & More",
               "city": "Brasov",
@@ -72719,20 +72727,20 @@
               "sfAccountId": "001Qs00000oVDFYIA4"
             },
             {
-              "id": "006Qs00000iBNfuIAG",
-              "name": "New ozone source",
-              "city": "Craiova",
-              "closeDate": "2026-06-04",
-              "sfOpportunityId": "006Qs00000iBNfuIAG",
-              "sfAccountId": "001Qs00000o9TUFIA2"
-            },
-            {
               "id": "006Qs00000iOztqIAC",
               "name": "THE FLOWERS HUB SRL",
               "city": "Bucharest",
               "closeDate": "2026-06-04",
               "sfOpportunityId": "006Qs00000iOztqIAC",
               "sfAccountId": "001Qs00000oRSpuIAG"
+            },
+            {
+              "id": "006Qs00000iBNfuIAG",
+              "name": "New ozone source",
+              "city": "Craiova",
+              "closeDate": "2026-06-04",
+              "sfOpportunityId": "006Qs00000iBNfuIAG",
+              "sfAccountId": "001Qs00000o9TUFIA2"
             },
             {
               "id": "006Qs00000hygjbIAA",
@@ -73567,7 +73575,7 @@
     ],
     "totals": {
       "reps": 2,
-      "wonMtd": 29,
+      "wonMtd": 30,
       "activatedMtd": 13,
       "accounts90d": 148,
       "gmv": 585998,
