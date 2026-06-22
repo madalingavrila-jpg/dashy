@@ -18,7 +18,7 @@ import { currentMonthKey } from "@/lib/mtdMonth";
 
 export const TARGET_CONFIG_STORAGE_KEY = "dashy-target-config";
 export const TARGET_UNLOCK_SESSION_KEY = "dashy-targets-unlocked";
-export const TARGET_SETTINGS_PASSWORD = "madalinnr1";
+export const TARGET_SETTINGS_PASSWORD = "boltfood26";
 
 export type SegmentTargets = {
   won: number;
