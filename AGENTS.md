@@ -333,4 +333,7 @@ Settings → **Save targets** calls `PUT /api/target-config`. On Boltable the co
 - Add login/logout or auth flows.
 - Require `SALESFORCE_*` or `LOOKER_*` env vars on Boltable.
 - Merge Won and Activated into a single metric.
-- Send Slack messages (no `slack_send_message`, webhooks, or Slack MCP write tools). Reply in chat only.
+
+## Slack
+
+Slack: no blanket restriction. Always ask the user for confirmation before sending any Slack message, unless the user explicitly tells you to send it.
