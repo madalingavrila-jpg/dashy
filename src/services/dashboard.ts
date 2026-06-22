@@ -56,6 +56,7 @@ import {
   COMPLEX_ACTIVATED_MTD_TARGET,
   DENSITY_ACTIVATED_MTD_TARGET,
 } from "../../lib/agent-segments.js";
+import { ensureCurrentWeekInHistory } from "../../lib/ensure-weekly-history.js";
 
 const BUCHAREST = "Europe/Bucharest";
 
@@ -500,7 +501,11 @@ function buildWeeklyPerformanceView(
 
   const statusBreakdown = weeklyPerformance.breakdown ?? [];
 
+  const withCurrentWeekHistory = (rows: typeof history, week: string, metrics: WeeklyMetric[]) =>
+    ensureCurrentWeekInHistory(rows, week, metrics);
+
   if (storedMatchesCurrent) {
+    const effectiveWeek = weeklyPerformance.currentWeek ?? currentWeek;
     return {
       weekLabel: formatWeekLabel(currentWeek, year),
       weekTitle,
@@ -508,7 +513,7 @@ function buildWeeklyPerformanceView(
       currentWeek,
       priorWeek: priorWeekCode(weeklyPerformance.currentWeek ?? currentWeek) ?? priorWeek,
       metrics: mapWeeklyMetricViews(weeklyPerformance.metrics),
-      history,
+      history: withCurrentWeekHistory(history, effectiveWeek, weeklyPerformance.metrics),
       statusBreakdown,
       dataAvailable: true,
     };
@@ -533,7 +538,7 @@ function buildWeeklyPerformanceView(
       currentWeek,
       priorWeek: priorHistoryRow?.week ?? priorWeek,
       metrics: mapWeeklyMetricViews(metrics),
-      history,
+      history: withCurrentWeekHistory(history, currentWeek, metrics),
       statusBreakdown,
       dataAvailable: true,
     };
@@ -551,7 +556,11 @@ function buildWeeklyPerformanceView(
       currentWeek: fallbackWeek,
       priorWeek,
       metrics: mapWeeklyMetricViews(weeklyPerformance.metrics),
-      history,
+      history: withCurrentWeekHistory(
+        history,
+        fallbackWeek,
+        weeklyPerformance.metrics,
+      ),
       statusBreakdown,
       dataAvailable: true,
       fallbackMessage: `No history row for ${currentWeek}; showing last synced metrics.`,
@@ -565,7 +574,7 @@ function buildWeeklyPerformanceView(
     currentWeek,
     priorWeek,
     metrics: [],
-    history,
+    history: withCurrentWeekHistory(history, currentWeek, []),
     statusBreakdown,
     dataAvailable: false,
     fallbackMessage: `No weekly data for ${currentWeek} yet. Run the Salesforce refresh workflow.`,

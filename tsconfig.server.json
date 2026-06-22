@@ -25,7 +25,8 @@
     "lib/salesforce.ts",
     "lib/agent-segments.ts",
     "lib/agent-segments.mjs",
-    "lib/weekly-stages.ts"
+    "lib/weekly-stages.ts",
+    "lib/ensure-weekly-history.ts"
   ],
   "exclude": ["node_modules", "dist", "lib/targetConfig.ts", "lib/useDashboard.ts", "lib/api.ts"]
 }

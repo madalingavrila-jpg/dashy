@@ -1,5 +1,12 @@
 import { isoWeekDateRange, getIsoWeek } from "@/lib/isoWeek";
 import { DASHBOARD_WEEK_YEAR } from "@/lib/weekDateRange";
+import {
+  ensureCurrentWeekInHistory,
+  synthesizeCurrentWeekHistoryRow,
+} from "@/lib/ensure-weekly-history";
+
+export type { WeeklyHistoryCounts } from "@/lib/ensure-weekly-history";
+export { ensureCurrentWeekInHistory, synthesizeCurrentWeekHistoryRow };
 
 const BUCHAREST = "Europe/Bucharest";
 const Q2_MONTHS = new Set([4, 5, 6]);

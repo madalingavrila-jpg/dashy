@@ -1,12 +1,14 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import {
+  ensureCurrentWeekInHistory,
   filterWeeklyHistory,
   formatVisibleWeekRange,
   isWeekInQ2,
   isWeekVisible,
   parseWeekNumber,
 } from "../lib/weekQuarterFilter.js";
+import type { WeeklyHistoryCounts } from "../lib/ensure-weekly-history.js";
 
 const REF_DATE = new Date("2026-06-11T12:00:00+03:00");
 
@@ -39,6 +41,30 @@ console.log(`Weeks: ${weeks.join(", ")}`);
 
 const hidden = history.filter((row) => !weeks.includes(row.week)).map((row) => row.week);
 console.log(`Hidden: ${hidden.join(", ") || "(none)"}`);
+
+const wp = dashboard.salesPipeline?.weeklyPerformance as
+  | {
+      currentWeek?: string;
+      metrics?: Array<{ label: string; value: number }>;
+      history?: Array<{ week: string }>;
+    }
+  | undefined;
+if (wp?.currentWeek && wp.metrics?.length) {
+  const fullHistory =
+    (dashboard.salesPipeline?.weeklyPerformance?.history as WeeklyHistoryCounts[] | undefined) ??
+    [];
+  const staleHistory = fullHistory.filter((row) => row.week !== wp.currentWeek);
+  const patched = ensureCurrentWeekInHistory(staleHistory, wp.currentWeek, wp.metrics);
+  const patchedFiltered = filterWeeklyHistory(patched, REF_DATE);
+  const patchedWeeks = patchedFiltered.map((row) => row.week);
+  console.log("\n=== stale history patch (drop current week row) ===");
+  console.log(`currentWeek: ${wp.currentWeek}, stale last: ${staleHistory.at(-1)?.week}`);
+  console.log(`Patched filtered last: ${patchedFiltered.at(-1)?.week}`);
+  if (!patchedWeeks.includes(wp.currentWeek)) {
+    console.error(`FAIL: ${wp.currentWeek} missing after ensureCurrentWeekInHistory`);
+    process.exit(1);
+  }
+}
 
 if (weeks.some((w) => (parseWeekNumber(w) ?? 0) <= 13)) {
   console.error("FAIL: Q1 week leaked into filter");
