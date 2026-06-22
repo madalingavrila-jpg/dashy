@@ -118,6 +118,31 @@ if (apiBytes > API_PAYLOAD_MAX_BYTES) {
   process.exit(1);
 }
 
+// Per-section payload guard. The server preloads every section file (raw + gz +
+// br) into memory at startup (apiAssets.preloadApiAssets), so an unbounded
+// section (e.g. an unslimmed my-pipeline / accounts-performance after a big
+// data refresh) inflates steady-state RSS on the 384 MB Boltable heap. The
+// full /api/dashboard payload is already capped above; the large per-section
+// files (my-pipeline, accounts-performance) are NOT in that payload, so guard
+// them separately. Generous ceiling — meant to catch runaway growth, not to be
+// a tight budget.
+const SECTION_PAYLOAD_MAX_BYTES = 1_500_000;
+const oversizeSections = [];
+for (const section of SECTIONS) {
+  const sectionPath = path.join(root, `out/api/dashboard/${section}.json`);
+  const bytes = fs.statSync(sectionPath).size;
+  if (bytes > SECTION_PAYLOAD_MAX_BYTES) {
+    oversizeSections.push(`${section} (${bytes} bytes)`);
+  }
+}
+if (oversizeSections.length > 0) {
+  console.error(
+    `[verify-build] section payload(s) exceed ${SECTION_PAYLOAD_MAX_BYTES} bytes: ${oversizeSections.join(", ")}. ` +
+      "Slim the section in serializeDashboardSection/sliceDashboardSection to avoid Boltable OOM.",
+  );
+  process.exit(1);
+}
+
 console.log(
   `[verify-build] OK — static export, server bundle, and dashboard data verified (api ${apiBytes} bytes)`,
 );
