@@ -216,9 +216,10 @@ export function MopsOnboardingTable({
 }: MopsOnboardingTableProps) {
   const defaultDescription = (
     <>
-      Sales opportunities (not cases) — team reps only, every onboarding stage not yet ready to
-      activate (Onboarding Checklist → Onboarding → Escalation). Excludes Contract sent, Ready to
-      Activate, Activated, and closed deals. Click an agent to see that agent&apos;s accounts.
+      Sales opportunities (not cases) — team reps only, every post-Won onboarding stage not yet
+      ready to activate (Onboarding → Escalation). Excludes Onboarding Checklist (pre-Won &ldquo;Contract
+      signed&rdquo;), Contract sent, Ready to Activate, Activated, and closed deals. Click an agent to
+      see that agent&apos;s accounts.
     </>
   );
 

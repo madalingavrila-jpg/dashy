@@ -56,14 +56,20 @@ const ONBOARDING_STAGES = ["Onboarding Checklist", "Onboarding", "Ready to Activ
  * parallel per-agent section (see READY_TO_ACTIVATE_STAGES). "Activated" is the
  * live end state.
  *
- * Verified against live Salesforce (19 Jun 2026), RecordType "Sales Opportunity":
- *   Onboarding Checklist (21), Onboarding (38), Escalation (1) → 60 onboarding opps.
+ * EXPLICIT allow-list (no keyword/substring matching). "Onboarding Checklist" is
+ * deliberately EXCLUDED: in Bolt SF it is the *pre-Won* "Contract signed" stage
+ * (display label "Signed / Onb Checklist"), confirmed by data — all 21 such opps
+ * have NO Won_Date__c, i.e. they are not Closed Won yet. Counting them as
+ * onboarding was the bug reported by Eusebiu; it must NOT be counted here.
+ *
+ * Verified against live Salesforce, RecordType "Sales Opportunity":
+ *   Onboarding (38, all Won), Escalation (1, Won) → 39 onboarding opps.
+ *   Onboarding Checklist (21, pre-Won / "Contract signed") → excluded.
  *   Ready to Activate (42) → tracked separately.
- * Excluded: "Contract sent" (pre-Won), "Closed Won" (the Won bucket itself),
- * "Activated" (done), and "Closed Lost".
+ * Excluded: "Onboarding Checklist" / "Contract sent" (both pre-Won), "Closed Won"
+ * (the Won bucket itself), "Activated" (done), and "Closed Lost".
  */
 const LIVE_ONBOARDING_STAGES = [
-  "Onboarding Checklist",
   "Onboarding",
   "Escalation",
 ];
@@ -178,12 +184,22 @@ const mopsOnboardingData = existsSync(mopsOnboardingExport)
   ? parseSfJson(mopsOnboardingExport)
   : { records: [] };
 
-/** Per-agent breakdown of opportunities in the given stage set (team reps only). */
-function buildAgentBreakdown(onboardingData, stages) {
+/**
+ * Per-agent breakdown of opportunities in the given stage set (team reps only).
+ *
+ * `excludeAccountIds` is the set of accounts that are ALREADY Activated (current
+ * stage = Activated). The three MOPS buckets must be mutually exclusive by the
+ * account's current stage and Activated takes precedence: an account that is live
+ * must DISAPPEAR from Onboarding and Ready to Activate (it counts only as Active).
+ * This guards against stale exports where an opp advanced to Activated but a
+ * sibling/duplicate opp is still parked in an onboarding/RTA stage.
+ */
+function buildAgentBreakdown(onboardingData, stages, excludeAccountIds = new Set()) {
   const byAgent = new Map();
 
   for (const opp of onboardingData.records ?? []) {
     if (!stages.includes(opp.StageName)) continue;
+    if (opp.AccountId && excludeAccountIds.has(opp.AccountId)) continue;
     const ownerId = opp.OwnerId;
     const ownerName = opp.Owner?.Name ?? "Unknown";
     const enriched = enrichAgent({ ownerId, name: ownerName });
@@ -225,14 +241,16 @@ function buildAgentBreakdown(onboardingData, stages) {
   return { rows, total };
 }
 
-function buildMopsSection(casesData, onboardingData) {
+function buildMopsSection(casesData, onboardingData, activatedAccountIds = new Set()) {
   const { rows: onboardingByAgent, total: totalLiveOnboarding } = buildAgentBreakdown(
     onboardingData,
     LIVE_ONBOARDING_STAGES,
+    activatedAccountIds,
   );
   const { rows: readyToActivateByAgent, total: totalReadyToActivate } = buildAgentBreakdown(
     onboardingData,
     READY_TO_ACTIVATE_STAGES,
+    activatedAccountIds,
   );
   const openCases = casesData.openCases ?? 0;
   const openNewOnboarding = casesData.openNewOnboarding ?? 0;
@@ -249,7 +267,7 @@ function buildMopsSection(casesData, onboardingData) {
         id: "onboarding-live",
         label: "Accounts in onboarding",
         value: totalLiveOnboarding,
-        subtitle: "Onb Checklist → Onboarding → Escalation (opps)",
+        subtitle: "Onboarding → Escalation (opps)",
         icon: "rocket_launch",
       },
       {
@@ -311,7 +329,15 @@ function buildMopsSection(casesData, onboardingData) {
   };
 }
 
-const mops = buildMopsSection(mopsCasesData, mopsOnboardingData);
+// Accounts whose current stage is Activated (live) — sourced from the Won_Date
+// exports (current StageName per opp, team reps, current year). Used to keep the
+// MOPS buckets mutually exclusive: an Activated account counts only as Active and
+// is removed from Onboarding + Ready to Activate (Activated takes precedence).
+const activatedAccountIds = new Set();
+for (const rec of [...wonAllRecords, ...mergedWonRecords]) {
+  if (rec.StageName === "Activated" && rec.AccountId) activatedAccountIds.add(rec.AccountId);
+}
+const mops = buildMopsSection(mopsCasesData, mopsOnboardingData, activatedAccountIds);
 
 const now = new Date().toISOString();
 // Dynamic current ISO week (Europe/Bucharest) — was hardcoded to a June-11
