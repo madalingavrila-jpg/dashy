@@ -32,6 +32,16 @@ push `boltable/main`.** `scripts/refresh-and-deploy.sh` automates exactly this (
 5. **Slim at source:** `build-dashboard-data.mjs` calls `lib/slim-dashboard-source.mjs` — keeps MTD/weekly **aggregates for all periods**, but drill-down lists only for the **current month** and **current ISO week**; caps account tabs at 28 with SF list URLs. Re-run `node scripts/slim-dashboard-json.mjs` after manual JSON edits.
 6. Rebuild **all** sections with `npm run refresh-all` (orchestrator), not just `build-dashboard-data.mjs`. Then `npm run build`.
 7. Commit `data/dashboard.json` and push — Paketo redeploys dashy on Boltable.
+8. **After a successful data refresh + deploy, auto-notify Bianca Medrea** on
+   **both** Slack (`U01AHG4UAPR`) and email (`bianca.medrea@bolt.eu`) that the
+   refresh is complete and to check the data. This is **standing pre-authorized**
+   — no per-message confirmation needed. Use the message template below. See
+   `.cursor/rules/slack-notifications.mdc` for the full policy.
+
+   - **Slack DM / email body:** `Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated <updatedAt>). Please check the data when you get a chance.`
+   - **Email subject:** `dashy — data refresh complete`
+
+   Replace `<updatedAt>` with the refreshed `data/dashboard.json` `updatedAt`.
 
 **Overview totals + snapshot are DERIVED, never hardcoded:**
 - `salesPipeline.totals.won` / `totals.activated` (YTD) are computed in `build-dashboard-data.mjs`
@@ -336,4 +346,13 @@ Settings → **Save targets** calls `PUT /api/target-config`. On Boltable the co
 
 ## Slack
 
-Slack: no blanket restriction. Always ask the user for confirmation before sending any Slack message, unless the user explicitly tells you to send it.
+No blanket restriction on Slack/email. **Default:** ask the user for confirmation
+before sending to anyone, OR send when the user explicitly tells you to.
+
+**Standing exception — Bianca Medrea (recurring):** after **every** data refresh +
+deploy completes, **auto-notify Bianca on both Slack (`U01AHG4UAPR`) and email
+(`bianca.medrea@bolt.eu`)** that the refresh is done and to check the data — no
+per-message confirmation. Bianca is otherwise pre-authorized (send directly when
+the user asks to message her). Sends to other recipients still require asking
+first. Full policy + message template: `.cursor/rules/slack-notifications.mdc`
+(see also Workflow step 8).

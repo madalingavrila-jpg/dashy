@@ -1,0 +1,41 @@
+---
+alwaysApply: true
+description: Slack/email send policy for dashy — no blanket restriction; standing auto-notify for Bianca on every data refresh + deploy.
+---
+
+# Slack & email notification policy
+
+## No blanket restriction
+
+There is **no** blanket restriction on sending Slack messages or emails.
+
+## Default (all recipients)
+
+Before sending **any** Slack message or email, **ask the user for confirmation
+first**, OR send when the user **explicitly tells you to** send it.
+
+## STANDING EXCEPTION — dashy data refresh notification (recurring)
+
+After **EVERY** dashy Salesforce/Databricks data refresh **+ deploy** completes
+successfully, **automatically notify Bianca Medrea on BOTH channels** — Slack DM
+and email — that the refresh is done and to check the data. This is standing,
+pre-authorized: **no per-message confirmation needed**.
+
+**Bianca Medrea** — Slack user `U01AHG4UAPR`, email `bianca.medrea@bolt.eu`.
+
+Bianca is otherwise **pre-authorized**: when the user asks to send something to
+Bianca, send directly without per-message confirmation.
+
+### Message template
+
+- **Slack DM:**
+  `Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated <updatedAt>). Please check the data when you get a chance.`
+- **Email subject:** `dashy — data refresh complete`
+- **Email body (plain):**
+  `Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated <updatedAt>). Please check the data when you get a chance.`
+
+Replace `<updatedAt>` with the `data/dashboard.json` `updatedAt` value from the
+completed refresh.
+
+> Sends to **other** recipients still require asking the user first or an
+> explicit instruction.
