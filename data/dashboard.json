@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T08:25:29.426Z",
+  "updatedAt": "2026-06-25T08:39:57.178Z",
   "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -10,9 +10,9 @@
         "period": "YTD"
       },
       "activated": {
-        "value": 957,
-        "previousValue": 799,
-        "changePercent": 19.8,
+        "value": 971,
+        "previousValue": 804,
+        "changePercent": 20.8,
         "period": "YTD"
       }
     },
@@ -71,9 +71,9 @@
       "targetWon": 260,
       "actualWon": 186,
       "targetActivated": 215,
-      "actualActivated": 158,
-      "leadsMtd": 71,
-      "qualifiedMtd": 4,
+      "actualActivated": 167,
+      "leadsMtd": 67,
+      "qualifiedMtd": 6,
       "complexRepCount": 5,
       "densityRepCount": 7,
       "tiers": [
@@ -98,7 +98,7 @@
         {
           "name": "Density",
           "target": 175,
-          "actual": 136,
+          "actual": 145,
           "type": "activated"
         }
       ]
@@ -109,15 +109,15 @@
       "metrics": [
         {
           "label": "Leads",
-          "value": 15,
-          "previousValue": 14,
-          "changePercent": 7.1
+          "value": 17,
+          "previousValue": 12,
+          "changePercent": 41.7
         },
         {
           "label": "Qualified",
-          "value": 15,
-          "previousValue": 17,
-          "changePercent": -11.8
+          "value": 19,
+          "previousValue": 15,
+          "changePercent": 26.7
         },
         {
           "label": "Negotiations",
@@ -133,9 +133,9 @@
         },
         {
           "label": "Active",
-          "value": 16,
+          "value": 25,
           "previousValue": 44,
-          "changePercent": -63.6
+          "changePercent": -43.2
         }
       ],
       "history": [
@@ -166,7 +166,7 @@
         {
           "week": "W04",
           "leads": 7,
-          "qualified": 8,
+          "qualified": 7,
           "negotiations": 1,
           "closedWon": 37,
           "active": 16
@@ -190,8 +190,8 @@
         {
           "week": "W07",
           "leads": 10,
-          "qualified": 11,
-          "negotiations": 16,
+          "qualified": 10,
+          "negotiations": 10,
           "closedWon": 61,
           "active": 28
         },
@@ -207,7 +207,7 @@
           "week": "W09",
           "leads": 0,
           "qualified": 1,
-          "negotiations": 9,
+          "negotiations": 4,
           "closedWon": 27,
           "active": 46
         },
@@ -231,7 +231,7 @@
           "week": "W12",
           "leads": 2,
           "qualified": 4,
-          "negotiations": 6,
+          "negotiations": 5,
           "closedWon": 56,
           "active": 30
         },
@@ -270,8 +270,8 @@
         {
           "week": "W17",
           "leads": 19,
-          "qualified": 22,
-          "negotiations": 7,
+          "qualified": 25,
+          "negotiations": 10,
           "closedWon": 104,
           "active": 44
         },
@@ -279,9 +279,9 @@
           "week": "W18",
           "leads": 3,
           "qualified": 27,
-          "negotiations": 16,
+          "negotiations": 17,
           "closedWon": 45,
-          "active": 111
+          "active": 114
         },
         {
           "week": "W19",
@@ -289,12 +289,12 @@
           "qualified": 26,
           "negotiations": 12,
           "closedWon": 35,
-          "active": 7
+          "active": 9
         },
         {
           "week": "W20",
           "leads": 19,
-          "qualified": 43,
+          "qualified": 19,
           "negotiations": 3,
           "closedWon": 53,
           "active": 26
@@ -325,27 +325,27 @@
         },
         {
           "week": "W24",
-          "leads": 42,
-          "qualified": 42,
+          "leads": 38,
+          "qualified": 38,
           "negotiations": 12,
           "closedWon": 47,
           "active": 46
         },
         {
           "week": "W25",
-          "leads": 14,
-          "qualified": 17,
+          "leads": 12,
+          "qualified": 15,
           "negotiations": 4,
           "closedWon": 44,
           "active": 44
         },
         {
           "week": "W26",
-          "leads": 15,
-          "qualified": 15,
+          "leads": 17,
+          "qualified": 19,
           "negotiations": 10,
           "closedWon": 24,
-          "active": 16
+          "active": 25
         }
       ],
       "breakdown": [
@@ -494,7 +494,7 @@
               "active": 3
             },
             "density": {
-              "qualified": 8,
+              "qualified": 7,
               "negotiations": 1,
               "closedWon": 34,
               "active": 13
@@ -519,12 +519,6 @@
               "closedWon": 4,
               "active": 1
             },
-            "005Ts000002AWIQIA4": {
-              "qualified": 7,
-              "negotiations": 0,
-              "closedWon": 2,
-              "active": 0
-            },
             "005Ts00000BtGPDIA3": {
               "qualified": 0,
               "negotiations": 0,
@@ -542,6 +536,12 @@
               "negotiations": 0,
               "closedWon": 6,
               "active": 1
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 6,
+              "negotiations": 0,
+              "closedWon": 2,
+              "active": 0
             },
             "005Ts000006V3vpIAC": {
               "qualified": 1,
@@ -701,8 +701,8 @@
               "active": 0
             },
             "density": {
-              "qualified": 10,
-              "negotiations": 14,
+              "qualified": 9,
+              "negotiations": 8,
               "closedWon": 57,
               "active": 28
             }
@@ -715,8 +715,8 @@
               "active": 5
             },
             "005Ts000002AWIQIA4": {
-              "qualified": 2,
-              "negotiations": 8,
+              "qualified": 1,
+              "negotiations": 2,
               "closedWon": 10,
               "active": 3
             },
@@ -811,25 +811,13 @@
               "closedWon": 5,
               "active": 4
             },
-            "005Ts0000060ICnIAM": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 1,
-              "active": 1
-            },
             "005Ts00000BtX53IAF": {
               "qualified": 1,
               "negotiations": 0,
               "closedWon": 3,
               "active": 11
             },
-            "005Ts000006V3vpIAC": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 4,
-              "active": 6
-            },
-            "005Ts000001Ak10IAC": {
+            "005Ts0000060ICnIAM": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 1,
@@ -839,6 +827,18 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 1,
+              "active": 6
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 1,
+              "active": 1
+            },
+            "005Ts000006V3vpIAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 4,
               "active": 6
             },
             "005Ts000002AX4nIAG": {
@@ -860,7 +860,7 @@
             },
             "density": {
               "qualified": 1,
-              "negotiations": 9,
+              "negotiations": 4,
               "closedWon": 26,
               "active": 43
             }
@@ -868,7 +868,7 @@
           "agents": {
             "005Ts000002AWIQIA4": {
               "qualified": 1,
-              "negotiations": 6,
+              "negotiations": 1,
               "closedWon": 4,
               "active": 10
             },
@@ -1061,7 +1061,7 @@
             },
             "density": {
               "qualified": 2,
-              "negotiations": 4,
+              "negotiations": 3,
               "closedWon": 45,
               "active": 26
             }
@@ -1073,17 +1073,17 @@
               "closedWon": 3,
               "active": 2
             },
-            "005Ts000002AX4nIAG": {
-              "qualified": 1,
-              "negotiations": 1,
-              "closedWon": 12,
-              "active": 6
-            },
             "005Ts00000BtGPDIA3": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 5,
               "active": 4
+            },
+            "005Ts000002AX4nIAG": {
+              "qualified": 1,
+              "negotiations": 1,
+              "closedWon": 12,
+              "active": 6
             },
             "005Ts00000BtX53IAF": {
               "qualified": 0,
@@ -1099,20 +1099,20 @@
             },
             "005Ts000002AWIQIA4": {
               "qualified": 1,
-              "negotiations": 3,
+              "negotiations": 2,
               "closedWon": 4,
-              "active": 2
-            },
-            "005Qs00000N2Hh3IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 6,
               "active": 2
             },
             "005Ts000006V3vpIAC": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 11,
+              "active": 2
+            },
+            "005Qs00000N2Hh3IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 6,
               "active": 2
             },
             "005Ts0000060ICnIAM": {
@@ -1158,12 +1158,6 @@
               "closedWon": 3,
               "active": 4
             },
-            "005Ts00000BtGPDIA3": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 2,
-              "active": 4
-            },
             "005Ts0000060ICnIAM": {
               "qualified": 0,
               "negotiations": 0,
@@ -1176,11 +1170,11 @@
               "closedWon": 3,
               "active": 10
             },
-            "005Ts00000BtZV3IAN": {
+            "005Ts00000BtGPDIA3": {
               "qualified": 0,
               "negotiations": 0,
-              "closedWon": 4,
-              "active": 7
+              "closedWon": 2,
+              "active": 4
             },
             "005Qs00000N2Hh3IAF": {
               "qualified": 0,
@@ -1193,6 +1187,12 @@
               "negotiations": 0,
               "closedWon": 0,
               "active": 1
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 4,
+              "active": 7
             },
             "005Ts00000BtX53IAF": {
               "qualified": 0,
@@ -1255,6 +1255,12 @@
               "closedWon": 3,
               "active": 4
             },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 5,
+              "active": 4
+            },
             "005Ts0000060ICnIAM": {
               "qualified": 0,
               "negotiations": 0,
@@ -1266,12 +1272,6 @@
               "negotiations": 0,
               "closedWon": 0,
               "active": 2
-            },
-            "005Ts00000BtZV3IAN": {
-              "qualified": 0,
-              "negotiations": 1,
-              "closedWon": 5,
-              "active": 4
             },
             "005Qs00000Mxc6EIAR": {
               "qualified": 0,
@@ -1395,17 +1395,17 @@
               "closedWon": 6,
               "active": 3
             },
-            "005Ts00000BtX53IAF": {
-              "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 5,
-              "active": 1
-            },
             "005Qs00000N2Hh3IAF": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 2,
               "active": 4
+            },
+            "005Ts00000BtX53IAF": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 5,
+              "active": 1
             },
             "005Ts00000BtGPDIA3": {
               "qualified": 1,
@@ -1443,8 +1443,8 @@
           "week": "W17",
           "teams": {
             "complex": {
-              "qualified": 6,
-              "negotiations": 0,
+              "qualified": 9,
+              "negotiations": 3,
               "closedWon": 6,
               "active": 2
             },
@@ -1498,6 +1498,12 @@
               "closedWon": 0,
               "active": 1
             },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 9,
+              "negotiations": 3,
+              "closedWon": 5,
+              "active": 0
+            },
             "005Ts00000BtGPDIA3": {
               "qualified": 2,
               "negotiations": 0,
@@ -1509,12 +1515,6 @@
               "negotiations": 0,
               "closedWon": 1,
               "active": 1
-            },
-            "005Ts000005c4hFIAQ": {
-              "qualified": 6,
-              "negotiations": 0,
-              "closedWon": 5,
-              "active": 0
             }
           }
         },
@@ -1523,9 +1523,9 @@
           "teams": {
             "complex": {
               "qualified": 26,
-              "negotiations": 12,
+              "negotiations": 13,
               "closedWon": 14,
-              "active": 0
+              "active": 3
             },
             "density": {
               "qualified": 1,
@@ -1577,16 +1577,16 @@
               "closedWon": 4,
               "active": 13
             },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 2,
+              "negotiations": 1,
+              "closedWon": 0,
+              "active": 3
+            },
             "005Qs00000Mxc6EIAR": {
               "qualified": 24,
               "negotiations": 12,
               "closedWon": 14,
-              "active": 0
-            },
-            "005Ts000005c4hFIAQ": {
-              "qualified": 2,
-              "negotiations": 0,
-              "closedWon": 0,
               "active": 0
             }
           }
@@ -1598,7 +1598,7 @@
               "qualified": 22,
               "negotiations": 11,
               "closedWon": 13,
-              "active": 2
+              "active": 4
             },
             "density": {
               "qualified": 4,
@@ -1632,6 +1632,12 @@
               "closedWon": 2,
               "active": 3
             },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 2
+            },
             "005Ts000001Ak10IAC": {
               "qualified": 0,
               "negotiations": 0,
@@ -1663,24 +1669,18 @@
           "teams": {
             "complex": {
               "qualified": 11,
-              "negotiations": 0,
+              "negotiations": 1,
               "closedWon": 7,
               "active": 4
             },
             "density": {
-              "qualified": 32,
-              "negotiations": 3,
+              "qualified": 8,
+              "negotiations": 2,
               "closedWon": 46,
               "active": 22
             }
           },
           "agents": {
-            "005Ts000002AWIQIA4": {
-              "qualified": 28,
-              "negotiations": 3,
-              "closedWon": 3,
-              "active": 4
-            },
             "005Qs00000Mxc6EIAR": {
               "qualified": 9,
               "negotiations": 0,
@@ -1691,6 +1691,12 @@
               "qualified": 3,
               "negotiations": 0,
               "closedWon": 9,
+              "active": 4
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 4,
+              "negotiations": 2,
+              "closedWon": 3,
               "active": 4
             },
             "005Ts00000BtZV3IAN": {
@@ -1717,6 +1723,12 @@
               "closedWon": 8,
               "active": 3
             },
+            "005Ts000005c4hFIAQ": {
+              "qualified": 2,
+              "negotiations": 1,
+              "closedWon": 1,
+              "active": 0
+            },
             "005Qs00000N2Hh3IAF": {
               "qualified": 0,
               "negotiations": 0,
@@ -1725,12 +1737,6 @@
             },
             "005Ts000006V3vpIAC": {
               "qualified": 0,
-              "negotiations": 0,
-              "closedWon": 1,
-              "active": 0
-            },
-            "005Ts000005c4hFIAQ": {
-              "qualified": 2,
               "negotiations": 0,
               "closedWon": 1,
               "active": 0
@@ -1942,17 +1948,17 @@
               "closedWon": 7,
               "active": 2
             },
-            "005Ts000002AWIQIA4": {
-              "qualified": 0,
-              "negotiations": 1,
-              "closedWon": 4,
-              "active": 4
-            },
             "005Ts000002AX4nIAG": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 15,
               "active": 9
+            },
+            "005Ts000002AWIQIA4": {
+              "qualified": 0,
+              "negotiations": 1,
+              "closedWon": 4,
+              "active": 4
             },
             "005Ts000005c4hFIAQ": {
               "qualified": 3,
@@ -2002,7 +2008,7 @@
           "week": "W24",
           "teams": {
             "complex": {
-              "qualified": 5,
+              "qualified": 1,
               "negotiations": 0,
               "closedWon": 3,
               "active": 6
@@ -2033,17 +2039,17 @@
               "closedWon": 9,
               "active": 8
             },
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 1,
+              "active": 2
+            },
             "005Ts00000BtGPDIA3": {
               "qualified": 1,
               "negotiations": 0,
               "closedWon": 4,
               "active": 5
-            },
-            "005Qs00000Mxc6EIAR": {
-              "qualified": 4,
-              "negotiations": 0,
-              "closedWon": 1,
-              "active": 2
             },
             "005Ts0000060ICnIAM": {
               "qualified": 0,
@@ -2051,17 +2057,17 @@
               "closedWon": 1,
               "active": 1
             },
-            "005Ts00000BtZV3IAN": {
-              "qualified": 0,
-              "negotiations": 5,
-              "closedWon": 7,
-              "active": 11
-            },
             "005Ts000002AX4nIAG": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 5,
               "active": 5
+            },
+            "005Ts00000BtZV3IAN": {
+              "qualified": 0,
+              "negotiations": 5,
+              "closedWon": 7,
+              "active": 11
             },
             "005Ts000001Ak10IAC": {
               "qualified": 1,
@@ -2087,13 +2093,13 @@
           "week": "W25",
           "teams": {
             "complex": {
-              "qualified": 1,
+              "qualified": 0,
               "negotiations": 2,
               "closedWon": 7,
               "active": 5
             },
             "density": {
-              "qualified": 16,
+              "qualified": 15,
               "negotiations": 2,
               "closedWon": 37,
               "active": 39
@@ -2101,7 +2107,7 @@
           },
           "agents": {
             "005Ts000002AWIQIA4": {
-              "qualified": 6,
+              "qualified": 5,
               "negotiations": 1,
               "closedWon": 9,
               "active": 6
@@ -2143,7 +2149,7 @@
               "active": 4
             },
             "005Ts0000060ICnIAM": {
-              "qualified": 1,
+              "qualified": 0,
               "negotiations": 0,
               "closedWon": 1,
               "active": 1
@@ -2166,16 +2172,16 @@
           "week": "W26",
           "teams": {
             "complex": {
-              "qualified": 3,
+              "qualified": 5,
               "negotiations": 0,
               "closedWon": 1,
               "active": 2
             },
             "density": {
-              "qualified": 12,
+              "qualified": 14,
               "negotiations": 10,
               "closedWon": 23,
-              "active": 14
+              "active": 23
             }
           },
           "agents": {
@@ -2202,7 +2208,7 @@
               "qualified": 0,
               "negotiations": 5,
               "closedWon": 3,
-              "active": 1,
+              "active": 2,
               "accounts": {
                 "negotiations": [
                   {
@@ -2260,6 +2266,15 @@
                     "date": "2026-06-24",
                     "sfOpportunityId": "006Qs00000iiTg7IAE",
                     "sfAccountId": "001Qs00000ox5lMIAQ"
+                  },
+                  {
+                    "id": "006Qs00000jFAmkIAG",
+                    "name": "WaffleZ",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-06-25",
+                    "sfOpportunityId": "006Qs00000jFAmkIAG",
+                    "sfAccountId": "001Qs00000podCAIAY"
                   }
                 ],
                 "closedWon": [
@@ -2405,21 +2420,12 @@
               }
             },
             "005Ts000002AWIQIA4": {
-              "qualified": 3,
+              "qualified": 4,
               "negotiations": 1,
               "closedWon": 1,
-              "active": 4,
+              "active": 5,
               "accounts": {
                 "active": [
-                  {
-                    "id": "006Qs00000iwg3zIAA",
-                    "name": "Aperitif",
-                    "city": "—",
-                    "stage": "Activated",
-                    "date": "2026-06-23",
-                    "sfOpportunityId": "006Qs00000iwg3zIAA",
-                    "sfAccountId": "001Qs00000pI4HnIAK"
-                  },
                   {
                     "id": "006Qs00000j8f7MIAQ",
                     "name": "Zeyn Noire",
@@ -2428,6 +2434,15 @@
                     "date": "2026-06-23",
                     "sfOpportunityId": "006Qs00000j8f7MIAQ",
                     "sfAccountId": "001Qs00000pcPRZIA2"
+                  },
+                  {
+                    "id": "006Qs00000iwg3zIAA",
+                    "name": "Aperitif",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-06-23",
+                    "sfOpportunityId": "006Qs00000iwg3zIAA",
+                    "sfAccountId": "001Qs00000pI4HnIAK"
                   },
                   {
                     "id": "006Qs00000jBtX9IAK",
@@ -2446,6 +2461,15 @@
                     "date": "2026-06-24",
                     "sfOpportunityId": "006Qs00000izM7BIAU",
                     "sfAccountId": "001Qs00000pMVnrIAG"
+                  },
+                  {
+                    "id": "006Qs00000jBc04IAC",
+                    "name": "AM PM Pub",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-06-25",
+                    "sfOpportunityId": "006Qs00000jBc04IAC",
+                    "sfAccountId": "001Qs00000owzsoIAA"
                   }
                 ],
                 "negotiations": [
@@ -2459,18 +2483,16 @@
                     "sfAccountId": "001Qs00000pnRhgIAE"
                   }
                 ],
-                "closedWon": [
-                  {
-                    "id": "006Qs00000jQ1rQIAS",
-                    "name": "Roseel",
-                    "city": "—",
-                    "stage": "Onboarding",
-                    "date": "2026-06-22",
-                    "sfOpportunityId": "006Qs00000jQ1rQIAS",
-                    "sfAccountId": "001Qs00000qAju0IAC"
-                  }
-                ],
                 "qualified": [
+                  {
+                    "id": "006Ts0000059OiLIAU",
+                    "name": "Scottish Pub",
+                    "city": "—",
+                    "stage": "Contacting DCM",
+                    "date": "2026-06-25",
+                    "sfOpportunityId": "006Ts0000059OiLIAU",
+                    "sfAccountId": "001Ts00000788OOIAY"
+                  },
                   {
                     "id": "006Qs00000jXcnpIAC",
                     "name": "Enjoy Sushi",
@@ -2498,14 +2520,25 @@
                     "sfOpportunityId": "006Qs00000jXdzzIAC",
                     "sfAccountId": "001Ts0000078Q0iIAE"
                   }
+                ],
+                "closedWon": [
+                  {
+                    "id": "006Qs00000jQ1rQIAS",
+                    "name": "Roseel",
+                    "city": "—",
+                    "stage": "Onboarding",
+                    "date": "2026-06-22",
+                    "sfOpportunityId": "006Qs00000jQ1rQIAS",
+                    "sfAccountId": "001Qs00000qAju0IAC"
+                  }
                 ]
               }
             },
             "005Ts000002AX4nIAG": {
-              "qualified": 8,
+              "qualified": 9,
               "negotiations": 3,
               "closedWon": 2,
-              "active": 3,
+              "active": 4,
               "accounts": {
                 "negotiations": [
                   {
@@ -2538,15 +2571,6 @@
                 ],
                 "active": [
                   {
-                    "id": "006Qs00000jDrcZIAS",
-                    "name": "1+1",
-                    "city": "—",
-                    "stage": "Activated",
-                    "date": "2026-06-24",
-                    "sfOpportunityId": "006Qs00000jDrcZIAS",
-                    "sfAccountId": "001Qs00000pnSkIIAU"
-                  },
-                  {
                     "id": "006Qs00000j1xAcIAI",
                     "name": "Artpop Ice Cream",
                     "city": "—",
@@ -2563,6 +2587,24 @@
                     "date": "2026-06-24",
                     "sfOpportunityId": "006Qs00000j8G2UIAU",
                     "sfAccountId": "001Qs00000pdSDeIAM"
+                  },
+                  {
+                    "id": "006Qs00000jDrcZIAS",
+                    "name": "1+1",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-06-24",
+                    "sfOpportunityId": "006Qs00000jDrcZIAS",
+                    "sfAccountId": "001Qs00000pnSkIIAU"
+                  },
+                  {
+                    "id": "006Qs00000iwOf1IAE",
+                    "name": "Pestele Mustacios",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-06-25",
+                    "sfOpportunityId": "006Qs00000iwOf1IAE",
+                    "sfAccountId": "001Qs00000pHtPPIA0"
                   }
                 ],
                 "closedWon": [
@@ -2586,6 +2628,15 @@
                   }
                 ],
                 "qualified": [
+                  {
+                    "id": "006Qs00000jYONvIAO",
+                    "name": "Platoo",
+                    "city": "—",
+                    "stage": "New Opportunity",
+                    "date": "2026-06-24",
+                    "sfOpportunityId": "006Qs00000jYONvIAO",
+                    "sfAccountId": "001Qs00000qLgT7IAK"
+                  },
                   {
                     "id": "006Qs00000jY1fiIAC",
                     "name": "The Focaccia Brothers",
@@ -2665,7 +2716,7 @@
               "qualified": 0,
               "negotiations": 1,
               "closedWon": 4,
-              "active": 0,
+              "active": 6,
               "accounts": {
                 "negotiations": [
                   {
@@ -2676,6 +2727,62 @@
                     "date": "2026-06-24",
                     "sfOpportunityId": "006Ts0000059gUOIAY",
                     "sfAccountId": "001Ts0000078Q0iIAE"
+                  }
+                ],
+                "active": [
+                  {
+                    "id": "006Qs00000jJScCIAW",
+                    "name": "Dolci di Fabio",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-06-25",
+                    "sfOpportunityId": "006Qs00000jJScCIAW",
+                    "sfAccountId": "001Qs00000pum31IAA"
+                  },
+                  {
+                    "id": "006Qs00000jJVocIAG",
+                    "name": "Favoritfood",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-06-25",
+                    "sfOpportunityId": "006Qs00000jJVocIAG",
+                    "sfAccountId": "001Qs00000puiloIAA"
+                  },
+                  {
+                    "id": "006Qs00000j7PW2IAM",
+                    "name": "BANCO",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-06-25",
+                    "sfOpportunityId": "006Qs00000j7PW2IAM",
+                    "sfAccountId": "001Qs00000pcEnrIAE"
+                  },
+                  {
+                    "id": "006Qs00000jMam6IAC",
+                    "name": "Delicii la Tuci",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-06-25",
+                    "sfOpportunityId": "006Qs00000jMam6IAC",
+                    "sfAccountId": "001Qs00000q0m1vIAA"
+                  },
+                  {
+                    "id": "006Qs00000jMZhyIAG",
+                    "name": "Pasta All'Ouevo",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-06-25",
+                    "sfOpportunityId": "006Qs00000jMZhyIAG",
+                    "sfAccountId": "001Qs00000q0uyjIAA"
+                  },
+                  {
+                    "id": "006Qs00000jXywMIAS",
+                    "name": "Moritz Eis",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-06-25",
+                    "sfOpportunityId": "006Qs00000jXywMIAS",
+                    "sfAccountId": "001Qs00000qLAkuIAG"
                   }
                 ],
                 "closedWon": [
@@ -2737,8 +2844,27 @@
                 ]
               }
             },
+            "005Qs00000Mxc6EIAR": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0,
+              "accounts": {
+                "qualified": [
+                  {
+                    "id": "006Qs00000izLsdIAE",
+                    "name": "Pizzeria Bonaccia Constanta",
+                    "city": "Constanța",
+                    "stage": "Contacting DCM",
+                    "date": "2026-06-25",
+                    "sfOpportunityId": "006Qs00000izLsdIAE",
+                    "sfAccountId": "001Qs00000pMLjjIAG"
+                  }
+                ]
+              }
+            },
             "005Ts00000BtGPDIA3": {
-              "qualified": 0,
+              "qualified": 1,
               "negotiations": 0,
               "closedWon": 4,
               "active": 0,
@@ -2780,11 +2906,22 @@
                     "sfOpportunityId": "006Qs00000jFpl5IAC",
                     "sfAccountId": "001Qs00000pooZ0IAI"
                   }
+                ],
+                "qualified": [
+                  {
+                    "id": "006Qs00000jZ0CxIAK",
+                    "name": "Pizza e panino by Due Fratelli",
+                    "city": "—",
+                    "stage": "New Opportunity",
+                    "date": "2026-06-24",
+                    "sfOpportunityId": "006Qs00000jZ0CxIAK",
+                    "sfAccountId": "001Qs00000qLjNcIAK"
+                  }
                 ]
               }
             },
             "005Ts000001Ak10IAC": {
-              "qualified": 1,
+              "qualified": 0,
               "negotiations": 0,
               "closedWon": 4,
               "active": 0,
@@ -2825,17 +2962,6 @@
                     "date": "2026-06-22",
                     "sfOpportunityId": "006Qs00000jBSNJIA4",
                     "sfAccountId": "001Qs00000pi5JiIAI"
-                  }
-                ],
-                "qualified": [
-                  {
-                    "id": "006Qs00000jVnIgIAK",
-                    "name": "Al Khalifa Restaurant",
-                    "city": "—",
-                    "stage": "New Opportunity",
-                    "date": "2026-06-23",
-                    "sfOpportunityId": "006Qs00000jVnIgIAK",
-                    "sfAccountId": "001Qs00000qI8XaIAK"
                   }
                 ]
               }
@@ -2887,6 +3013,25 @@
                   }
                 ]
               }
+            },
+            "005Ts0000060ICnIAM": {
+              "qualified": 1,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 0,
+              "accounts": {
+                "qualified": [
+                  {
+                    "id": "006Qs00000jYp30IAC",
+                    "name": "Spoon Burger Dumbravita",
+                    "city": "—",
+                    "stage": "New Opportunity",
+                    "date": "2026-06-24",
+                    "sfOpportunityId": "006Qs00000jYp30IAC",
+                    "sfAccountId": "001Qs00000q023wIAA"
+                  }
+                ]
+              }
             }
           }
         }
@@ -2902,15 +3047,15 @@
         "rows": [
           {
             "metric": "Leads",
-            "current": 15,
-            "prior": 14,
-            "changePercent": 7.1
+            "current": 17,
+            "prior": 12,
+            "changePercent": 41.7
           },
           {
             "metric": "Qualified",
-            "current": 15,
-            "prior": 17,
-            "changePercent": -11.8
+            "current": 19,
+            "prior": 15,
+            "changePercent": 26.7
           },
           {
             "metric": "Negotiations",
@@ -2926,9 +3071,9 @@
           },
           {
             "metric": "Active",
-            "current": 16,
+            "current": 25,
             "prior": 44,
-            "changePercent": -63.6
+            "changePercent": -43.2
           }
         ]
       }
@@ -2948,7 +3093,7 @@
           "Contacting Decision Maker": 3
         },
         "wonMtd": 23,
-        "activatedMtd": 23,
+        "activatedMtd": 24,
         "wonYtd": 20,
         "segment": "density",
         "mtdTarget": 30
@@ -2964,7 +3109,7 @@
           "New Opportunity": 61
         },
         "wonMtd": 23,
-        "activatedMtd": 5,
+        "activatedMtd": 11,
         "wonYtd": 5,
         "segment": "density",
         "mtdTarget": 30
@@ -2998,7 +3143,7 @@
           "1st Pitch": 1
         },
         "wonMtd": 29,
-        "activatedMtd": 25,
+        "activatedMtd": 26,
         "wonYtd": 22,
         "segment": "density",
         "mtdTarget": 30
@@ -3017,7 +3162,7 @@
           "1st Pitch": 1
         },
         "wonMtd": 27,
-        "activatedMtd": 24,
+        "activatedMtd": 25,
         "wonYtd": 20,
         "segment": "density",
         "mtdTarget": 30
@@ -3142,7 +3287,7 @@
             "name": "Daniel-Marian Toltică",
             "segment": "density",
             "wonMtd": 29,
-            "activatedMtd": 25,
+            "activatedMtd": 26,
             "wonItems": [
               {
                 "id": "006Qs00000i0QScIAM",
@@ -3387,12 +3532,12 @@
                 "sfAccountId": "001Ts00000F1AqTIAV"
               },
               {
-                "id": "006Qs00000i0iSmIAI",
-                "name": "Nori Sushi Militari",
+                "id": "006Qs00000fDa67IAC",
+                "name": "Nuova Pizza",
                 "city": "—",
                 "closeDate": "2026-06-04",
-                "sfOpportunityId": "006Qs00000i0iSmIAI",
-                "sfAccountId": "001Qs00000nvybDIAQ"
+                "sfOpportunityId": "006Qs00000fDa67IAC",
+                "sfAccountId": "001Qs00000jSGpcIAG"
               },
               {
                 "id": "006Qs00000i0OvVIAU",
@@ -3403,12 +3548,12 @@
                 "sfAccountId": "001Qs00000nvbQ7IAI"
               },
               {
-                "id": "006Qs00000fDa67IAC",
-                "name": "Nuova Pizza",
+                "id": "006Qs00000i0iSmIAI",
+                "name": "Nori Sushi Militari",
                 "city": "—",
                 "closeDate": "2026-06-04",
-                "sfOpportunityId": "006Qs00000fDa67IAC",
-                "sfAccountId": "001Qs00000jSGpcIAG"
+                "sfOpportunityId": "006Qs00000i0iSmIAI",
+                "sfAccountId": "001Qs00000nvybDIAQ"
               },
               {
                 "id": "006Qs00000if4CoIAI",
@@ -3419,20 +3564,20 @@
                 "sfAccountId": "001Qs00000ofb0kIAA"
               },
               {
-                "id": "006Qs00000ipQQeIAM",
-                "name": "UZINA Pizza & Burgers",
-                "city": "—",
-                "closeDate": "2026-06-10",
-                "sfOpportunityId": "006Qs00000ipQQeIAM",
-                "sfAccountId": "001Qs00000p6p6BIAQ"
-              },
-              {
                 "id": "006Qs00000iiLaUIAU",
                 "name": "Sena African Cuisine",
                 "city": "—",
                 "closeDate": "2026-06-10",
                 "sfOpportunityId": "006Qs00000iiLaUIAU",
                 "sfAccountId": "001Qs00000owuczIAA"
+              },
+              {
+                "id": "006Qs00000ipQQeIAM",
+                "name": "UZINA Pizza & Burgers",
+                "city": "—",
+                "closeDate": "2026-06-10",
+                "sfOpportunityId": "006Qs00000ipQQeIAM",
+                "sfAccountId": "001Qs00000p6p6BIAQ"
               },
               {
                 "id": "006Qs00000hEi0RIAS",
@@ -3491,20 +3636,20 @@
                 "sfAccountId": "001Qs00000nvxFKIAY"
               },
               {
-                "id": "006Qs00000isYWSIA2",
-                "name": "Korean corn dog",
-                "city": "—",
-                "closeDate": "2026-06-16",
-                "sfOpportunityId": "006Qs00000isYWSIA2",
-                "sfAccountId": "001Qs00000pC1r2IAC"
-              },
-              {
                 "id": "006Qs00000ivux1IAA",
                 "name": "Tut Amun Coffee",
                 "city": "—",
                 "closeDate": "2026-06-16",
                 "sfOpportunityId": "006Qs00000ivux1IAA",
                 "sfAccountId": "001Qs00000pH96TIAS"
+              },
+              {
+                "id": "006Qs00000isYWSIA2",
+                "name": "Korean corn dog",
+                "city": "—",
+                "closeDate": "2026-06-16",
+                "sfOpportunityId": "006Qs00000isYWSIA2",
+                "sfAccountId": "001Qs00000pC1r2IAC"
               },
               {
                 "id": "006Qs00000j8gg6IAA",
@@ -3577,6 +3722,14 @@
                 "closeDate": "2026-06-24",
                 "sfOpportunityId": "006Qs00000iiTg7IAE",
                 "sfAccountId": "001Qs00000ox5lMIAQ"
+              },
+              {
+                "id": "006Qs00000jFAmkIAG",
+                "name": "WaffleZ",
+                "city": "—",
+                "closeDate": "2026-06-25",
+                "sfOpportunityId": "006Qs00000jFAmkIAG",
+                "sfAccountId": "001Qs00000podCAIAY"
               }
             ]
           },
@@ -3585,7 +3738,7 @@
             "name": "Ciprian Teodorescu",
             "segment": "density",
             "wonMtd": 27,
-            "activatedMtd": 24,
+            "activatedMtd": 25,
             "wonItems": [
               {
                 "id": "006Qs00000jVfWSIA0",
@@ -3846,20 +3999,20 @@
                 "sfAccountId": "001Qs00000oziVfIAI"
               },
               {
-                "id": "006Qs00000ijsqxIAA",
-                "name": "Mad Fries",
-                "city": "—",
-                "closeDate": "2026-06-06",
-                "sfOpportunityId": "006Qs00000ijsqxIAA",
-                "sfAccountId": "001Qs00000ozgomIAA"
-              },
-              {
                 "id": "006Qs00000ijsR9IAI",
                 "name": "Big Bite",
                 "city": "—",
                 "closeDate": "2026-06-06",
                 "sfOpportunityId": "006Qs00000ijsR9IAI",
                 "sfAccountId": "001Qs00000ozivOIAQ"
+              },
+              {
+                "id": "006Qs00000ijsqxIAA",
+                "name": "Mad Fries",
+                "city": "—",
+                "closeDate": "2026-06-06",
+                "sfOpportunityId": "006Qs00000ijsqxIAA",
+                "sfAccountId": "001Qs00000ozgomIAA"
               },
               {
                 "id": "006Qs00000ibYmFIAU",
@@ -3974,14 +4127,6 @@
                 "sfAccountId": "001Qs00000owVZmIAM"
               },
               {
-                "id": "006Qs00000jDrcZIAS",
-                "name": "1+1",
-                "city": "—",
-                "closeDate": "2026-06-24",
-                "sfOpportunityId": "006Qs00000jDrcZIAS",
-                "sfAccountId": "001Qs00000pnSkIIAU"
-              },
-              {
                 "id": "006Qs00000j1xAcIAI",
                 "name": "Artpop Ice Cream",
                 "city": "—",
@@ -3996,6 +4141,22 @@
                 "closeDate": "2026-06-24",
                 "sfOpportunityId": "006Qs00000j8G2UIAU",
                 "sfAccountId": "001Qs00000pdSDeIAM"
+              },
+              {
+                "id": "006Qs00000jDrcZIAS",
+                "name": "1+1",
+                "city": "—",
+                "closeDate": "2026-06-24",
+                "sfOpportunityId": "006Qs00000jDrcZIAS",
+                "sfAccountId": "001Qs00000pnSkIIAU"
+              },
+              {
+                "id": "006Qs00000iwOf1IAE",
+                "name": "Pestele Mustacios",
+                "city": "—",
+                "closeDate": "2026-06-25",
+                "sfOpportunityId": "006Qs00000iwOf1IAE",
+                "sfAccountId": "001Qs00000pHtPPIA0"
               }
             ]
           },
@@ -4399,7 +4560,7 @@
             "name": "Eusebiu Hanganu",
             "segment": "density",
             "wonMtd": 23,
-            "activatedMtd": 23,
+            "activatedMtd": 24,
             "wonItems": [
               {
                 "id": "006Qs00000jQ1rQIAS",
@@ -4628,14 +4789,6 @@
                 "sfAccountId": "001Qs00000owMOMIA2"
               },
               {
-                "id": "006Qs00000itdUDIAY",
-                "name": "The Fisher by Chef Daian",
-                "city": "—",
-                "closeDate": "2026-06-11",
-                "sfOpportunityId": "006Qs00000itdUDIAY",
-                "sfAccountId": "001Qs00000pD9nnIAC"
-              },
-              {
                 "id": "006Qs00000ifQrgIAE",
                 "name": "La Scarpetta",
                 "city": "—",
@@ -4644,12 +4797,36 @@
                 "sfAccountId": "001Qs00000ossjUIAQ"
               },
               {
+                "id": "006Qs00000itdUDIAY",
+                "name": "The Fisher by Chef Daian",
+                "city": "—",
+                "closeDate": "2026-06-11",
+                "sfOpportunityId": "006Qs00000itdUDIAY",
+                "sfAccountId": "001Qs00000pD9nnIAC"
+              },
+              {
                 "id": "006Qs00000isJVnIAM",
                 "name": "The Charlatans Pub",
                 "city": "—",
                 "closeDate": "2026-06-13",
                 "sfOpportunityId": "006Qs00000isJVnIAM",
                 "sfAccountId": "001Qs00000owRJLIA2"
+              },
+              {
+                "id": "006Qs00000hlreRIAQ",
+                "name": "Sapori • Pizza & More",
+                "city": "—",
+                "closeDate": "2026-06-14",
+                "sfOpportunityId": "006Qs00000hlreRIAQ",
+                "sfAccountId": "001Qs00000naCPtIAM"
+              },
+              {
+                "id": "006Qs00000iFcRsIAK",
+                "name": "Los Chomperos",
+                "city": "—",
+                "closeDate": "2026-06-14",
+                "sfOpportunityId": "006Qs00000iFcRsIAK",
+                "sfAccountId": "001Qs00000n00gmIAA"
               },
               {
                 "id": "006Qs00000iwwVNIAY",
@@ -4666,22 +4843,6 @@
                 "closeDate": "2026-06-14",
                 "sfOpportunityId": "006Qs00000iyxIRIAY",
                 "sfAccountId": "001Qs00000pKyInIAK"
-              },
-              {
-                "id": "006Qs00000iFcRsIAK",
-                "name": "Los Chomperos",
-                "city": "—",
-                "closeDate": "2026-06-14",
-                "sfOpportunityId": "006Qs00000iFcRsIAK",
-                "sfAccountId": "001Qs00000n00gmIAA"
-              },
-              {
-                "id": "006Qs00000hlreRIAQ",
-                "name": "Sapori • Pizza & More",
-                "city": "—",
-                "closeDate": "2026-06-14",
-                "sfOpportunityId": "006Qs00000hlreRIAQ",
-                "sfAccountId": "001Qs00000naCPtIAM"
               },
               {
                 "id": "006Qs00000gybICIAY",
@@ -4740,20 +4901,20 @@
                 "sfAccountId": "001Qs00000kHPHhIAO"
               },
               {
-                "id": "006Qs00000iwg3zIAA",
-                "name": "Aperitif",
-                "city": "—",
-                "closeDate": "2026-06-23",
-                "sfOpportunityId": "006Qs00000iwg3zIAA",
-                "sfAccountId": "001Qs00000pI4HnIAK"
-              },
-              {
                 "id": "006Qs00000j8f7MIAQ",
                 "name": "Zeyn Noire",
                 "city": "—",
                 "closeDate": "2026-06-23",
                 "sfOpportunityId": "006Qs00000j8f7MIAQ",
                 "sfAccountId": "001Qs00000pcPRZIA2"
+              },
+              {
+                "id": "006Qs00000iwg3zIAA",
+                "name": "Aperitif",
+                "city": "—",
+                "closeDate": "2026-06-23",
+                "sfOpportunityId": "006Qs00000iwg3zIAA",
+                "sfAccountId": "001Qs00000pI4HnIAK"
               },
               {
                 "id": "006Qs00000jBtX9IAK",
@@ -4770,6 +4931,14 @@
                 "closeDate": "2026-06-24",
                 "sfOpportunityId": "006Qs00000izM7BIAU",
                 "sfAccountId": "001Qs00000pMVnrIAG"
+              },
+              {
+                "id": "006Qs00000jBc04IAC",
+                "name": "AM PM Pub",
+                "city": "—",
+                "closeDate": "2026-06-25",
+                "sfOpportunityId": "006Qs00000jBc04IAC",
+                "sfAccountId": "001Qs00000owzsoIAA"
               }
             ]
           },
@@ -4778,7 +4947,7 @@
             "name": "Oroles Roșu",
             "segment": "density",
             "wonMtd": 23,
-            "activatedMtd": 5,
+            "activatedMtd": 11,
             "wonItems": [
               {
                 "id": "006Qs00000jXywMIAS",
@@ -5005,6 +5174,54 @@
                 "closeDate": "2026-06-20",
                 "sfOpportunityId": "006Qs00000j38C2IAI",
                 "sfAccountId": "001Qs00000pSa3MIAS"
+              },
+              {
+                "id": "006Qs00000jJScCIAW",
+                "name": "Dolci di Fabio",
+                "city": "—",
+                "closeDate": "2026-06-25",
+                "sfOpportunityId": "006Qs00000jJScCIAW",
+                "sfAccountId": "001Qs00000pum31IAA"
+              },
+              {
+                "id": "006Qs00000jJVocIAG",
+                "name": "Favoritfood",
+                "city": "—",
+                "closeDate": "2026-06-25",
+                "sfOpportunityId": "006Qs00000jJVocIAG",
+                "sfAccountId": "001Qs00000puiloIAA"
+              },
+              {
+                "id": "006Qs00000j7PW2IAM",
+                "name": "BANCO",
+                "city": "—",
+                "closeDate": "2026-06-25",
+                "sfOpportunityId": "006Qs00000j7PW2IAM",
+                "sfAccountId": "001Qs00000pcEnrIAE"
+              },
+              {
+                "id": "006Qs00000jMam6IAC",
+                "name": "Delicii la Tuci",
+                "city": "—",
+                "closeDate": "2026-06-25",
+                "sfOpportunityId": "006Qs00000jMam6IAC",
+                "sfAccountId": "001Qs00000q0m1vIAA"
+              },
+              {
+                "id": "006Qs00000jMZhyIAG",
+                "name": "Pasta All'Ouevo",
+                "city": "—",
+                "closeDate": "2026-06-25",
+                "sfOpportunityId": "006Qs00000jMZhyIAG",
+                "sfAccountId": "001Qs00000q0uyjIAA"
+              },
+              {
+                "id": "006Qs00000jXywMIAS",
+                "name": "Moritz Eis",
+                "city": "—",
+                "closeDate": "2026-06-25",
+                "sfOpportunityId": "006Qs00000jXywMIAS",
+                "sfAccountId": "001Qs00000qLAkuIAG"
               }
             ]
           },
@@ -5194,20 +5411,12 @@
                 "sfAccountId": "001Qs00000oorVqIAI"
               },
               {
-                "id": "006Qs00000icZGMIA2",
-                "name": "Osama Sushi Tunari",
+                "id": "006Qs00000i7U9jIAE",
+                "name": "Osama Sushi Stefan Cel Mare",
                 "city": "—",
                 "closeDate": "2026-06-05",
-                "sfOpportunityId": "006Qs00000icZGMIA2",
-                "sfAccountId": "001Qs00000oou0iIAA"
-              },
-              {
-                "id": "006Qs00000icPiQIAU",
-                "name": "Osama Sushi Chiajna",
-                "city": "—",
-                "closeDate": "2026-06-05",
-                "sfOpportunityId": "006Qs00000icPiQIAU",
-                "sfAccountId": "001Qs00000oot2vIAA"
+                "sfOpportunityId": "006Qs00000i7U9jIAE",
+                "sfAccountId": "001Qs00000mjB0gIAE"
               },
               {
                 "id": "006Qs00000ib1iAIAQ",
@@ -5226,20 +5435,28 @@
                 "sfAccountId": "001Qs00000ooAxFIAU"
               },
               {
-                "id": "006Qs00000i7U9jIAE",
-                "name": "Osama Sushi Stefan Cel Mare",
-                "city": "—",
-                "closeDate": "2026-06-05",
-                "sfOpportunityId": "006Qs00000i7U9jIAE",
-                "sfAccountId": "001Qs00000mjB0gIAE"
-              },
-              {
                 "id": "006Qs00000icCjcIAE",
                 "name": "Osama Sushi Popesti Leordeni",
                 "city": "—",
                 "closeDate": "2026-06-05",
                 "sfOpportunityId": "006Qs00000icCjcIAE",
                 "sfAccountId": "001Qs00000ooVSCIA2"
+              },
+              {
+                "id": "006Qs00000icZGMIA2",
+                "name": "Osama Sushi Tunari",
+                "city": "—",
+                "closeDate": "2026-06-05",
+                "sfOpportunityId": "006Qs00000icZGMIA2",
+                "sfAccountId": "001Qs00000oou0iIAA"
+              },
+              {
+                "id": "006Qs00000icPiQIAU",
+                "name": "Osama Sushi Chiajna",
+                "city": "—",
+                "closeDate": "2026-06-05",
+                "sfOpportunityId": "006Qs00000icPiQIAU",
+                "sfAccountId": "001Qs00000oot2vIAA"
               },
               {
                 "id": "006Qs00000ibfvjIAA",
@@ -5405,20 +5622,12 @@
                 "sfAccountId": "001Qs00000oIcIFIA0"
               },
               {
-                "id": "006Qs00000ibdltIAA",
-                "name": "Kado",
+                "id": "006Qs00000h38TKIAY",
+                "name": "Food Station",
                 "city": "—",
                 "closeDate": "2026-06-04",
-                "sfOpportunityId": "006Qs00000ibdltIAA",
-                "sfAccountId": "001Qs00000onuVpIAI"
-              },
-              {
-                "id": "006Qs00000gkrIuIAI",
-                "name": "The Square One",
-                "city": "—",
-                "closeDate": "2026-06-04",
-                "sfOpportunityId": "006Qs00000gkrIuIAI",
-                "sfAccountId": "001Ts00000ALxttIAD"
+                "sfOpportunityId": "006Qs00000h38TKIAY",
+                "sfAccountId": "001Qs00000mdlTIIAY"
               },
               {
                 "id": "006Qs00000iG7qdIAC",
@@ -5427,6 +5636,14 @@
                 "closeDate": "2026-06-04",
                 "sfOpportunityId": "006Qs00000iG7qdIAC",
                 "sfAccountId": "001Qs00000oIKGVIA4"
+              },
+              {
+                "id": "006Qs00000gkrIuIAI",
+                "name": "The Square One",
+                "city": "—",
+                "closeDate": "2026-06-04",
+                "sfOpportunityId": "006Qs00000gkrIuIAI",
+                "sfAccountId": "001Ts00000ALxttIAD"
               },
               {
                 "id": "006Qs00000iGUjzIAG",
@@ -5445,20 +5662,20 @@
                 "sfAccountId": "001Qs00000oIudQIAS"
               },
               {
+                "id": "006Qs00000ibdltIAA",
+                "name": "Kado",
+                "city": "—",
+                "closeDate": "2026-06-04",
+                "sfOpportunityId": "006Qs00000ibdltIAA",
+                "sfAccountId": "001Qs00000onuVpIAI"
+              },
+              {
                 "id": "006Qs00000iIDIQIA4",
                 "name": "Thalos Greek Taverna",
                 "city": "—",
                 "closeDate": "2026-06-04",
                 "sfOpportunityId": "006Qs00000iIDIQIA4",
                 "sfAccountId": "001Qs00000oLTYZIA4"
-              },
-              {
-                "id": "006Qs00000h38TKIAY",
-                "name": "Food Station",
-                "city": "—",
-                "closeDate": "2026-06-04",
-                "sfOpportunityId": "006Qs00000h38TKIAY",
-                "sfAccountId": "001Qs00000mdlTIIAY"
               },
               {
                 "id": "006Qs00000iMX0oIAG",
@@ -5533,20 +5750,20 @@
                 "sfAccountId": "001Qs00000nmWjFIAU"
               },
               {
-                "id": "006Qs00000ieXVOIA2",
-                "name": "GRIN HAUS",
-                "city": "—",
-                "closeDate": "2026-06-10",
-                "sfOpportunityId": "006Qs00000ieXVOIA2",
-                "sfAccountId": "001Qs00000oruGzIAI"
-              },
-              {
                 "id": "006Qs00000iM8wwIAC",
                 "name": "Bun de Pranz",
                 "city": "—",
                 "closeDate": "2026-06-10",
                 "sfOpportunityId": "006Qs00000iM8wwIAC",
                 "sfAccountId": "001Qs00000oRFUTIA4"
+              },
+              {
+                "id": "006Qs00000ieXVOIA2",
+                "name": "GRIN HAUS",
+                "city": "—",
+                "closeDate": "2026-06-10",
+                "sfOpportunityId": "006Qs00000ieXVOIA2",
+                "sfAccountId": "001Qs00000oruGzIAI"
               },
               {
                 "id": "006Qs00000iwwbmIAA",
@@ -5712,20 +5929,20 @@
                 "sfAccountId": "001Qs00000onstqIAA"
               },
               {
-                "id": "006Qs00000ihuTqIAI",
-                "name": "Shish Shaorma & Kebab- Arhitectilor",
-                "city": "Sibiu",
-                "closeDate": "2026-06-06",
-                "sfOpportunityId": "006Qs00000ihuTqIAI",
-                "sfAccountId": "001Qs00000owX3kIAE"
-              },
-              {
                 "id": "006Qs00000igvIJIAY",
                 "name": "Shish Shaorma & Kebab- Alba Iulia",
                 "city": "Sibiu",
                 "closeDate": "2026-06-06",
                 "sfOpportunityId": "006Qs00000igvIJIAY",
                 "sfAccountId": "001Qs00000ovSkSIAU"
+              },
+              {
+                "id": "006Qs00000ihuTqIAI",
+                "name": "Shish Shaorma & Kebab- Arhitectilor",
+                "city": "Sibiu",
+                "closeDate": "2026-06-06",
+                "sfOpportunityId": "006Qs00000ihuTqIAI",
+                "sfAccountId": "001Qs00000owX3kIAE"
               },
               {
                 "id": "006Qs00000iTIMpIAO",
@@ -6026,7 +6243,7 @@
           "targetWon": 260,
           "actualWon": 186,
           "targetActivated": 215,
-          "actualActivated": 158,
+          "actualActivated": 167,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -6053,7 +6270,7 @@
             {
               "name": "Density",
               "target": 175,
-              "actual": 136,
+              "actual": 145,
               "type": "activated"
             }
           ]
@@ -6158,7 +6375,7 @@
             "name": "Corneliu-Ștefan Radu",
             "segment": "complex",
             "wonMtd": 2,
-            "activatedMtd": 0,
+            "activatedMtd": 2,
             "wonItems": [],
             "activatedItems": []
           }
@@ -6168,7 +6385,7 @@
           "targetWon": 250,
           "actualWon": 252,
           "targetActivated": 207,
-          "actualActivated": 241,
+          "actualActivated": 243,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 4,
@@ -6189,7 +6406,7 @@
             {
               "name": "Complex",
               "target": 32,
-              "actual": 28,
+              "actual": 30,
               "type": "activated"
             },
             {
@@ -6300,7 +6517,7 @@
             "name": "Corneliu-Ștefan Radu",
             "segment": "complex",
             "wonMtd": 5,
-            "activatedMtd": 0,
+            "activatedMtd": 3,
             "wonItems": [],
             "activatedItems": []
           },
@@ -6319,7 +6536,7 @@
           "targetWon": 260,
           "actualWon": 212,
           "targetActivated": 215,
-          "actualActivated": 185,
+          "actualActivated": 188,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -6340,7 +6557,7 @@
             {
               "name": "Complex",
               "target": 40,
-              "actual": 21,
+              "actual": 24,
               "type": "activated"
             },
             {
@@ -7858,7 +8075,7 @@
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-06-25T08:25:28.577Z",
+      "generatedAt": "2026-06-25T08:39:56.316Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -46263,31 +46480,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-06-25T08:25:27.644Z",
+        "lastSync": "2026-06-25T08:39:55.387Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-06-25T08:25:27.644Z",
+        "lastSync": "2026-06-25T08:39:55.387Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-06-25T08:25:27.644Z",
+        "lastSync": "2026-06-25T08:39:55.387Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-06-25T08:25:27.644Z",
+        "lastSync": "2026-06-25T08:39:55.387Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-06-25T08:25:28.851Z",
+    "generatedAt": "2026-06-25T08:39:56.596Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -86086,7 +86303,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-06-25T08:25:29.426Z",
+    "generatedAt": "2026-06-25T08:39:57.178Z",
     "monthKey": "2026-06",
     "monthLabel": "June 2026",
     "currentWeek": "W26",

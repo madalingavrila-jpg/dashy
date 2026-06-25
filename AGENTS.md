@@ -159,6 +159,53 @@ Activated field history cache: `scripts/.cache/sf-stage-history-2026.json` (week
 
 Exclude `Administrator` from the agents list. Map each owner to segment, set `mtdTarget`, then call `buildMtdAchievement(agents, month, { leadsMtd, qualifiedMtd })`.
 
+### CRITICAL: chunked stage-history + weekly refresh (truncation-safe)
+
+The team **OpportunityFieldHistory** ("stage-history", ~7,700 rows/yr) and **weekly
+Opportunity** exports exceed the Salesforce MCP **~2,000-row SOQL cap**. A naive
+full-year `... CreatedDate >= Jan-01 ... ORDER BY CreatedDate` pull is **silently
+truncated**, so DO NOT re-pull either in one shot, and **never reuse a stale copy**
+on a refresh. Instead use the repeatable, **MONTHLY-chunked** pull (mirrors the
+proven inbound h1/h2 split + `gen-accounts-perf-queries.mjs`):
+
+1. **Emit the per-month SOQL** (team owner IDs + exact SELECT fields, dynamic
+   tracking year, Jan→current month):
+
+   ```bash
+   node scripts/gen-sf-history-queries.mjs                 # both kinds
+   node scripts/gen-sf-history-queries.mjs --kind=stage-history
+   node scripts/gen-sf-history-queries.mjs --kind=weekly
+   ```
+
+   Each chunk uses `CreatedDate >= monthStart AND CreatedDate < nextMonthStart`,
+   so every month returns **< ~1,800 rows** (peak observed: May = 1,767) — a safe
+   margin under 2,000. Each printed block names its target chunk file
+   (e.g. `sf-stage-history-2026-05.json`).
+
+2. **Run each printed query** through the Salesforce MCP (`user-Salesforce` →
+   `soqlQuery`). **Confirm `done: true` and `< 2000` records per chunk** (if any
+   chunk hits 2,000 it was truncated — split that month further). Save each JSON
+   to its `scripts/.cache/sf-stage-history-YYYY-MM.json` /
+   `sf-weekly-YYYY-MM.json` chunk file.
+
+3. **Merge + dedup** all chunks into the full-year caches:
+
+   ```bash
+   node scripts/fetch-sf-stage-history.mjs --kind=all      # stage-history + weekly
+   node scripts/fetch-sf-stage-history.mjs --kind=stage-history
+   node scripts/fetch-sf-stage-history.mjs --kind=weekly
+   ```
+
+   Stage-history dedups by `OpportunityId+Field+CreatedDate+OldValue+NewValue`;
+   weekly dedups by `Id` (newest `LastModifiedDate` wins). The merge **warns** if
+   any chunk has ≥ 2,000 rows (likely truncated) and skips missing chunks so a
+   partial re-pull never corrupts the merged cache.
+
+This is **idempotent**: re-running with fresh chunk files refreshes
+`sf-stage-history-YYYY.json` + `sf-weekly-YYYY.json` in place. Always re-pull
+these on a full "refresh all" so the Weekly tab + stage-history metrics are
+current, not 1+ day stale.
+
 ### Weekly production
 
 All weekly buckets use **OpportunityFieldHistory** (first transition INTO stage). **Closed Won** is strict **`Closed Won`** only — not Contract sent, not Ready to Activate. Opps now in Activated (or later) still count in the week when they first entered Closed Won.
@@ -170,7 +217,10 @@ All weekly buckets use **OpportunityFieldHistory** (first transition INTO stage)
 | Closed Won | **Closed Won** only | Parent + Sales Opportunity | first transition INTO Closed Won (`CreatedDate`, Europe/Bucharest ISO week) |
 | Active | Activated | Sales Opportunity | first transition INTO Activated |
 
-Field history cache: `scripts/.cache/sf-stage-history-2026.json` (merge monthly exports via `scripts/fetch-sf-stage-history.mjs`).
+Field history cache: `scripts/.cache/sf-stage-history-2026.json` — refresh via the
+**chunked** flow above (`gen-sf-history-queries.mjs --kind=stage-history` → run each
+monthly chunk via MCP → `fetch-sf-stage-history.mjs --kind=stage-history`). Never
+re-pull the full year in one query (SOQL 2,000-row cap → silent truncation).
 
 **MTD Won** (separate from weekly Closed Won) uses `Won_Date__c = THIS_MONTH` — see Won export above. Do not use `sf-won-ytd.json` for weekly Closed Won. Weekly **Closed Won** still uses field-history first transition INTO `Closed Won` only.
 
@@ -196,7 +246,10 @@ ORDER BY CreatedDate ASC
 
 New Opportunity fallback: opps still in `New Opportunity` use `CreatedDate` (field history omits initial stage).
 
-Weekly opps export (`scripts/.cache/sf-weekly-2026.json`):
+Weekly opps export (`scripts/.cache/sf-weekly-2026.json`) — refresh via the same
+**chunked** flow (`gen-sf-history-queries.mjs --kind=weekly` → run each monthly
+chunk via MCP → `fetch-sf-stage-history.mjs --kind=weekly`). The per-month SOQL is
+(do not hand-run the unbounded full-year version — it risks the 2,000-row cap):
 
 ```sql
 SELECT Id, Name, StageName, CreatedDate, LastModifiedDate, CloseDate,
@@ -204,7 +257,8 @@ SELECT Id, Name, StageName, CreatedDate, LastModifiedDate, CloseDate,
 FROM Opportunity
 WHERE RecordType.Name = 'Sales Opportunity'
   AND StageName IN ('New Opportunity','Contacting DCM','First Pitch','Negotiations','Closed Won','Activated')
-  AND CreatedDate >= 2026-01-01T00:00:00Z
+  AND CreatedDate >= 2026-MM-01T00:00:00Z
+  AND CreatedDate < 2026-MM+1-01T00:00:00Z
   AND OwnerId IN ( /* same 12 rep IDs */ )
 ORDER BY CreatedDate DESC
 ```
