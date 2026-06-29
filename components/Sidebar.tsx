@@ -13,6 +13,7 @@ const navItems = [
   { icon: "flag", label: "MTD & Tiers", href: "/mtd" },
   { icon: "compare_arrows", label: "WoW Reports", href: "/wow" },
   { icon: "storefront", label: "Accounts performance", href: "/accounts-performance" },
+  { icon: "calendar_month", label: "Accounts performance MOM", href: "/accounts-performance-mom" },
   { icon: "support_agent", label: "MOPS", href: "/mops" },
 ];
 
@@ -22,7 +23,9 @@ function isActive(pathname: string, href: string): boolean {
   if (href === "/") {
     return pathname === "/";
   }
-  return pathname.startsWith(href);
+  // Match the exact route or a nested sub-route (next char is "/"), so sibling
+  // prefixes like /accounts-performance vs /accounts-performance-mom stay distinct.
+  return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 type SidebarProps = {
