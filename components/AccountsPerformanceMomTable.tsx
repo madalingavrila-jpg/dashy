@@ -7,11 +7,36 @@ import { Sparkline } from "@/components/Sparkline";
 type AccountsPerformanceMomTableProps = {
   /** Accounts whose activation/launch month is the selected cohort. */
   accounts: AccountsPerformanceAccount[];
+  /** The selected activation month ("YYYY-MM"); all numeric columns are scoped to it. */
+  selectedMonth: string;
   monthLabel: (month: string) => string;
   formatEur: (value: number) => string;
   formatInt: (value: number) => string;
   loading?: boolean;
 };
+
+/**
+ * Selected-month figures for an account from its `monthly[]` entry. The MOM table
+ * shows the SELECTED activation month's numbers (not launch-to-date): GMV, orders,
+ * AOV, commission € and the effective commission % for that month.
+ */
+function monthFiguresOf(account: AccountsPerformanceAccount, month: string) {
+  const m = account.monthly.find((x) => x.month === month);
+  const gmv = m?.gmv ?? 0;
+  const orders = m?.orders ?? 0;
+  const commission = m?.commission ?? null;
+  // Effective % for the month = commission ÷ gross GMV (equals the SF rate when
+  // commission was derived as rate × gross GMV; the Databricks-actual rate otherwise).
+  const commissionPct = commission != null && gmv > 0 ? (commission / gmv) * 100 : null;
+  return {
+    gmv,
+    orders,
+    commission,
+    aov: orders > 0 ? gmv / orders : 0,
+    commissionPct,
+    hasMonth: Boolean(m),
+  };
+}
 
 function segmentBadge(segment: "complex" | "density" | "inbound") {
   if (segment === "complex") return "bg-primary-container/40 text-on-primary-container";
@@ -141,14 +166,16 @@ function defaultDir(key: SortKey): SortDir {
 }
 
 /**
- * Sort value for a column. Unlike the standard Accounts performance table, every
- * metric column here is the account's LAUNCH-TO-DATE total (this is a cohort view:
- * "what have the accounts activated this month generated since launch"), not a
- * single calendar month's slice.
+ * Sort value for a column. Every financial metric column here is the account's
+ * SELECTED-MONTH figure (this is a cohort view scoped to the activation month:
+ * "what did the accounts activated this month generate IN that month"), not a
+ * launch-to-date total. Quality columns (rating/availability) have no monthly
+ * granularity in the payload, so they remain launch-to-date.
  */
 function sortValue(
   account: AccountsPerformanceAccount,
   key: SortKey,
+  month: string,
 ): string | number | null {
   switch (key) {
     case "account":
@@ -163,15 +190,17 @@ function sortValue(
       return Number.isNaN(t) ? null : t;
     }
     case "gmv":
-      return account.totalGmv;
+      return monthFiguresOf(account, month).gmv;
     case "orders":
-      return account.totalOrders;
-    case "aov":
-      return account.totalOrders > 0 ? account.aov : null;
+      return monthFiguresOf(account, month).orders;
+    case "aov": {
+      const f = monthFiguresOf(account, month);
+      return f.orders > 0 ? f.aov : null;
+    }
     case "commission":
-      return account.totalCommission;
+      return monthFiguresOf(account, month).commission;
     case "commissionPct":
-      return commissionPctOf(account);
+      return monthFiguresOf(account, month).commissionPct;
     case "rating":
       return account.quality?.rating ?? null;
     case "availability":
@@ -186,10 +215,11 @@ function compareAccounts(
   b: AccountsPerformanceAccount,
   key: SortKey,
   dir: SortDir,
+  month: string,
 ): number {
   const mult = dir === "asc" ? 1 : -1;
-  const va = sortValue(a, key);
-  const vb = sortValue(b, key);
+  const va = sortValue(a, key, month);
+  const vb = sortValue(b, key, month);
 
   let primary: number;
   if (typeof va === "string" || typeof vb === "string") {
@@ -204,9 +234,9 @@ function compareAccounts(
     else primary = mult * (va - vb);
   }
   if (primary !== 0) return primary;
-  // Stable tie-break: heaviest launch-to-date GMV first, then name A→Z.
+  // Stable tie-break: heaviest selected-month GMV first, then name A→Z.
   return (
-    b.totalGmv - a.totalGmv ||
+    monthFiguresOf(b, month).gmv - monthFiguresOf(a, month).gmv ||
     String(a.accountName ?? "").localeCompare(String(b.accountName ?? ""))
   );
 }
@@ -260,6 +290,7 @@ function SortHeader({
 
 export function AccountsPerformanceMomTable({
   accounts,
+  selectedMonth,
   monthLabel,
   formatEur,
   formatInt,
@@ -276,8 +307,8 @@ export function AccountsPerformanceMomTable({
     );
 
   const sortedAccounts = useMemo(
-    () => accounts.slice().sort((a, b) => compareAccounts(a, b, sort.key, sort.dir)),
-    [accounts, sort],
+    () => accounts.slice().sort((a, b) => compareAccounts(a, b, sort.key, sort.dir, selectedMonth)),
+    [accounts, sort, selectedMonth],
   );
 
   const toggle = (id: string) =>
@@ -309,12 +340,12 @@ export function AccountsPerformanceMomTable({
       <div className="flex flex-wrap items-center gap-x-md gap-y-1 border-b border-outline-variant bg-surface-container-low px-md py-xs text-[11px] text-on-surface-variant">
         <span className="inline-flex items-center gap-1 font-semibold text-on-surface">
           <span className="material-symbols-outlined text-[14px] text-won">info</span>
-          Activation cohort · all figures are launch → date, gross (before discounts)
+          Activation cohort · GMV, orders, AOV &amp; commission are for {monthLabel(selectedMonth)} only, gross (before discounts)
         </span>
-        <span>GMV = before-discount GMV generated since launch</span>
-        <span>AOV = gross GMV ÷ delivered orders</span>
-        <span>Commission = Salesforce rate (Commission__c) × gross GMV; falls back to actual Databricks commission (DB) when no SF rate</span>
-        <span className="opacity-70">monthly breakdown &amp; net (after-discount) GMV shown per account on expand</span>
+        <span>GMV = before-discount GMV in {monthLabel(selectedMonth)}</span>
+        <span>AOV = month gross GMV ÷ month orders</span>
+        <span>Commission = Salesforce rate (Commission__c) × month gross GMV; falls back to actual Databricks commission (DB) when no SF rate</span>
+        <span className="opacity-70">Rating &amp; availability are launch → date (no monthly granularity); full monthly breakdown on expand</span>
       </div>
       <table className="w-full table-fixed border-collapse text-left text-[13px]">
         <colgroup>
@@ -460,7 +491,7 @@ export function AccountsPerformanceMomTable({
               sortKey="rating"
               className={numTh}
               align="right"
-              title="Average customer rating, out of 5"
+              title="Average customer rating, out of 5 (launch → date — no monthly granularity)"
               active={sort.key === "rating"}
               dir={sort.dir}
               onSort={onSort}
@@ -470,7 +501,7 @@ export function AccountsPerformanceMomTable({
               sortKey="availability"
               className={numTh}
               align="right"
-              title="Share of open hours the restaurant was active (provider_active_rate)"
+              title="Share of open hours the restaurant was active (provider_active_rate) — launch → date, no monthly granularity"
               active={sort.key === "availability"}
               dir={sort.dir}
               onSort={onSort}
@@ -484,6 +515,9 @@ export function AccountsPerformanceMomTable({
           {sortedAccounts.map((account) => {
             const q = account.quality;
             const isOpen = expanded.has(account.id);
+            // All financial cells below are scoped to the selected activation month.
+            const f = monthFiguresOf(account, selectedMonth);
+            const me = account.monthly.find((m) => m.month === selectedMonth);
             return (
               <Fragment key={account.id}>
                 <tr
@@ -540,43 +574,41 @@ export function AccountsPerformanceMomTable({
                   </td>
                   <td
                     className="px-xs py-xs text-right align-top font-semibold text-on-surface"
-                    title={`Gross GMV (before discounts) ${formatEur(account.totalGmv)}${
-                      account.totalGmvNet != null
-                        ? ` · net ${formatEur(account.totalGmvNet)} · discount ${formatEur(
-                            account.totalDiscount ?? account.totalGmv - account.totalGmvNet,
+                    title={`${monthLabel(selectedMonth)} gross GMV (before discounts) ${formatEur(f.gmv)}${
+                      me?.gmvNet != null
+                        ? ` · net ${formatEur(me.gmvNet)} · discount ${formatEur(
+                            me.discount ?? me.gmv - me.gmvNet,
                           )}`
                         : ""
                     }`}
                   >
-                    {eurShort(account.totalGmv)}
+                    {eurShort(f.gmv)}
                   </td>
                   <td className="px-xs py-xs text-right align-top text-on-surface">
-                    {formatInt(account.totalOrders)}
+                    {formatInt(f.orders)}
                   </td>
                   <td className="px-xs py-xs text-right align-top text-on-surface">
-                    {account.totalOrders > 0 ? formatEur(account.aov) : "—"}
+                    {f.orders > 0 ? formatEur(f.aov) : "—"}
                   </td>
                   <td
                     className="px-xs py-xs text-right align-top"
                     title={(() => {
-                      const eur =
-                        account.totalCommission != null
-                          ? formatEur(account.totalCommission)
-                          : "no commission";
+                      const eur = f.commission != null ? formatEur(f.commission) : "no commission";
+                      const monthName = monthLabel(selectedMonth);
                       if (account.commissionSource === "salesforce")
-                        return `${eur} · Salesforce rate ${pctStr(account.commissionRatePct)} (Commission__c) × gross GMV`;
+                        return `${eur} in ${monthName} · Salesforce rate ${pctStr(account.commissionRatePct)} (Commission__c) × month gross GMV`;
                       if (account.commissionSource === "databricks")
-                        return `${eur} · actual commission (Databricks), no Salesforce rate · ${pctStr(
-                          account.commissionPct,
-                        )} of gross GMV`;
+                        return `${eur} in ${monthName} · actual commission (Databricks), no Salesforce rate · ${pctStr(
+                          f.commissionPct,
+                        )} of month gross GMV`;
                       return "No Salesforce rate and no Databricks commission";
                     })()}
                   >
                     <span className="block font-semibold text-on-surface">
-                      {account.totalCommission != null ? eurShort(account.totalCommission) : "—"}
+                      {f.commission != null ? eurShort(f.commission) : "—"}
                     </span>
                     <span className="block text-[11px] text-on-surface-variant">
-                      {pctStr(commissionPctOf(account))}
+                      {pctStr(f.commissionPct)}
                       {(() => {
                         const mark = commissionSourceMark(account);
                         return mark ? (
@@ -625,7 +657,11 @@ export function AccountsPerformanceMomTable({
                               account.monthly.map((m) => (
                                 <div
                                   key={m.month}
-                                  className="min-w-[112px] rounded-md border border-outline-variant/60 bg-surface px-sm py-xs"
+                                  className={`min-w-[112px] rounded-md border bg-surface px-sm py-xs ${
+                                    m.month === selectedMonth
+                                      ? "border-won ring-1 ring-won/50"
+                                      : "border-outline-variant/60"
+                                  }`}
                                   title={`${monthLabel(m.month)} · gross GMV ${formatEur(
                                     m.gmv,
                                   )}${
