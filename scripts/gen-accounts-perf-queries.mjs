@@ -13,10 +13,34 @@
  * ## The fix
  * Scope BOTH queries to exactly the activated providers we already have in
  * `accounts-perf-accounts.json` with `WHERE provider_id IN (<ids>)` over the
- * Jan–Jun 2026 window. 825 providers × 6 months ≈ 5,000 rows — comfortably under
- * the 10k cap and never truncated. If the IN-list ever grows past what one MCP
- * call can take, pass `--chunk=<n>` to split it into batches (concatenate the
- * results into one cache file).
+ * YTD window. The activation UNIVERSE is now **year-to-date** (every RO account
+ * activated since Jan 1 of the current year — see the canonical universe query
+ * below), so the IN-list is larger (~1,600 providers × ~6 months ≈ 6,200 rows) —
+ * still comfortably under the 10k cap and never truncated. If the IN-list ever
+ * grows past what one MCP call can take, pass `--chunk=<n>` to split it into
+ * batches (concatenate the results into one cache file).
+ *
+ * ## Canonical universe + prov→opp queries (run ad hoc via the Databricks MCP)
+ * The activation universe (`accounts-perf-accounts.json`) and the provider→won
+ * opportunity map (`accounts-perf-prov-opp.json`) are YTD + RO-scoped and deduped
+ * to one activation opportunity per provider. Re-pull both on every refresh so the
+ * universe includes EVERY account activated this year (Jan, Feb, … onward):
+ *
+ *   -- universe (10 cols, matches build-accounts-performance row layout)
+ *   SELECT po.provider_id, po.opportunity_owner_user_name, po.opportunity_owner_email,
+ *          CAST(po.provider_activated_ts AS DATE) AS activated_date,
+ *          pv.provider_name, pv.vendor_name, pv.city_name, pv.business_segment_v2,
+ *          pv.provider_status, CAST(pv.first_delivered_order_ts AS DATE) AS first_order_date
+ *   FROM main.ng_delivery.dim_provider_opportunity po
+ *   LEFT JOIN main.ng_delivery.dim_provider_v2 pv ON pv.provider_id = po.provider_id
+ *   WHERE po.provider_activated_ts >= '<YEAR>-01-01' AND po.country_name = 'Romania'
+ *   QUALIFY ROW_NUMBER() OVER (PARTITION BY po.provider_id ORDER BY po.provider_activated_ts DESC) = 1
+ *
+ *   -- provider → opportunity map (same window/dedup)
+ *   SELECT po.provider_id, po.opportunity_id
+ *   FROM main.ng_delivery.dim_provider_opportunity po
+ *   WHERE po.provider_activated_ts >= '<YEAR>-01-01' AND po.country_name = 'Romania'
+ *   QUALIFY ROW_NUMBER() OVER (PARTITION BY po.provider_id ORDER BY po.provider_activated_ts DESC) = 1
  *
  * ## Usage
  *   node scripts/gen-accounts-perf-queries.mjs            # print both queries
@@ -36,10 +60,19 @@ import { fileURLToPath } from "node:url";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const cacheDir = path.join(here, ".cache");
 
-const WINDOW_START = "2026-01-01";
-const WINDOW_END = "2026-07-01"; // exclusive upper bound
+// Metric-month window for the fact_provider_monthly pulls: Jan 1 of the current
+// year through the start of next month (exclusive). Dynamic so it never goes stale.
+const now = new Date();
+const WINDOW_START = `${now.getUTCFullYear()}-01-01`;
+const WINDOW_END = (() => {
+  const y = now.getUTCFullYear();
+  const m = now.getUTCMonth() + 1; // 0-indexed → next month is +1 over the +1
+  const nextYear = m === 12 ? y + 1 : y;
+  const nextMonth = m === 12 ? 1 : m + 1;
+  return `${nextYear}-${String(nextMonth).padStart(2, "0")}-01`;
+})();
 
-/** Distinct activated provider_ids from the accounts cache (the 825 universe). */
+/** Distinct activated provider_ids from the accounts cache (the RO YTD universe). */
 export function readActivatedProviderIds() {
   const file = path.join(cacheDir, "accounts-perf-accounts.json");
   const raw = fs.readFileSync(file, "utf8");

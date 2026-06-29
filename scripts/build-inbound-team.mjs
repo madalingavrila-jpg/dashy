@@ -244,12 +244,24 @@ const qualityByProvider = buildQualityByProvider(qualityRows);
 const commissionRateByProvider = buildCommissionRateByProvider(commissionRows);
 const segmentByProvider = buildSegmentByProvider(segmentRows);
 
+// The shared accounts-perf-accounts.json cache is now YEAR-TO-DATE (it feeds the
+// team's Accounts performance MOM cohorts). The inbound tab keeps its trailing
+// 90-day window contract (windowDays: 90 below) by filtering rows here on the
+// activation date (column 3) — so the inbound tab is unaffected by the YTD expansion.
+const INBOUND_WINDOW_DAYS = 90;
+const inboundCutoffMs = Date.now() - INBOUND_WINDOW_DAYS * 24 * 60 * 60 * 1000;
+
 /** Build accounts-performance accounts for one rep (by owner email). */
 function accountsForOwner(email, agentId, agentName) {
   const accounts = [];
   for (const row of accountRows) {
     const ownerEmail = row[2];
     if ((ownerEmail || "").toLowerCase() !== email.toLowerCase()) continue;
+    const activatedDate = row[3];
+    if (activatedDate) {
+      const t = Date.parse(activatedDate);
+      if (!Number.isNaN(t) && t < inboundCutoffMs) continue;
+    }
     accounts.push(
       assembleAccount(row, {
         agentId,

@@ -44,23 +44,57 @@ export function AccountsPerformanceShell() {
   const [agentFilter, setAgentFilter] = useState<AgentFilter>("all");
   const [monthChoice, setMonthChoice] = useState<string>("");
 
-  const months = useMemo(() => (ap?.byMonth ?? []).map((m) => m.month), [ap]);
+  // The accountsPerformance dataset is now YEAR-TO-DATE (it feeds the Accounts
+  // performance MOM tab's full activation-month cohorts). This original tab keeps
+  // its trailing-window contract by filtering, client-side, to accounts activated
+  // in the last `windowDays` days — so it looks exactly as before the YTD expansion.
+  const windowDays = ap?.windowDays ?? 90;
+  const windowedAccounts = useMemo<AccountsPerformanceAccount[]>(() => {
+    const accounts = ap?.accounts ?? [];
+    if (!accounts.length) return accounts;
+    const cutoff = Date.now() - windowDays * 24 * 60 * 60 * 1000;
+    return accounts.filter((a) => {
+      if (!a.launchDate) return false;
+      const t = Date.parse(a.launchDate);
+      return Number.isNaN(t) ? false : t >= cutoff;
+    });
+  }, [ap, windowDays]);
+
+  // Months present in the windowed set (drives the selector + GMV bar chart).
+  const months = useMemo(() => {
+    const set = new Set<string>();
+    for (const a of windowedAccounts) for (const m of a.monthly) set.add(m.month);
+    return [...set].sort((x, y) => x.localeCompare(y));
+  }, [windowedAccounts]);
+
   const selectedMonth =
     monthChoice && months.includes(monthChoice)
       ? monthChoice
-      : (ap?.dataMonthMax ?? months[months.length - 1] ?? "");
+      : (months[months.length - 1] ?? "");
+
+  // Agent summaries recomputed from the windowed set so the dropdown counts match.
+  const windowAgents = useMemo(() => {
+    const map = new Map<string, { agentId: string; name: string; segment: string; accounts: number }>();
+    for (const a of windowedAccounts) {
+      if (!map.has(a.agentId)) {
+        map.set(a.agentId, { agentId: a.agentId, name: a.agentName, segment: a.segment, accounts: 0 });
+      }
+      map.get(a.agentId)!.accounts += 1;
+    }
+    return [...map.values()].sort((x, y) => y.accounts - x.accounts);
+  }, [windowedAccounts]);
 
   const complexCount = useMemo(
-    () => (ap?.agents ?? []).filter((a) => a.segment === "complex").reduce((s, a) => s + a.accounts, 0),
-    [ap],
+    () => windowAgents.filter((a) => a.segment === "complex").reduce((s, a) => s + a.accounts, 0),
+    [windowAgents],
   );
   const densityCount = useMemo(
-    () => (ap?.agents ?? []).filter((a) => a.segment === "density").reduce((s, a) => s + a.accounts, 0),
-    [ap],
+    () => windowAgents.filter((a) => a.segment === "density").reduce((s, a) => s + a.accounts, 0),
+    [windowAgents],
   );
 
   const filteredAccounts = useMemo<AccountsPerformanceAccount[]>(() => {
-    const accounts = ap?.accounts ?? [];
+    const accounts = windowedAccounts;
     let result = accounts;
     if (agentFilter === "seg:complex") result = accounts.filter((a) => a.segment === "complex");
     else if (agentFilter === "seg:density") result = accounts.filter((a) => a.segment === "density");
@@ -75,7 +109,7 @@ export function AccountsPerformanceShell() {
         const bm = b.monthly.find((m) => m.month === selectedMonth)?.gmv ?? 0;
         return bm - am || b.totalGmv - a.totalGmv;
       });
-  }, [ap, agentFilter, selectedMonth]);
+  }, [windowedAccounts, agentFilter, selectedMonth]);
 
   const totals = useMemo(() => {
     const gmv = filteredAccounts.reduce((s, a) => s + a.totalGmv, 0);
@@ -229,11 +263,11 @@ export function AccountsPerformanceShell() {
             onChange={(event) => setAgentFilter(event.target.value as AgentFilter)}
             className="min-w-[260px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
           >
-            <option value="all">All agents ({ap?.totals.accounts ?? 0})</option>
+            <option value="all">All agents ({windowedAccounts.length})</option>
             <option value="seg:complex">Complex team ({complexCount})</option>
             <option value="seg:density">Density team ({densityCount})</option>
             <optgroup label="Individual agents">
-              {(ap?.agents ?? []).map((agent) => (
+              {windowAgents.map((agent) => (
                 <option key={agent.agentId} value={`agent:${agent.agentId}`}>
                   {agent.name} ({agent.accounts})
                 </option>

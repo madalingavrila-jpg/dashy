@@ -4,8 +4,12 @@
  * extracts cached by the Cursor agent (Boltable has no DB credentials at runtime).
  *
  * Source caches (written by the agent via the Databricks MCP):
- *   scripts/.cache/accounts-perf-accounts.json  — one row per provider activated in the
- *       last 90 days (RO, won Sales Opportunity), with the activation opportunity owner.
+ *   scripts/.cache/accounts-perf-accounts.json  — one row per provider activated
+ *       year-to-date (RO, won Sales Opportunity, Jan 1 of the current year → today),
+ *       with the activation opportunity owner. Deduped to one activation opp per
+ *       provider. See scripts/gen-accounts-perf-queries.mjs for the canonical pull.
+ *       The MOM tab groups these into activation-month cohorts (Jan, Feb, …); the
+ *       original Accounts performance tab trims to a trailing 90-day window client-side.
  *   scripts/.cache/accounts-perf-monthly.json    — monthly GROSS GMV (before discounts) /
  *       delivered orders / provider commission (EUR) per provider since 2026-01, plus
  *       net (after-discount) GMV and campaign discount as context columns.
@@ -31,7 +35,7 @@
  *       provider_preparation_minutes_per_order, provider_rating_per_order, late_delivery_order_rate.
  *
  * Attribution: rep = owner of the won Sales Opportunity whose activation transition
- * happened in the last 90 days (deduped to one opp per provider). Only the 12-rep
+ * happened year-to-date (deduped to one opp per provider). Only the 12-rep
  * roster is kept (see lib/agent-segments.mjs); excluded reps and AM/external owners drop.
  */
 import fs from "node:fs";
@@ -172,6 +176,9 @@ function main() {
   const monthsCovered = byMonth.map((m) => m.month);
   const accountsPerformance = {
     generatedAt: new Date().toISOString(),
+    // Trailing window the ORIGINAL Accounts performance tab displays (it filters the
+    // YTD account set down to this many days client-side). The dataset itself is YTD;
+    // the MOM tab uses the full set and groups by activation month.
     windowDays: 90,
     country: "Romania",
     currency: "EUR",
@@ -184,8 +191,9 @@ function main() {
       "gross GMV. Commission only shows “—” when neither source has a value. Net (after-discount) GMV " +
       "and the campaign discount are context only, shown on expand. Sources: Databricks " +
       "fact_provider_monthly (GMV/orders/actual commission) + Salesforce Commission__c. Accounts = " +
-      "restaurants activated in the last 90 days (SF won Sales Opportunity → provider activation), " +
-      "attributed to the activating rep.",
+      "restaurants activated this year, year-to-date (SF won Sales Opportunity → provider activation), " +
+      "attributed to the activating rep. The Accounts performance tab shows the trailing 90 days; the " +
+      "Accounts performance MOM tab groups every account by its activation month.",
     qualityPeriod: "Launch → date (order-weighted average across each account's active months)",
     qualityNote:
       "Availability = share of open hours the restaurant was active (provider_active_rate). " +
