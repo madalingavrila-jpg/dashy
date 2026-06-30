@@ -21,7 +21,7 @@ export function OverviewShell() {
         loading={loading}
       />
 
-      <DataAlert error={error} sourceHint={sourceHint} />
+      <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       <CurrentWeekStatus weekly={model?.weeklyPerformance} loading={loading} />
 
@@ -40,7 +40,7 @@ export function OverviewShell() {
             Full MTD & segments →
           </Link>
         </div>
-        <MetricCards metrics={model?.overviewMetrics} loading={loading} columns={6} />
+        <MetricCards metrics={model?.overviewMetrics?.slice(0, 4)} loading={loading} columns={4} />
       </section>
 
       <TeamProgressGrid

@@ -120,7 +120,7 @@ export function WeeklyShell() {
         loading={loading}
       />
 
-      <DataAlert error={error} sourceHint={sourceHint} />
+      <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       {!selectedWeek && hasBreakdown && !loading && (
         <div className="flex items-start gap-sm rounded-xl border border-primary/30 bg-primary-container/20 px-md py-sm">

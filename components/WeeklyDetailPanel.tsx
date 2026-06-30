@@ -14,8 +14,22 @@ import {
   WEEKLY_STATUS_LABELS,
   weeklyStatusAccent,
 } from "@/lib/weekly-stages";
-import { formatWeekLabel } from "@/lib/weekDateRange";
+import { DASHBOARD_WEEK_YEAR, formatWeekLabel } from "@/lib/weekDateRange";
 import { salesforceOpportunityUrl } from "@/lib/salesforce";
+
+/** Dynamic "W01–Wnn" range derived from the supplied weekly breakdown rows. */
+function weekRangeLabel(breakdown: { week: string }[]): string {
+  const nums = breakdown
+    .map((w) => {
+      const match = /^W(\d{1,2})$/i.exec(w.week);
+      return match ? Number(match[1]) : NaN;
+    })
+    .filter((n) => Number.isFinite(n));
+  if (!nums.length) return "";
+  const lo = String(Math.min(...nums)).padStart(2, "0");
+  const hi = String(Math.max(...nums)).padStart(2, "0");
+  return `W${lo}–W${hi}`;
+}
 
 export type WeeklyFilter =
   | "all"
@@ -416,10 +430,13 @@ function AgentWeeklyTimeline({
     })
     .filter(Boolean);
 
+  const range = weekRangeLabel(breakdown);
+  const periodLabel = range ? `${DASHBOARD_WEEK_YEAR} ${range}` : `${DASHBOARD_WEEK_YEAR}`;
+
   if (!rows.length) {
     return (
       <p className="rounded-lg bg-surface-container-low px-md py-sm text-body-md text-on-surface-variant">
-        No weekly activity recorded for {agent.name} in 2026 W01–W24.
+        No weekly activity recorded for {agent.name} in {periodLabel}.
       </p>
     );
   }
@@ -427,7 +444,7 @@ function AgentWeeklyTimeline({
   return (
     <div className="glass-card overflow-hidden rounded-xl border border-outline-variant/60">
       <div className="border-b border-outline-variant/60 px-lg py-md">
-        <h4 className="text-title-lg font-bold text-on-surface">{agent.name} · W01–W24</h4>
+        <h4 className="text-title-lg font-bold text-on-surface">{agent.name} · {range || `${DASHBOARD_WEEK_YEAR}`}</h4>
         <p className="text-body-md text-on-surface-variant">Weekly status counts vs targets across all ISO weeks</p>
       </div>
       <div className="overflow-x-auto">
@@ -616,7 +633,7 @@ export function WeeklyDetailPanel({
 
   return (
     <section className="space-y-md">
-      <div className="sticky top-0 z-30 -mx-lg -mt-lg mb-md border-b-2 border-primary/20 bg-white/95 px-lg py-md shadow-sm backdrop-blur-md">
+      <div className="sticky top-16 z-30 -mx-lg -mt-lg mb-md border-b-2 border-primary/20 bg-white/95 px-lg py-md shadow-sm backdrop-blur-md">
         <div className="flex flex-wrap items-end justify-between gap-md">
           <div className="min-w-0 flex-1 space-y-xs">
             <p className="text-label-md font-semibold uppercase tracking-wide text-primary">

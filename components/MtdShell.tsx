@@ -18,7 +18,7 @@ export function MtdShell() {
         loading={loading}
       />
 
-      <DataAlert error={error} sourceHint={sourceHint} />
+      <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       <MtdSummaryCards
         month={model?.mtdAchievement.month}

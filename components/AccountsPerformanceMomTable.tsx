@@ -334,6 +334,9 @@ export function AccountsPerformanceMomTable({
   const COLS = 11;
   const thBase = "px-xs py-xs text-label-md font-bold text-on-surface-variant";
   const numTh = `${thBase} text-right`;
+  // Sticky first column so the account name stays visible while scrolling the
+  // 11-column table horizontally on narrow screens.
+  const thFirst = `${thBase} sticky left-0 z-20 bg-surface-container-low`;
 
   return (
     <div className="glass-card overflow-hidden rounded-xl">
@@ -347,7 +350,12 @@ export function AccountsPerformanceMomTable({
         <span>Commission = Salesforce rate (Commission__c) × month gross GMV; falls back to actual Databricks commission (DB) when no SF rate</span>
         <span className="opacity-70">Rating &amp; availability are launch → date (no monthly granularity); full monthly breakdown on expand</span>
       </div>
-      <table className="w-full table-fixed border-collapse text-left text-[13px]">
+      <p className="flex items-center gap-1 px-md py-1 text-[10px] text-on-surface-variant lg:hidden">
+        <span className="material-symbols-outlined text-[14px]">swipe</span>
+        Scroll → to see all {COLS} columns
+      </p>
+      <div className="overflow-x-auto">
+      <table className="w-full min-w-[880px] table-fixed border-collapse text-left text-[13px]">
         <colgroup>
           <col className="w-[16%]" />
           <col className="w-[10%]" />
@@ -366,7 +374,7 @@ export function AccountsPerformanceMomTable({
             <SortHeader
               label="Account"
               sortKey="account"
-              className={thBase}
+              className={thFirst}
               active={sort.key === "account"}
               dir={sort.dir}
               onSort={onSort}
@@ -521,11 +529,19 @@ export function AccountsPerformanceMomTable({
             return (
               <Fragment key={account.id}>
                 <tr
-                  className="group cursor-pointer border-b border-outline-variant/50 transition-colors hover:bg-surface-container-low"
+                  className="group cursor-pointer border-b border-outline-variant/50 transition-colors hover:bg-surface-container-low focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/40"
+                  role="button"
+                  tabIndex={0}
                   onClick={() => toggle(account.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      toggle(account.id);
+                    }
+                  }}
                   aria-expanded={isOpen}
                 >
-                  <td className="px-xs py-xs align-top">
+                  <td className="sticky left-0 z-10 bg-surface px-xs py-xs align-top group-hover:bg-surface-container-low">
                     <div className="flex items-start gap-xs">
                       <span
                         className={`material-symbols-outlined mt-[1px] shrink-0 text-[16px] text-on-surface-variant transition-transform ${
@@ -820,6 +836,7 @@ export function AccountsPerformanceMomTable({
           })}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

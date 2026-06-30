@@ -4,20 +4,38 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "@/components/Logo";
 
-const navItems = [
+type NavItem = { icon: string; label: string; href: string; title?: string };
+
+const navItems: NavItem[] = [
   { icon: "dashboard", label: "Overview", href: "/" },
-  { icon: "groups", label: "Teams", href: "/pipeline" },
+  { icon: "groups", label: "Team Progress", href: "/pipeline" },
   { icon: "account_tree", label: "MyPipeline", href: "/my-pipeline" },
   { icon: "call_received", label: "Inbound team", href: "/inbound" },
   { icon: "calendar_view_week", label: "Weekly", href: "/weekly" },
   { icon: "flag", label: "MTD & Tiers", href: "/mtd" },
   { icon: "compare_arrows", label: "WoW Reports", href: "/wow" },
-  { icon: "storefront", label: "Accounts performance", href: "/accounts-performance" },
-  { icon: "calendar_month", label: "Accounts performance MOM", href: "/accounts-performance-mom" },
-  { icon: "support_agent", label: "MOPS", href: "/mops" },
+  {
+    icon: "list_alt",
+    label: "Accounts",
+    href: "/accounts",
+    title: "Won / Activated / Backlog accounts with Salesforce links",
+  },
+  {
+    icon: "storefront",
+    label: "Accounts performance",
+    href: "/accounts-performance",
+    title: "Accounts perf (90d) — rolling monthly performance per account",
+  },
+  {
+    icon: "calendar_month",
+    label: "Accounts performance MOM",
+    href: "/accounts-performance-mom",
+    title: "Accounts perf (cohorts) — grouped by activation month",
+  },
+  { icon: "support_agent", label: "MOps", href: "/mops" },
 ];
 
-const bottomItems = [{ icon: "settings", label: "Settings", href: "/settings" }];
+const bottomItems: NavItem[] = [{ icon: "settings", label: "Settings", href: "/settings" }];
 
 function isActive(pathname: string, href: string): boolean {
   if (href === "/") {
@@ -64,6 +82,8 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
               key={item.label}
               href={item.href}
               onClick={onClose}
+              title={item.title}
+              aria-current={active ? "page" : undefined}
               className={
                 active
                   ? "mx-xs my-1 flex items-center gap-sm rounded-lg bg-primary px-md py-sm text-label-md font-label-md text-on-primary transition-transform active:scale-[0.98]"
@@ -85,6 +105,8 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
               key={item.label}
               href={item.href}
               onClick={onClose}
+              title={item.title}
+              aria-current={active ? "page" : undefined}
               className={
                 active
                   ? "mx-xs my-1 flex items-center gap-sm rounded-lg bg-primary px-md py-sm text-label-md font-label-md text-on-primary"

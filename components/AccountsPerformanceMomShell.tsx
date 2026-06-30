@@ -237,7 +237,7 @@ export function AccountsPerformanceMomShell() {
         loading={loading}
       />
 
-      <DataAlert error={error} sourceHint={sourceHint} />
+      <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       <section className="grid grid-cols-2 gap-md md:grid-cols-5">
         {cards.map((card) => (

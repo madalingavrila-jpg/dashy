@@ -57,7 +57,7 @@ function AccountsContent() {
         loading={loading}
       />
 
-      <DataAlert error={error} sourceHint={sourceHint} />
+      <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       {filterLabel ? (
         <AccountsTable

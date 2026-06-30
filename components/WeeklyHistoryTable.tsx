@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import type { WeeklyHistoryView } from "@/types/dashboard";
-import { formatWeekLabel } from "@/lib/weekDateRange";
+import { DASHBOARD_WEEK_YEAR, formatWeekLabel } from "@/lib/weekDateRange";
 
 type WeeklyHistoryTableProps = {
   history?: WeeklyHistoryView[];
@@ -34,7 +34,7 @@ export function WeeklyHistoryTable({
   return (
     <div className="glass-card overflow-hidden rounded-xl">
       <div className="border-b border-outline-variant p-lg">
-        <h3 className="text-title-lg font-title-lg font-bold">2026 Weekly Performance</h3>
+        <h3 className="text-title-lg font-title-lg font-bold">{DASHBOARD_WEEK_YEAR} Weekly Performance</h3>
         <p className="text-body-md text-on-surface-variant">
           Q2+ weeks {visibleWeekRange ?? "—"} · click any row to expand team drill-down inline
         </p>

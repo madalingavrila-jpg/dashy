@@ -14,7 +14,7 @@ function formatAbsolute(iso: string): string | null {
   if (Number.isNaN(date.getTime())) {
     return null;
   }
-  return new Intl.DateTimeFormat("en-GB", {
+  return new Intl.DateTimeFormat("ro-RO", {
     timeZone: BUCHAREST,
     day: "2-digit",
     month: "short",
@@ -51,6 +51,7 @@ function formatRelative(iso: string, now: number): string | null {
 
 export function TopBar({ onMenuClick }: TopBarProps) {
   const [updatedAt, setUpdatedAt] = useState<string | null>(null);
+  const [failed, setFailed] = useState(false);
   const [now, setNow] = useState<number>(() => Date.now());
 
   useEffect(() => {
@@ -60,9 +61,15 @@ export function TopBar({ onMenuClick }: TopBarProps) {
       .then((data: { updatedAt?: string } | null) => {
         if (data?.updatedAt) {
           setUpdatedAt(data.updatedAt);
+        } else {
+          setFailed(true);
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        if (!controller.signal.aborted) {
+          setFailed(true);
+        }
+      });
     return () => controller.abort();
   }, []);
 
@@ -91,7 +98,7 @@ export function TopBar({ onMenuClick }: TopBarProps) {
       </div>
 
       <div className="flex items-center gap-sm md:gap-md">
-        {absolute && (
+        {absolute ? (
           <div
             className="flex items-center gap-xs rounded-lg bg-surface-container-low px-sm py-1 text-on-surface-variant"
             title={`Ultima actualizare: ${absolute} (Europe/Bucharest)`}
@@ -107,7 +114,17 @@ export function TopBar({ onMenuClick }: TopBarProps) {
               </span>
             )}
           </div>
-        )}
+        ) : failed ? (
+          <div
+            className="flex items-center gap-xs rounded-lg bg-surface-container-low px-sm py-1 text-on-surface-variant"
+            title="Nu am putut încărca data ultimei actualizări (overview fetch failed)"
+          >
+            <span className="material-symbols-outlined text-[16px] leading-none text-amber-600">
+              update_disabled
+            </span>
+            <span className="text-label-md font-medium">Data freshness unknown</span>
+          </div>
+        ) : null}
         <div className="hidden items-center gap-xs rounded-lg bg-surface-container-low px-sm py-1 md:flex">
           <span className="rounded-full px-xs py-[2px] text-[10px] font-bold badge-won">Won</span>
           <span className="text-label-md text-on-surface-variant">vs</span>

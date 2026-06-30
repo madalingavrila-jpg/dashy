@@ -25,7 +25,7 @@ export function WowShell() {
         loading={loading}
       />
 
-      <DataAlert error={error} sourceHint={sourceHint} />
+      <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       <WowYtdTrendChart history={filteredHistory} loading={loading} />
 

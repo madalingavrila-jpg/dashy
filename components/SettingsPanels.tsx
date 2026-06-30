@@ -114,7 +114,7 @@ export function SettingsPanels({
                   <div>
                     <p className="font-semibold">{item.name}</p>
                     <p className="text-label-md text-on-surface-variant">
-                      Last sync {new Date(item.lastSync).toLocaleString("en-GB")}
+                      Last sync {new Date(item.lastSync).toLocaleString("ro-RO")}
                     </p>
                   </div>
                 </div>

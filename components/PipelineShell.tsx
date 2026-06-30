@@ -46,7 +46,7 @@ export function PipelineShell() {
         loading={loading}
       />
 
-      <DataAlert error={error} sourceHint={sourceHint} />
+      <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       <div className="flex flex-col gap-xs sm:flex-row sm:items-end sm:justify-between">
         <div>

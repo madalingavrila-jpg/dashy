@@ -1,18 +1,17 @@
 type PageHeaderProps = {
   title: string;
   subtitle: string;
+  /**
+   * Kept for API compatibility but no longer rendered here — the canonical
+   * "last updated" stamp lives once in the TopBar (see components/TopBar.tsx)
+   * to avoid three conflicting timestamps across the app.
+   */
   updatedAt?: string;
   loading?: boolean;
   actions?: React.ReactNode;
 };
 
-export function PageHeader({
-  title,
-  subtitle,
-  updatedAt,
-  loading,
-  actions,
-}: PageHeaderProps) {
+export function PageHeader({ title, subtitle, actions }: PageHeaderProps) {
   return (
     <div className="flex flex-col items-start justify-between gap-sm md:flex-row md:items-center">
       <div>
@@ -22,11 +21,6 @@ export function PageHeader({
         <p className="text-body-md font-body-md text-on-surface-variant">
           {subtitle}
         </p>
-        {updatedAt && !loading && (
-          <p className="mt-1 text-label-md font-label-md text-on-surface-variant opacity-70">
-            Date actualizate: {new Date(updatedAt).toLocaleString("ro-RO")}
-          </p>
-        )}
       </div>
       {actions}
     </div>

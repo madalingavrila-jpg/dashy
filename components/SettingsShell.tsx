@@ -20,7 +20,7 @@ export function SettingsShell() {
         loading={loading}
       />
 
-      <DataAlert error={error} sourceHint={sourceHint} />
+      <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       <section id="mtd-targets" aria-labelledby="mtd-targets-heading">
         <TargetSettingsPanel

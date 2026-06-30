@@ -114,7 +114,7 @@ export function MyPipelineShell() {
         loading={loading}
       />
 
-      <DataAlert error={error} sourceHint={sourceHint} />
+      <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       <div className="grid grid-cols-1 gap-md sm:grid-cols-3">
         <SummaryCard

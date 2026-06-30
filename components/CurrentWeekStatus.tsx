@@ -21,7 +21,7 @@ export function CurrentWeekStatus({ weekly, loading }: CurrentWeekStatusProps) {
 
   return (
     <section className="space-y-sm">
-      <div className="sticky top-0 z-20 -mx-lg border-b-2 border-primary/25 bg-surface/95 px-lg py-md shadow-sm backdrop-blur-md">
+      <div className="sticky top-16 z-20 -mx-lg border-b-2 border-primary/25 bg-surface/95 px-lg py-md shadow-sm backdrop-blur-md">
         <div className="flex flex-wrap items-end justify-between gap-sm">
           <div>
             <p className="text-label-md font-semibold uppercase tracking-wide text-primary">

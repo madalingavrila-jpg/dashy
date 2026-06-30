@@ -289,7 +289,7 @@ export function InboundShell() {
         loading={loading}
       />
 
-      <DataAlert error={error} sourceHint={sourceHint} />
+      <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       {inbound && (
         <section className="grid grid-cols-3 gap-sm md:grid-cols-6">

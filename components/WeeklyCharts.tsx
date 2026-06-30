@@ -1,7 +1,7 @@
 "use client";
 
 import type { WeeklyHistoryView, WeeklyMetricView } from "@/types/dashboard";
-import { formatWeekDateRange, formatWeekLabel } from "@/lib/weekDateRange";
+import { DASHBOARD_WEEK_YEAR, formatWeekDateRange, formatWeekLabel } from "@/lib/weekDateRange";
 
 type WeeklyMetricsGridProps = {
   metrics?: WeeklyMetricView[];
@@ -76,12 +76,18 @@ export function WeeklyHistoryChart({
     return <div className="glass-card animate-pulse rounded-xl p-lg h-64" />;
   }
 
-  const maxClosedWon = Math.max(...(history ?? []).map((h) => h.closedWon), 1);
-  const maxActive = Math.max(...(history ?? []).map((h) => h.active), 1);
+  // Shared Y max across both series so Closed Won vs Active bar heights are
+  // directly comparable (previously each used its own independent max).
+  const sharedMax = Math.max(...(history ?? []).map((h) => Math.max(h.closedWon, h.active)), 1);
 
   return (
     <div className="glass-card rounded-xl p-lg">
-      <h3 className="mb-lg text-title-lg font-title-lg font-bold">2026 Trend (Closed Won vs Active)</h3>
+      <h3 className="text-title-lg font-title-lg font-bold">
+        {DASHBOARD_WEEK_YEAR} Trend (Closed Won vs Active)
+      </h3>
+      <p className="mb-lg text-label-md text-on-surface-variant">
+        Both series share a common Y scale (max {sharedMax}) for direct comparison.
+      </p>
       <div className="overflow-x-auto pb-sm">
       <div className="flex items-end justify-between gap-sm min-w-[960px]" style={{ minHeight: 180 }}>
         {history?.map((row) => {
@@ -110,12 +116,12 @@ export function WeeklyHistoryChart({
             <div className="flex w-full items-end justify-center gap-1" style={{ height: 140 }}>
               <div
                 className="w-4 rounded-t bg-won"
-                style={{ height: `${Math.max(8, (row.closedWon / maxClosedWon) * 100)}%` }}
+                style={{ height: `${Math.max(8, (row.closedWon / sharedMax) * 100)}%` }}
                 title={barTitle("Closed Won", row.closedWon)}
               />
               <div
                 className="w-4 rounded-t bg-activated"
-                style={{ height: `${Math.max(8, (row.active / maxActive) * 100)}%` }}
+                style={{ height: `${Math.max(8, (row.active / sharedMax) * 100)}%` }}
                 title={barTitle("Active", row.active)}
               />
             </div>

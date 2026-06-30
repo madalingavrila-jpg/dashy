@@ -34,7 +34,7 @@ export function MopsShell() {
         }
       />
 
-      <DataAlert error={error} sourceHint={sourceHint} />
+      <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       <section className="space-y-sm">
         <div>
