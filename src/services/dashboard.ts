@@ -753,7 +753,7 @@ function placeholderModel(source: DataSourceStatus, error?: string): DashboardMo
 
   return {
     updatedAt: new Date().toISOString(),
-    salesforceInstanceUrl: "https://bolt-eu.lightning.force.com",
+    salesforceInstanceUrl: "https://boltfood.lightning.force.com",
     sources: source,
     mtdMonthLabel: "—",
     mtdMonthKey: currentMonthKey(),
@@ -824,7 +824,7 @@ function toDashboardModel(
   source: DataSourceStatus,
 ): DashboardModel {
   const { salesPipeline } = data;
-  const instanceUrl = data.salesforceInstanceUrl ?? "https://bolt-eu.lightning.force.com";
+  const instanceUrl = data.salesforceInstanceUrl ?? "https://boltfood.lightning.force.com";
   const { mtdAchievement, weeklyPerformance, wowReports, accounts, agents } =
     salesPipeline;
 

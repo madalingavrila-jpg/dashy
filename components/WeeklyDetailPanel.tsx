@@ -15,6 +15,7 @@ import {
   weeklyStatusAccent,
 } from "@/lib/weekly-stages";
 import { formatWeekLabel } from "@/lib/weekDateRange";
+import { salesforceOpportunityUrl } from "@/lib/salesforce";
 
 export type WeeklyFilter =
   | "all"
@@ -207,9 +208,8 @@ function AgentAccountList({
           </p>
           <ul className="divide-y divide-outline-variant/30">
             {items.map((account) => {
-              const href = account.sfOpportunityId && salesforceUrl
-                ? `${salesforceUrl}/${account.sfOpportunityId}`
-                : undefined;
+              const href =
+                salesforceOpportunityUrl(account.sfOpportunityId, salesforceUrl) ?? undefined;
               return (
                 <li key={`${key}-${account.id}`} className="flex flex-wrap items-center justify-between gap-sm px-sm py-xs text-[11px]">
                   <div className="min-w-0">

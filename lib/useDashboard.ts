@@ -16,7 +16,7 @@ import {
 
 const EMPTY_MODEL: DashboardModel = {
   updatedAt: "",
-  salesforceInstanceUrl: "https://bolt-eu.lightning.force.com",
+  salesforceInstanceUrl: "https://boltfood.lightning.force.com",
   sources: { source: "json" },
   mtdMonthLabel: "",
   mtdMonthKey: "",

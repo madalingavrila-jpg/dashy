@@ -1,4 +1,4 @@
-const DEFAULT_INSTANCE = "https://bolt-eu.lightning.force.com";
+const DEFAULT_INSTANCE = "https://boltfood.lightning.force.com";
 
 export function salesforceAccountUrl(
   accountId: string | undefined,

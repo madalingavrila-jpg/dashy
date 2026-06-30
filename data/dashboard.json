@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-06-30T09:44:44.506Z",
-  "salesforceInstanceUrl": "https://bolt-eu.lightning.force.com",
+  "updatedAt": "2026-06-30T10:12:01.001Z",
+  "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
   "salesPipeline": {
     "totals": {
       "won": {
@@ -8414,20 +8414,20 @@
       "meta": {
         "won": {
           "total": 20,
-          "listUrl": "https://bolt-eu.lightning.force.com/lightning/o/Opportunity/list"
+          "listUrl": "https://boltfood.lightning.force.com/lightning/o/Opportunity/list"
         },
         "activated": {
           "total": 50,
-          "listUrl": "https://bolt-eu.lightning.force.com/lightning/o/Opportunity/list"
+          "listUrl": "https://boltfood.lightning.force.com/lightning/o/Opportunity/list"
         },
         "backlog": {
           "total": 100,
-          "listUrl": "https://bolt-eu.lightning.force.com/lightning/o/Opportunity/list"
+          "listUrl": "https://boltfood.lightning.force.com/lightning/o/Opportunity/list"
         }
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-06-30T09:44:43.500Z",
+      "generatedAt": "2026-06-30T10:11:59.999Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -46281,31 +46281,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-06-30T09:44:42.549Z",
+        "lastSync": "2026-06-30T10:11:59.001Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-06-30T09:44:42.549Z",
+        "lastSync": "2026-06-30T10:11:59.001Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-06-30T09:44:42.549Z",
+        "lastSync": "2026-06-30T10:11:59.001Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-06-30T09:44:42.549Z",
+        "lastSync": "2026-06-30T10:11:59.001Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-06-30T09:44:43.851Z",
+    "generatedAt": "2026-06-30T10:12:00.358Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -120193,7 +120193,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-06-30T09:44:44.506Z",
+    "generatedAt": "2026-06-30T10:12:01.001Z",
     "monthKey": "2026-06",
     "monthLabel": "June 2026",
     "currentWeek": "W27",

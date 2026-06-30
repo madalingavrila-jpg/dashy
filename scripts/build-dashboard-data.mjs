@@ -37,7 +37,7 @@ import { slimDashboardRawData } from "../lib/slim-dashboard-source.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
-const SF_INSTANCE = "https://bolt-eu.lightning.force.com";
+const SF_INSTANCE = "https://boltfood.lightning.force.com";
 
 const SALES_STAGES = [
   "New Opportunity",
