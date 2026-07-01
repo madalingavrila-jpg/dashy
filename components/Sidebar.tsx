@@ -20,12 +20,6 @@ const navItems: NavItem[] = [
   { icon: "flag", label: "MTD & Tiers", href: "/mtd" },
   { icon: "compare_arrows", label: "WoW Reports", href: "/wow" },
   {
-    icon: "list_alt",
-    label: "Accounts",
-    href: "/accounts",
-    title: "Won / Activated / Backlog accounts with Salesforce links",
-  },
-  {
     icon: "storefront",
     label: "Accounts performance",
     href: "/accounts-performance",
