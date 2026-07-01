@@ -8,7 +8,12 @@ type NavItem = { icon: string; label: string; href: string; title?: string };
 
 const navItems: NavItem[] = [
   { icon: "dashboard", label: "Overview", href: "/" },
-  { icon: "groups", label: "Team Progress", href: "/pipeline" },
+  {
+    icon: "calendar_view_month",
+    label: "Monthly Overview",
+    href: "/pipeline",
+    title: "Overview team breakdown filtered by month — per-agent Won & Activated",
+  },
   { icon: "account_tree", label: "MyPipeline", href: "/my-pipeline" },
   { icon: "call_received", label: "Inbound team", href: "/inbound" },
   { icon: "calendar_view_week", label: "Weekly", href: "/weekly" },

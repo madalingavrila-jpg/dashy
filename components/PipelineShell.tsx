@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { TeamProgressGrid } from "@/components/TeamProgressPanel";
 import { StageBreakdown } from "@/components/StageBreakdown";
+import { MtdProgressCards } from "@/components/MtdPanels";
 import { useDashboard } from "@/lib/useDashboard";
 import { applyTargetConfig } from "@/lib/targetConfig";
 import {
@@ -28,20 +29,26 @@ export function PipelineShell() {
     }
   }, [defaultMonthKey, selectedMonthKey]);
 
+  const activeMonthKey = selectedMonthKey || defaultMonthKey;
+  // The default month is the live MTD slice; anything else is a slimmed
+  // historical month (final counts, no drill-down account lists).
+  const isLiveMonth = !activeMonthKey || activeMonthKey === defaultMonthKey;
+
   const model = useMemo(() => {
     if (!baseModel) return null;
-    const monthKey = selectedMonthKey || defaultMonthKey;
-    const withMonth = monthKey ? applyMtdMonthToModel(baseModel, monthKey) : baseModel;
+    const withMonth = activeMonthKey
+      ? applyMtdMonthToModel(baseModel, activeMonthKey)
+      : baseModel;
     return applyTargetConfig(withMonth, targetConfig);
-  }, [baseModel, defaultMonthKey, selectedMonthKey, targetConfig]);
+  }, [baseModel, activeMonthKey, targetConfig]);
 
   const monthLabel = model?.mtdMonthLabel ?? "Current month";
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-md">
       <PageHeader
-        title="Team Progress"
-        subtitle={`${monthLabel} — Complex Team & Density Team with Won and Activated MTD targets.`}
+        title="Monthly Overview"
+        subtitle={`${monthLabel} — the Overview team breakdown filtered by month: per-agent Won & Activated vs monthly targets.`}
         updatedAt={model?.updatedAt}
         loading={loading}
       />
@@ -54,12 +61,12 @@ export function PipelineShell() {
             Month
           </p>
           <p className="text-body-md text-on-surface-variant">
-            Defaults to the current month on first open. Past months use cached Salesforce won exports.
+            Defaults to the current month (live MTD). Past months show final historical numbers.
           </p>
         </div>
         <label className="flex min-w-[min(100%,280px)] flex-col gap-xs sm:max-w-xs">
           <span className="text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
-            MTD month
+            Filter by month
           </span>
           <select
             value={selectedMonthKey || defaultMonthKey}
@@ -75,6 +82,24 @@ export function PipelineShell() {
           </select>
         </label>
       </div>
+
+      <MtdProgressCards
+        month={monthLabel}
+        wonProgress={model?.mtdAchievement.wonProgress}
+        activatedProgress={model?.mtdAchievement.activatedProgress}
+        targetWon={model?.mtdAchievement.targetWon}
+        actualWon={model?.mtdAchievement.actualWon}
+        targetActivated={model?.mtdAchievement.targetActivated}
+        actualActivated={model?.mtdAchievement.actualActivated}
+        loading={loading}
+      />
+
+      {!isLiveMonth ? (
+        <p className="rounded-lg border border-outline-variant/60 bg-surface-container-low/40 px-md py-sm text-body-md text-on-surface-variant">
+          <span className="font-semibold text-on-surface">{monthLabel}</span> — final historical
+          numbers. Account drill-down lists are only kept for the current month.
+        </p>
+      ) : null}
 
       <TeamProgressGrid
         teams={model?.teamProgress}
