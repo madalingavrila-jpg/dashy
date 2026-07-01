@@ -24,7 +24,14 @@ const SECTIONS = [
   "agents",
   "my-pipeline",
   "inbound",
+  "mtd-details",
 ];
+
+// Served from its own data file (full-year drill-down lists live outside the
+// slimmed data/dashboard.json), not sliced from the dashboard model.
+const FILE_BACKED_SECTIONS = new Map([
+  ["mtd-details", path.join(root, "data", "mtd-details.json")],
+]);
 
 // Sections that keep their heavy drill-down data must be sliced from the full
 // (non-slim) model — the slimmed payload drops these arrays to stay under cap.
@@ -57,8 +64,16 @@ const model = JSON.parse(json);
 const fullModel = await loadFullDashboardModel();
 let sectionBytes = 0;
 for (const section of SECTIONS) {
-  const source = FULL_MODEL_SECTIONS.has(section) ? fullModel : model;
-  const sectionJson = JSON.stringify(sliceDashboardSection(source, section));
+  let sectionJson;
+  const backingFile = FILE_BACKED_SECTIONS.get(section);
+  if (backingFile) {
+    sectionJson = fs.existsSync(backingFile)
+      ? fs.readFileSync(backingFile, "utf8").trim()
+      : JSON.stringify({ updatedAt: new Date().toISOString(), months: [] });
+  } else {
+    const source = FULL_MODEL_SECTIONS.has(section) ? fullModel : model;
+    sectionJson = JSON.stringify(sliceDashboardSection(source, section));
+  }
   const sectionFile = path.join(sectionDir, `${section}.json`);
   const sizes = writeWithCompression(sectionFile, sectionJson);
   sectionBytes += sizes.raw;

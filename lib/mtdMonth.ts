@@ -1,5 +1,6 @@
 import type {
   DashboardModel,
+  MtdDetails,
   MtdHistoryMonth,
   MtdItem,
   TeamAgentProgressView,
@@ -139,6 +140,40 @@ export function buildTeamProgressFromMtdAgents(agents: MtdAgentInput[]): TeamPro
     buildTeam("complex", "Complex", "Complex Team", COMPLEX_MTD_TARGET, COMPLEX_ACTIVATED_MTD_TARGET),
     buildTeam("density", "Density", "Density Team", DENSITY_MTD_TARGET, DENSITY_ACTIVATED_MTD_TARGET),
   ];
+}
+
+/**
+ * Fill the slimmed-out wonItems/activatedItems of historical months from the
+ * lazily-fetched mtd-details payload. Months/agents that already have items
+ * (the current month) are left untouched.
+ */
+export function mergeMtdDetailsIntoHistory(
+  history: MtdHistoryMonth[],
+  details: MtdDetails | null,
+): MtdHistoryMonth[] {
+  if (!details?.months?.length || !history.length) return history;
+
+  const byMonth = new Map(details.months.map((month) => [month.monthKey, month]));
+
+  return history.map((month) => {
+    const detailMonth = byMonth.get(month.monthKey);
+    if (!detailMonth) return month;
+    const byOwner = new Map(detailMonth.agents.map((agent) => [agent.ownerId, agent]));
+    return {
+      ...month,
+      agents: month.agents.map((agent) => {
+        const detail = byOwner.get(agent.ownerId);
+        if (!detail) return agent;
+        return {
+          ...agent,
+          wonItems: agent.wonItems?.length ? agent.wonItems : detail.wonItems,
+          activatedItems: agent.activatedItems?.length
+            ? agent.activatedItems
+            : detail.activatedItems,
+        };
+      }),
+    };
+  });
 }
 
 export function applyMtdMonthToModel(model: DashboardModel, monthKey: string): DashboardModel {

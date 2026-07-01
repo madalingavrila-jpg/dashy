@@ -192,6 +192,25 @@ export type MtdHistoryMonth = {
   mtdAchievement: DashboardRawData["salesPipeline"]["mtdAchievement"];
 };
 
+/**
+ * Lazily-fetched /api/dashboard/mtd-details payload — per-month per-agent
+ * Won/Activated drill-down lists for every month (prior months are slimmed out
+ * of mtdHistory in the main payload).
+ */
+export type MtdDetailsMonth = {
+  monthKey: string;
+  agents: Array<{
+    ownerId: string;
+    wonItems: MtdItem[];
+    activatedItems: MtdItem[];
+  }>;
+};
+
+export type MtdDetails = {
+  updatedAt: string;
+  months: MtdDetailsMonth[];
+};
+
 export type TeamAgentProgressView = {
   ownerId: string;
   name: string;

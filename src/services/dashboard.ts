@@ -1034,7 +1034,8 @@ export type DashboardSection =
   | "mops"
   | "agents"
   | "my-pipeline"
-  | "inbound";
+  | "inbound"
+  | "mtd-details";
 
 let cachedPayload: DashboardCacheEntry | null = null;
 let loadingPromise: Promise<DashboardCacheEntry> | null = null;
@@ -1049,7 +1050,18 @@ export const DASHBOARD_SECTIONS: DashboardSection[] = [
   "agents",
   "my-pipeline",
   "inbound",
+  "mtd-details",
 ];
+
+/**
+ * Full-year per-month per-agent Won/Activated drill-down lists. Not part of the
+ * dashboard model — built by scripts/build-mtd-details.mjs into its own data
+ * file (data/dashboard.json slims prior months' item lists at source) and
+ * served only by the lazily-fetched /api/dashboard/mtd-details section.
+ */
+export function mtdDetailsDataPath(): string {
+  return path.join(config.rootDir, "data", "mtd-details.json");
+}
 
 export function sliceDashboardSection(
   model: DashboardModel,
@@ -1119,6 +1131,10 @@ export function sliceDashboardSection(
         salesforceInstanceUrl: model.salesforceInstanceUrl,
         inboundTeam: model.inboundTeam,
       };
+    case "mtd-details":
+      // Not derived from the model — served from data/mtd-details.json (see
+      // serializeDashboardSection / precompute). Empty placeholder here.
+      return { updatedAt: model.updatedAt, months: [] };
     default:
       return { updatedAt: model.updatedAt };
   }
@@ -1138,6 +1154,13 @@ export async function getDashboardModel(): Promise<DashboardModel> {
 
 export async function serializeDashboardSection(section: DashboardSection): Promise<string> {
   try {
+    if (section === "mtd-details") {
+      const detailsPath = mtdDetailsDataPath();
+      if (fs.existsSync(detailsPath)) {
+        return await readFile(detailsPath, "utf8");
+      }
+      return JSON.stringify({ updatedAt: new Date().toISOString(), months: [] });
+    }
     const model = await getDashboardModel();
     return JSON.stringify(sliceDashboardSection(model, section));
   } catch (error) {

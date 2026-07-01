@@ -13,6 +13,9 @@ This app does **not** call Salesforce or Looker at runtime. You (the Cursor agen
 2. `build-my-pipeline.mjs` → `salesPipeline.myPipeline`
 3. `build-accounts-performance.mjs` → `accountsPerformance` (Databricks)
 4. `build-inbound-team.mjs` → `inboundTeam`
+5. `build-mtd-details.mjs` → `data/mtd-details.json` (full-year per-month per-agent
+ Won/Activated drill-down lists; served as the lazy `/api/dashboard/mtd-details`
+ section for the Monthly Overview tab — never merged into `dashboard.json`)
 
 It is **idempotent**: re-running refreshes all sections in place and never leaves a partial/empty
 tab. `npm run build` then regenerates the precomputed API and runs `verify-build.mjs`, which **fails

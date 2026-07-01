@@ -8,17 +8,33 @@ import { StageBreakdown } from "@/components/StageBreakdown";
 import { MtdProgressCards } from "@/components/MtdPanels";
 import { useDashboard } from "@/lib/useDashboard";
 import { applyTargetConfig } from "@/lib/targetConfig";
+import { fetchMtdDetails } from "@/lib/api";
 import {
   applyMtdMonthToModel,
+  mergeMtdDetailsIntoHistory,
   mtdMonthOptions,
   resolveDefaultMonthKey,
 } from "@/lib/mtdMonth";
+import type { MtdDetails } from "@/types/dashboard";
 
 export function PipelineShell() {
   const { baseModel, error, loading, sourceHint, targetConfig } = useDashboard({
     sections: ["overview", "mtd"],
   });
   const [selectedMonthKey, setSelectedMonthKey] = useState("");
+  const [mtdDetails, setMtdDetails] = useState<MtdDetails | null>(null);
+
+  // Prior months' drill-down lists are slimmed out of the main payload; fetch
+  // the lazy mtd-details section once so every month can show its accounts.
+  useEffect(() => {
+    const controller = new AbortController();
+    fetchMtdDetails(controller.signal)
+      .then((details) => setMtdDetails(details))
+      .catch(() => {
+        // Non-fatal: counts/progress still render; only historical drill-downs stay hidden.
+      });
+    return () => controller.abort();
+  }, []);
 
   const defaultMonthKey = useMemo(() => resolveDefaultMonthKey(baseModel), [baseModel]);
   const monthOptions = useMemo(() => mtdMonthOptions(baseModel?.mtdHistory), [baseModel?.mtdHistory]);
@@ -31,16 +47,25 @@ export function PipelineShell() {
 
   const activeMonthKey = selectedMonthKey || defaultMonthKey;
   // The default month is the live MTD slice; anything else is a slimmed
-  // historical month (final counts, no drill-down account lists).
+  // historical month (final counts; drill-downs come from mtd-details).
   const isLiveMonth = !activeMonthKey || activeMonthKey === defaultMonthKey;
 
-  const model = useMemo(() => {
+  const detailedModel = useMemo(() => {
     if (!baseModel) return null;
+    if (!mtdDetails) return baseModel;
+    return {
+      ...baseModel,
+      mtdHistory: mergeMtdDetailsIntoHistory(baseModel.mtdHistory, mtdDetails),
+    };
+  }, [baseModel, mtdDetails]);
+
+  const model = useMemo(() => {
+    if (!detailedModel) return null;
     const withMonth = activeMonthKey
-      ? applyMtdMonthToModel(baseModel, activeMonthKey)
-      : baseModel;
+      ? applyMtdMonthToModel(detailedModel, activeMonthKey)
+      : detailedModel;
     return applyTargetConfig(withMonth, targetConfig);
-  }, [baseModel, activeMonthKey, targetConfig]);
+  }, [detailedModel, activeMonthKey, targetConfig]);
 
   const monthLabel = model?.mtdMonthLabel ?? "Current month";
 
@@ -97,7 +122,7 @@ export function PipelineShell() {
       {!isLiveMonth ? (
         <p className="rounded-lg border border-outline-variant/60 bg-surface-container-low/40 px-md py-sm text-body-md text-on-surface-variant">
           <span className="font-semibold text-on-surface">{monthLabel}</span> — final historical
-          numbers. Account drill-down lists are only kept for the current month.
+          numbers. Click an agent&apos;s Won or Activated count to see that month&apos;s accounts.
         </p>
       ) : null}
 

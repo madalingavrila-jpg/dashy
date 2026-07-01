@@ -14,6 +14,7 @@ const SECTIONS = [
   "agents",
   "my-pipeline",
   "inbound",
+  "mtd-details",
 ];
 const required = [
   "out/index.html",

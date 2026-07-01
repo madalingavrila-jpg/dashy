@@ -35,6 +35,9 @@ const STEPS = [
   { label: "MyPipeline", script: "build-my-pipeline.mjs" },
   { label: "Accounts performance (Databricks)", script: "build-accounts-performance.mjs" },
   { label: "Inbound team", script: "build-inbound-team.mjs" },
+  // Writes data/mtd-details.json only (never dashboard.json): full-year
+  // per-month per-agent Won/Activated drill-down lists for /api/dashboard/mtd-details.
+  { label: "MTD drill-down details", script: "build-mtd-details.mjs" },
 ];
 
 let ok = 0;

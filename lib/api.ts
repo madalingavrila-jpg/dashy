@@ -1,4 +1,4 @@
-import type { DashboardModel } from "@/types/dashboard";
+import type { DashboardModel, MtdDetails } from "@/types/dashboard";
 import type { TargetConfig } from "@/lib/targetConfig";
 
 export type TargetConfigPersistence = {
@@ -76,6 +76,19 @@ export async function fetchDashboardSections(
   } catch {
     return fetchDashboard(signal);
   }
+}
+
+/**
+ * Full-year per-month per-agent Won/Activated drill-down lists. Served as its
+ * own precompressed section and fetched lazily by the Monthly Overview tab —
+ * NOT part of DashboardModel (prior months are slimmed out of mtdHistory).
+ */
+export async function fetchMtdDetails(signal?: AbortSignal): Promise<MtdDetails> {
+  const response = await fetch(`${apiBase()}/api/dashboard/mtd-details`, {
+    cache: "no-store",
+    signal,
+  });
+  return parseJsonResponse<MtdDetails>(response);
 }
 
 export async function fetchHealth(signal?: AbortSignal): Promise<HealthInfo> {
