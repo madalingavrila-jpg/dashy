@@ -30,6 +30,29 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 
+// Pre-flight: validate every cache in the canonical manifest (existence,
+// parseability, row-count bounds, truncation signatures) and FAIL FAST instead
+// of building partial data. Closed-month chunk files being old is fine (the
+// incremental refresh reads them from disk); missing ones are a hard error.
+// Escape hatch (not for normal refreshes): DASHY_SKIP_VALIDATE=1
+if (process.env.DASHY_SKIP_VALIDATE === "1") {
+  console.warn("[build-all-data] DASHY_SKIP_VALIDATE=1 — skipping cache validation gate.");
+} else {
+  console.log("[build-all-data] (0) Cache validation gate — validate-caches.mjs");
+  const gate = spawnSync(process.execPath, [join(here, "validate-caches.mjs")], {
+    stdio: "inherit",
+    env: process.env,
+  });
+  if (gate.status !== 0) {
+    console.error(
+      "\n[build-all-data] ABORTED — cache validation failed; not building partial data. " +
+        "Fix the caches above (see node scripts/gen-all-cache-queries.mjs for every canonical query) " +
+        "and re-run `npm run refresh-all`.",
+    );
+    process.exit(gate.status ?? 1);
+  }
+}
+
 const STEPS = [
   { label: "Overview/MTD/Weekly/WoW/MOPS/Accounts", script: "build-dashboard-data.mjs" },
   { label: "MyPipeline", script: "build-my-pipeline.mjs" },

@@ -93,11 +93,18 @@ function recordsOf(file) {
 const wonMtdRecords = recordsOf("sf-inbound-won-mtd.json");
 const wonYtdRecords = recordsOf("sf-inbound-won-ytd-bydate.json");
 const weeklyRecords = recordsOf("sf-inbound-weekly-2026.json");
-const historyRecords = [
-  ...recordsOf("sf-inbound-stage-history-2026-h1.json"),
-  ...recordsOf("sf-inbound-stage-history-2026-h2.json"),
-  ...recordsOf("sf-inbound-stage-history-2026.json"),
-];
+// Prefer the merged full-year cache (built from monthly chunks by
+// fetch-sf-stage-history.mjs --kind=inbound-stage-history). The legacy h1/h2
+// half-year exports are only a fallback for pre-migration checkouts — reading
+// both alongside the merged file would double-count every transition.
+const mergedInboundHistory = recordsOf("sf-inbound-stage-history-2026.json");
+const historyRecords =
+  mergedInboundHistory.length > 0
+    ? mergedInboundHistory
+    : [
+        ...recordsOf("sf-inbound-stage-history-2026-h1.json"),
+        ...recordsOf("sf-inbound-stage-history-2026-h2.json"),
+      ];
 // Won_Date__c export is authoritative for both MTD and weekly Closed Won.
 const wonRecords = mergeWonExportRecords([
   { records: wonMtdRecords },

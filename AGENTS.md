@@ -22,13 +22,46 @@ tab. `npm run build` then regenerates the precomputed API and runs `verify-build
 loudly** if `inboundTeam.reps`, `accountsPerformance.accounts`, or `salesPipeline.myPipeline.items`
 is empty, or if `totals.won == totals.activated`.
 
+**Step 0 of the orchestrator is the cache validation gate** — `scripts/validate-caches.mjs`
+checks EVERY cache in the canonical manifest (exists, parses, row count within expected
+bounds, no SOQL-2,000 / Databricks-10,000 truncation signatures, staleness warning for
+files that should be re-pulled each run) and **fails fast** instead of building partial
+data. Closed-month chunk files being *old* is fine (expected with the incremental
+refresh); a *missing* closed-month chunk is a hard error.
+
 The full **"refresh date"** flow (pull fresh from all sources, then rebuild + deploy) is:
 **refresh the SF + Databricks caches via MCP → `npm run refresh-all` → `npm run build` → commit +
 push `boltable/main`.** `scripts/refresh-and-deploy.sh` automates exactly this (launchd).
 
+## Canonical query manifest + parallel pulls
+
+**`node scripts/gen-all-cache-queries.mjs`** is the single source of truth for **every**
+cache file under `scripts/.cache/` the build reads: for each file it prints the exact
+SOQL/Databricks SQL (or the gen script that produces it), the expected row-count bounds
+(enforced by `validate-caches.mjs`), the target filename, and the **parallel batch** it
+belongs to. `--json` gives a machine-readable manifest; `--full` also prints the
+closed-month chunk queries (backfills).
+
+**Run independent MCP queries IN PARALLEL, not sequentially.** MCP pulls are executed by
+the agent, so parallelism happens at the agent level — fire all queries of a batch in one
+parallel burst (parallel tool calls), then write each result to its target file:
+
+| Batch | Source | Contents | Depends on |
+|-------|--------|----------|------------|
+| **A** | Salesforce | current-month stage-history + weekly chunks, won-mtd, won-ytd, won-recent, pipeline-open, stage-counts | — |
+| **B** | Salesforce | MyPipeline (mp-*), MOPS, inbound exports (incl. inbound stage-history chunk) | — |
+| **C1** | Databricks | activation universe (`accounts-perf-accounts`) + provider→opp map | — |
+| **C2** | Databricks + SF | monthly/quality (IN-list from universe), SF commission/segment (opp IDs from prov-opp) | **C1** |
+
+A, B and C1 can all start simultaneously; C2 only after C1 lands. After all pulls:
+`node scripts/fetch-sf-stage-history.mjs --kind=all` → `npm run refresh-all` → `npm run build`.
+
 ## Workflow
 
 1. Query **Salesforce MCP** for pipeline, Won, Activated, accounts, opportunities.
+   `node scripts/gen-all-cache-queries.mjs` lists the exact query for **every** cache
+   file, grouped into parallel batches — fire each batch's queries together (see
+   "Canonical query manifest + parallel pulls" above).
 2. Read **Google Sheet** hitlist via Bolt MCP (`read_sheet_values`) — spreadsheet `1IW8IxEs-YCsYMlCeTfkIz-b51eStjR5uUIEpkV1akRE`.
 3. Map results to `data/dashboard.json` using `data/dashboard.schema.json`.
 4. Set `updatedAt` to the current ISO timestamp.
@@ -162,52 +195,73 @@ Activated field history cache: `scripts/.cache/sf-stage-history-2026.json` (week
 
 Exclude `Administrator` from the agents list. Map each owner to segment, set `mtdTarget`, then call `buildMtdAchievement(agents, month, { leadsMtd, qualifiedMtd })`.
 
-### CRITICAL: chunked stage-history + weekly refresh (truncation-safe)
+### CRITICAL: chunked stage-history + weekly refresh (truncation-safe, INCREMENTAL)
 
-The team **OpportunityFieldHistory** ("stage-history", ~7,700 rows/yr) and **weekly
+The team **OpportunityFieldHistory** ("stage-history", ~8,000 rows/yr) and **weekly
 Opportunity** exports exceed the Salesforce MCP **~2,000-row SOQL cap**. A naive
 full-year `... CreatedDate >= Jan-01 ... ORDER BY CreatedDate` pull is **silently
 truncated**, so DO NOT re-pull either in one shot, and **never reuse a stale copy**
-on a refresh. Instead use the repeatable, **MONTHLY-chunked** pull (mirrors the
-proven inbound h1/h2 split + `gen-accounts-perf-queries.mjs`):
+on a refresh. Instead use the repeatable, **MONTHLY-chunked** pull. Three kinds:
+`stage-history` (12 team reps), `weekly` (team Opportunity export), and
+`inbound-stage-history` (2 inbound reps — same flow, migrated from the legacy
+h1/h2 half-year files).
+
+**INCREMENTAL is the default: closed months are NOT re-pulled.** SF field history
+for a closed month is immutable, so the default emits ONLY the current month's
+chunk (plus the previous month during the first 3 days of a new month, catching
+late backfills across the boundary). Closed-month chunk files are read from disk
+by the merge. Use `--full` to re-pull every month (backfills, missing chunks,
+schema changes).
 
 1. **Emit the per-month SOQL** (team owner IDs + exact SELECT fields, dynamic
-   tracking year, Jan→current month):
+   tracking year):
 
    ```bash
-   node scripts/gen-sf-history-queries.mjs                 # both kinds
+   node scripts/gen-sf-history-queries.mjs                 # INCREMENTAL: current month only, all kinds
+   node scripts/gen-sf-history-queries.mjs --full          # every month Jan→current (backfills)
    node scripts/gen-sf-history-queries.mjs --kind=stage-history
    node scripts/gen-sf-history-queries.mjs --kind=weekly
+   node scripts/gen-sf-history-queries.mjs --kind=inbound-stage-history
    ```
 
    Each chunk uses `CreatedDate >= monthStart AND CreatedDate < nextMonthStart`,
    so every month returns **< ~1,800 rows** (peak observed: May = 1,767) — a safe
    margin under 2,000. Each printed block names its target chunk file
-   (e.g. `sf-stage-history-2026-05.json`).
+   (e.g. `sf-stage-history-2026-07.json`).
 
-2. **Run each printed query** through the Salesforce MCP (`user-Salesforce` →
-   `soqlQuery`). **Confirm `done: true` and `< 2000` records per chunk** (if any
+2. **Run the printed queries IN PARALLEL** through the Salesforce MCP
+   (`user-Salesforce` → `soqlQuery`) — they are independent, fire them in one
+   batch. **Confirm `done: true` and `< 2000` records per chunk** (if any
    chunk hits 2,000 it was truncated — split that month further). Save each JSON
    to its `scripts/.cache/sf-stage-history-YYYY-MM.json` /
-   `sf-weekly-YYYY-MM.json` chunk file.
+   `sf-weekly-YYYY-MM.json` / `sf-inbound-stage-history-YYYY-MM.json` chunk file.
 
-3. **Merge + dedup** all chunks into the full-year caches:
+3. **Merge + dedup** all chunks (fresh + closed-month from disk) into the
+   full-year caches:
 
    ```bash
-   node scripts/fetch-sf-stage-history.mjs --kind=all      # stage-history + weekly
+   node scripts/fetch-sf-stage-history.mjs --kind=all      # all three kinds
    node scripts/fetch-sf-stage-history.mjs --kind=stage-history
    node scripts/fetch-sf-stage-history.mjs --kind=weekly
+   node scripts/fetch-sf-stage-history.mjs --kind=inbound-stage-history
    ```
 
    Stage-history dedups by `OpportunityId+Field+CreatedDate+OldValue+NewValue`;
    weekly dedups by `Id` (newest `LastModifiedDate` wins). The merge **warns** if
-   any chunk has ≥ 2,000 rows (likely truncated) and skips missing chunks so a
-   partial re-pull never corrupts the merged cache.
+   any chunk has ≥ 2,000 rows (likely truncated) and **ERRORS LOUDLY if any
+   closed-month chunk file is missing** (a missing month would silently vanish
+   from the merged cache) — fix by re-pulling with
+   `node scripts/gen-sf-history-queries.mjs --full`. On the first
+   `inbound-stage-history` run it auto-migrates the legacy
+   `sf-inbound-stage-history-YYYY-h1/h2.json` files into monthly chunks (never
+   overwriting fresher monthly pulls).
 
 This is **idempotent**: re-running with fresh chunk files refreshes
-`sf-stage-history-YYYY.json` + `sf-weekly-YYYY.json` in place. Always re-pull
-these on a full "refresh all" so the Weekly tab + stage-history metrics are
-current, not 1+ day stale.
+`sf-stage-history-YYYY.json` + `sf-weekly-YYYY.json` +
+`sf-inbound-stage-history-YYYY.json` in place. Always re-pull the current-month
+chunks on every "refresh all" so the Weekly tab + stage-history metrics are
+current, not 1+ day stale — but do NOT waste MCP round-trips re-pulling closed
+months.
 
 ### Weekly production
 
@@ -221,9 +275,10 @@ All weekly buckets use **OpportunityFieldHistory** (first transition INTO stage)
 | Active | Activated | Sales Opportunity | first transition INTO Activated |
 
 Field history cache: `scripts/.cache/sf-stage-history-2026.json` — refresh via the
-**chunked** flow above (`gen-sf-history-queries.mjs --kind=stage-history` → run each
-monthly chunk via MCP → `fetch-sf-stage-history.mjs --kind=stage-history`). Never
-re-pull the full year in one query (SOQL 2,000-row cap → silent truncation).
+**incremental chunked** flow above (`gen-sf-history-queries.mjs --kind=stage-history` →
+run the current-month chunk(s) via MCP → `fetch-sf-stage-history.mjs --kind=stage-history`,
+which merges the closed-month chunks from disk). Never re-pull the full year in one
+query (SOQL 2,000-row cap → silent truncation).
 
 **MTD Won** (separate from weekly Closed Won) uses `Won_Date__c = THIS_MONTH` — see Won export above. Do not use `sf-won-ytd.json` for weekly Closed Won. Weekly **Closed Won** still uses field-history first transition INTO `Closed Won` only.
 
@@ -250,9 +305,10 @@ ORDER BY CreatedDate ASC
 New Opportunity fallback: opps still in `New Opportunity` use `CreatedDate` (field history omits initial stage).
 
 Weekly opps export (`scripts/.cache/sf-weekly-2026.json`) — refresh via the same
-**chunked** flow (`gen-sf-history-queries.mjs --kind=weekly` → run each monthly
-chunk via MCP → `fetch-sf-stage-history.mjs --kind=weekly`). The per-month SOQL is
-(do not hand-run the unbounded full-year version — it risks the 2,000-row cap):
+**incremental chunked** flow (`gen-sf-history-queries.mjs --kind=weekly` → run the
+current-month chunk(s) via MCP → `fetch-sf-stage-history.mjs --kind=weekly`). The
+per-month SOQL is (do not hand-run the unbounded full-year version — it risks the
+2,000-row cap):
 
 ```sql
 SELECT Id, Name, StageName, CreatedDate, LastModifiedDate, CloseDate,
@@ -365,7 +421,7 @@ team exports exclude these owners, so these are separate caches:
 
 - `sf-inbound-won-mtd.json` — `Won_Date__c = THIS_MONTH`, RecordType `Sales Opportunity`.
 - `sf-inbound-won-ytd-bydate.json` — `Won_Date__c = THIS_YEAR` (drives weekly Closed Won + YTD).
-- `sf-inbound-stage-history-2026-h1.json` / `-h2.json` — `OpportunityFieldHistory` StageName transitions (Jan–Mar / Apr–Jun split to stay under the 2000-row SOQL cap).
+- `sf-inbound-stage-history-2026-MM.json` — `OpportunityFieldHistory` StageName transitions, **monthly chunks** (same incremental flow as the team export: `gen-sf-history-queries.mjs --kind=inbound-stage-history` → `fetch-sf-stage-history.mjs --kind=inbound-stage-history` merges into `sf-inbound-stage-history-2026.json`, which the build prefers). The legacy `-h1/-h2` half-year files are auto-migrated into monthly chunks on the first merge and kept only as a fallback.
 - `sf-inbound-weekly-2026.json` — open + won/activated opps 2026 (New Opportunity leads by week).
 
 Databricks: the inbound build **reuses** the team `accounts-perf-*.json` caches
