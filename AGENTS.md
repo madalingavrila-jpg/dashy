@@ -56,6 +56,15 @@ parallel burst (parallel tool calls), then write each result to its target file:
 A, B and C1 can all start simultaneously; C2 only after C1 lands. After all pulls:
 `node scripts/fetch-sf-stage-history.mjs --kind=all` → `npm run refresh-all` → `npm run build`.
 
+Two hard-won caveats baked into the manifest:
+
+- **MOPS cases pull is UNSCOPED** — no `Account.BillingCountry` filter. Most open
+  cases have NULL BillingCountry but are still RO (Romania queue / MOps owners);
+  a country filter silently drops them (66 of 88 on 2026-07-02).
+- **SF commission/segment pull is PRE-SPLIT** — `node scripts/gen-accounts-perf-queries.mjs
+  --kind=sf-commission` emits the SOQL in batches of ≤300 opportunity IDs (~6 batches at
+  current universe size). Larger IN-lists exceed the MCP URL/header limit → HTTP 431.
+
 ## Workflow
 
 1. Query **Salesforce MCP** for pipeline, Won, Activated, accounts, opportunities.

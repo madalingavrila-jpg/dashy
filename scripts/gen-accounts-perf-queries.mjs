@@ -42,15 +42,27 @@
  *   WHERE po.provider_activated_ts >= '<YEAR>-01-01' AND po.country_name = 'Romania'
  *   QUALIFY ROW_NUMBER() OVER (PARTITION BY po.provider_id ORDER BY po.provider_activated_ts DESC) = 1
  *
+ * ## SF commission/segment batches (the 431 fix)
+ * `--kind=sf-commission` emits the Salesforce SOQL that feeds BOTH
+ * `accounts-perf-sf-commission.json` and `accounts-perf-sf-segment.json`,
+ * PRE-SPLIT into batches of ≤ SF_COMMISSION_BATCH_SIZE (300) opportunity IDs.
+ * The Salesforce MCP puts the SOQL in the URL query string, so large IN-lists
+ * blow the server header limit: 2 batches for 1,665 providers (~830 IDs each)
+ * failed with HTTP 431 on 2026-07-02. 300 IDs per query is a safe margin and
+ * the batch count scales with the universe (~6 batches at current size).
+ * Requires accounts-perf-prov-opp.json (batch C1) to exist.
+ *
  * ## Usage
- *   node scripts/gen-accounts-perf-queries.mjs            # print both queries
+ *   node scripts/gen-accounts-perf-queries.mjs            # print all three kinds
  *   node scripts/gen-accounts-perf-queries.mjs --kind=monthly
  *   node scripts/gen-accounts-perf-queries.mjs --kind=quality
- *   node scripts/gen-accounts-perf-queries.mjs --chunk=300 # batched IN-lists
+ *   node scripts/gen-accounts-perf-queries.mjs --kind=sf-commission
+ *   node scripts/gen-accounts-perf-queries.mjs --chunk=300 # batched Databricks IN-lists
  *
- * The agent runs each printed query through the Databricks MCP
- * (`user-mcp-databricks-bolt` → `execute_query`) and writes the JSON result to
- * the matching cache file. Column order MUST stay aligned with what
+ * The agent runs each printed query through the matching MCP (Databricks
+ * `user-mcp-databricks-bolt` → `execute_query` for monthly/quality; Salesforce
+ * `user-Salesforce` → `soqlQuery` for sf-commission) and writes the JSON result
+ * to the matching cache file. Column order MUST stay aligned with what
  * lib/accounts-performance-build.mjs reads — do not reorder/rename columns.
  */
 import fs from "node:fs";
@@ -79,6 +91,37 @@ export function readActivatedProviderIds() {
   const parsed = JSON.parse(raw.slice(raw.indexOf("{")));
   const rows = parsed.data ?? [];
   return [...new Set(rows.map((r) => String(r[0])))];
+}
+
+/** Distinct won opportunity IDs from the prov→opp map (feeds the SF commission/segment pull). */
+export function readWonOpportunityIds() {
+  const file = path.join(cacheDir, "accounts-perf-prov-opp.json");
+  const raw = fs.readFileSync(file, "utf8");
+  const parsed = JSON.parse(raw.slice(raw.indexOf("{")));
+  const rows = parsed.data ?? [];
+  return [...new Set(rows.map((r) => String(r[1])).filter((id) => id && id !== "null"))];
+}
+
+/**
+ * Batch size for the SF commission/segment IN-list pulls. The Salesforce MCP
+ * sends SOQL in the URL query string: ~830 quoted opportunity IDs (2 batches
+ * for a 1,665-provider universe) blew past the server header limit with an
+ * HTTP 431 on 2026-07-02. ~300 IDs ≈ 6.5 KB per query — comfortable margin,
+ * and the batch count scales automatically as the universe grows.
+ */
+export const SF_COMMISSION_BATCH_SIZE = 300;
+
+/**
+ * Pre-split SF commission/segment SOQL batches (one pull feeds BOTH
+ * accounts-perf-sf-commission.json and accounts-perf-sf-segment.json).
+ * Returns one query string per batch of ≤ SF_COMMISSION_BATCH_SIZE IDs.
+ */
+export function sfCommissionQueries(oppIds) {
+  return chunk(oppIds, SF_COMMISSION_BATCH_SIZE).map(
+    (batch) =>
+      "SELECT Id, Commission__c, Account.Account_Management_Segment__c FROM Opportunity " +
+      `WHERE Id IN (${batch.map((id) => `'${id}'`).join(",")})`,
+  );
 }
 
 /**
@@ -145,22 +188,39 @@ function main() {
       return [k, v ?? true];
     }),
   );
-  const ids = readActivatedProviderIds();
-  const size = Number(args.chunk) || 0;
-  const batches = chunk(ids, size);
-  const kinds = args.kind ? [args.kind] : ["monthly", "quality"];
+  const kinds = args.kind ? [args.kind] : ["monthly", "quality", "sf-commission"];
 
-  console.error(
-    `[gen-accounts-perf-queries] ${ids.length} activated providers, ` +
-      `${batches.length} batch(es)${size ? ` of ≤${size}` : ""}.`,
-  );
+  const dbKinds = kinds.filter((k) => k === "monthly" || k === "quality");
+  if (dbKinds.length > 0) {
+    const ids = readActivatedProviderIds();
+    const size = Number(args.chunk) || 0;
+    const batches = chunk(ids, size);
+    console.error(
+      `[gen-accounts-perf-queries] ${ids.length} activated providers, ` +
+        `${batches.length} Databricks batch(es)${size ? ` of ≤${size}` : ""}.`,
+    );
+    for (const kind of dbKinds) {
+      const build = kind === "monthly" ? monthlyQuery : qualityQuery;
+      batches.forEach((batch, i) => {
+        const tag = batches.length > 1 ? ` [${kind} batch ${i + 1}/${batches.length}]` : ` [${kind}]`;
+        console.log(`-- ${tag}`);
+        console.log(build(batch));
+        console.log("");
+      });
+    }
+  }
 
-  for (const kind of kinds) {
-    const build = kind === "monthly" ? monthlyQuery : qualityQuery;
-    batches.forEach((batch, i) => {
-      const tag = batches.length > 1 ? ` [${kind} batch ${i + 1}/${batches.length}]` : ` [${kind}]`;
-      console.log(`-- ${tag}`);
-      console.log(build(batch));
+  if (kinds.includes("sf-commission")) {
+    const oppIds = readWonOpportunityIds();
+    const queries = sfCommissionQueries(oppIds);
+    console.error(
+      `[gen-accounts-perf-queries] ${oppIds.length} won opportunity IDs, ` +
+        `${queries.length} SF commission/segment batch(es) of ≤${SF_COMMISSION_BATCH_SIZE} ` +
+        "(pre-split — avoids HTTP 431 from an oversized query string).",
+    );
+    queries.forEach((q, i) => {
+      console.log(`-- [sf-commission batch ${i + 1}/${queries.length}] — feeds accounts-perf-sf-commission.json + accounts-perf-sf-segment.json`);
+      console.log(q);
       console.log("");
     });
   }

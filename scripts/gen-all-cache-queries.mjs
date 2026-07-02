@@ -269,17 +269,18 @@ export function buildCacheManifest({ full = false } = {}) {
       source: "assembled",
       query:
         "SELECT Id, CaseNumber, Subject, Status, OwnerId, Owner.Name, RecordType.Name " +
-        "FROM Case WHERE IsClosed = false AND Account.BillingCountry = 'Romania' " +
-        "ORDER BY CreatedDate DESC",
+        "FROM Case WHERE IsClosed = false ORDER BY CreatedDate DESC",
       gen: null,
       note:
-        "OPEN MOps cases (RO). Country scoping reconstructed — sanity-check openCases against the [MOps] Open cases dashboard. Assemble into: " +
+        "OPEN MOps cases — UNSCOPED on purpose: do NOT add an Account.BillingCountry filter. Most open cases " +
+        "have BillingCountry = NULL (66 of 88 on 2026-07-02) yet are still RO (Romania queue / MOps owners), so a " +
+        "country filter silently drops them; the unscoped pull matches the [MOps] Open cases dashboard. Assemble into: " +
         '{"openCases": n, "openNewOnboarding": n (RecordType = New Onboarding), ' +
         '"openByStatus": [{status,count}...], "openByRecordType": [{recordType,count}...], ' +
         '"openByOwner": [{ownerId,name,count}...], "records": [{id,caseNumber,subject,status,ownerId,ownerName,recordType,url}...]} ' +
         "(all breakdowns sorted by count desc; url = https://bolt.lightning.force.com/lightning/r/Case/<Id>/view).",
       format: "mops-cases",
-      bounds: [0, 1999],
+      bounds: [20, 300],
       cap: null,
       refreshedEachRun: true,
       closedMonthChunk: false,
@@ -426,11 +427,14 @@ export function buildCacheManifest({ full = false } = {}) {
       file: "scripts/.cache/accounts-perf-sf-commission.json",
       batch: "C2",
       source: "assembled",
-      query:
-        "SELECT Id, Commission__c, Account.Account_Management_Segment__c FROM Opportunity " +
-        "WHERE Id IN (<opportunity_ids from accounts-perf-prov-opp.json — split into 2+ batches to stay under the 2,000-row SOQL cap>)",
-      gen: null,
-      note: 'Salesforce Commission__c per provider. Map each result row back through prov-opp to [provider_id, Commission__c, opportunity_id] and write header line + {"data": [...]}. Same SOQL also feeds accounts-perf-sf-segment.json.',
+      query: null,
+      gen: "node scripts/gen-accounts-perf-queries.mjs --kind=sf-commission",
+      note:
+        "Salesforce Commission__c per provider. The gen script emits the SOQL PRE-SPLIT into batches of ≤300 " +
+        "opportunity IDs from accounts-perf-prov-opp.json (~6 batches at current universe size, scales automatically) — " +
+        "larger IN-lists blow the MCP URL/header limit with HTTP 431. Run the batches in parallel, concatenate the rows, " +
+        'map each back through prov-opp to [provider_id, Commission__c, opportunity_id] and write header line + {"data": [...]}. ' +
+        "Same SOQL batches also feed accounts-perf-sf-segment.json.",
       format: "mcp-table",
       bounds: [50, 9999],
       cap: null,
@@ -442,7 +446,7 @@ export function buildCacheManifest({ full = false } = {}) {
       batch: "C2",
       source: "assembled",
       query: null,
-      gen: "same SOQL as accounts-perf-sf-commission.json (one pull feeds both files)",
+      gen: "same SOQL batches as accounts-perf-sf-commission.json (one pre-split pull feeds both files)",
       note: 'Salesforce Account_Management_Segment__c per provider: [provider_id, segment, opportunity_id] rows, header line + {"data": [...]}. Overrides the stale Databricks business_segment_v2 for display.',
       format: "mcp-table",
       bounds: [50, 9999],
