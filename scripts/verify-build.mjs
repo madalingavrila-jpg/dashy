@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { TEAM_ROSTER, INBOUND_OWNER_IDS } from "../lib/agent-segments.mjs";
+import { buildMtdHistoryFromHybrid, mergeWonExportRecords } from "../lib/mtd-history.mjs";
 
 const root = process.cwd();
 
@@ -148,6 +149,102 @@ if (Array.isArray(inboundReps) && inboundReps.length !== EXPECTED_INBOUND_COUNT)
   dataErrors.push(
     `inboundTeam.reps must list exactly the ${EXPECTED_INBOUND_COUNT} inbound reps (got ${inboundReps.length}).`,
   );
+}
+
+// --- MTD reconciliation guard (catches silently-zeroed / mis-attributed reps) --
+// The 12-rep presence guard above only proves a rep ROW exists; it does NOT prove
+// the row carries that rep's REAL Won/Activated counts. The Cornel bug shipped all
+// 12 rows but with 0/0 for a rep who actually had 11 June wins. These two checks
+// close that gap:
+//
+//   (1) Self-consistency (always): every mtdHistory month's `mtdAchievement`
+//       totals must equal the SUM of that month's per-rep counts, and the YTD
+//       Overview totals must equal the sum across months. A rep dropped between
+//       the per-rep list and the achievement aggregation (attribution/classifier
+//       mismatch) makes these not reconcile.
+//   (2) Cache cross-check (when the SF caches are present — i.e. at data-refresh
+//       time, NOT on a cache-less Boltable redeploy): recompute the canonical MTD
+//       history straight from the raw caches and assert the shipped per-rep counts
+//       match. This catches a stale/short cache pull whose zeros were baked into
+//       dashboard.json, and a dashboard.json that wasn't rebuilt after a re-pull.
+if (Array.isArray(mtdHistory) && mtdHistory.length > 0) {
+  let ytdWon = 0;
+  let ytdActivated = 0;
+  for (const month of mtdHistory) {
+    const agents = month?.agents ?? [];
+    const sumWon = agents.reduce((s, a) => s + (a?.wonMtd ?? 0), 0);
+    const sumActivated = agents.reduce((s, a) => s + (a?.activatedMtd ?? 0), 0);
+    ytdWon += sumWon;
+    ytdActivated += sumActivated;
+    const ach = month?.mtdAchievement ?? {};
+    if (typeof ach.actualWon === "number" && ach.actualWon !== sumWon) {
+      dataErrors.push(
+        `mtdHistory[${month?.monthKey}] actualWon (${ach.actualWon}) != Σ per-rep wonMtd (${sumWon}) — ` +
+          "a rep was dropped between the per-rep list and mtdAchievement (attribution/classifier bug).",
+      );
+    }
+    if (typeof ach.actualActivated === "number" && ach.actualActivated !== sumActivated) {
+      dataErrors.push(
+        `mtdHistory[${month?.monthKey}] actualActivated (${ach.actualActivated}) != Σ per-rep activatedMtd (${sumActivated}).`,
+      );
+    }
+  }
+  const wonTotalValue = sp.totals?.won?.value;
+  const activatedTotalValue = sp.totals?.activated?.value;
+  if (typeof wonTotalValue === "number" && wonTotalValue !== ytdWon) {
+    dataErrors.push(
+      `totals.won.value (${wonTotalValue}) != Σ mtdHistory per-rep wonMtd (${ytdWon}) — YTD Won must reconcile to the per-rep MTD store.`,
+    );
+  }
+  if (typeof activatedTotalValue === "number" && activatedTotalValue !== ytdActivated) {
+    dataErrors.push(
+      `totals.activated.value (${activatedTotalValue}) != Σ mtdHistory per-rep activatedMtd (${ytdActivated}) — YTD Activated must reconcile.`,
+    );
+  }
+
+  // (2) Cross-check per-rep counts against the raw caches (refresh-time only).
+  const cacheDir = path.join(root, "scripts/.cache");
+  const wonYtdPath = path.join(cacheDir, "sf-won-ytd-bydate.json");
+  const historyPath = path.join(cacheDir, "sf-stage-history-2026.json");
+  if (fs.existsSync(wonYtdPath) && fs.existsSync(historyPath)) {
+    try {
+      const readRecords = (p) => {
+        const parsed = JSON.parse(fs.readFileSync(p, "utf8"));
+        return Array.isArray(parsed) ? parsed : (parsed.records ?? []);
+      };
+      const wonMtdPath = path.join(cacheDir, "sf-won-mtd.json");
+      const wonExports = [{ records: readRecords(wonYtdPath) }];
+      if (fs.existsSync(wonMtdPath)) wonExports.push({ records: readRecords(wonMtdPath) });
+      for (const name of fs.readdirSync(cacheDir).filter((n) => /^sf-won-\d{4}-\d{2}\.json$/.test(n))) {
+        wonExports.push({ records: readRecords(path.join(cacheDir, name)) });
+      }
+      const wonAll = mergeWonExportRecords(wonExports);
+      const expected = buildMtdHistoryFromHybrid(wonAll, readRecords(historyPath));
+      const expectedByMonth = new Map(expected.map((m) => [m.monthKey, m]));
+      for (const month of mtdHistory) {
+        const exp = expectedByMonth.get(month?.monthKey);
+        if (!exp) continue;
+        const expByOwner = new Map(exp.agents.map((a) => [a.ownerId, a]));
+        for (const agent of month?.agents ?? []) {
+          const e = expByOwner.get(agent?.ownerId);
+          if (!e) continue;
+          if ((agent?.wonMtd ?? 0) !== e.wonMtd || (agent?.activatedMtd ?? 0) !== e.activatedMtd) {
+            dataErrors.push(
+              `mtdHistory[${month.monthKey}] rep ${agent?.name ?? agent?.ownerId}: shipped ` +
+                `${agent?.wonMtd ?? 0}W/${agent?.activatedMtd ?? 0}A != canonical ${e.wonMtd}W/${e.activatedMtd}A ` +
+                "from caches. Re-run `npm run refresh-all && npm run build` after re-pulling the SF caches " +
+                "(a stale/short owner IN-list drops a rep's counts — the Cornel 0/0 bug).",
+            );
+          }
+        }
+      }
+    } catch (err) {
+      dataErrors.push(
+        `MTD cache cross-check failed to run: ${err instanceof Error ? err.message : err}. ` +
+          "Verify scripts/.cache SF exports are valid JSON.",
+      );
+    }
+  }
 }
 
 // --- Won ≠ Activated invariant (Overview totals must be derived, not equal) ---

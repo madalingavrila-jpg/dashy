@@ -33,6 +33,8 @@ import { readFileSync, existsSync, statSync } from "node:fs";
 import { join, dirname, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildCacheManifest } from "./gen-all-cache-queries.mjs";
+import { TEAM_ROSTER } from "../lib/agent-segments.mjs";
+import { currentTrackingYear } from "../lib/weekly-stages-build.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..");
@@ -71,6 +73,57 @@ function parseCache(path, format) {
   const records = Array.isArray(parsed) ? parsed : parsed.records;
   if (!Array.isArray(records)) throw new Error("no `records` array");
   return { count: records.length, done: parsed.done !== false };
+}
+
+/** Collect the distinct SF owner ids present in an sf-records cache file. */
+function ownerIdsInCache(path, { nested = false } = {}) {
+  const parsed = JSON.parse(readFileSync(path, "utf8"));
+  const records = Array.isArray(parsed) ? parsed : (parsed.records ?? []);
+  const ids = new Set();
+  for (const rec of records) {
+    const id = nested ? rec?.Opportunity?.OwnerId : rec?.OwnerId;
+    if (id) ids.add(id);
+  }
+  return ids;
+}
+
+/**
+ * ROSTER-PRESENCE GATE — every one of the 12 team reps MUST appear in the
+ * full-year, owner-scoped caches. This is the precise guard for the class of bug
+ * where a cache was pulled with an owner IN-list that silently dropped a rep
+ * (e.g. Corneliu-Ștefan Radu missing from sf-won-ytd-bydate → 0 Won/Activated on
+ * the dashboard even though SF had 11 June wins). These caches span the whole
+ * tracking year for established reps, so a MISSING owner id means a bad pull, not
+ * a legitimately zero rep — fail fast before the build attributes zeros.
+ */
+function checkRosterPresence() {
+  const year = currentTrackingYear();
+  const teamIds = TEAM_ROSTER.map((r) => r.ownerId);
+  const targets = [
+    { file: "scripts/.cache/sf-won-ytd-bydate.json", nested: false, source: "Won (all months)" },
+    { file: `scripts/.cache/sf-stage-history-${year}.json`, nested: true, source: "Activated / stage history" },
+    { file: `scripts/.cache/sf-weekly-${year}.json`, nested: false, source: "Weekly production" },
+  ];
+  for (const t of targets) {
+    const path = join(root, t.file);
+    if (!existsSync(path)) continue; // MISSING is already reported by the manifest loop
+    let present;
+    try {
+      present = ownerIdsInCache(path, { nested: t.nested });
+    } catch (err) {
+      errors.push(`${t.file}: UNPARSEABLE during roster-presence check (${err.message}).`);
+      continue;
+    }
+    const missing = teamIds.filter((id) => !present.has(id));
+    if (missing.length) {
+      errors.push(
+        `${t.file}: missing ${missing.length}/${teamIds.length} team rep(s) [${missing.join(", ")}] — ` +
+          `this cache drives ${t.source} and MUST contain all ${teamIds.length} reps. A dropped owner id means the ` +
+          "pull used a stale/short owner IN-list (the Cornel 0-Won/0-Activated bug). Re-pull with the current " +
+          "queries: node scripts/gen-all-cache-queries.mjs (owner IDs derive from lib/agent-segments TEAM_ROSTER).",
+      );
+    }
+  }
 }
 
 function hint(entry) {
@@ -180,6 +233,8 @@ function main() {
       );
     }
   }
+
+  checkRosterPresence();
 
   for (const w of warnings) console.warn(`[validate-caches] WARN  ${w}`);
   for (const e of errors) console.error(`[validate-caches] ERROR ${e}`);
