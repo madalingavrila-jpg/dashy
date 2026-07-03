@@ -2,8 +2,38 @@
 /** Fail the Paketo build if required production artifacts are missing. */
 import fs from "node:fs";
 import path from "node:path";
+import { TEAM_ROSTER, INBOUND_OWNER_IDS } from "../lib/agent-segments.mjs";
 
 const root = process.cwd();
+
+/**
+ * Canonical roster the build MUST always ship. Derived from the single source of
+ * truth (TEAM_ROSTER) so a roster change updates this guard automatically. This
+ * is the permanent guard against the "agents disappeared from tables" regression:
+ * a rep with zero pipeline sample rows or zero MTD activity in the selected
+ * month/week must still be seeded (ensureTeamRoster) — never silently dropped.
+ */
+const EXPECTED_TEAM_IDS = TEAM_ROSTER.map((entry) => entry.ownerId);
+const EXPECTED_TEAM_ID_SET = new Set(EXPECTED_TEAM_IDS);
+const EXPECTED_TEAM_COUNT = EXPECTED_TEAM_IDS.length;
+const EXPECTED_INBOUND_COUNT = INBOUND_OWNER_IDS.size;
+
+/**
+ * Compare a section's owner-id list against the canonical 12-rep roster.
+ * Returns a human-readable diff string when it does NOT match exactly, else "".
+ */
+function rosterMismatch(ownerIds) {
+  const present = new Set(ownerIds);
+  const missing = EXPECTED_TEAM_IDS.filter((id) => !present.has(id));
+  const unexpected = [...present].filter((id) => !EXPECTED_TEAM_ID_SET.has(id));
+  if (ownerIds.length === EXPECTED_TEAM_COUNT && !missing.length && !unexpected.length) {
+    return "";
+  }
+  const parts = [`got ${ownerIds.length}/${EXPECTED_TEAM_COUNT}`];
+  if (missing.length) parts.push(`missing [${missing.join(", ")}]`);
+  if (unexpected.length) parts.push(`unexpected [${unexpected.join(", ")}]`);
+  return parts.join("; ");
+}
 const SECTIONS = [
   "overview",
   "mtd",
@@ -75,11 +105,48 @@ const mpItems = sp.myPipeline?.items;
 if (!Array.isArray(mpItems) || mpItems.length === 0) {
   dataErrors.push("salesPipeline.myPipeline.items is empty — run `npm run refresh-all` (build-my-pipeline).");
 }
+// --- Team roster guard (permanent) -------------------------------------------
+// The team agent roster MUST contain EXACTLY the 12 canonical reps — no missing
+// reps (the "agents disappeared" bug: zero-activity reps dropped after a refresh)
+// and no unexpected/excluded reps leaking in. Enforced on the Overview `agents`
+// list AND on EVERY month in `mtdHistory` (so the Monthly Overview month switch
+// can never render a short roster). ensureTeamRoster seeds missing reps with
+// zero counts; if that ever regresses, the build fails loudly here.
 const teamAgents = sp.agents;
-if (!Array.isArray(teamAgents) || teamAgents.length !== 12) {
+if (!Array.isArray(teamAgents)) {
   dataErrors.push(
-    `salesPipeline.agents must list all 12 team reps (got ${teamAgents?.length ?? 0}) — ` +
-      "ensureTeamRoster should seed missing reps with zero counts.",
+    "salesPipeline.agents is missing or not an array — ensureTeamRoster must seed all 12 team reps.",
+  );
+} else {
+  const diff = rosterMismatch(teamAgents.map((a) => a?.ownerId));
+  if (diff) {
+    dataErrors.push(
+      `salesPipeline.agents must list exactly the ${EXPECTED_TEAM_COUNT} team reps (${diff}) — ` +
+        "ensureTeamRoster should seed missing reps with zero counts.",
+    );
+  }
+}
+
+const mtdHistory = sp.mtdHistory;
+if (!Array.isArray(mtdHistory) || mtdHistory.length === 0) {
+  dataErrors.push(
+    "salesPipeline.mtdHistory is empty — run `npm run refresh-all` (build-dashboard-data).",
+  );
+} else {
+  for (const month of mtdHistory) {
+    const diff = rosterMismatch((month?.agents ?? []).map((a) => a?.ownerId));
+    if (diff) {
+      dataErrors.push(
+        `salesPipeline.mtdHistory[${month?.monthKey ?? "?"}] must list all ${EXPECTED_TEAM_COUNT} team reps (${diff}) — ` +
+          "each month must seed zero-activity reps (mtdHistoryFromStore → ensureTeamRoster).",
+      );
+    }
+  }
+}
+
+if (Array.isArray(inboundReps) && inboundReps.length !== EXPECTED_INBOUND_COUNT) {
+  dataErrors.push(
+    `inboundTeam.reps must list exactly the ${EXPECTED_INBOUND_COUNT} inbound reps (got ${inboundReps.length}).`,
   );
 }
 
