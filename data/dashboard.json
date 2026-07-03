@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-03T13:04:44.776Z",
+  "updatedAt": "2026-07-03T13:27:04.100Z",
   "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -68,18 +68,18 @@
     },
     "mtdAchievement": {
       "month": "July 2026",
-      "targetWon": 250,
+      "targetWon": 260,
       "actualWon": 15,
-      "targetActivated": 207,
+      "targetActivated": 215,
       "actualActivated": 19,
       "leadsMtd": 1,
       "qualifiedMtd": 0,
-      "complexRepCount": 4,
+      "complexRepCount": 5,
       "densityRepCount": 7,
       "tiers": [
         {
           "name": "Complex",
-          "target": 40,
+          "target": 50,
           "actual": 4,
           "type": "won"
         },
@@ -91,7 +91,7 @@
         },
         {
           "name": "Complex",
-          "target": 32,
+          "target": 40,
           "actual": 4,
           "type": "activated"
         },
@@ -3333,6 +3333,17 @@
         "wonYtd": 5,
         "segment": "complex",
         "mtdTarget": 10
+      },
+      {
+        "ownerId": "005Ts000005c4hFIAQ",
+        "name": "Corneliu-Ștefan Radu",
+        "pipelineCount": 0,
+        "stageCounts": {},
+        "wonMtd": 0,
+        "activatedMtd": 0,
+        "wonYtd": 0,
+        "segment": "complex",
+        "mtdTarget": 10
       }
     ],
     "mtdHistory": [
@@ -3614,6 +3625,15 @@
             ]
           },
           {
+            "ownerId": "005Ts000005c4hFIAQ",
+            "name": "Corneliu-Ștefan Radu",
+            "segment": "complex",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
             "ownerId": "005Ts00000BtX53IAF",
             "name": "Daniel-Marian Toltică",
             "segment": "density",
@@ -3706,40 +3726,58 @@
                 "sfAccountId": "001Qs00000qlZScIAM"
               }
             ]
+          },
+          {
+            "ownerId": "005Qs00000Mxc6EIAR",
+            "name": "Paul-Daniel Rîngheanu",
+            "segment": "complex",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts000001Ak10IAC",
+            "name": "Silviu-Mihnea Voicu",
+            "segment": "density",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
           }
         ],
         "mtdAchievement": {
           "month": "July 2026",
-          "targetWon": 210,
+          "targetWon": 260,
           "actualWon": 15,
-          "targetActivated": 174,
+          "targetActivated": 215,
           "actualActivated": 19,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
-          "complexRepCount": 3,
-          "densityRepCount": 6,
+          "complexRepCount": 5,
+          "densityRepCount": 7,
           "tiers": [
             {
               "name": "Complex",
-              "target": 30,
+              "target": 50,
               "actual": 4,
               "type": "won"
             },
             {
               "name": "Density",
-              "target": 180,
+              "target": 210,
               "actual": 11,
               "type": "won"
             },
             {
               "name": "Complex",
-              "target": 24,
+              "target": 40,
               "actual": 4,
               "type": "activated"
             },
             {
               "name": "Density",
-              "target": 150,
+              "target": 175,
               "actual": 15,
               "type": "activated"
             }
@@ -3848,22 +3886,31 @@
             "activatedMtd": 1,
             "wonItems": [],
             "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts000005c4hFIAQ",
+            "name": "Corneliu-Ștefan Radu",
+            "segment": "complex",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
           }
         ],
         "mtdAchievement": {
           "month": "June 2026",
-          "targetWon": 250,
+          "targetWon": 260,
           "actualWon": 205,
-          "targetActivated": 207,
+          "targetActivated": 215,
           "actualActivated": 199,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
-          "complexRepCount": 4,
+          "complexRepCount": 5,
           "densityRepCount": 7,
           "tiers": [
             {
               "name": "Complex",
-              "target": 40,
+              "target": 50,
               "actual": 21,
               "type": "won"
             },
@@ -3875,7 +3922,7 @@
             },
             {
               "name": "Complex",
-              "target": 32,
+              "target": 40,
               "actual": 15,
               "type": "activated"
             },
@@ -3990,22 +4037,31 @@
             "activatedMtd": 2,
             "wonItems": [],
             "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000Pr1HKIAZ",
+            "name": "Vlad-Bogdan Popa",
+            "segment": "complex",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
           }
         ],
         "mtdAchievement": {
           "month": "May 2026",
-          "targetWon": 250,
+          "targetWon": 260,
           "actualWon": 250,
-          "targetActivated": 207,
+          "targetActivated": 215,
           "actualActivated": 243,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
-          "complexRepCount": 4,
+          "complexRepCount": 5,
           "densityRepCount": 7,
           "tiers": [
             {
               "name": "Complex",
-              "target": 40,
+              "target": 50,
               "actual": 34,
               "type": "won"
             },
@@ -4017,7 +4073,7 @@
             },
             {
               "name": "Complex",
-              "target": 32,
+              "target": 40,
               "actual": 30,
               "type": "activated"
             },
@@ -4283,22 +4339,31 @@
             "activatedMtd": 6,
             "wonItems": [],
             "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000Pr1HKIAZ",
+            "name": "Vlad-Bogdan Popa",
+            "segment": "complex",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
           }
         ],
         "mtdAchievement": {
           "month": "March 2026",
-          "targetWon": 250,
+          "targetWon": 260,
           "actualWon": 148,
-          "targetActivated": 207,
+          "targetActivated": 215,
           "actualActivated": 150,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
-          "complexRepCount": 4,
+          "complexRepCount": 5,
           "densityRepCount": 7,
           "tiers": [
             {
               "name": "Complex",
-              "target": 40,
+              "target": 50,
               "actual": 20,
               "type": "won"
             },
@@ -4310,7 +4375,7 @@
             },
             {
               "name": "Complex",
-              "target": 32,
+              "target": 40,
               "actual": 15,
               "type": "activated"
             },
@@ -4409,6 +4474,15 @@
             "activatedItems": []
           },
           {
+            "ownerId": "005Qs00000N2Hh3IAF",
+            "name": "Andrei-Georgian Pătru",
+            "segment": "complex",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
             "ownerId": "005Ts000005c4hFIAQ",
             "name": "Corneliu-Ștefan Radu",
             "segment": "complex",
@@ -4416,22 +4490,31 @@
             "activatedMtd": 16,
             "wonItems": [],
             "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000Mxc6EIAR",
+            "name": "Paul-Daniel Rîngheanu",
+            "segment": "complex",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
           }
         ],
         "mtdAchievement": {
           "month": "February 2026",
-          "targetWon": 240,
+          "targetWon": 260,
           "actualWon": 140,
-          "targetActivated": 199,
+          "targetActivated": 215,
           "actualActivated": 142,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
-          "complexRepCount": 3,
+          "complexRepCount": 5,
           "densityRepCount": 7,
           "tiers": [
             {
               "name": "Complex",
-              "target": 30,
+              "target": 50,
               "actual": 5,
               "type": "won"
             },
@@ -4443,7 +4526,7 @@
             },
             {
               "name": "Complex",
-              "target": 24,
+              "target": 40,
               "actual": 21,
               "type": "activated"
             },
@@ -4524,6 +4607,15 @@
             "activatedItems": []
           },
           {
+            "ownerId": "005Qs00000N2Hh3IAF",
+            "name": "Andrei-Georgian Pătru",
+            "segment": "complex",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
             "ownerId": "005Ts000005c4hFIAQ",
             "name": "Corneliu-Ștefan Radu",
             "segment": "complex",
@@ -4531,40 +4623,67 @@
             "activatedMtd": 10,
             "wonItems": [],
             "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000Mxc6EIAR",
+            "name": "Paul-Daniel Rîngheanu",
+            "segment": "complex",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Ts000001Ak10IAC",
+            "name": "Silviu-Mihnea Voicu",
+            "segment": "density",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000Pr1HKIAZ",
+            "name": "Vlad-Bogdan Popa",
+            "segment": "complex",
+            "wonMtd": 0,
+            "activatedMtd": 0,
+            "wonItems": [],
+            "activatedItems": []
           }
         ],
         "mtdAchievement": {
           "month": "January 2026",
-          "targetWon": 200,
+          "targetWon": 260,
           "actualWon": 78,
-          "targetActivated": 166,
+          "targetActivated": 215,
           "actualActivated": 81,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
-          "complexRepCount": 2,
-          "densityRepCount": 6,
+          "complexRepCount": 5,
+          "densityRepCount": 7,
           "tiers": [
             {
               "name": "Complex",
-              "target": 20,
+              "target": 50,
               "actual": 4,
               "type": "won"
             },
             {
               "name": "Density",
-              "target": 180,
+              "target": 210,
               "actual": 74,
               "type": "won"
             },
             {
               "name": "Complex",
-              "target": 16,
+              "target": 40,
               "actual": 14,
               "type": "activated"
             },
             {
               "name": "Density",
-              "target": 150,
+              "target": 175,
               "actual": 67,
               "type": "activated"
             }
@@ -5603,7 +5722,7 @@
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-07-03T13:04:43.079Z",
+      "generatedAt": "2026-07-03T13:27:03.007Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -40642,31 +40761,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-07-03T13:04:42.157Z",
+        "lastSync": "2026-07-03T13:27:02.085Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-07-03T13:04:42.157Z",
+        "lastSync": "2026-07-03T13:27:02.085Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-07-03T13:04:42.157Z",
+        "lastSync": "2026-07-03T13:27:02.085Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-07-03T13:04:42.157Z",
+        "lastSync": "2026-07-03T13:27:02.085Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-07-03T13:04:43.426Z",
+    "generatedAt": "2026-07-03T13:27:03.378Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -128642,7 +128761,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-07-03T13:04:44.776Z",
+    "generatedAt": "2026-07-03T13:27:04.100Z",
     "monthKey": "2026-07",
     "monthLabel": "July 2026",
     "currentWeek": "W27",

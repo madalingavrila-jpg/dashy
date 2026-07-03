@@ -75,6 +75,13 @@ const mpItems = sp.myPipeline?.items;
 if (!Array.isArray(mpItems) || mpItems.length === 0) {
   dataErrors.push("salesPipeline.myPipeline.items is empty — run `npm run refresh-all` (build-my-pipeline).");
 }
+const teamAgents = sp.agents;
+if (!Array.isArray(teamAgents) || teamAgents.length !== 12) {
+  dataErrors.push(
+    `salesPipeline.agents must list all 12 team reps (got ${teamAgents?.length ?? 0}) — ` +
+      "ensureTeamRoster should seed missing reps with zero counts.",
+  );
+}
 
 // --- Won ≠ Activated invariant (Overview totals must be derived, not equal) ---
 const wonTotal = sp.totals?.won?.value;

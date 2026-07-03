@@ -7,7 +7,7 @@ import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  filterTeamAgents,
+  ensureTeamRoster,
   buildMtdAchievement,
   isExcludedAgent,
   agentSegment,
@@ -500,12 +500,9 @@ for (const opp of mergedWonRecords) {
   }
 }
 
-const agents = filterTeamAgents(
+const agents = ensureTeamRoster(
   [...agentMap.values()].filter(
-    (a) =>
-      a.name !== "Administrator" &&
-      !isExcludedAgent(a.name, a.ownerId) &&
-      (a.pipelineCount > 0 || a.wonMtd > 0 || a.activatedMtd > 0),
+    (a) => a.name !== "Administrator" && !isExcludedAgent(a.name, a.ownerId),
   ),
 ).sort((a, b) => b.pipelineCount - a.pipelineCount);
 
