@@ -28,13 +28,15 @@ function parseSfJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));
 }
 
-const stageHistoryExport =
-  process.env.SF_STAGE_HISTORY_EXPORT ?? join(cacheDir, "sf-stage-history-2026.json");
+const activationExport =
+  process.env.SF_ACTIVATION_EXPORT ?? join(cacheDir, "sf-account-activation-2026.json");
 const wonExport = process.env.SF_WON_EXPORT ?? join(cacheDir, "sf-won-mtd.json");
 const wonYtdByDateExport =
   process.env.SF_WON_YTD_EXPORT ?? join(cacheDir, "sf-won-ytd-bydate.json");
 
-const stageHistoryData = parseSfJson(stageHistoryExport);
+const activationData = existsSync(activationExport)
+  ? parseSfJson(activationExport)
+  : { records: [] };
 const wonData = parseSfJson(wonExport);
 const wonYtdByDateData = existsSync(wonYtdByDateExport)
   ? parseSfJson(wonYtdByDateExport)
@@ -45,8 +47,9 @@ const extraWonExports = readdirSync(cacheDir)
 
 // Same canonical Won source as build-dashboard-data.mjs: full-year Won_Date
 // export merged with the THIS_MONTH export (+ monthly archives), deduped by Id.
+// Activated drill-downs come from the provider_first_active_date__c export.
 const wonAllRecords = mergeWonExportRecords([wonYtdByDateData, wonData, ...extraWonExports]);
-const store = buildHybridMtdStore(wonAllRecords, stageHistoryData.records);
+const store = buildHybridMtdStore(wonAllRecords, activationData.records ?? []);
 
 // Keep each item slim — just what the drill-down popover needs (name, city,
 // date, SF opportunity link). Drops sfAccountId from mapMtdItem's shape.

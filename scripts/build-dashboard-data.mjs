@@ -23,6 +23,7 @@ import {
 import {
   accumulateWeeklyStatusFromHistory,
   accumulateWeeklyClosedWonFromWonDate,
+  accumulateWeeklyActiveFromActivationDate,
   accumulateNewOpportunityFallback,
   breakdownStoreToHistory,
   countWeeklyLeads,
@@ -143,6 +144,14 @@ function mapAccount(opp, statusOverride) {
 const weeklyExport = process.env.SF_WEEKLY_EXPORT ?? join(root, "scripts/.cache/sf-weekly-2026.json");
 const stageHistoryExport =
   process.env.SF_STAGE_HISTORY_EXPORT ?? join(root, "scripts/.cache/sf-stage-history-2026.json");
+/**
+ * Activated source of truth: won Sales Opportunities joined to
+ * Account.provider_first_active_date__c (>= tracking-year start). One activation
+ * per account, attributed to the primary won opp's owner. Replaced the old
+ * field-history "transition INTO Activated" source (see AGENTS.md).
+ */
+const activationExport =
+  process.env.SF_ACTIVATION_EXPORT ?? join(root, "scripts/.cache/sf-account-activation-2026.json");
 const pipelineExport = process.env.SF_PIPELINE_EXPORT ?? join(root, "scripts/.cache/sf-pipeline-open.json");
 /** Won_Date__c = THIS_MONTH — Sales Opportunity (SF dashboard Won Date MTD). */
 const wonExport = process.env.SF_WON_EXPORT ?? join(root, "scripts/.cache/sf-won-mtd.json");
@@ -157,6 +166,9 @@ const mopsOnboardingExport =
   process.env.SF_MOPS_ONBOARDING_EXPORT ?? join(root, "scripts/.cache/sf-mops-onboarding.json");
 const weeklyData = parseSfJson(weeklyExport);
 const stageHistoryData = parseSfJson(stageHistoryExport);
+const activationData = existsSync(activationExport)
+  ? parseSfJson(activationExport)
+  : { records: [] };
 const pipelineData = parseSfJson(pipelineExport);
 const wonData = parseSfJson(wonExport);
 const wonYtdByDateData = existsSync(wonYtdByDateExport)
@@ -177,8 +189,9 @@ const extraWonExports = readdirSync(wonCacheDir)
  */
 const wonAllRecords = mergeWonExportRecords([wonYtdByDateData, wonData, ...extraWonExports]);
 const mergedWonRecords = mergeWonExportRecords([wonData, ...extraWonExports, wonRecentData]);
-const mtdHistoryStore = buildHybridMtdStore(wonAllRecords, stageHistoryData.records);
-const mtdHistory = buildMtdHistoryFromHybrid(wonAllRecords, stageHistoryData.records);
+const activationRecords = activationData.records ?? [];
+const mtdHistoryStore = buildHybridMtdStore(wonAllRecords, activationRecords);
+const mtdHistory = buildMtdHistoryFromHybrid(wonAllRecords, activationRecords);
 const mopsCasesData = parseSfJson(mopsCasesExport);
 const mopsOnboardingData = existsSync(mopsOnboardingExport)
   ? parseSfJson(mopsOnboardingExport)
@@ -371,9 +384,11 @@ const currentWeekYear = Number(currentWeekKey.slice(0, 4));
 const currentWeekLabelText = `${weekLabel(currentWeekKey)} · ${isoWeekRangeLabel(currentWeekYear, currentWeekNum)}`;
 
 // Weekly status breakdown:
-//  - Qualified / Negotiations / Active: OpportunityFieldHistory (first INTO stage).
+//  - Qualified / Negotiations: OpportunityFieldHistory (first INTO stage).
 //  - Closed Won: canonical Won definition (Won_Date__c, Sales Opportunity) bucketed
 //    by ISO week of Won_Date__c — same rule as MTD Won, NOT field-history transitions.
+//  - Active: Account.provider_first_active_date__c bucketed by ISO week — same rule
+//    as MTD Activated, NOT the field-history transition INTO the Activated stage.
 const weeklyBreakdownStore = initWeeklyBreakdownStore(currentWeekNum);
 accumulateWeeklyStatusFromHistory(
   stageHistoryData.records,
@@ -383,6 +398,12 @@ accumulateWeeklyStatusFromHistory(
 );
 accumulateWeeklyClosedWonFromWonDate(
   wonYtdByDateData.records,
+  weeklyBreakdownStore,
+  agentSegment,
+  isExcludedAgent,
+);
+accumulateWeeklyActiveFromActivationDate(
+  activationRecords,
   weeklyBreakdownStore,
   agentSegment,
   isExcludedAgent,

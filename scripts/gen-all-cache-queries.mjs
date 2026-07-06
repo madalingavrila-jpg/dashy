@@ -37,6 +37,7 @@
 import { TEAM_ROSTER, INBOUND_OWNER_IDS } from "../lib/agent-segments.mjs";
 import { currentTrackingYear } from "../lib/weekly-stages-build.mjs";
 import { KINDS, buildChunkManifest, monthsToPull, currentMonthFor } from "./gen-sf-history-queries.mjs";
+import { activationQuery } from "./gen-activation-queries.mjs";
 
 const TEAM_IDS = TEAM_ROSTER.map((r) => r.ownerId);
 const INBOUND_IDS = [...INBOUND_OWNER_IDS];
@@ -187,6 +188,23 @@ export function buildCacheManifest({ full = false } = {}) {
       format: "sf-records",
       bounds: [1, 500],
       cap: 500,
+      refreshedEachRun: true,
+      closedMonthChunk: false,
+    },
+    {
+      file: `scripts/.cache/sf-account-activation-${year}.json`,
+      batch: "A",
+      source: "salesforce-mcp",
+      query: activationQuery(TEAM_IDS, year),
+      gen: "node scripts/gen-activation-queries.mjs --kind=team",
+      note:
+        "ACTIVATED source of truth — won Sales Opportunities joined to Account.provider_first_active_date__c " +
+        "(>= tracking-year start), 12 team reps. One activation per account (deduped in the build, attributed to " +
+        "the won opp owner). Watch the 2,000-row SOQL cap; if totalSize nears 2000, split by month on " +
+        "Account.provider_first_active_date__c.",
+      format: "sf-records",
+      bounds: [50, 1999],
+      cap: null,
       refreshedEachRun: true,
       closedMonthChunk: false,
     },
@@ -346,6 +364,21 @@ export function buildCacheManifest({ full = false } = {}) {
         `AND OwnerId IN (${inList(INBOUND_IDS)}) ORDER BY CreatedDate DESC`,
       gen: null,
       note: "Inbound weekly opps export (New Opportunity leads by week). Small enough for one pull — no monthly chunking needed.",
+      format: "sf-records",
+      bounds: [1, 1999],
+      cap: null,
+      refreshedEachRun: true,
+      closedMonthChunk: false,
+    },
+    {
+      file: `scripts/.cache/sf-inbound-account-activation-${year}.json`,
+      batch: "B",
+      source: "salesforce-mcp",
+      query: activationQuery(INBOUND_IDS, year),
+      gen: "node scripts/gen-activation-queries.mjs --kind=inbound",
+      note:
+        "Inbound ACTIVATED source of truth — won Sales Opportunities joined to " +
+        "Account.provider_first_active_date__c (>= tracking-year start), 2 inbound reps. One activation per account.",
       format: "sf-records",
       bounds: [1, 1999],
       cap: null,

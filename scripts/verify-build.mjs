@@ -203,10 +203,12 @@ if (Array.isArray(mtdHistory) && mtdHistory.length > 0) {
   }
 
   // (2) Cross-check per-rep counts against the raw caches (refresh-time only).
+  // Won comes from the Won_Date exports; Activated from the account-activation
+  // export (Account.provider_first_active_date__c) — the canonical Activated source.
   const cacheDir = path.join(root, "scripts/.cache");
   const wonYtdPath = path.join(cacheDir, "sf-won-ytd-bydate.json");
-  const historyPath = path.join(cacheDir, "sf-stage-history-2026.json");
-  if (fs.existsSync(wonYtdPath) && fs.existsSync(historyPath)) {
+  const activationPath = path.join(cacheDir, "sf-account-activation-2026.json");
+  if (fs.existsSync(wonYtdPath) && fs.existsSync(activationPath)) {
     try {
       const readRecords = (p) => {
         const parsed = JSON.parse(fs.readFileSync(p, "utf8"));
@@ -219,7 +221,7 @@ if (Array.isArray(mtdHistory) && mtdHistory.length > 0) {
         wonExports.push({ records: readRecords(path.join(cacheDir, name)) });
       }
       const wonAll = mergeWonExportRecords(wonExports);
-      const expected = buildMtdHistoryFromHybrid(wonAll, readRecords(historyPath));
+      const expected = buildMtdHistoryFromHybrid(wonAll, readRecords(activationPath));
       const expectedByMonth = new Map(expected.map((m) => [m.monthKey, m]));
       for (const month of mtdHistory) {
         const exp = expectedByMonth.get(month?.monthKey);

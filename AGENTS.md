@@ -91,8 +91,9 @@ Two hard-won caveats baked into the manifest:
 **Overview totals + snapshot are DERIVED, never hardcoded:**
 - `salesPipeline.totals.won` / `totals.activated` (YTD) are computed in `build-dashboard-data.mjs`
   from the canonical MTD store — Won = Σ per-month `Won_Date__c` counts (team), Activated = Σ
-  per-month field-history Activated counts (team). They **must differ** (Won ≠ Activated; verify-build
-  asserts this). `previousValue` = cumulative through the end of the prior month.
+  per-month `Account.provider_first_active_date__c` counts (team, one per account). They **must
+  differ** (Won ≠ Activated; verify-build asserts this). `previousValue` = cumulative through the
+  end of the prior month.
 - `salesPipeline.snapshot` funnel comes from `scripts/.cache/sf-pipeline-stage-counts.json`
   (SF `GROUP BY StageName`, RecordType `Sales Opportunity` == Romania). Refresh it every pull:
   `SELECT StageName, COUNT(Id) cnt FROM Opportunity WHERE RecordType.Name = 'Sales Opportunity' GROUP BY StageName`.
@@ -171,6 +172,17 @@ Each agent row must include `segment` (`complex` | `density`) and `mtdTarget` (W
 
 Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.mjs` and `scripts/patch-mtd-targets.mjs`). Excluded reps are defined in `EXCLUDED_OWNER_IDS`.
 
+**Month-scoped per-rep target overrides** (`data/target-config.json` → `perRep`): a
+per-rep entry may carry a `monthKey` (e.g. `"2026-07"`) so the override applies ONLY
+when the dashboard's current/selected month matches, auto-reverting to the segment
+default otherwise (resolved in `lib/targetConfig.ts` `resolveMtdOverrideValue`
+against `model.mtdMonthKey`). An `activated`-only override leaves Won at the segment
+default. **July 2026 Activated targets** (Activated MTD only; Won unchanged; auto-revert
+in August): Density 23/rep except **Daniel-Alexandru Boboc 15** (vacation) → 153;
+Complex 5/rep except **Corneliu-Ștefan Radu 4** (vacation) → 24; Inbound Ana-Maria
+Preda & Catalin Corbeanu 45 each (stored in `perRep`; the Inbound tab is actuals-only
+so not displayed as a target there).
+
 ### MTD Won vs Activated (hybrid — aligned with SF dashboard)
 
 **Won MTD** matches Salesforce dashboard `01ZTs000000L8AfMAK` (red “won” box, filter **Won Date = This Month**): custom field **`Won_Date__c = THIS_MONTH`**. **No StageName filter** — opps in Onboarding, Activated, etc. still count if `Won_Date__c` is in the current month. Do **not** use `CloseDate` or `StageName IN ('Contract sent', 'Ready to Activate')` for Won MTD.
@@ -178,9 +190,33 @@ Logic lives in `lib/agent-segments.mjs` (used by `scripts/build-dashboard-data.m
 | Metric | SF logic | Record type | Month from |
 |--------|----------|-------------|------------|
 | **Won MTD** | `Won_Date__c = THIS_MONTH` | **Sales Opportunity** only | `Won_Date__c` (Europe/Bucharest) |
-| **Activated MTD** | first transition INTO `Activated` | Sales Opportunity only | `OpportunityFieldHistory.CreatedDate` |
+| **Activated MTD** | `Account.provider_first_active_date__c` set (>= tracking-year start) | Sales Opportunity only | `Account.provider_first_active_date__c` (Europe/Bucharest) |
 
-Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore()` — won from `accumulateMtdWonFromWonDate()`, activated from `accumulateMtdActivatedFromStageHistory()`. **ALL months** (current and prior) count Won from `Won_Date__c` via the full-year export (`sf-won-ytd-bydate.json`, merged with the THIS_MONTH export). There is **no** field-history "Closed Won" fallback — it double-counted bulk stage backfills (e.g. phantom January inflation for Mihnea) and broke the canonical-Won contract. `build-dashboard-data.mjs` therefore feeds the merged Won_Date records (YTD + THIS_MONTH) into `buildHybridMtdStore`.
+**Activated source of truth (changed 2026-07):** Activated is now derived from the
+SF Account date field **`Account.provider_first_active_date__c`** (~99.9% populated),
+NOT the old OpportunityFieldHistory transition INTO the `Activated` stage. The field
+is account-level with no owner, so it is attributed via the account's won Sales
+Opportunity → owner (the same owner attribution dashy already uses); accounts with
+multiple team opps are **deduped per account** (`pickPrimaryActivationOpp` — prefer
+the won opp, then latest `Won_Date__c`). Expected differences vs the old counts:
+month-boundary shifts (an account first-active on the last day of a month whose SF
+stage flips the next morning) and **reactivations** (accounts with a pre-2026
+first-active date drop out of 2026). Do NOT use the near-twin
+`Account.Activation_Date__c` (datetime) — use `provider_first_active_date__c`.
+
+Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore(wonRecords, activationRecords)` —
+won from `accumulateMtdWonFromWonDate()`, activated from
+`accumulateMtdActivatedFromActivationDate()` (the legacy
+`accumulateMtdActivatedFromStageHistory()` is retained for reference only). **ALL
+months** (current and prior) count Won from `Won_Date__c` via the full-year export
+(`sf-won-ytd-bydate.json`, merged with the THIS_MONTH export). There is **no**
+field-history "Closed Won" fallback — it double-counted bulk stage backfills (e.g.
+phantom January inflation for Mihnea) and broke the canonical-Won contract.
+`build-dashboard-data.mjs` feeds the merged Won_Date records (YTD + THIS_MONTH) as
+`wonRecords` and the account-activation export
+(`scripts/.cache/sf-account-activation-2026.json`) as `activationRecords` into
+`buildHybridMtdStore`. **Won logic is UNCHANGED** (still `Won_Date__c`); only
+Activated switched, and Won ≠ Activated still holds (verify-build asserts it).
 
 Exclude Teodor Domnica and Andrei-Sebastian Caba (`EXCLUDED_OWNER_IDS`). 12 team reps only.
 
@@ -200,7 +236,31 @@ ORDER BY Won_Date__c DESC
 
 Reproduces **100** team total (June 2026) — includes all stages with Won Date set this month. Refresh this export before each deploy.
 
-Activated field history cache: `scripts/.cache/sf-stage-history-2026.json` (weekly query below).
+### Activated export (`scripts/.cache/sf-account-activation-2026.json`)
+
+Activated MTD + weekly Active are driven by this export — won Sales Opportunities
+joined to `Account.provider_first_active_date__c`. Generate the SOQL with
+`node scripts/gen-activation-queries.mjs --kind=team` (inbound:
+`--kind=inbound` → `sf-inbound-account-activation-2026.json`):
+
+```sql
+SELECT Id, OwnerId, Owner.Name, IsWon, Won_Date__c, StageName, AccountId,
+  Account.Name, Account.BillingCity, Account.provider_first_active_date__c, RecordType.Name
+FROM Opportunity
+WHERE RecordType.Name = 'Sales Opportunity'
+  AND Account.provider_first_active_date__c != null
+  AND Account.provider_first_active_date__c >= 2026-01-01
+  AND OwnerId IN ( /* 12 team rep IDs (inbound: 2 inbound IDs) */ )
+ORDER BY Account.provider_first_active_date__c
+```
+
+One pull each (team ~1,100 rows, inbound ~400) — under the 2,000-row SOQL cap. If the
+team pull ever nears 2,000, split by month on `provider_first_active_date__c`. The
+build dedups per account and attributes to the primary won opp's owner.
+
+The legacy Activated field-history cache `scripts/.cache/sf-stage-history-2026.json`
+is still pulled (it drives weekly Qualified/Negotiations); it no longer feeds
+Activated/Active.
 
 Exclude `Administrator` from the agents list. Map each owner to segment, set `mtdTarget`, then call `buildMtdAchievement(agents, month, { leadsMtd, qualifiedMtd })`.
 
@@ -274,14 +334,14 @@ months.
 
 ### Weekly production
 
-All weekly buckets use **OpportunityFieldHistory** (first transition INTO stage). **Closed Won** is strict **`Closed Won`** only — not Contract sent, not Ready to Activate. Opps now in Activated (or later) still count in the week when they first entered Closed Won.
+Qualified/Negotiations buckets use **OpportunityFieldHistory** (first transition INTO stage). **Closed Won** uses `Won_Date__c` and **Active** uses `Account.provider_first_active_date__c` (both bucketed by ISO week) — NOT field-history transitions. Closed Won is strict **`Closed Won`** only — not Contract sent, not Ready to Activate.
 
-| Bucket | SF stages | Record type | Week from |
+| Bucket | SF source | Record type | Week from |
 |--------|-----------|-------------|-----------|
-| Qualified | New Opportunity, Contacting DCM, First Pitch | Sales + Parent Opp | first transition INTO stage |
-| Negotiations | Negotiations | Sales Opportunity | first transition |
-| Closed Won | **Closed Won** only | Parent + Sales Opportunity | first transition INTO Closed Won (`CreatedDate`, Europe/Bucharest ISO week) |
-| Active | Activated | Sales Opportunity | first transition INTO Activated |
+| Qualified | New Opportunity, Contacting DCM, First Pitch (field history) | Sales + Parent Opp | first transition INTO stage |
+| Negotiations | Negotiations (field history) | Sales Opportunity | first transition |
+| Closed Won | `Won_Date__c` set (**not** field history) | Parent + Sales Opportunity | `Won_Date__c` (Europe/Bucharest ISO week) |
+| Active | `Account.provider_first_active_date__c` (**not** field history) | Sales Opportunity | `provider_first_active_date__c` (Europe/Bucharest ISO week), one per account |
 
 Field history cache: `scripts/.cache/sf-stage-history-2026.json` — refresh via the
 **incremental chunked** flow above (`gen-sf-history-queries.mjs --kind=stage-history` →
