@@ -221,7 +221,15 @@ if (Array.isArray(mtdHistory) && mtdHistory.length > 0) {
         wonExports.push({ records: readRecords(path.join(cacheDir, name)) });
       }
       const wonAll = mergeWonExportRecords(wonExports);
-      const expected = buildMtdHistoryFromHybrid(wonAll, readRecords(activationPath));
+      // Reactivations (pre-2026 first-active accounts, dated via stage history)
+      // count toward Activated — mirror the build so the cross-check reconciles.
+      const reactivationPath = path.join(cacheDir, "sf-reactivation-2026.json");
+      const stageHistoryPath = path.join(cacheDir, "sf-stage-history-2026.json");
+      const reactivation = {
+        records: fs.existsSync(reactivationPath) ? readRecords(reactivationPath) : [],
+        historyRecords: fs.existsSync(stageHistoryPath) ? readRecords(stageHistoryPath) : [],
+      };
+      const expected = buildMtdHistoryFromHybrid(wonAll, readRecords(activationPath), reactivation);
       const expectedByMonth = new Map(expected.map((m) => [m.monthKey, m]));
       for (const month of mtdHistory) {
         const exp = expectedByMonth.get(month?.monthKey);

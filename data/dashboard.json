@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-10T08:46:12.962Z",
+  "updatedAt": "2026-07-10T13:28:02.125Z",
   "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -10,9 +10,9 @@
         "period": "YTD"
       },
       "activated": {
-        "value": 1057,
-        "previousValue": 1018,
-        "changePercent": 3.8,
+        "value": 1076,
+        "previousValue": 1034,
+        "changePercent": 4.1,
         "period": "YTD"
       }
     },
@@ -71,7 +71,7 @@
       "targetWon": 260,
       "actualWon": 53,
       "targetActivated": 215,
-      "actualActivated": 39,
+      "actualActivated": 42,
       "leadsMtd": 0,
       "qualifiedMtd": 3,
       "complexRepCount": 5,
@@ -98,7 +98,7 @@
         {
           "name": "Density",
           "target": 175,
-          "actual": 33,
+          "actual": 36,
           "type": "activated"
         }
       ]
@@ -133,8 +133,8 @@
         },
         {
           "label": "Active",
-          "value": 18,
-          "previousValue": 36,
+          "value": 19,
+          "previousValue": 38,
           "changePercent": -50
         }
       ],
@@ -177,7 +177,7 @@
           "qualified": 0,
           "negotiations": 2,
           "closedWon": 41,
-          "active": 40
+          "active": 42
         },
         {
           "week": "W06",
@@ -201,7 +201,7 @@
           "qualified": 4,
           "negotiations": 2,
           "closedWon": 35,
-          "active": 53
+          "active": 54
         },
         {
           "week": "W09",
@@ -209,7 +209,7 @@
           "qualified": 1,
           "negotiations": 4,
           "closedWon": 27,
-          "active": 43
+          "active": 47
         },
         {
           "week": "W10",
@@ -249,7 +249,7 @@
           "qualified": 0,
           "negotiations": 2,
           "closedWon": 24,
-          "active": 21
+          "active": 22
         },
         {
           "week": "W15",
@@ -265,7 +265,7 @@
           "qualified": 4,
           "negotiations": 1,
           "closedWon": 27,
-          "active": 21
+          "active": 22
         },
         {
           "week": "W17",
@@ -273,7 +273,7 @@
           "qualified": 25,
           "negotiations": 10,
           "closedWon": 104,
-          "active": 44
+          "active": 46
         },
         {
           "week": "W18",
@@ -281,7 +281,7 @@
           "qualified": 27,
           "negotiations": 17,
           "closedWon": 45,
-          "active": 107
+          "active": 108
         },
         {
           "week": "W19",
@@ -297,7 +297,7 @@
           "qualified": 18,
           "negotiations": 3,
           "closedWon": 53,
-          "active": 26
+          "active": 27
         },
         {
           "week": "W21",
@@ -313,7 +313,7 @@
           "qualified": 2,
           "negotiations": 2,
           "closedWon": 44,
-          "active": 122
+          "active": 123
         },
         {
           "week": "W23",
@@ -329,7 +329,7 @@
           "qualified": 20,
           "negotiations": 12,
           "closedWon": 47,
-          "active": 46
+          "active": 47
         },
         {
           "week": "W25",
@@ -337,7 +337,7 @@
           "qualified": 13,
           "negotiations": 4,
           "closedWon": 44,
-          "active": 43
+          "active": 44
         },
         {
           "week": "W26",
@@ -353,7 +353,7 @@
           "qualified": 7,
           "negotiations": 6,
           "closedWon": 37,
-          "active": 36
+          "active": 38
         },
         {
           "week": "W28",
@@ -361,7 +361,7 @@
           "qualified": 3,
           "negotiations": 1,
           "closedWon": 34,
-          "active": 18
+          "active": 19
         }
       ],
       "breakdown": [
@@ -592,7 +592,7 @@
               "qualified": 0,
               "negotiations": 1,
               "closedWon": 27,
-              "active": 39
+              "active": 41
             }
           },
           "agents": {
@@ -612,7 +612,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 11,
-              "active": 9
+              "active": 10
             },
             "005Ts00000BtGPDIA3": {
               "qualified": 0,
@@ -636,7 +636,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 4,
-              "active": 8
+              "active": 9
             },
             "005Ts0000060ICnIAM": {
               "qualified": 0,
@@ -817,7 +817,7 @@
               "qualified": 4,
               "negotiations": 1,
               "closedWon": 34,
-              "active": 36
+              "active": 37
             }
           },
           "agents": {
@@ -873,7 +873,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 1,
-              "active": 0
+              "active": 1
             },
             "005Ts000005c4hFIAQ": {
               "qualified": 0,
@@ -896,7 +896,7 @@
               "qualified": 1,
               "negotiations": 4,
               "closedWon": 26,
-              "active": 40
+              "active": 44
             }
           },
           "agents": {
@@ -916,7 +916,7 @@
               "qualified": 1,
               "negotiations": 1,
               "closedWon": 4,
-              "active": 7
+              "active": 10
             },
             "005Ts00000BtGPDIA3": {
               "qualified": 0,
@@ -941,6 +941,12 @@
               "negotiations": 0,
               "closedWon": 7,
               "active": 10
+            },
+            "005Ts000001Ak10IAC": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
             }
           }
         },
@@ -1249,7 +1255,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 10,
-              "active": 7
+              "active": 8
             },
             "density": {
               "qualified": 0,
@@ -1281,7 +1287,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 6,
-              "active": 4
+              "active": 5
             },
             "005Qs00000N2Hh3IAF": {
               "qualified": 0,
@@ -1413,7 +1419,7 @@
               "qualified": 4,
               "negotiations": 0,
               "closedWon": 24,
-              "active": 17
+              "active": 18
             }
           },
           "agents": {
@@ -1451,7 +1457,7 @@
               "qualified": 1,
               "negotiations": 0,
               "closedWon": 6,
-              "active": 1
+              "active": 2
             },
             "005Ts000001Ak10IAC": {
               "qualified": 0,
@@ -1486,7 +1492,7 @@
               "qualified": 16,
               "negotiations": 7,
               "closedWon": 98,
-              "active": 42
+              "active": 44
             }
           },
           "agents": {
@@ -1506,7 +1512,7 @@
               "qualified": 12,
               "negotiations": 2,
               "closedWon": 16,
-              "active": 11
+              "active": 13
             },
             "005Ts000005c4hFIAQ": {
               "qualified": 9,
@@ -1565,7 +1571,7 @@
               "qualified": 1,
               "negotiations": 4,
               "closedWon": 31,
-              "active": 104
+              "active": 105
             }
           },
           "agents": {
@@ -1573,7 +1579,7 @@
               "qualified": 0,
               "negotiations": 2,
               "closedWon": 7,
-              "active": 15
+              "active": 16
             },
             "005Qs00000Mxc6EIAR": {
               "qualified": 24,
@@ -1711,7 +1717,7 @@
               "qualified": 7,
               "negotiations": 2,
               "closedWon": 46,
-              "active": 22
+              "active": 23
             }
           },
           "agents": {
@@ -1749,7 +1755,7 @@
               "qualified": 1,
               "negotiations": 0,
               "closedWon": 12,
-              "active": 3
+              "active": 4
             },
             "005Ts00000BtX53IAF": {
               "qualified": 0,
@@ -1887,7 +1893,7 @@
               "qualified": 2,
               "negotiations": 2,
               "closedWon": 39,
-              "active": 101
+              "active": 102
             }
           },
           "agents": {
@@ -1895,7 +1901,7 @@
               "qualified": 1,
               "negotiations": 2,
               "closedWon": 3,
-              "active": 11
+              "active": 12
             },
             "005Ts00000BtZV3IAN": {
               "qualified": 0,
@@ -2057,7 +2063,7 @@
               "qualified": 19,
               "negotiations": 12,
               "closedWon": 44,
-              "active": 42
+              "active": 43
             }
           },
           "agents": {
@@ -2083,7 +2089,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 5,
-              "active": 5
+              "active": 6
             },
             "005Ts000006V3vpIAC": {
               "qualified": 0,
@@ -2142,7 +2148,7 @@
               "qualified": 13,
               "negotiations": 2,
               "closedWon": 37,
-              "active": 37
+              "active": 38
             }
           },
           "agents": {
@@ -2186,7 +2192,7 @@
               "qualified": 5,
               "negotiations": 0,
               "closedWon": 4,
-              "active": 5
+              "active": 6
             },
             "005Qs00000N2Hh3IAF": {
               "qualified": 0,
@@ -2306,7 +2312,7 @@
               "qualified": 5,
               "negotiations": 5,
               "closedWon": 24,
-              "active": 28
+              "active": 30
             }
           },
           "agents": {
@@ -2332,7 +2338,7 @@
               "qualified": 0,
               "negotiations": 1,
               "closedWon": 7,
-              "active": 4
+              "active": 6
             },
             "005Ts000005c4hFIAQ": {
               "qualified": 1,
@@ -2397,7 +2403,7 @@
               "qualified": 3,
               "negotiations": 1,
               "closedWon": 32,
-              "active": 16
+              "active": 17
             }
           },
           "agents": {
@@ -2405,7 +2411,7 @@
               "qualified": 0,
               "negotiations": 1,
               "closedWon": 6,
-              "active": 1,
+              "active": 2,
               "accounts": {
                 "negotiations": [
                   {
@@ -2483,6 +2489,16 @@
                     "date": "2026-07-09",
                     "sfOpportunityId": "006Qs00000jmCHuIAM",
                     "sfAccountId": "001Qs00000qm40AIAQ"
+                  },
+                  {
+                    "id": "006Qs00000kAxsMIAS",
+                    "name": "Kumu Poke",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-07-10",
+                    "sfOpportunityId": "006Qs00000kAxsMIAS",
+                    "sfAccountId": "001Ts00000S2exRIAR",
+                    "reactivated": true
                   }
                 ]
               }
@@ -3039,8 +3055,8 @@
           },
           {
             "metric": "Active",
-            "current": 18,
-            "prior": 36,
+            "current": 19,
+            "prior": 38,
             "changePercent": -50
           }
         ]
@@ -3101,7 +3117,7 @@
           "Signed / Onb Checklist": 2
         },
         "wonMtd": 10,
-        "activatedMtd": 4,
+        "activatedMtd": 7,
         "wonYtd": 10,
         "segment": "density",
         "mtdTarget": 30
@@ -3450,7 +3466,7 @@
             "name": "Ciprian Teodorescu",
             "segment": "density",
             "wonMtd": 10,
-            "activatedMtd": 4,
+            "activatedMtd": 7,
             "wonItems": [
               {
                 "id": "006Qs00000kAxsMIAS",
@@ -3565,6 +3581,33 @@
                 "closeDate": "2026-07-09",
                 "sfOpportunityId": "006Qs00000jmCHuIAM",
                 "sfAccountId": "001Qs00000qm40AIAQ"
+              },
+              {
+                "id": "006Qs00000jizAkIAI",
+                "name": "Casa Brasoveana",
+                "city": "—",
+                "closeDate": "2026-07-02",
+                "sfOpportunityId": "006Qs00000jizAkIAI",
+                "sfAccountId": "001Ts000005ntUGIAY",
+                "reactivated": true
+              },
+              {
+                "id": "006Qs00000jmfF7IAI",
+                "name": "Culture Pub",
+                "city": "—",
+                "closeDate": "2026-07-01",
+                "sfOpportunityId": "006Qs00000jmfF7IAI",
+                "sfAccountId": "0017Q000018iUaLQAU",
+                "reactivated": true
+              },
+              {
+                "id": "006Qs00000kAxsMIAS",
+                "name": "Kumu Poke",
+                "city": "—",
+                "closeDate": "2026-07-10",
+                "sfOpportunityId": "006Qs00000kAxsMIAS",
+                "sfAccountId": "001Ts00000S2exRIAR",
+                "reactivated": true
               }
             ]
           },
@@ -4128,7 +4171,7 @@
           "targetWon": 260,
           "actualWon": 53,
           "targetActivated": 215,
-          "actualActivated": 39,
+          "actualActivated": 42,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -4155,7 +4198,7 @@
             {
               "name": "Density",
               "target": 175,
-              "actual": 33,
+              "actual": 36,
               "type": "activated"
             }
           ]
@@ -4179,7 +4222,7 @@
             "name": "Ciprian Teodorescu",
             "segment": "density",
             "wonMtd": 32,
-            "activatedMtd": 27,
+            "activatedMtd": 29,
             "wonItems": [],
             "activatedItems": []
           },
@@ -4279,7 +4322,7 @@
           "targetWon": 260,
           "actualWon": 216,
           "targetActivated": 215,
-          "actualActivated": 215,
+          "actualActivated": 217,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -4306,7 +4349,7 @@
             {
               "name": "Density",
               "target": 175,
-              "actual": 185,
+              "actual": 187,
               "type": "activated"
             }
           ]
@@ -4339,7 +4382,7 @@
             "name": "Ciprian Teodorescu",
             "segment": "density",
             "wonMtd": 34,
-            "activatedMtd": 26,
+            "activatedMtd": 27,
             "wonItems": [],
             "activatedItems": []
           },
@@ -4357,7 +4400,7 @@
             "name": "Eusebiu Hanganu",
             "segment": "density",
             "wonMtd": 30,
-            "activatedMtd": 26,
+            "activatedMtd": 27,
             "wonItems": [],
             "activatedItems": []
           },
@@ -4430,7 +4473,7 @@
           "targetWon": 260,
           "actualWon": 252,
           "targetActivated": 215,
-          "actualActivated": 223,
+          "actualActivated": 225,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -4457,7 +4500,7 @@
             {
               "name": "Density",
               "target": 175,
-              "actual": 191,
+              "actual": 193,
               "type": "activated"
             }
           ]
@@ -4499,7 +4542,7 @@
             "name": "Ciprian Teodorescu",
             "segment": "density",
             "wonMtd": 26,
-            "activatedMtd": 24,
+            "activatedMtd": 27,
             "wonItems": [],
             "activatedItems": []
           },
@@ -4508,7 +4551,7 @@
             "name": "Eusebiu Hanganu",
             "segment": "density",
             "wonMtd": 25,
-            "activatedMtd": 25,
+            "activatedMtd": 26,
             "wonItems": [],
             "activatedItems": []
           },
@@ -4544,7 +4587,7 @@
             "name": "Ionut-Mădălin Gavrilă",
             "segment": "complex",
             "wonMtd": 7,
-            "activatedMtd": 8,
+            "activatedMtd": 9,
             "wonItems": [],
             "activatedItems": []
           },
@@ -4581,7 +4624,7 @@
           "targetWon": 260,
           "actualWon": 212,
           "targetActivated": 215,
-          "actualActivated": 200,
+          "actualActivated": 205,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -4602,13 +4645,13 @@
             {
               "name": "Complex",
               "target": 40,
-              "actual": 20,
+              "actual": 21,
               "type": "activated"
             },
             {
               "name": "Density",
               "target": 175,
-              "actual": 180,
+              "actual": 184,
               "type": "activated"
             }
           ]
@@ -4810,7 +4853,7 @@
             "name": "Eusebiu Hanganu",
             "segment": "density",
             "wonMtd": 20,
-            "activatedMtd": 17,
+            "activatedMtd": 20,
             "wonItems": [],
             "activatedItems": []
           },
@@ -4837,7 +4880,7 @@
             "name": "Silviu-Mihnea Voicu",
             "segment": "density",
             "wonMtd": 3,
-            "activatedMtd": 1,
+            "activatedMtd": 3,
             "wonItems": [],
             "activatedItems": []
           },
@@ -4883,7 +4926,7 @@
           "targetWon": 260,
           "actualWon": 141,
           "targetActivated": 215,
-          "actualActivated": 148,
+          "actualActivated": 153,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -4910,7 +4953,7 @@
             {
               "name": "Density",
               "target": 175,
-              "actual": 126,
+              "actual": 131,
               "type": "activated"
             }
           ]
@@ -4925,7 +4968,7 @@
             "name": "Ciprian Teodorescu",
             "segment": "density",
             "wonMtd": 16,
-            "activatedMtd": 14,
+            "activatedMtd": 15,
             "wonItems": [],
             "activatedItems": []
           },
@@ -4979,7 +5022,7 @@
             "name": "Eusebiu Hanganu",
             "segment": "density",
             "wonMtd": 8,
-            "activatedMtd": 10,
+            "activatedMtd": 11,
             "wonItems": [],
             "activatedItems": []
           },
@@ -5034,7 +5077,7 @@
           "targetWon": 260,
           "actualWon": 94,
           "targetActivated": 215,
-          "actualActivated": 80,
+          "actualActivated": 82,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -5061,7 +5104,7 @@
             {
               "name": "Density",
               "target": 175,
-              "actual": 66,
+              "actual": 68,
               "type": "activated"
             }
           ]
@@ -6183,7 +6226,7 @@
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-07-10T08:46:12.153Z",
+      "generatedAt": "2026-07-10T13:28:01.271Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -43925,31 +43968,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-07-10T08:46:11.436Z",
+        "lastSync": "2026-07-10T13:28:00.434Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-07-10T08:46:11.436Z",
+        "lastSync": "2026-07-10T13:28:00.434Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-07-10T08:46:11.436Z",
+        "lastSync": "2026-07-10T13:28:00.434Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-07-10T08:46:11.436Z",
+        "lastSync": "2026-07-10T13:28:00.434Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-07-10T08:46:12.450Z",
+    "generatedAt": "2026-07-10T13:28:01.575Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -133172,7 +133215,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-07-10T08:46:12.962Z",
+    "generatedAt": "2026-07-10T13:28:02.125Z",
     "monthKey": "2026-07",
     "monthLabel": "July 2026",
     "currentWeek": "W28",

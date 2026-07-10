@@ -173,6 +173,8 @@ export type MtdItem = {
   closeDate: string;
   sfOpportunityId?: string;
   sfAccountId?: string;
+  /** Account was first-active before the tracking year and came back live (reactivation). */
+  reactivated?: boolean;
 };
 
 export type MtdAgentHistoryRow = {

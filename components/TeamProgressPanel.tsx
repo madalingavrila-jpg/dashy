@@ -131,6 +131,11 @@ function MtdItemList({
               ) : (
                 <span className="font-semibold text-on-surface">{item.name}</span>
               )}
+              {item.reactivated ? (
+                <span className="ml-xs rounded-sm bg-tertiary-container px-xs text-[9px] font-bold uppercase text-on-tertiary-container">
+                  reactivated
+                </span>
+              ) : null}
               <p className="text-on-surface-variant">
                 {item.city} · {item.closeDate}
               </p>

@@ -32,6 +32,7 @@ import {
 } from "../lib/agent-segments.mjs";
 import {
   accumulateMtdActivatedFromActivationDate,
+  accumulateMtdReactivated,
   accumulateMtdWonFromWonDate,
   currentMonthKey,
   mergeWonExportRecords,
@@ -39,6 +40,7 @@ import {
 import {
   accumulateNewOpportunityFallback,
   accumulateWeeklyActiveFromActivationDate,
+  accumulateWeeklyReactivations,
   accumulateWeeklyClosedWonFromWonDate,
   accumulateWeeklyStatusFromHistory,
   breakdownStoreToHistory,
@@ -113,10 +115,14 @@ const wonRecords = mergeWonExportRecords([
 ]);
 // Activated source of truth: Account.provider_first_active_date__c (inbound-scoped).
 const activationRecords = recordsOf("sf-inbound-account-activation-2026.json");
+// Reactivations: pre-tracking-year first-active accounts with a 2026 won opp
+// (inbound-scoped), dated via the inbound stage-history transitions.
+const reactivationRecords = recordsOf("sf-inbound-reactivation-2026.json");
 
 // --- MTD store (per month → per owner), inbound-scoped ---
 const mtdStore = new Map();
 accumulateMtdActivatedFromActivationDate(activationRecords, mtdStore, inboundClassifier);
+accumulateMtdReactivated(reactivationRecords, historyRecords, mtdStore, inboundClassifier);
 accumulateMtdWonFromWonDate(wonRecords, mtdStore, inboundClassifier);
 
 const monthKey = currentMonthKey();
@@ -139,6 +145,7 @@ for (const k of Object.keys(weekStore)) {
 accumulateWeeklyStatusFromHistory(historyRecords, weekStore, segmentFn, isExcludedFn);
 accumulateWeeklyClosedWonFromWonDate(wonYtdRecords, weekStore, segmentFn, isExcludedFn);
 accumulateWeeklyActiveFromActivationDate(activationRecords, weekStore, segmentFn, isExcludedFn);
+accumulateWeeklyReactivations(reactivationRecords, historyRecords, weekStore, segmentFn, isExcludedFn);
 accumulateNewOpportunityFallback(weeklyRecords, weekStore, segmentFn, isExcludedFn);
 const weeklyBreakdown = breakdownStoreToHistory(weekStore);
 

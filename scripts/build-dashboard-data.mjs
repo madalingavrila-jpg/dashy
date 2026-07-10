@@ -24,6 +24,7 @@ import {
   accumulateWeeklyStatusFromHistory,
   accumulateWeeklyClosedWonFromWonDate,
   accumulateWeeklyActiveFromActivationDate,
+  accumulateWeeklyReactivations,
   accumulateNewOpportunityFallback,
   breakdownStoreToHistory,
   countWeeklyLeads,
@@ -152,6 +153,14 @@ const stageHistoryExport =
  */
 const activationExport =
   process.env.SF_ACTIVATION_EXPORT ?? join(root, "scripts/.cache/sf-account-activation-2026.json");
+/**
+ * Reactivation candidates: tracking-year won Sales Opportunities on accounts
+ * whose provider_first_active_date__c is PRE-tracking-year (excluded from the
+ * base activation export). Counted as Activated too, dated by the first
+ * field-history transition INTO 'Activated' (Won_Date__c fallback).
+ */
+const reactivationExport =
+  process.env.SF_REACTIVATION_EXPORT ?? join(root, "scripts/.cache/sf-reactivation-2026.json");
 const pipelineExport = process.env.SF_PIPELINE_EXPORT ?? join(root, "scripts/.cache/sf-pipeline-open.json");
 /** Won_Date__c = THIS_MONTH — Sales Opportunity (SF dashboard Won Date MTD). */
 const wonExport = process.env.SF_WON_EXPORT ?? join(root, "scripts/.cache/sf-won-mtd.json");
@@ -190,8 +199,15 @@ const extraWonExports = readdirSync(wonCacheDir)
 const wonAllRecords = mergeWonExportRecords([wonYtdByDateData, wonData, ...extraWonExports]);
 const mergedWonRecords = mergeWonExportRecords([wonData, ...extraWonExports, wonRecentData]);
 const activationRecords = activationData.records ?? [];
-const mtdHistoryStore = buildHybridMtdStore(wonAllRecords, activationRecords);
-const mtdHistory = buildMtdHistoryFromHybrid(wonAllRecords, activationRecords);
+const reactivationData = existsSync(reactivationExport)
+  ? parseSfJson(reactivationExport)
+  : { records: [] };
+const reactivation = {
+  records: reactivationData.records ?? [],
+  historyRecords: stageHistoryData.records ?? [],
+};
+const mtdHistoryStore = buildHybridMtdStore(wonAllRecords, activationRecords, reactivation);
+const mtdHistory = buildMtdHistoryFromHybrid(wonAllRecords, activationRecords, reactivation);
 const mopsCasesData = parseSfJson(mopsCasesExport);
 const mopsOnboardingData = existsSync(mopsOnboardingExport)
   ? parseSfJson(mopsOnboardingExport)
@@ -404,6 +420,13 @@ accumulateWeeklyClosedWonFromWonDate(
 );
 accumulateWeeklyActiveFromActivationDate(
   activationRecords,
+  weeklyBreakdownStore,
+  agentSegment,
+  isExcludedAgent,
+);
+accumulateWeeklyReactivations(
+  reactivation.records,
+  reactivation.historyRecords,
   weeklyBreakdownStore,
   agentSegment,
   isExcludedAgent,

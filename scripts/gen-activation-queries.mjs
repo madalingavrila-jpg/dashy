@@ -60,20 +60,56 @@ export function activationQuery(ownerIds, year = currentTrackingYear()) {
   );
 }
 
+/**
+ * SOQL for one scope's REACTIVATION candidates: won Sales Opportunities of the
+ * tracking year whose Account was first-active BEFORE the tracking year (i.e.
+ * excluded from the base activation export). The build dates each reactivation
+ * by the first field-history transition INTO 'Activated' in the tracking year
+ * (fallback: Won_Date__c when the opp is already in the Activated stage) — see
+ * lib/mtd-history.mjs accumulateMtdReactivated.
+ */
+export function reactivationQuery(ownerIds, year = currentTrackingYear()) {
+  return (
+    `${ACTIVATION_FIELDS} ` +
+    "WHERE RecordType.Name = 'Sales Opportunity' " +
+    "AND IsWon = true " +
+    `AND Won_Date__c >= ${year}-01-01 ` +
+    "AND Account.provider_first_active_date__c != null " +
+    `AND Account.provider_first_active_date__c < ${year}-01-01 ` +
+    `AND OwnerId IN (${quoteList(ownerIds)}) ` +
+    "ORDER BY Won_Date__c"
+  );
+}
+
 export const ACTIVATION_KINDS = {
-  team: { ownerIds: TEAM_OWNER_IDS, file: (y) => `scripts/.cache/sf-account-activation-${y}.json` },
+  team: {
+    ownerIds: TEAM_OWNER_IDS,
+    file: (y) => `scripts/.cache/sf-account-activation-${y}.json`,
+    query: activationQuery,
+  },
   inbound: {
     ownerIds: INBOUND_IDS,
     file: (y) => `scripts/.cache/sf-inbound-account-activation-${y}.json`,
+    query: activationQuery,
+  },
+  "team-reactivation": {
+    ownerIds: TEAM_OWNER_IDS,
+    file: (y) => `scripts/.cache/sf-reactivation-${y}.json`,
+    query: reactivationQuery,
+  },
+  "inbound-reactivation": {
+    ownerIds: INBOUND_IDS,
+    file: (y) => `scripts/.cache/sf-inbound-reactivation-${y}.json`,
+    query: reactivationQuery,
   },
 };
 
 /** Manifest entries consumed by gen-all-cache-queries.mjs / validate-caches.mjs. */
 export function buildActivationManifest(year = currentTrackingYear()) {
-  return Object.entries(ACTIVATION_KINDS).map(([kind, { ownerIds, file }]) => ({
+  return Object.entries(ACTIVATION_KINDS).map(([kind, { ownerIds, file, query }]) => ({
     kind,
     file: file(year),
-    query: activationQuery(ownerIds, year),
+    query: query(ownerIds, year),
   }));
 }
 
@@ -102,7 +138,8 @@ function main() {
 
   console.error(
     `[gen-activation-queries] year ${year}, kinds: ${kinds.join(", ")}. ` +
-      "Activated = Account.provider_first_active_date__c (one per account, attributed to the won opp owner).",
+      "Activated = Account.provider_first_active_date__c (one per account, attributed to the won opp owner). " +
+      "Reactivation kinds = pre-tracking-year first-active accounts with a tracking-year won opp.",
   );
   for (const c of manifest) {
     console.log(`-- [activation ${c.kind} ${year}] → ${c.file}`);

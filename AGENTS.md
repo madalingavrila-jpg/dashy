@@ -78,13 +78,13 @@ Two hard-won caveats baked into the manifest:
 6. Rebuild **all** sections with `npm run refresh-all` (orchestrator), not just `build-dashboard-data.mjs`. Then `npm run build`.
 7. Commit `data/dashboard.json` and push — Paketo redeploys dashy on Boltable.
 8. **After a successful data refresh + deploy, auto-notify Bianca Medrea** on
-   **both** Slack (`U01AHG4UAPR`) and email (`bianca.medrea@bolt.eu`) that the
-   refresh is complete and to check the data. This is **standing pre-authorized**
-   — no per-message confirmation needed. Use the message template below. See
-   `.cursor/rules/slack-notifications.mdc` for the full policy.
+   **Slack DM only** (`U01AHG4UAPR`) that the refresh is complete and to check the
+   data. This is **standing pre-authorized** — no per-message confirmation needed.
+   Use the message template below. See `.cursor/rules/slack-notifications.mdc` for
+   the full policy. **Slack only (updated 2026-07-09): do NOT email this recurring
+   notification anymore.**
 
-   - **Slack DM / email body:** `Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated <updatedAt>). Please check the data when you get a chance.`
-   - **Email subject:** `dashy — data refresh complete`
+   - **Slack DM:** `Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated <updatedAt>). Please check the data when you get a chance.`
 
    Replace `<updatedAt>` with the refreshed `data/dashboard.json` `updatedAt`.
 
@@ -200,9 +200,31 @@ Opportunity → owner (the same owner attribution dashy already uses); accounts 
 multiple team opps are **deduped per account** (`pickPrimaryActivationOpp` — prefer
 the won opp, then latest `Won_Date__c`). Expected differences vs the old counts:
 month-boundary shifts (an account first-active on the last day of a month whose SF
-stage flips the next morning) and **reactivations** (accounts with a pre-2026
-first-active date drop out of 2026). Do NOT use the near-twin
+stage flips the next morning). Do NOT use the near-twin
 `Account.Activation_Date__c` (datetime) — use `provider_first_active_date__c`.
+
+**PLUS reactivations (added 2026-07-10):** accounts whose
+`provider_first_active_date__c` is **before** the tracking year but which have a
+tracking-year **won Sales Opportunity** (team/inbound scope) ALSO count as
+Activated — e.g. Culture Pub (first-active 2023) and Casa Brasoveana (2024),
+reactivated by Ciprian in July 2026. Reactivations are **dated by the first
+OpportunityFieldHistory transition INTO the `Activated` stage in the tracking
+year** (Europe/Bucharest month + ISO week); fallback: the primary opp's
+`Won_Date__c` when the opp is already in the `Activated` stage but the history
+row is missing. A won-but-still-onboarding candidate (no Activated transition,
+stage ≠ Activated) is NOT counted until it goes live. Chosen after evaluating
+`Account.Reactivated_Date__c` (only ~63% populated on 2026 candidates — rejected)
+and plain `Won_Date__c` (commercial date, puts go-lives in the wrong month —
+fallback only); the field-history transition dated 19/19 candidates (100%).
+Same dedup (one per account) and owner attribution as base Activated. Candidate
+caches: `sf-reactivation-2026.json` (team) / `sf-inbound-reactivation-2026.json`
+(inbound), SOQL via `node scripts/gen-activation-queries.mjs
+--kind=team-reactivation | inbound-reactivation` (in the manifest + validated;
+0 rows is legitimate). Logic: `lib/mtd-history.mjs` `accumulateMtdReactivated`
+(+ `firstActivatedTransitionIndex`/`reactivationEventDate`) and
+`lib/weekly-stages-build.mjs` `accumulateWeeklyReactivations`. Drill-down items
+carry `reactivated: true` (shown as a badge in the MTD lists). Base + reactivation
+sets are disjoint by the date filter, so nothing is double-counted.
 
 Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore(wonRecords, activationRecords)` —
 won from `accumulateMtdWonFromWonDate()`, activated from
@@ -257,6 +279,32 @@ ORDER BY Account.provider_first_active_date__c
 One pull each (team ~1,100 rows, inbound ~400) — under the 2,000-row SOQL cap. If the
 team pull ever nears 2,000, split by month on `provider_first_active_date__c`. The
 build dedups per account and attributes to the primary won opp's owner.
+
+### Reactivation export (`scripts/.cache/sf-reactivation-2026.json`)
+
+Reactivation candidates — tracking-year won Sales Opportunities on accounts
+first-active BEFORE the tracking year (the base activation export excludes
+them). Generate with `node scripts/gen-activation-queries.mjs
+--kind=team-reactivation` (inbound: `--kind=inbound-reactivation` →
+`sf-inbound-reactivation-2026.json`):
+
+```sql
+SELECT Id, OwnerId, Owner.Name, IsWon, Won_Date__c, StageName, AccountId,
+ Account.Name, Account.BillingCity, Account.provider_first_active_date__c, RecordType.Name
+FROM Opportunity
+WHERE RecordType.Name = 'Sales Opportunity'
+ AND IsWon = true
+ AND Won_Date__c >= 2026-01-01
+ AND Account.provider_first_active_date__c != null
+ AND Account.provider_first_active_date__c < 2026-01-01
+ AND OwnerId IN ( /* 12 team rep IDs (inbound: 2 inbound IDs) */ )
+ORDER BY Won_Date__c
+```
+
+Small pulls (~19 team rows, 0 inbound as of 2026-07-10; **0 rows is
+legitimate**). The build dates each reactivation via the stage-history caches
+(first INTO `Activated`), so no extra history pull is needed. Refresh on every
+"refresh all" alongside the activation exports.
 
 The legacy Activated field-history cache `scripts/.cache/sf-stage-history-2026.json`
 is still pulled (it drives weekly Qualified/Negotiations); it no longer feeds
@@ -342,6 +390,7 @@ Qualified/Negotiations buckets use **OpportunityFieldHistory** (first transition
 | Negotiations | Negotiations (field history) | Sales Opportunity | first transition |
 | Closed Won | `Won_Date__c` set (**not** field history) | Parent + Sales Opportunity | `Won_Date__c` (Europe/Bucharest ISO week) |
 | Active | `Account.provider_first_active_date__c` (**not** field history) | Sales Opportunity | `provider_first_active_date__c` (Europe/Bucharest ISO week), one per account |
+| Active (reactivations) | pre-tracking-year first-active + tracking-year won opp | Sales Opportunity | first field-history transition INTO `Activated` (fallback `Won_Date__c`), one per account |
 
 Field history cache: `scripts/.cache/sf-stage-history-2026.json` — refresh via the
 **incremental chunked** flow above (`gen-sf-history-queries.mjs --kind=stage-history` →
@@ -492,6 +541,7 @@ team exports exclude these owners, so these are separate caches:
 - `sf-inbound-won-ytd-bydate.json` — `Won_Date__c = THIS_YEAR` (drives weekly Closed Won + YTD).
 - `sf-inbound-stage-history-2026-MM.json` — `OpportunityFieldHistory` StageName transitions, **monthly chunks** (same incremental flow as the team export: `gen-sf-history-queries.mjs --kind=inbound-stage-history` → `fetch-sf-stage-history.mjs --kind=inbound-stage-history` merges into `sf-inbound-stage-history-2026.json`, which the build prefers). The legacy `-h1/-h2` half-year files are auto-migrated into monthly chunks on the first merge and kept only as a fallback.
 - `sf-inbound-weekly-2026.json` — open + won/activated opps 2026 (New Opportunity leads by week).
+- `sf-inbound-reactivation-2026.json` — reactivation candidates (pre-2026 first-active accounts with a 2026 won opp), `gen-activation-queries.mjs --kind=inbound-reactivation`. 0 rows is legitimate.
 
 Databricks: the inbound build **reuses** the team `accounts-perf-*.json` caches
 (a full RO pull that already includes both inbound owners) and filters by
@@ -532,9 +582,9 @@ No blanket restriction on Slack/email. **Default:** ask the user for confirmatio
 before sending to anyone, OR send when the user explicitly tells you to.
 
 **Standing exception — Bianca Medrea (recurring):** after **every** data refresh +
-deploy completes, **auto-notify Bianca on both Slack (`U01AHG4UAPR`) and email
-(`bianca.medrea@bolt.eu`)** that the refresh is done and to check the data — no
-per-message confirmation. Bianca is otherwise pre-authorized (send directly when
-the user asks to message her). Sends to other recipients still require asking
-first. Full policy + message template: `.cursor/rules/slack-notifications.mdc`
-(see also Workflow step 8).
+deploy completes, **auto-notify Bianca on Slack DM only (`U01AHG4UAPR`)** that the
+refresh is done and to check the data — no per-message confirmation. **Slack only
+(updated 2026-07-09): the recurring refresh notification is no longer emailed.**
+Bianca is otherwise pre-authorized (send directly when the user asks to message
+her). Sends to other recipients still require asking first. Full policy + message
+template: `.cursor/rules/slack-notifications.mdc` (see also Workflow step 8).

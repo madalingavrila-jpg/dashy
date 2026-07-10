@@ -30,12 +30,22 @@ function parseSfJson(path) {
 
 const activationExport =
   process.env.SF_ACTIVATION_EXPORT ?? join(cacheDir, "sf-account-activation-2026.json");
+const reactivationExport =
+  process.env.SF_REACTIVATION_EXPORT ?? join(cacheDir, "sf-reactivation-2026.json");
+const stageHistoryExport =
+  process.env.SF_STAGE_HISTORY_EXPORT ?? join(cacheDir, "sf-stage-history-2026.json");
 const wonExport = process.env.SF_WON_EXPORT ?? join(cacheDir, "sf-won-mtd.json");
 const wonYtdByDateExport =
   process.env.SF_WON_YTD_EXPORT ?? join(cacheDir, "sf-won-ytd-bydate.json");
 
 const activationData = existsSync(activationExport)
   ? parseSfJson(activationExport)
+  : { records: [] };
+const reactivationData = existsSync(reactivationExport)
+  ? parseSfJson(reactivationExport)
+  : { records: [] };
+const stageHistoryData = existsSync(stageHistoryExport)
+  ? parseSfJson(stageHistoryExport)
   : { records: [] };
 const wonData = parseSfJson(wonExport);
 const wonYtdByDateData = existsSync(wonYtdByDateExport)
@@ -49,16 +59,20 @@ const extraWonExports = readdirSync(cacheDir)
 // export merged with the THIS_MONTH export (+ monthly archives), deduped by Id.
 // Activated drill-downs come from the provider_first_active_date__c export.
 const wonAllRecords = mergeWonExportRecords([wonYtdByDateData, wonData, ...extraWonExports]);
-const store = buildHybridMtdStore(wonAllRecords, activationData.records ?? []);
+const store = buildHybridMtdStore(wonAllRecords, activationData.records ?? [], {
+  records: reactivationData.records ?? [],
+  historyRecords: stageHistoryData.records ?? [],
+});
 
 // Keep each item slim — just what the drill-down popover needs (name, city,
 // date, SF opportunity link). Drops sfAccountId from mapMtdItem's shape.
-const slimItem = ({ id, name, city, closeDate, sfOpportunityId }) => ({
+const slimItem = ({ id, name, city, closeDate, sfOpportunityId, reactivated }) => ({
   id,
   name,
   city,
   closeDate,
   sfOpportunityId,
+  ...(reactivated ? { reactivated: true } : {}),
 });
 
 const months = [...store.keys()]

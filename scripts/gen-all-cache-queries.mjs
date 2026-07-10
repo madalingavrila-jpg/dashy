@@ -37,7 +37,7 @@
 import { TEAM_ROSTER, INBOUND_OWNER_IDS } from "../lib/agent-segments.mjs";
 import { currentTrackingYear } from "../lib/weekly-stages-build.mjs";
 import { KINDS, buildChunkManifest, monthsToPull, currentMonthFor } from "./gen-sf-history-queries.mjs";
-import { activationQuery } from "./gen-activation-queries.mjs";
+import { activationQuery, reactivationQuery } from "./gen-activation-queries.mjs";
 
 const TEAM_IDS = TEAM_ROSTER.map((r) => r.ownerId);
 const INBOUND_IDS = [...INBOUND_OWNER_IDS];
@@ -204,6 +204,23 @@ export function buildCacheManifest({ full = false } = {}) {
         "Account.provider_first_active_date__c.",
       format: "sf-records",
       bounds: [50, 1999],
+      cap: null,
+      refreshedEachRun: true,
+      closedMonthChunk: false,
+    },
+    {
+      file: `scripts/.cache/sf-reactivation-${year}.json`,
+      batch: "A",
+      source: "salesforce-mcp",
+      query: reactivationQuery(TEAM_IDS, year),
+      gen: "node scripts/gen-activation-queries.mjs --kind=team-reactivation",
+      note:
+        "REACTIVATION candidates — tracking-year won Sales Opportunities on accounts whose " +
+        "provider_first_active_date__c is PRE-tracking-year (excluded from the base activation export). " +
+        "The build counts them as Activated, dated by the first field-history transition INTO 'Activated' " +
+        "in the tracking year (fallback: Won_Date__c when the opp is already Activated). 0 rows is legitimate.",
+      format: "sf-records",
+      bounds: [0, 500],
       cap: null,
       refreshedEachRun: true,
       closedMonthChunk: false,
@@ -381,6 +398,21 @@ export function buildCacheManifest({ full = false } = {}) {
         "Account.provider_first_active_date__c (>= tracking-year start), 2 inbound reps. One activation per account.",
       format: "sf-records",
       bounds: [1, 1999],
+      cap: null,
+      refreshedEachRun: true,
+      closedMonthChunk: false,
+    },
+    {
+      file: `scripts/.cache/sf-inbound-reactivation-${year}.json`,
+      batch: "B",
+      source: "salesforce-mcp",
+      query: reactivationQuery(INBOUND_IDS, year),
+      gen: "node scripts/gen-activation-queries.mjs --kind=inbound-reactivation",
+      note:
+        "Inbound REACTIVATION candidates — same definition as sf-reactivation (pre-tracking-year " +
+        "first-active accounts with a tracking-year won opp), scoped to the 2 inbound reps. 0 rows is legitimate.",
+      format: "sf-records",
+      bounds: [0, 300],
       cap: null,
       refreshedEachRun: true,
       closedMonthChunk: false,
