@@ -11,6 +11,7 @@ import {
 import type { WeeklyHistoryCounts } from "../lib/ensure-weekly-history.js";
 
 const REF_DATE = new Date("2026-06-11T12:00:00+03:00");
+const JULY_DATE = new Date("2026-07-13T12:00:00+03:00");
 
 console.log("=== isWeekInQ2(2026) ===");
 const q2Weeks: string[] = [];
@@ -26,6 +27,15 @@ for (let w = 1; w <= 30; w += 1) {
   if (isWeekVisible(code, 2026, REF_DATE)) visible.push(code);
 }
 console.log(`Visible W01–W30: ${visible.join(", ")}`);
+
+console.log("\n=== isWeekVisible @ 2026-07-13 (W28 bridge) ===");
+for (const code of ["W26", "W27", "W28", "W29", "W30"]) {
+  console.log(`${code}: ${isWeekVisible(code, 2026, JULY_DATE)}`);
+}
+if (!isWeekVisible("W28", 2026, JULY_DATE)) {
+  console.error("FAIL: W28 must be visible when current week is W29");
+  process.exit(1);
+}
 
 const dashboardPath = fileURLToPath(new URL("../data/dashboard.json", import.meta.url));
 const dashboard = JSON.parse(readFileSync(dashboardPath, "utf8")) as {

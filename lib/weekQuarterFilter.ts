@@ -63,7 +63,21 @@ export function isWeekInQ2(
   return false;
 }
 
-/** Q2 2026 weeks plus any week on/after the current ISO week (Europe/Bucharest). */
+/** Last ISO week number that overlaps Q2 (Apr–Jun) for `year`. */
+export function lastQ2WeekNum(
+  year: number,
+  timeZone: string = BUCHAREST,
+): number {
+  for (let weekNum = 53; weekNum >= 1; weekNum -= 1) {
+    if (isWeekInQ2(year, weekNum, timeZone)) return weekNum;
+  }
+  return 0;
+}
+
+/**
+ * Q2 weeks, completed weeks since Q2 through the week before current, and the
+ * current/future ISO weeks (Europe/Bucharest). Hides Q1 only.
+ */
 export function isWeekVisible(
   weekCode: string,
   year: number = DASHBOARD_WEEK_YEAR,
@@ -77,10 +91,22 @@ export function isWeekVisible(
     return true;
   }
 
-  const { start: weekStart } = isoWeekDateRange(year, weekNum);
   const current = getCurrentIsoWeek(now, timeZone);
+  const { start: weekStart } = isoWeekDateRange(year, weekNum);
   const { start: currentStart } = isoWeekDateRange(current.year, current.week);
-  return weekStart.getTime() >= currentStart.getTime();
+  if (weekStart.getTime() >= currentStart.getTime()) {
+    return true;
+  }
+
+  // Bridge Q2 → current: e.g. W28 when current is W29 (not Q2, but not hidden).
+  if (year === DASHBOARD_WEEK_YEAR) {
+    const lastQ2 = lastQ2WeekNum(year, timeZone);
+    if (weekNum > lastQ2 && weekNum < current.week) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 export function filterWeeklyHistory<T extends { week: string }>(
