@@ -36,6 +36,7 @@ import {
   weekLabel,
 } from "../lib/weekly-stages-build.mjs";
 import { slimDashboardRawData } from "../lib/slim-dashboard-source.mjs";
+import { resolveAccountCity } from "../lib/city-overrides.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -127,7 +128,7 @@ function mapAccount(opp, statusOverride) {
   return {
     id: opp.Id,
     name: opp.Account?.Name ?? opp.Name,
-    city: opp.Account?.BillingCity ?? "—",
+    city: resolveAccountCity(opp.AccountId, opp.Account?.BillingCity),
     owner: opp.Owner?.Name ?? "—",
     tier: "Standard",
     stage: stageDisplay(stage),
@@ -252,7 +253,7 @@ function buildAgentBreakdown(onboardingData, stages, excludeAccountIds = new Set
     agent.accounts.push({
       id: opp.Id,
       name: opp.Account?.Name ?? opp.Name,
-      city: opp.Account?.BillingCity ?? "—",
+      city: resolveAccountCity(opp.AccountId, opp.Account?.BillingCity),
       stage,
       sfOpportunityId: opp.Id,
       sfAccountId: opp.AccountId,

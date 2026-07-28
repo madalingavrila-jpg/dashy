@@ -1,0 +1,25 @@
+---
+description: Pending one-off fixes to apply during the next dashy data refresh
+alwaysApply: true
+---
+
+# Pending refresh fixes
+
+Apply these during the **next** full dashy data refresh (SF/Databricks pull →
+`npm run refresh-all` → build → deploy). After each item is done, remove it from
+this list (or mark done) so it does not re-run forever.
+
+## Open
+
+_(none)_
+
+## Done
+
+### Tom&Jerry city override (2026-07-28)
+
+- SF MCP is read-only — could not update Account `001Qs00000rGzKNIA0`
+  `BillingCity` in Salesforce.
+- Build-time override added in `lib/city-overrides.mjs` → **Baia Mare**, wired
+  into MTD / weekly / accounts / MyPipeline builders.
+- SF Account still has `BillingCity = "Băița"` until someone corrects it in SF;
+  then the override can be removed.

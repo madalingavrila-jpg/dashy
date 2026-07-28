@@ -21,6 +21,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { agentSegment, isExcludedAgent } from "../lib/agent-segments.mjs";
+import { CITY_BY_ACCOUNT_ID } from "../lib/city-overrides.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -103,7 +104,12 @@ function pushOpp(rec) {
     rawStage: rec.StageName,
     account: rec.Account?.Name ?? null,
     accountId: rec.AccountId ?? null,
-    city: rec.Account?.City__r?.Name ?? rec.Account?.BillingCity ?? rec.Account?.ShippingCity ?? null,
+    city:
+      (rec.AccountId && CITY_BY_ACCOUNT_ID[rec.AccountId]) ||
+      rec.Account?.City__r?.Name ||
+      rec.Account?.BillingCity ||
+      rec.Account?.ShippingCity ||
+      null,
     date: rec.CloseDate ?? null,
     ownerId: rec.OwnerId,
     ownerName: rec.Owner?.Name ?? "—",
