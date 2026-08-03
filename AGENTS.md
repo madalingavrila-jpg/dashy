@@ -203,21 +203,26 @@ month-boundary shifts (an account first-active on the last day of a month whose 
 stage flips the next morning). Do NOT use the near-twin
 `Account.Activation_Date__c` (datetime) — use `provider_first_active_date__c`.
 
-**PLUS reactivations (added 2026-07-10):** accounts whose
-`provider_first_active_date__c` is **before** the tracking year but which have a
-tracking-year **won Sales Opportunity** (team/inbound scope) ALSO count as
-Activated — e.g. Culture Pub (first-active 2023) and Casa Brasoveana (2024),
-reactivated by Ciprian in July 2026. Reactivations are **dated by the first
-OpportunityFieldHistory transition INTO the `Activated` stage in the tracking
-year** (Europe/Bucharest month + ISO week); fallback: the primary opp's
+**PLUS reactivations (added 2026-07-10; RecordType=Reactivation added 2026-08-03):**
+accounts whose `provider_first_active_date__c` is **before** the tracking year
+but which have a tracking-year **won** Sales Opportunity **or** won
+RecordType=`Reactivation` opp ALSO count as Activated — e.g. Culture Pub
+(first-active 2023) and Casa Brasoveana (2024), reactivated by Ciprian in July
+2026, and Madalin's El Torito / Taqueria / Banjo Jack (RecordType=Reactivation,
+July 2026). Reactivations are **dated by the first OpportunityFieldHistory
+transition INTO the `Activated` stage in the tracking year**
+(Europe/Bucharest month + ISO week); fallback: the primary opp's
 `Won_Date__c` when the opp is already in the `Activated` stage but the history
-row is missing. A won-but-still-onboarding candidate (no Activated transition,
+row is missing; for RecordType=`Reactivation` (often null `Won_Date__c`, never
+enters Activated stage): `Account.Reactivated_Date__c` then `CloseDate`. A
+won-but-still-onboarding Sales Opportunity candidate (no Activated transition,
 stage ≠ Activated) is NOT counted until it goes live. Chosen after evaluating
-`Account.Reactivated_Date__c` (only ~63% populated on 2026 candidates — rejected)
-and plain `Won_Date__c` (commercial date, puts go-lives in the wrong month —
-fallback only); the field-history transition dated 19/19 candidates (100%).
-Same dedup (one per account) and owner attribution as base Activated. Candidate
-caches: `sf-reactivation-2026.json` (team) / `sf-inbound-reactivation-2026.json`
+`Account.Reactivated_Date__c` as a sole primary signal (only ~63% populated on
+2026 Sales-Opp candidates — rejected as primary; still used for
+RecordType=Reactivation dating) and plain `Won_Date__c` (commercial date, puts
+go-lives in the wrong month — fallback only). Same dedup (one per account) and
+owner attribution as base Activated. Candidate caches:
+`sf-reactivation-2026.json` (team) / `sf-inbound-reactivation-2026.json`
 (inbound), SOQL via `node scripts/gen-activation-queries.mjs
 --kind=team-reactivation | inbound-reactivation` (in the manifest + validated;
 0 rows is legitimate). Logic: `lib/mtd-history.mjs` `accumulateMtdReactivated`
@@ -282,29 +287,41 @@ build dedups per account and attributes to the primary won opp's owner.
 
 ### Reactivation export (`scripts/.cache/sf-reactivation-2026.json`)
 
-Reactivation candidates — tracking-year won Sales Opportunities on accounts
-first-active BEFORE the tracking year (the base activation export excludes
-them). Generate with `node scripts/gen-activation-queries.mjs
+Reactivation candidates — tracking-year **won** opps on accounts first-active
+BEFORE the tracking year (the base activation export excludes them). Includes:
+- RecordType **Sales Opportunity** with `Won_Date__c` in the tracking year
+- RecordType **Reactivation** (commercial reactivation deals; often
+  `Won_Date__c` is null) with `Account.Reactivated_Date__c` or `CloseDate` in
+  the tracking year
+
+Generate with `node scripts/gen-activation-queries.mjs
 --kind=team-reactivation` (inbound: `--kind=inbound-reactivation` →
 `sf-inbound-reactivation-2026.json`):
 
 ```sql
-SELECT Id, OwnerId, Owner.Name, IsWon, Won_Date__c, StageName, AccountId,
- Account.Name, Account.BillingCity, Account.provider_first_active_date__c, RecordType.Name
+SELECT Id, OwnerId, Owner.Name, IsWon, Won_Date__c, CloseDate, StageName, AccountId,
+ Account.Name, Account.BillingCity, Account.provider_first_active_date__c,
+ Account.Reactivated_Date__c, RecordType.Name
 FROM Opportunity
-WHERE RecordType.Name = 'Sales Opportunity'
+WHERE RecordType.Name IN ('Sales Opportunity', 'Reactivation')
  AND IsWon = true
- AND Won_Date__c >= 2026-01-01
  AND Account.provider_first_active_date__c != null
  AND Account.provider_first_active_date__c < 2026-01-01
+ AND (
+   Won_Date__c >= 2026-01-01
+   OR (RecordType.Name = 'Reactivation' AND (
+     Account.Reactivated_Date__c >= 2026-01-01 OR CloseDate >= 2026-01-01
+   ))
+ )
  AND OwnerId IN ( /* 12 team rep IDs (inbound: 2 inbound IDs) */ )
-ORDER BY Won_Date__c
+ORDER BY Won_Date__c NULLS LAST, CloseDate
 ```
 
-Small pulls (~19 team rows, 0 inbound as of 2026-07-10; **0 rows is
-legitimate**). The build dates each reactivation via the stage-history caches
-(first INTO `Activated`), so no extra history pull is needed. Refresh on every
-"refresh all" alongside the activation exports.
+Dating (Europe/Bucharest): first field-history INTO `Activated` in the tracking
+year; else `Won_Date__c` when StageName is already `Activated`; else for
+RecordType=Reactivation (or when `Reactivated_Date__c` is set) use
+`Account.Reactivated_Date__c` then `CloseDate`. Refresh on every "refresh all"
+alongside the activation exports.
 
 The legacy Activated field-history cache `scripts/.cache/sf-stage-history-2026.json`
 is still pulled (it drives weekly Qualified/Negotiations); it no longer feeds
@@ -390,7 +407,7 @@ Qualified/Negotiations buckets use **OpportunityFieldHistory** (first transition
 | Negotiations | Negotiations (field history) | Sales Opportunity | first transition |
 | Closed Won | `Won_Date__c` set (**not** field history) | Parent + Sales Opportunity | `Won_Date__c` (Europe/Bucharest ISO week) |
 | Active | `Account.provider_first_active_date__c` (**not** field history) | Sales Opportunity | `provider_first_active_date__c` (Europe/Bucharest ISO week), one per account |
-| Active (reactivations) | pre-tracking-year first-active + tracking-year won opp | Sales Opportunity | first field-history transition INTO `Activated` (fallback `Won_Date__c`), one per account |
+| Active (reactivations) | pre-tracking-year first-active + tracking-year won Sales Opp **or** RecordType=Reactivation | Sales Opportunity / Reactivation | field-history INTO `Activated` (fallback `Won_Date__c`; Reactivation RT: `Reactivated_Date__c` / `CloseDate`), one per account |
 
 Field history cache: `scripts/.cache/sf-stage-history-2026.json` — refresh via the
 **incremental chunked** flow above (`gen-sf-history-queries.mjs --kind=stage-history` →
@@ -541,7 +558,7 @@ team exports exclude these owners, so these are separate caches:
 - `sf-inbound-won-ytd-bydate.json` — `Won_Date__c = THIS_YEAR` (drives weekly Closed Won + YTD).
 - `sf-inbound-stage-history-2026-MM.json` — `OpportunityFieldHistory` StageName transitions, **monthly chunks** (same incremental flow as the team export: `gen-sf-history-queries.mjs --kind=inbound-stage-history` → `fetch-sf-stage-history.mjs --kind=inbound-stage-history` merges into `sf-inbound-stage-history-2026.json`, which the build prefers). The legacy `-h1/-h2` half-year files are auto-migrated into monthly chunks on the first merge and kept only as a fallback.
 - `sf-inbound-weekly-2026.json` — open + won/activated opps 2026 (New Opportunity leads by week).
-- `sf-inbound-reactivation-2026.json` — reactivation candidates (pre-2026 first-active accounts with a 2026 won opp), `gen-activation-queries.mjs --kind=inbound-reactivation`. 0 rows is legitimate.
+- `sf-inbound-reactivation-2026.json` — reactivation candidates (pre-2026 first-active accounts with a 2026 won Sales Opp or RecordType=Reactivation), `gen-activation-queries.mjs --kind=inbound-reactivation`. 0 rows is legitimate.
 
 Databricks: the inbound build **reuses** the team `accounts-perf-*.json` caches
 (a full RO pull that already includes both inbound owners) and filters by

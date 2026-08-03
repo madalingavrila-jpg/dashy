@@ -215,10 +215,10 @@ export function buildCacheManifest({ full = false } = {}) {
       query: reactivationQuery(TEAM_IDS, year),
       gen: "node scripts/gen-activation-queries.mjs --kind=team-reactivation",
       note:
-        "REACTIVATION candidates — tracking-year won Sales Opportunities on accounts whose " +
-        "provider_first_active_date__c is PRE-tracking-year (excluded from the base activation export). " +
-        "The build counts them as Activated, dated by the first field-history transition INTO 'Activated' " +
-        "in the tracking year (fallback: Won_Date__c when the opp is already Activated). 0 rows is legitimate.",
+        "REACTIVATION candidates — tracking-year won Sales Opportunities OR won RecordType=Reactivation " +
+        "opps on accounts whose provider_first_active_date__c is PRE-tracking-year (excluded from the base " +
+        "activation export). Dated by field-history INTO 'Activated', else Won_Date when already Activated, " +
+        "else Account.Reactivated_Date__c / CloseDate for RecordType=Reactivation. 0 rows is legitimate.",
       format: "sf-records",
       bounds: [0, 500],
       cap: null,

@@ -44,6 +44,13 @@ const ACTIVATION_FIELDS =
   "Account.Name, Account.BillingCity, Account.provider_first_active_date__c, RecordType.Name " +
   "FROM Opportunity";
 
+/** Extra CloseDate + Reactivated_Date__c for RecordType=Reactivation dating. */
+const REACTIVATION_FIELDS =
+  "SELECT Id, OwnerId, Owner.Name, IsWon, Won_Date__c, CloseDate, StageName, AccountId, " +
+  "Account.Name, Account.BillingCity, Account.provider_first_active_date__c, " +
+  "Account.Reactivated_Date__c, RecordType.Name " +
+  "FROM Opportunity";
+
 function quoteList(values) {
   return values.map((v) => `'${v}'`).join(",");
 }
@@ -61,23 +68,30 @@ export function activationQuery(ownerIds, year = currentTrackingYear()) {
 }
 
 /**
- * SOQL for one scope's REACTIVATION candidates: won Sales Opportunities of the
- * tracking year whose Account was first-active BEFORE the tracking year (i.e.
- * excluded from the base activation export). The build dates each reactivation
- * by the first field-history transition INTO 'Activated' in the tracking year
- * (fallback: Won_Date__c when the opp is already in the Activated stage) — see
+ * SOQL for one scope's REACTIVATION candidates:
+ *   1. won Sales Opportunities of the tracking year whose Account was
+ *      first-active BEFORE the tracking year (classic path), OR
+ *   2. won RecordType=Reactivation opportunities (commercial reactivation
+ *      deals — often Won_Date__c is null; dated via Account.Reactivated_Date__c
+ *      / CloseDate) on pre-tracking-year first-active accounts.
+ * The build dates each reactivation via reactivationEventDate — see
  * lib/mtd-history.mjs accumulateMtdReactivated.
  */
 export function reactivationQuery(ownerIds, year = currentTrackingYear()) {
   return (
-    `${ACTIVATION_FIELDS} ` +
-    "WHERE RecordType.Name = 'Sales Opportunity' " +
+    `${REACTIVATION_FIELDS} ` +
+    "WHERE RecordType.Name IN ('Sales Opportunity', 'Reactivation') " +
     "AND IsWon = true " +
-    `AND Won_Date__c >= ${year}-01-01 ` +
     "AND Account.provider_first_active_date__c != null " +
     `AND Account.provider_first_active_date__c < ${year}-01-01 ` +
+    "AND (" +
+    `Won_Date__c >= ${year}-01-01 ` +
+    "OR (RecordType.Name = 'Reactivation' AND (" +
+    `Account.Reactivated_Date__c >= ${year}-01-01 OR CloseDate >= ${year}-01-01` +
+    "))" +
+    ") " +
     `AND OwnerId IN (${quoteList(ownerIds)}) ` +
-    "ORDER BY Won_Date__c"
+    "ORDER BY Won_Date__c NULLS LAST, CloseDate"
   );
 }
 

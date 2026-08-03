@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-03T08:08:47.189Z",
+  "updatedAt": "2026-08-03T08:24:34.697Z",
   "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -10,8 +10,8 @@
         "period": "YTD"
       },
       "activated": {
-        "value": 1216,
-        "previousValue": 1215,
+        "value": 1220,
+        "previousValue": 1219,
         "changePercent": 0.1,
         "period": "YTD"
       }
@@ -134,7 +134,7 @@
         {
           "label": "Active",
           "value": 0,
-          "previousValue": 40,
+          "previousValue": 43,
           "changePercent": -100
         }
       ],
@@ -257,7 +257,7 @@
           "qualified": 0,
           "negotiations": 1,
           "closedWon": 22,
-          "active": 19
+          "active": 20
         },
         {
           "week": "W16",
@@ -385,7 +385,7 @@
           "qualified": 10,
           "negotiations": 7,
           "closedWon": 25,
-          "active": 40
+          "active": 43
         },
         {
           "week": "W32",
@@ -1366,7 +1366,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 3,
-              "active": 6
+              "active": 7
             },
             "density": {
               "qualified": 0,
@@ -1431,6 +1431,12 @@
               "active": 1
             },
             "005Qs00000Mxc6EIAR": {
+              "qualified": 0,
+              "negotiations": 0,
+              "closedWon": 0,
+              "active": 1
+            },
+            "005Ts000005c4hFIAQ": {
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
@@ -2660,7 +2666,7 @@
               "qualified": 2,
               "negotiations": 0,
               "closedWon": 3,
-              "active": 2
+              "active": 5
             },
             "density": {
               "qualified": 8,
@@ -2728,7 +2734,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 1
+              "active": 4
             },
             "005Qs00000Mxc6EIAR": {
               "qualified": 0,
@@ -2831,7 +2837,7 @@
           {
             "metric": "Active",
             "current": 0,
-            "prior": 40,
+            "prior": 43,
             "changePercent": -100
           }
         ]
@@ -3337,7 +3343,7 @@
             "name": "Ionut-Mădălin Gavrilă",
             "segment": "complex",
             "wonMtd": 2,
-            "activatedMtd": 3,
+            "activatedMtd": 6,
             "wonItems": [],
             "activatedItems": []
           }
@@ -3347,7 +3353,7 @@
           "targetWon": 260,
           "actualWon": 171,
           "targetActivated": 215,
-          "actualActivated": 181,
+          "actualActivated": 184,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -3368,7 +3374,7 @@
             {
               "name": "Complex",
               "target": 40,
-              "actual": 24,
+              "actual": 27,
               "type": "activated"
             },
             {
@@ -3781,7 +3787,7 @@
             "name": "Corneliu-Ștefan Radu",
             "segment": "complex",
             "wonMtd": 5,
-            "activatedMtd": 3,
+            "activatedMtd": 4,
             "wonItems": [],
             "activatedItems": []
           },
@@ -3800,7 +3806,7 @@
           "targetWon": 260,
           "actualWon": 212,
           "targetActivated": 215,
-          "actualActivated": 205,
+          "actualActivated": 206,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -3821,7 +3827,7 @@
             {
               "name": "Complex",
               "target": 40,
-              "actual": 21,
+              "actual": 22,
               "type": "activated"
             },
             {
@@ -5164,7 +5170,7 @@
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-08-03T08:08:46.250Z",
+      "generatedAt": "2026-08-03T08:24:33.793Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -42483,31 +42489,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-08-03T08:08:45.230Z",
+        "lastSync": "2026-08-03T08:24:32.849Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-08-03T08:08:45.230Z",
+        "lastSync": "2026-08-03T08:24:32.849Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-08-03T08:08:45.230Z",
+        "lastSync": "2026-08-03T08:24:32.849Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-08-03T08:08:45.230Z",
+        "lastSync": "2026-08-03T08:24:32.849Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-08-03T08:08:46.563Z",
+    "generatedAt": "2026-08-03T08:24:34.108Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -154413,7 +154419,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-08-03T08:08:47.189Z",
+    "generatedAt": "2026-08-03T08:24:34.697Z",
     "monthKey": "2026-08",
     "monthLabel": "August 2026",
     "currentWeek": "W32",
@@ -154506,7 +154512,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 14,
-              "active": 15
+              "active": 16
             },
             {
               "week": "W04",
@@ -154522,7 +154528,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 16,
-              "active": 21
+              "active": 22
             },
             {
               "week": "W06",
@@ -154554,7 +154560,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 11,
-              "active": 21
+              "active": 22
             },
             {
               "week": "W10",
@@ -154578,7 +154584,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 32,
-              "active": 24
+              "active": 25
             },
             {
               "week": "W13",
@@ -154761,7 +154767,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 14,
-              "active": 15
+              "active": 16
             },
             {
               "week": "W04",
@@ -154775,7 +154781,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 16,
-              "active": 21
+              "active": 22
             },
             {
               "week": "W06",
@@ -154803,7 +154809,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 11,
-              "active": 21
+              "active": 22
             },
             {
               "week": "W10",
@@ -154824,7 +154830,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 32,
-              "active": 24
+              "active": 25
             },
             {
               "week": "W13",
