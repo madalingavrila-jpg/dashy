@@ -10,8 +10,10 @@
  *   - exists and parses (JSON, or MCP-table text with a leading header line)
  *   - row count within the manifest's expected bounds
  *   - truncation signatures: SOQL results at/over 2,000 rows, `done: false`
- *     pagination, Databricks results at/over 10,000 rows (intentional caps like
- *     the mp-* LIMIT 1500 are exempt)
+ *     pagination, Databricks single-pull results of exactly 10,000 rows
+ *     (classic MCP cap truncation; chunk-merged files may exceed 10k and are
+ *     gated by manifest bounds instead; intentional caps like mp-* LIMIT 1500
+ *     are exempt)
  *   - staleness (WARNING only): files that should be re-pulled on every refresh
  *     but are older than --max-age-hours (default 36; env VALIDATE_MAX_AGE_HOURS)
  *   - merge freshness: the merged full-year history caches must not be older
@@ -186,9 +188,11 @@ function main() {
       );
       continue;
     }
-    if (dbTable && count >= 10000) {
+    // Exact 10,000 = classic single MCP pull truncation. Chunk-merged caches
+    // (monthly/quality) legitimately exceed 10k and are checked via bounds.
+    if (dbTable && count === 10000) {
       errors.push(
-        `${name}: ${count} rows — at the 10,000-row Databricks MCP cap; result is TRUNCATED. Chunk the query (e.g. gen-accounts-perf-queries.mjs --chunk=<n>).`,
+        `${name}: ${count} rows — at the 10,000-row Databricks MCP cap; result is TRUNCATED. Chunk the query (e.g. gen-accounts-perf-queries.mjs --chunk=<n>) and merge.`,
       );
       continue;
     }
