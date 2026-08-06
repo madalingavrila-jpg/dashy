@@ -930,6 +930,7 @@ function toDashboardModel(
     },
     mops: buildMopsView(data.mops) ?? emptyMopsView(),
     accountsPerformance: data.accountsPerformance,
+    churnPrevention: data.churnPrevention,
     inboundTeam: data.inboundTeam,
     myPipeline: buildMyPipelineView(salesPipeline.myPipeline, instanceUrl),
     settings: data.settings ?? defaultSettings(),
@@ -978,6 +979,12 @@ function slimDashboardModelForApi(model: DashboardModel): DashboardModel {
     ? { ...model.accountsPerformance, accounts: [] }
     : undefined;
 
+  // Churn Prevention account list is large; keep totals/agents in the full
+  // payload and serve accounts lazily via /api/dashboard/churn-prevention.
+  const churnPrevention = model.churnPrevention
+    ? { ...model.churnPrevention, accounts: [] }
+    : undefined;
+
   // The MyPipeline item list is large; keep only summary aggregates in the full
   // /api/dashboard payload (must stay under the verify-build cap). The heavy
   // `items` list is served lazily by /api/dashboard/my-pipeline, which is
@@ -1011,6 +1018,7 @@ function slimDashboardModelForApi(model: DashboardModel): DashboardModel {
       statusBreakdown,
     },
     accountsPerformance,
+    churnPrevention,
     inboundTeam,
     myPipeline,
   };
@@ -1031,6 +1039,7 @@ export type DashboardSection =
   | "weekly"
   | "accounts"
   | "accounts-performance"
+  | "churn-prevention"
   | "mops"
   | "agents"
   | "my-pipeline"
@@ -1046,6 +1055,7 @@ export const DASHBOARD_SECTIONS: DashboardSection[] = [
   "weekly",
   "accounts",
   "accounts-performance",
+  "churn-prevention",
   "mops",
   "agents",
   "my-pipeline",
@@ -1108,6 +1118,11 @@ export function sliceDashboardSection(
       return {
         updatedAt: model.updatedAt,
         accountsPerformance: model.accountsPerformance,
+      };
+    case "churn-prevention":
+      return {
+        updatedAt: model.updatedAt,
+        churnPrevention: model.churnPrevention,
       };
     case "mops":
       return {

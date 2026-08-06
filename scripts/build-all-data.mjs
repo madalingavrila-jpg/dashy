@@ -10,6 +10,7 @@
  *   2. build-my-pipeline.mjs       → salesPipeline.myPipeline   (merge)
  *   3. build-accounts-performance  → accountsPerformance        (merge, Databricks)
  *   4. build-inbound-team.mjs      → inboundTeam                (merge)
+ *   5. build-churn-prevention.mjs  → churnPrevention            (merge, DB + SF status)
  *
  * Each step reads + rewrites data/dashboard.json, so order matters and a single
  * run can NEVER leave the file with empty/partial sections. Re-running is
@@ -58,6 +59,7 @@ const STEPS = [
   { label: "MyPipeline", script: "build-my-pipeline.mjs" },
   { label: "Accounts performance (Databricks)", script: "build-accounts-performance.mjs" },
   { label: "Inbound team", script: "build-inbound-team.mjs" },
+  { label: "Churn prevention (DB + SF status)", script: "build-churn-prevention.mjs" },
   // Writes data/mtd-details.json only (never dashboard.json): full-year
   // per-month per-agent Won/Activated drill-down lists for /api/dashboard/mtd-details.
   { label: "MTD drill-down details", script: "build-mtd-details.mjs" },

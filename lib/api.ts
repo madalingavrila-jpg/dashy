@@ -14,6 +14,7 @@ export type DashboardSection =
   | "weekly"
   | "accounts"
   | "accounts-performance"
+  | "churn-prevention"
   | "mops"
   | "agents"
   | "my-pipeline"

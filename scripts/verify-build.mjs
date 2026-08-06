@@ -41,6 +41,7 @@ const SECTIONS = [
   "weekly",
   "accounts",
   "accounts-performance",
+  "churn-prevention",
   "mops",
   "agents",
   "my-pipeline",
@@ -100,6 +101,12 @@ const apAccounts = dashboard.accountsPerformance?.accounts;
 if (!Array.isArray(apAccounts) || apAccounts.length === 0) {
   dataErrors.push(
     "accountsPerformance.accounts is empty — run `npm run refresh-all` (build-accounts-performance).",
+  );
+}
+const churnAccounts = dashboard.churnPrevention?.accounts;
+if (!Array.isArray(churnAccounts) || churnAccounts.length === 0) {
+  dataErrors.push(
+    "churnPrevention.accounts is empty — run `npm run refresh-all` (build-churn-prevention).",
   );
 }
 const mpItems = sp.myPipeline?.items;

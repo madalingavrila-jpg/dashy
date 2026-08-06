@@ -17,8 +17,9 @@
  *       won-ytd, won-recent, pipeline-open, stage-counts)
  *   B   Salesforce — MyPipeline + MOPS + inbound
  *   C1  Databricks — activation universe + provider→opp map
- *   C2  DEPENDS ON C1 — monthly/quality (IN-list from the universe) and the
- *       SF commission/segment pull (opportunity IDs from prov-opp)
+ *   C2  DEPENDS ON C1 — monthly/quality (IN-list from the universe), the
+ *       SF commission/segment pull (opportunity IDs from prov-opp), and the
+ *       Churn Prevention SF status pull (provider IDs from the universe)
  *
  * A and B and C1 can all start at the same time; C2 only after C1 has landed.
  *
@@ -519,6 +520,24 @@ export function buildCacheManifest({ full = false } = {}) {
       refreshedEachRun: true,
       closedMonthChunk: false,
     },
+    {
+      file: "scripts/.cache/churn-prevention-sf-status.json",
+      batch: "C2",
+      source: "assembled",
+      query: null,
+      gen: "node scripts/gen-churn-prevention-queries.mjs",
+      note:
+        "Salesforce Account.Status__c (+ IsDeleted, Inactive_30_days__c) for Complex+Density YTD activations. " +
+        "The gen script emits SOQL PRE-SPLIT into batches of ≤300 Provider_Id__c values from accounts-perf-accounts.json " +
+        "(roster-filtered). Run batches in parallel, map each record to " +
+        "[provider_id, account_id, name, status, is_deleted, inactive_30, city, sf_first_active], concatenate, " +
+        'write header line + {"data": [...]}. Feeds build-churn-prevention.mjs.',
+      format: "mcp-table",
+      bounds: [50, 9999],
+      cap: null,
+      refreshedEachRun: true,
+      closedMonthChunk: false,
+    },
   );
 
   return { year, currentMonth: currentMonthFor(year), full, entries };
@@ -528,7 +547,7 @@ const BATCH_TITLES = {
   A: "PARALLEL BATCH A — Salesforce team core (fire all queries together)",
   B: "PARALLEL BATCH B — Salesforce MyPipeline + MOPS + inbound (fire all queries together; can run alongside A and C1)",
   C1: "PARALLEL BATCH C1 — Databricks activation universe (can run alongside A and B)",
-  C2: "PARALLEL BATCH C2 — DEPENDS ON C1 (IN-lists/opportunity IDs come from C1 results)",
+  C2: "PARALLEL BATCH C2 — DEPENDS ON C1 (IN-lists/opportunity IDs / provider IDs come from C1 results)",
 };
 
 function main() {

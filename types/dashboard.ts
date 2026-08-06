@@ -611,10 +611,63 @@ export type MyPipelineRaw = {
   items: MyPipelineRawItem[];
 };
 
+/** One YTD activation in the Churn Prevention tab (Complex/Density). */
+export type ChurnPreventionAccount = {
+  id: string;
+  accountName: string;
+  city: string;
+  agentId: string;
+  agentName: string;
+  segment: "complex" | "density";
+  activatedDate: string | null;
+  /** Salesforce Account.Status__c (inactive/hidden/deleted/active/onboarding); IsDeleted → deleted. */
+  sfStatus: string | null;
+  /** Databricks dim_provider_v2.provider_status cross-check. */
+  dbStatus: string | null;
+  statusMismatch: boolean;
+  inactive30Days: boolean;
+  /** Delivered order on/after activation date. */
+  hasOrder: boolean;
+  neverOrdered: boolean;
+  /** SF status in {inactive, hidden, deleted} or IsDeleted. */
+  problemStatus: boolean;
+  firstOrderDate: string | null;
+  accountId: string | null;
+  opportunityId: string | null;
+  accountUrl: string | null;
+  opportunityUrl: string | null;
+};
+
+export type ChurnPreventionAgentSummary = {
+  agentId: string;
+  name: string;
+  segment: "complex" | "density";
+  accounts: number;
+  problemStatus: number;
+  neverOrdered: number;
+};
+
+export type ChurnPrevention = {
+  generatedAt: string;
+  year: number;
+  country: string;
+  metricsNote: string;
+  totals: {
+    accounts: number;
+    problemStatus: number;
+    neverOrdered: number;
+    both: number;
+    bySfStatus: Record<string, number>;
+  };
+  agents: ChurnPreventionAgentSummary[];
+  accounts: ChurnPreventionAccount[];
+};
+
 export type DashboardRawData = {
   updatedAt: string;
   salesforceInstanceUrl?: string;
   accountsPerformance?: AccountsPerformance;
+  churnPrevention?: ChurnPrevention;
   inboundTeam?: InboundTeam;
   salesPipeline: {
     totals: {
@@ -845,6 +898,7 @@ export type DashboardModel = {
   };
   mops?: MopsView;
   accountsPerformance?: AccountsPerformance;
+  churnPrevention?: ChurnPrevention;
   inboundTeam?: InboundTeam;
   myPipeline?: MyPipelineView;
   settings: {

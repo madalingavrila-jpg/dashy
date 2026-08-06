@@ -20,6 +20,7 @@ const SECTIONS = [
   "weekly",
   "accounts",
   "accounts-performance",
+  "churn-prevention",
   "mops",
   "agents",
   "my-pipeline",
@@ -35,7 +36,12 @@ const FILE_BACKED_SECTIONS = new Map([
 
 // Sections that keep their heavy drill-down data must be sliced from the full
 // (non-slim) model — the slimmed payload drops these arrays to stay under cap.
-const FULL_MODEL_SECTIONS = new Set(["accounts-performance", "my-pipeline", "inbound"]);
+const FULL_MODEL_SECTIONS = new Set([
+  "accounts-performance",
+  "churn-prevention",
+  "my-pipeline",
+  "inbound",
+]);
 
 fs.mkdirSync(sectionDir, { recursive: true });
 

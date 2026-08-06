@@ -31,6 +31,12 @@ const navItems: NavItem[] = [
     href: "/accounts-performance-mom",
     title: "Accounts perf (cohorts) — grouped by activation month",
   },
+  {
+    icon: "heart_broken",
+    label: "Churn prevention",
+    href: "/churn-prevention",
+    title: "YTD activations — SF inactive/hidden/deleted and never-ordered flags",
+  },
   { icon: "support_agent", label: "MOps", href: "/mops" },
 ];
 

@@ -708,6 +708,7 @@ if (existsSync(dashboardPath)) {
     const prev = parseSfJson(dashboardPath);
     if (prev.accountsPerformance) slimmed.accountsPerformance = prev.accountsPerformance;
     if (prev.inboundTeam) slimmed.inboundTeam = prev.inboundTeam;
+    if (prev.churnPrevention) slimmed.churnPrevention = prev.churnPrevention;
     if (prev.salesPipeline?.myPipeline) {
       slimmed.salesPipeline.myPipeline = prev.salesPipeline.myPipeline;
     }
