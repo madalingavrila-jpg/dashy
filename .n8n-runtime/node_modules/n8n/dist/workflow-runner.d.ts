@@ -1,0 +1,38 @@
+import { Logger } from '@n8n/backend-common';
+import { ExecutionsConfig } from '@n8n/config';
+import { ExecutionRepository } from '@n8n/db';
+import type { ExecutionLifecycleHooks } from 'n8n-core';
+import { ErrorReporter, InstanceSettings, StorageConfig } from 'n8n-core';
+import type { ExecutionError, IDeferredPromise, IExecuteResponsePromiseData, WorkflowExecuteMode, IWorkflowExecutionDataProcess } from 'n8n-workflow';
+import { ActiveExecutions } from './active-executions';
+import { ExecutionNotFoundError } from './errors/execution-not-found-error';
+import { FailedRunFactory } from './executions/failed-run-factory';
+import { CredentialsPermissionChecker } from './executions/pre-execution-checks';
+import { ExternalHooks } from './external-hooks';
+import { ManualExecutionService } from './manual-execution.service';
+import { NodeTypes } from './node-types';
+import { WorkflowStaticDataService } from './workflows/workflow-static-data.service';
+import { EventService } from './events/event.service';
+export declare class WorkflowRunner {
+    private readonly logger;
+    private readonly errorReporter;
+    private readonly activeExecutions;
+    private readonly executionRepository;
+    private readonly workflowStaticDataService;
+    private readonly nodeTypes;
+    private readonly credentialsPermissionChecker;
+    private readonly instanceSettings;
+    private readonly manualExecutionService;
+    private readonly failedRunFactory;
+    private readonly eventService;
+    private readonly executionsConfig;
+    private readonly storageConfig;
+    private readonly externalHooks;
+    private scalingService;
+    constructor(logger: Logger, errorReporter: ErrorReporter, activeExecutions: ActiveExecutions, executionRepository: ExecutionRepository, workflowStaticDataService: WorkflowStaticDataService, nodeTypes: NodeTypes, credentialsPermissionChecker: CredentialsPermissionChecker, instanceSettings: InstanceSettings, manualExecutionService: ManualExecutionService, failedRunFactory: FailedRunFactory, eventService: EventService, executionsConfig: ExecutionsConfig, storageConfig: StorageConfig, externalHooks: ExternalHooks);
+    processError(error: ExecutionError | ExecutionNotFoundError, startedAt: Date, executionMode: WorkflowExecuteMode, executionId: string, hooks?: ExecutionLifecycleHooks): Promise<void>;
+    run(data: IWorkflowExecutionDataProcess, loadStaticData?: boolean, realtime?: boolean, restartExecutionId?: string, responsePromise?: IDeferredPromise<IExecuteResponsePromiseData>): Promise<string>;
+    private runMainProcess;
+    private enqueueExecution;
+    private needsFullExecutionData;
+}

@@ -1,0 +1,31 @@
+import type { OAuthRegisteredClientsStore } from '@modelcontextprotocol/sdk/server/auth/clients';
+import type { AuthorizationParams, OAuthServerProvider } from '@modelcontextprotocol/sdk/server/auth/provider';
+import type { AuthInfo } from '@modelcontextprotocol/sdk/server/auth/types';
+import type { OAuthClientInformationFull, OAuthTokens, OAuthTokenRevocationRequest } from '@modelcontextprotocol/sdk/shared/auth';
+import { Logger } from '@n8n/backend-common';
+import type { Response } from 'express';
+import { OAuthClient } from './database/entities/oauth-client.entity';
+import { OAuthClientRepository } from './database/repositories/oauth-client.repository';
+import { UserConsentRepository } from './database/repositories/oauth-user-consent.repository';
+import { McpOAuthAuthorizationCodeService } from './mcp-oauth-authorization-code.service';
+import { McpOAuthTokenService } from './mcp-oauth-token.service';
+import { OAuthSessionService } from './oauth-session.service';
+export declare const SUPPORTED_SCOPES: string[];
+export declare class McpOAuthService implements OAuthServerProvider {
+    private readonly logger;
+    private readonly oauthSessionService;
+    private readonly oauthClientRepository;
+    private readonly tokenService;
+    private readonly authorizationCodeService;
+    private readonly userConsentRepository;
+    constructor(logger: Logger, oauthSessionService: OAuthSessionService, oauthClientRepository: OAuthClientRepository, tokenService: McpOAuthTokenService, authorizationCodeService: McpOAuthAuthorizationCodeService, userConsentRepository: UserConsentRepository);
+    get clientsStore(): OAuthRegisteredClientsStore;
+    authorize(client: OAuthClientInformationFull, params: AuthorizationParams, res: Response): Promise<void>;
+    challengeForAuthorizationCode(client: OAuthClientInformationFull, authorizationCode: string): Promise<string>;
+    exchangeAuthorizationCode(client: OAuthClientInformationFull, authorizationCode: string, _codeVerifier?: string, redirectUri?: string): Promise<OAuthTokens>;
+    exchangeRefreshToken(client: OAuthClientInformationFull, refreshToken: string, _scopes?: string[]): Promise<OAuthTokens>;
+    verifyAccessToken(token: string): Promise<AuthInfo>;
+    revokeToken(client: OAuthClientInformationFull, request: OAuthTokenRevocationRequest): Promise<void>;
+    getAllClients(userId: string): Promise<Array<Omit<OAuthClient, 'clientSecret' | 'clientSecretExpiresAt' | 'setUpdateDate'>>>;
+    deleteClient(clientId: string): Promise<void>;
+}

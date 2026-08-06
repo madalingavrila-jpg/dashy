@@ -1,0 +1,40 @@
+import { WatsonxAuth, WatsonxParams } from "../types/ibm.cjs";
+import { EmbeddingParameters, TextEmbeddingsParams } from "@ibm-cloud/watsonx-ai/dist/watsonx-ai-ml/vml_v1.js";
+import { Embeddings } from "@langchain/core/embeddings";
+
+//#region src/embeddings/ibm.d.ts
+interface WatsonxEmbeddingsParams extends Pick<TextEmbeddingsParams, "headers"> {
+  truncateInputTokens?: number;
+}
+interface WatsonxInputEmbeddings extends Omit<WatsonxParams, "idOrName"> {
+  truncateInputTokens?: number;
+}
+declare class WatsonxEmbeddings extends Embeddings implements WatsonxEmbeddingsParams, WatsonxParams {
+  model: string;
+  serviceUrl: string;
+  version: string;
+  spaceId?: string;
+  projectId?: string;
+  truncateInputTokens?: number;
+  maxRetries?: number;
+  maxConcurrency?: number;
+  private service;
+  constructor(fields: WatsonxInputEmbeddings & WatsonxAuth);
+  scopeId(): {
+    projectId: string;
+    modelId: string;
+    spaceId?: undefined;
+  } | {
+    projectId?: undefined;
+    spaceId: string | undefined;
+    modelId: string;
+  };
+  invocationParams(): EmbeddingParameters;
+  listModels(): Promise<string[] | undefined>;
+  private embedSingleText;
+  embedDocuments(documents: string[]): Promise<number[][]>;
+  embedQuery(document: string): Promise<number[]>;
+}
+//#endregion
+export { WatsonxEmbeddings, WatsonxEmbeddingsParams, WatsonxInputEmbeddings, ibm_d_exports };
+//# sourceMappingURL=ibm.d.cts.map

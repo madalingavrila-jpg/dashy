@@ -1,0 +1,10 @@
+import type { AgentRunnableSequence } from '@langchain/classic/agents';
+import type { BaseChatMemory } from '@langchain/classic/memory';
+import type { BaseChatModel } from '@langchain/core/language_models/chat_models';
+import { type RequestResponseMetadata } from '../../../../../../../utils/agent-execution';
+import type { EngineRequest, EngineResponse, IExecuteFunctions, ISupplyDataFunctions } from 'n8n-workflow';
+import type { AgentResult } from '../types';
+import type { ItemContext } from './prepareItemContext';
+type RunAgentResult = AgentResult | EngineRequest<RequestResponseMetadata>;
+export declare function runAgent(ctx: IExecuteFunctions | ISupplyDataFunctions, executor: AgentRunnableSequence, itemContext: ItemContext, model: BaseChatModel, memory: BaseChatMemory | undefined, response?: EngineResponse<RequestResponseMetadata>): Promise<RunAgentResult>;
+export {};

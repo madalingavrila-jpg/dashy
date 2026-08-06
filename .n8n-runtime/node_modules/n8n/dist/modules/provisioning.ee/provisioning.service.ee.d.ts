@@ -1,0 +1,37 @@
+import { ProvisioningConfigDto } from '@n8n/api-types';
+import { Logger } from '@n8n/backend-common';
+import { GlobalConfig } from '@n8n/config';
+import { RoleRepository, SettingsRepository, User, UserRepository, ProjectRepository } from '@n8n/db';
+import { EventService } from '../../events/event.service';
+import { Publisher } from '../../scaling/pubsub/publisher.service';
+import { ProjectService } from '../../services/project.service.ee';
+import { InstanceSettings } from 'n8n-core';
+import { UserService } from '../../services/user.service';
+export declare class ProvisioningService {
+    private readonly eventService;
+    private readonly globalConfig;
+    private readonly settingsRepository;
+    private readonly projectRepository;
+    private readonly projectService;
+    private readonly roleRepository;
+    private readonly userRepository;
+    private readonly userService;
+    private readonly logger;
+    private readonly publisher;
+    private readonly instanceSettings;
+    private provisioningConfig;
+    constructor(eventService: EventService, globalConfig: GlobalConfig, settingsRepository: SettingsRepository, projectRepository: ProjectRepository, projectService: ProjectService, roleRepository: RoleRepository, userRepository: UserRepository, userService: UserService, logger: Logger, publisher: Publisher, instanceSettings: InstanceSettings);
+    init(): Promise<void>;
+    getConfig(): Promise<ProvisioningConfigDto>;
+    provisionInstanceRoleForUser(user: User, roleSlug: unknown): Promise<void>;
+    provisionProjectRolesForUser(userId: string, projectIdToRoles: unknown): Promise<void>;
+    patchConfig(rawConfig: unknown): Promise<ProvisioningConfigDto>;
+    handleReloadSsoProvisioningConfiguration(): Promise<void>;
+    loadConfigurationFromDatabase(): Promise<ProvisioningConfigDto | undefined>;
+    loadConfig(): Promise<ProvisioningConfigDto>;
+    getInstanceRoleClaimName(): Promise<string | null>;
+    getProjectsRolesClaimName(): Promise<string | null>;
+    isProvisioningEnabled(): Promise<boolean>;
+    private isInstanceRoleProvisioningEnabled;
+    private isProjectRolesProvisioningEnabled;
+}

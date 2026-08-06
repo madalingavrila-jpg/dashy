@@ -1,0 +1,64 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createKeywordsCheckFn = void 0;
+const WORD_CHAR_CLASS = '[\\p{L}\\p{N}_]';
+const isWordChar = (() => {
+    const wordCharRegex = new RegExp(WORD_CHAR_CLASS, 'u');
+    return (char) => {
+        if (!char)
+            return false;
+        return wordCharRegex.test(char);
+    };
+})();
+const keywordsCheck = (text, config) => {
+    const { keywords } = config;
+    const sanitizedKeywords = keywords.map((k) => k.replace(/[.,!?;:]+$/, ''));
+    const keywordEntries = sanitizedKeywords
+        .map((sanitized) => ({
+        sanitized,
+        escaped: sanitized.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+    }))
+        .filter(({ sanitized }) => sanitized.length > 0);
+    if (keywordEntries.length === 0) {
+        return {
+            guardrailName: 'keywords',
+            tripwireTriggered: false,
+            info: {
+                matchedKeywords: [],
+            },
+        };
+    }
+    const keywordPatterns = keywordEntries.map(({ sanitized, escaped }) => {
+        const keywordChars = Array.from(sanitized);
+        const firstChar = keywordChars[0];
+        const lastChar = keywordChars[keywordChars.length - 1];
+        const needsLeftBoundary = isWordChar(firstChar);
+        const needsRightBoundary = isWordChar(lastChar);
+        const leftBoundary = needsLeftBoundary ? `(?<!${WORD_CHAR_CLASS})` : '';
+        const rightBoundary = needsRightBoundary ? `(?!${WORD_CHAR_CLASS})` : '';
+        return `${leftBoundary}${escaped}${rightBoundary}`;
+    });
+    const patternText = `(?:${keywordPatterns.join('|')})`;
+    const pattern = new RegExp(patternText, 'giu');
+    const matches = [];
+    let match;
+    const seen = new Set();
+    while ((match = pattern.exec(text)) !== null) {
+        const matchedText = match[0];
+        if (!seen.has(matchedText.toLowerCase())) {
+            matches.push(matchedText);
+            seen.add(matchedText.toLowerCase());
+        }
+    }
+    const tripwireTriggered = matches.length > 0;
+    return {
+        guardrailName: 'keywords',
+        tripwireTriggered,
+        info: {
+            matchedKeywords: matches,
+        },
+    };
+};
+const createKeywordsCheckFn = (config) => (input) => keywordsCheck(input, config);
+exports.createKeywordsCheckFn = createKeywordsCheckFn;
+//# sourceMappingURL=keywords.js.map

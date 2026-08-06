@@ -1,0 +1,5 @@
+import type { INodeProperties, INodePropertyCollection } from 'n8n-workflow';
+export declare const modelRLC: (searchListMethod?: string) => INodeProperties;
+export declare const metadataProperty: INodeProperties;
+export declare const textMessageProperties: INodeProperties[];
+export declare const messageOptions: INodePropertyCollection[];

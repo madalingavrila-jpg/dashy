@@ -1,0 +1,47 @@
+import { LicenseState, Logger } from '@n8n/backend-common';
+import type { LdapConfig } from '@n8n/constants';
+import { SettingsRepository, User } from '@n8n/db';
+import type { RunningMode } from '@n8n/db';
+import { Constructable } from '@n8n/di';
+import type { IPasswordAuthHandler } from '@n8n/decorators';
+import type { Entry as LdapUser } from 'ldapts';
+import { Cipher } from 'n8n-core';
+import { EventService } from '../../events/event.service';
+export declare class LdapService implements IPasswordAuthHandler<User> {
+    private readonly logger;
+    private readonly settingsRepository;
+    private readonly cipher;
+    private readonly eventService;
+    private readonly licenseState;
+    readonly metadata: {
+        name: string;
+        type: "password";
+    };
+    private client;
+    private ldapts;
+    private syncTimer;
+    config: LdapConfig;
+    readonly userClass: Constructable<User>;
+    constructor(logger: Logger, settingsRepository: SettingsRepository, cipher: Cipher, eventService: EventService, licenseState: LicenseState);
+    init(): Promise<void>;
+    loadConfig(): Promise<LdapConfig>;
+    updateConfig(ldapConfig: LdapConfig): Promise<void>;
+    setConfig(ldapConfig: LdapConfig): void;
+    private setGlobalLdapConfigVariables;
+    private setLdapLoginEnabled;
+    private getClient;
+    private bindAdmin;
+    searchWithAdminBinding(filter: string): Promise<LdapUser[]>;
+    private hasEmailDuplicatesInLdap;
+    validUser(dn: string, password: string): Promise<void>;
+    findAndAuthenticateLdapUser(loginId: string, password: string, loginIdAttribute: string, userFilter: string): Promise<LdapUser | undefined>;
+    testConnection(): Promise<void>;
+    private scheduleSync;
+    runSync(mode: RunningMode): Promise<void>;
+    stopSync(): void;
+    private getUsersToProcess;
+    private getUsersToCreate;
+    private getUsersToUpdate;
+    private getUsersToDisable;
+    handleLogin(loginId: string, password: string): Promise<User | undefined>;
+}

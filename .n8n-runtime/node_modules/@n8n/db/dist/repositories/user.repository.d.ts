@@ -1,0 +1,31 @@
+import type { UsersListFilterDto } from '@n8n/api-types';
+import type { DeepPartial, EntityManager, SelectQueryBuilder } from '@n8n/typeorm';
+import { DataSource, Repository } from '@n8n/typeorm';
+import { Project, User } from '../entities';
+export declare class UserRepository extends Repository<User> {
+    constructor(dataSource: DataSource);
+    findManyByIds(userIds: string[], options?: {
+        includeRole: boolean;
+    }): Promise<User[]>;
+    findByApiKey(apiKey: string): Promise<User | null>;
+    update(...args: Parameters<Repository<User>['update']>): Promise<import("@n8n/typeorm").UpdateResult>;
+    deleteAllExcept(user: User): Promise<void>;
+    getByIds(transaction: EntityManager, ids: string[]): Promise<User[]>;
+    findManyByEmail(emails: string[]): Promise<User[]>;
+    deleteMany(userIds: string[]): Promise<import("@n8n/typeorm").DeleteResult>;
+    findNonShellUser(email: string): Promise<User | null>;
+    countUsersByRole(): Promise<Record<string, number>>;
+    getEmailsByIds(userIds: string[]): Promise<User[]>;
+    createUserWithProject(user: DeepPartial<User>, transactionManager?: EntityManager): Promise<{
+        user: User;
+        project: Project;
+    }>;
+    findPersonalOwnerForWorkflow(workflowId: string): Promise<User | null>;
+    findPersonalOwnerForProject(projectId: string): Promise<User | null>;
+    private applyUserListSelect;
+    private applyUserListFilter;
+    private applyUserListExpand;
+    private applyUserListSort;
+    private applyUserListPagination;
+    buildUserQuery(listQueryOptions?: UsersListFilterDto): SelectQueryBuilder<User>;
+}

@@ -1,0 +1,30 @@
+import { EventService } from '../../events/event.service';
+import { Logger } from '@n8n/backend-common';
+import { GlobalConfig, WorkflowHistoryCompactionConfig } from '@n8n/config';
+import { DbConnection, WorkflowHistoryRepository } from '@n8n/db';
+import { InstanceSettings } from 'n8n-core';
+export declare class WorkflowHistoryCompactionService {
+    private readonly config;
+    private readonly globalConfig;
+    private readonly logger;
+    private readonly instanceSettings;
+    private readonly dbConnection;
+    private readonly workflowHistoryRepository;
+    private readonly eventService;
+    private optimizingInterval;
+    private trimmingInterval;
+    private isShuttingDown;
+    private isOptimizingHistories;
+    private isTrimmingHistories;
+    constructor(config: WorkflowHistoryCompactionConfig, globalConfig: GlobalConfig, logger: Logger, instanceSettings: InstanceSettings, dbConnection: DbConnection, workflowHistoryRepository: WorkflowHistoryRepository, eventService: EventService);
+    init(): void;
+    get isEnabled(): boolean;
+    startCompacting(): void;
+    stopCompacting(): void;
+    private scheduleTrimming;
+    private scheduleOptimization;
+    shutdown(): void;
+    private trimLongRunningHistories;
+    private optimizeHistories;
+    private compactHistories;
+}

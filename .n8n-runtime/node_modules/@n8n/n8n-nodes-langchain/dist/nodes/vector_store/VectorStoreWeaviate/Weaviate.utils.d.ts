@@ -1,0 +1,28 @@
+import type { FilterValue, GeoRangeFilter, ProxiesParams, TimeoutParams, WeaviateClient } from 'weaviate-client';
+export type WeaviateCredential = {
+    weaviate_cloud_endpoint: string;
+    weaviate_api_key: string;
+    custom_connection_http_host: string;
+    custom_connection_http_port: number;
+    custom_connection_http_secure: boolean;
+    custom_connection_grpc_host: string;
+    custom_connection_grpc_port: number;
+    custom_connection_grpc_secure: boolean;
+};
+export declare function createWeaviateClient(credentials: WeaviateCredential, timeout?: TimeoutParams, proxies?: ProxiesParams, skipInitChecks?: boolean): Promise<WeaviateClient>;
+type WeaviateFilterUnit = {
+    path: string[];
+    operator: string;
+    valueString?: string;
+    valueTextArray?: string[];
+    valueBoolean?: boolean;
+    valueNumber?: number;
+    valueGeoCoordinates?: GeoRangeFilter;
+};
+export type WeaviateCompositeFilter = {
+    AND: WeaviateFilterUnit[];
+} | {
+    OR: WeaviateFilterUnit[];
+};
+export declare function parseCompositeFilter(filter: WeaviateCompositeFilter | WeaviateFilterUnit): FilterValue;
+export {};

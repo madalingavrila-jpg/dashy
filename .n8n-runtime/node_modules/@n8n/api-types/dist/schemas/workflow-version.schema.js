@@ -1,0 +1,19 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.workflowVersionDescriptionSchema = exports.workflowVersionNameSchema = exports.WORKFLOW_VERSION_DESCRIPTION_MAX_LENGTH = exports.WORKFLOW_VERSION_NAME_MAX_LENGTH = void 0;
+const zod_1 = require("zod");
+exports.WORKFLOW_VERSION_NAME_MAX_LENGTH = 128;
+exports.WORKFLOW_VERSION_DESCRIPTION_MAX_LENGTH = 2048;
+exports.workflowVersionNameSchema = zod_1.z
+    .string()
+    .max(exports.WORKFLOW_VERSION_NAME_MAX_LENGTH, {
+    message: `Version name cannot be longer than ${exports.WORKFLOW_VERSION_NAME_MAX_LENGTH} characters`,
+})
+    .optional();
+exports.workflowVersionDescriptionSchema = zod_1.z
+    .string()
+    .max(exports.WORKFLOW_VERSION_DESCRIPTION_MAX_LENGTH, {
+    message: `Version description cannot be longer than ${exports.WORKFLOW_VERSION_DESCRIPTION_MAX_LENGTH} characters`,
+})
+    .optional();
+//# sourceMappingURL=workflow-version.schema.js.map
