@@ -1,0 +1,107 @@
+{
+  "name": "Dashy — daily data refresh (dispatch GH Action)",
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "description": "Daily 14:00 Europe/Bucharest → GitHub workflow_dispatch for dashy-data-refresh.yml. Import into n8n Sales Internal project. Create credentials: GitHub Header Auth (PAT with actions:write + repo) and optionally Slack for the companion error workflow. Do NOT activate until a manual Actions run succeeds."
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 14 * * *",
+              "triggerAtHour": 14
+            }
+          ]
+        }
+      },
+      "id": "schedule-1400-bucharest",
+      "name": "Daily 14:00 Bucharest",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0],
+      "notes": "Set workflow timezone to Europe/Bucharest in workflow settings."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.DASHY_GH_DISPATCH_URL || 'https://api.github.com/repos/boltable/dashy/actions/workflows/dashy-data-refresh.yml/dispatches' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            },
+            {
+              "name": "X-GitHub-Api-Version",
+              "value": "2022-11-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"ref\": \"main\",\n  \"inputs\": {\n    \"skip_freshness\": \"false\"\n  }\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": false
+            }
+          }
+        }
+      },
+      "id": "dispatch-gh-action",
+      "name": "Dispatch dashy-data-refresh",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [280, 0],
+      "notes": "Attach HTTP Header Auth credential: Name=Authorization, Value=Bearer <PAT with actions:write+repo on boltable/dashy>. Override URL via env DASHY_GH_DISPATCH_URL if the workflow lives on another fork."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "status",
+              "name": "status",
+              "value": "={{ $json.statusCode === 204 ? 'dispatched' : 'unexpected' }}",
+              "type": "string"
+            },
+            {
+              "id": "at",
+              "name": "dispatchedAt",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-result",
+      "name": "Record dispatch",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [560, 0]
+    }
+  ],
+  "connections": {
+    "Daily 14:00 Bucharest": {
+      "main": [[{ "node": "Dispatch dashy-data-refresh", "type": "main", "index": 0 }]]
+    },
+    "Dispatch dashy-data-refresh": {
+      "main": [[{ "node": "Record dispatch", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Bucharest",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": [{ "name": "dashy" }, { "name": "data-refresh" }]
+}

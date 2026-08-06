@@ -1,0 +1,77 @@
+{
+  "name": "Dashy — refresh failure alert",
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "description": "Error Trigger companion for 'Dashy — daily data refresh'. Wire it as the error workflow on the dispatcher. Slack-DMs Madalin when dispatch fails. Create Slack API credential with chat:write; set channel to your user id."
+  },
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "error-trigger",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "msg",
+              "name": "text",
+              "value": "=⚠️ Dashy nightly refresh failed to dispatch.\nWorkflow: {{ $json.workflow.name || 'dashy-daily-refresh' }}\nExecution: {{ $json.execution.id || 'n/a' }}\nError: {{ $json.execution.error?.message || $json.error?.message || JSON.stringify($json) }}\nCheck n8n + https://github.com/boltable/dashy/actions",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "format-alert",
+      "name": "Format alert",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [260, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://slack.com/api/chat.postMessage",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"channel\": \"{{ $env.DASHY_ALERT_SLACK_USER || 'U07M4KBEUES' }}\",\n  \"text\": {{ JSON.stringify($json.text) }}\n}",
+        "options": {}
+      },
+      "id": "slack-alert",
+      "name": "Slack DM Madalin",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [520, 0],
+      "notes": "HTTP Header Auth: Authorization = Bearer <Slack bot token>. Default channel is Madalin's Slack user id from Cursor Slack MCP."
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [[{ "node": "Format alert", "type": "main", "index": 0 }]]
+    },
+    "Format alert": {
+      "main": [[{ "node": "Slack DM Madalin", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [{ "name": "dashy" }, { "name": "alerts" }]
+}

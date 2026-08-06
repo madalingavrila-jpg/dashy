@@ -1,6 +1,26 @@
 # AGENTS.md — dashy data refresh
 
-This app does **not** call Salesforce or Looker at runtime. You (the Cursor agent) fetch live data via MCP, optionally upload to Google Sheet via Bolt MCP, and write `data/dashboard.json`.
+This app does **not** call Salesforce or Looker at runtime. Caches under
+`scripts/.cache/` are rebuilt offline, then `npm run refresh-all` writes
+`data/dashboard.json`.
+
+## Automated nightly refresh (preferred)
+
+**n8n (14:00 Europe/Bucharest) → GitHub Action `dashy-data-refresh.yml` → Databricks.**
+
+1. `npm run data:pull-databricks` (`scripts/pull-all-caches-databricks.mjs`) pulls
+   Batch A/B CRM from `main.fivetran_salesforcefood` and Batch C from
+   `main.ng_delivery` via the Databricks SQL Statement API (no Salesforce MCP,
+   no 2,000-row SOQL cap).
+2. `node scripts/fetch-sf-stage-history.mjs --kind=all`
+3. `npm run refresh-all` → `npm run build`
+4. Commit + push `main` (Paketo redeploy)
+5. Slack DM Bianca `U01AHG4UAPR`
+
+Ops runbook + n8n import JSON: [`docs/databricks-sf-handoff.md`](docs/databricks-sf-handoff.md),
+[`n8n/dashy-daily-refresh.json`](n8n/dashy-daily-refresh.json).
+Local one-shot: `./scripts/refresh-and-deploy.sh` (same Databricks path; requires
+`DATABRICKS_*` env vars). Same-day figures can lag Fivetran by a few hours.
 
 ## Refresh all data — one command
 
@@ -30,10 +50,17 @@ data. Closed-month chunk files being *old* is fine (expected with the incrementa
 refresh); a *missing* closed-month chunk is a hard error.
 
 The full **"refresh date"** flow (pull fresh from all sources, then rebuild + deploy) is:
-**refresh the SF + Databricks caches via MCP → `npm run refresh-all` → `npm run build` → commit +
-push `boltable/main`.** `scripts/refresh-and-deploy.sh` automates exactly this (launchd).
+**`npm run data:pull-databricks` → `node scripts/fetch-sf-stage-history.mjs --kind=all` →
+`npm run refresh-all` → `npm run build` → commit + push `main`.** Nightly automation:
+n8n → `.github/workflows/dashy-data-refresh.yml`. Manual: `./scripts/refresh-and-deploy.sh`.
+(Salesforce MCP pulls remain a supported emergency / parity path; see "Canonical query
+manifest" below.)
 
 ## Canonical query manifest + parallel pulls
+
+**Preferred puller:** `npm run data:pull-databricks` (writes every Batch A/B/C cache from
+Databricks). The MCP manifest below is still the source of truth for *what* each file
+must contain and for agent-driven parity checks.
 
 **`node scripts/gen-all-cache-queries.mjs`** is the single source of truth for **every**
 cache file under `scripts/.cache/` the build reads: for each file it prints the exact
@@ -42,16 +69,16 @@ SOQL/Databricks SQL (or the gen script that produces it), the expected row-count
 belongs to. `--json` gives a machine-readable manifest; `--full` also prints the
 closed-month chunk queries (backfills).
 
-**Run independent MCP queries IN PARALLEL, not sequentially.** MCP pulls are executed by
-the agent, so parallelism happens at the agent level — fire all queries of a batch in one
-parallel burst (parallel tool calls), then write each result to its target file:
+**When using Salesforce/Databricks MCP instead of `data:pull-databricks`:** run independent
+queries IN PARALLEL, not sequentially — fire all queries of a batch in one parallel burst
+(parallel tool calls), then write each result to its target file:
 
 | Batch | Source | Contents | Depends on |
 |-------|--------|----------|------------|
-| **A** | Salesforce | current-month stage-history + weekly chunks, won-mtd, won-ytd, won-recent, pipeline-open, stage-counts | — |
-| **B** | Salesforce | MyPipeline (mp-*), MOPS, inbound exports (incl. inbound stage-history chunk) | — |
-| **C1** | Databricks | activation universe (`accounts-perf-accounts`) + provider→opp map | — |
-| **C2** | Databricks + SF | monthly/quality (IN-list from universe), SF commission/segment (opp IDs from prov-opp) | **C1** |
+| **A** | Salesforce *or* Food SF Fivetran | current-month stage-history + weekly chunks, won-mtd, won-ytd, won-recent, pipeline-open, stage-counts | — |
+| **B** | Salesforce *or* Food SF Fivetran | MyPipeline (mp-*), MOPS, inbound exports (incl. inbound stage-history chunk) | — |
+| **C1** | Databricks `ng_delivery` | activation universe (`accounts-perf-accounts`) + provider→opp map | — |
+| **C2** | Databricks + Food SF Fivetran | monthly/quality (IN-list from universe), SF commission/segment (opp IDs from prov-opp) | **C1** |
 
 A, B and C1 can all start simultaneously; C2 only after C1 lands. After all pulls:
 `node scripts/fetch-sf-stage-history.mjs --kind=all` → `npm run refresh-all` → `npm run build`.
@@ -64,14 +91,13 @@ Two hard-won caveats baked into the manifest:
 - **SF commission/segment pull is PRE-SPLIT** — `node scripts/gen-accounts-perf-queries.mjs
   --kind=sf-commission` emits the SOQL in batches of ≤300 opportunity IDs (~6 batches at
   current universe size). Larger IN-lists exceed the MCP URL/header limit → HTTP 431.
+  The Databricks puller batches the same way against `fivetran_salesforcefood`.
 
 ## Workflow
 
-1. Query **Salesforce MCP** for pipeline, Won, Activated, accounts, opportunities.
-   `node scripts/gen-all-cache-queries.mjs` lists the exact query for **every** cache
-   file, grouped into parallel batches — fire each batch's queries together (see
-   "Canonical query manifest + parallel pulls" above).
-2. Read **Google Sheet** hitlist via Bolt MCP (`read_sheet_values`) — spreadsheet `1IW8IxEs-YCsYMlCeTfkIz-b51eStjR5uUIEpkV1akRE`.
+1. **Pull caches** with `npm run data:pull-databricks` (preferred), **or** query
+   Salesforce MCP / Databricks MCP per `node scripts/gen-all-cache-queries.mjs` batches.
+2. Read **Google Sheet** hitlist via Bolt MCP (`read_sheet_values`) — spreadsheet `1IW8IxEs-YCsYMlCeTfkIz-b51eStjR5uUIEpkV1akRE` (when hitlist needs a refresh).
 3. Map results to `data/dashboard.json` using `data/dashboard.schema.json`.
 4. Set `updatedAt` to the current ISO timestamp.
 5. **Slim at source:** `build-dashboard-data.mjs` calls `lib/slim-dashboard-source.mjs` — keeps MTD/weekly **aggregates for all periods**, but drill-down lists only for the **current month** and **current ISO week**; caps account tabs at 28 with SF list URLs. Re-run `node scripts/slim-dashboard-json.mjs` after manual JSON edits.
