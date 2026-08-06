@@ -1,35 +1,38 @@
 #!/bin/bash
 #
-# Daily dashboard data refresh + deploy, run by launchd (eu.boltable.dashy.refresh).
+# Local / launchd dashy data refresh + deploy.
 #
-# Scheduling model (see eu.boltable.dashy.refresh.plist):
-#   - launchd StartCalendarInterval fires at 13:00 local time.
-#   - If the Mac was asleep/off at 13:00, launchd runs the missed job once at the
-#     next wake — giving the "run after 1PM whenever the laptop opens" behavior.
+# Preferred nightly path (fully automated, no Cursor agent):
+#   n8n Schedule 14:00 Europe/Bucharest
+#     → GitHub workflow_dispatch (dashy-data-refresh.yml)
+#     → Databricks pull + refresh-all + build + push boltable/main
+#     → Slack DM Bianca
 #
-# Once-per-day guard (this script):
-#   - We record the last SUCCESSFUL refresh date in a state file.
-#   - If today already succeeded, exit early (prevents duplicate runs when the
-#     machine wakes several times after 13:00).
-#   - We only write the state file on a *successful* refresh + push, so a failed
-#     13:00 attempt still retries on the next wake after 1PM.
+# This script is the LOCAL / manual fallback (and former launchd job). It pulls
+# caches from Databricks via the SQL API (no Salesforce MCP), rebuilds, and
+# pushes to boltable/main. Keep the launchd plist disabled unless you need a
+# laptop-side backup.
 #
-# All times use the laptop's local timezone (currently Europe/Bucharest), which
-# matches both the plist calendar hour and the dashboard's reporting timezone.
+# Required env (or export before running):
+#   DATABRICKS_HOST
+#   DATABRICKS_TOKEN
+#   DATABRICKS_WAREHOUSE_ID
+# Optional:
+#   SLACK_BOT_TOKEN   — if set, DMs Bianca after a successful push
+#   DASHY_FORCE_REFRESH=1 — bypass once-per-day guard
 
 set -uo pipefail
 
-REPO="/Users/madalin/Desktop/dashy"
-REMOTE_URL="https://github.com/boltable/dashy.git"
-CURSOR_AGENT="/Users/madalin/.local/bin/cursor-agent"
+REPO="${DASHY_REPO:-/Users/madalin/Desktop/dashy}"
+REMOTE_NAME="${DASHY_REMOTE:-boltable}"
+REMOTE_BRANCH="${DASHY_REMOTE_BRANCH:-main}"
 
 STATE_DIR="$HOME/Library/Application Support/dashy"
 STATE_FILE="$STATE_DIR/last-refresh-date"
 LOG="$HOME/Library/Logs/dashy-refresh.log"
 LOCK="/tmp/dashy-refresh.lock"
 
-# launchd hands jobs a minimal environment; make sure node/uv/cursor-agent/git resolve.
-export PATH="/Users/madalin/.local/bin:/usr/local/lib/nodejs/node-v22.15.0-darwin-x64/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="/Users/madalin/.local/bin:/usr/local/lib/nodejs/node-v22.15.0-darwin-x64/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin${PATH:+:$PATH}"
 
 mkdir -p "$STATE_DIR" "$(dirname "$LOG")"
 
@@ -37,18 +40,11 @@ log() { echo "[$(date '+%Y-%m-%dT%H:%M:%S%z')] $*" >> "$LOG"; }
 
 TODAY="$(date +%F)"
 
-# --- Once-per-day guard ---------------------------------------------------
-# launchd decides *when* we run (13:00, or the next wake if 13:00 was missed
-# while asleep/off). This guard only enforces "at most one successful refresh
-# per calendar day": if today already succeeded, skip. Because we only mark a
-# day done on success (see bottom), a failed run leaves today un-marked so the
-# next launchd wake-after-13:00 retries it.
-if [ -f "$STATE_FILE" ] && [ "$(cat "$STATE_FILE" 2>/dev/null)" = "$TODAY" ]; then
-  log "Already refreshed successfully for $TODAY — skipping."
+if [ "${DASHY_FORCE_REFRESH:-}" != "1" ] && [ -f "$STATE_FILE" ] && [ "$(cat "$STATE_FILE" 2>/dev/null)" = "$TODAY" ]; then
+  log "Already refreshed successfully for $TODAY — skipping (set DASHY_FORCE_REFRESH=1 to override)."
   exit 0
 fi
 
-# --- Concurrency lock -----------------------------------------------------
 if ! mkdir "$LOCK" 2>/dev/null; then
   log "Another run in progress (lock present) — skipping."
   exit 0
@@ -57,43 +53,45 @@ trap 'rmdir "$LOCK" 2>/dev/null' EXIT
 
 cd "$REPO" || { log "Repo not found: $REPO"; exit 1; }
 
-log "Starting refresh for $TODAY."
+for var in DATABRICKS_HOST DATABRICKS_TOKEN DATABRICKS_WAREHOUSE_ID; do
+  if [ -z "${!var:-}" ]; then
+    log "Missing required env $var — aborting."
+    exit 1
+  fi
+done
 
-PREV_SHA="$(git ls-remote "$REMOTE_URL" refs/heads/main 2>>"$LOG" | cut -f1)"
-log "Remote boltable/main before: ${PREV_SHA:-unknown}"
+log "Starting Databricks refresh for $TODAY."
+PREV_SHA="$(git rev-parse HEAD 2>>"$LOG" || true)"
 
-read -r -d '' PROMPT <<'EOF'
-Refresh ALL Bolt Food sales dashboard data and deploy it. Run fully non-interactively; do not ask questions. Follow the data-refresh workflow documented in AGENTS.md ("Refresh all data — one command"):
+set -e
+npm run data:pull-databricks >> "$LOG" 2>&1
+node scripts/fetch-sf-stage-history.mjs --kind=all >> "$LOG" 2>&1
+npm run refresh-all >> "$LOG" 2>&1
+npm run build >> "$LOG" 2>&1
 
-1. Salesforce MCP — re-run the documented queries and refresh EVERY export under scripts/.cache/ that can change:
-   - sf-pipeline-stage-counts.json (GROUP BY StageName — drives the Overview snapshot funnel)
-   - sf-pipeline-open.json, sf-won-mtd.json (Won_Date THIS_MONTH), sf-won-ytd-bydate.json (Won_Date THIS_YEAR),
-     sf-won-recent.json, sf-stage-history-2026*.json, sf-weekly-2026.json, sf-mops-cases.json, sf-mops-onboarding.json
-   - MyPipeline: mp-opps-working.json, mp-opps-newopp.json, mp-leads.json, mp-totals.json
-   - Inbound: sf-inbound-won-mtd.json, sf-inbound-won-ytd-bydate.json, sf-inbound-stage-history-2026-h1/h2.json, sf-inbound-weekly-2026.json
-2. Databricks MCP (mcp-databricks-bolt) — refresh accounts-perf-accounts.json, accounts-perf-monthly.json, accounts-perf-quality.json (revenue/quality; replaces Looker).
-3. Run: npm run refresh-all   (orchestrator — rebuilds ALL sections: Overview/MTD, Weekly, WoW, MOPS, Accounts performance, MyPipeline, Inbound — into data/dashboard.json with a fresh updatedAt; never wipes a tab).
-4. Run: npm run build   (Next build + precompute + verify-build; it must pass — verify-build fails loudly if any section is empty or Won == Activated).
-5. Commit data/dashboard.json and the refreshed scripts/.cache exports, then push to the "boltable" remote main branch so Boltable (Paketo) redeploys.
-
-Do NOT send any Slack messages. If the Salesforce or Databricks MCP is unavailable, stop and report the failure instead of committing stale data.
-EOF
-
-"$CURSOR_AGENT" --print --force --trust --approve-mcps --workspace "$REPO" "$PROMPT" >> "$LOG" 2>&1
-AGENT_EXIT=$?
-log "cursor-agent exit: $AGENT_EXIT"
-
-NEW_SHA="$(git ls-remote "$REMOTE_URL" refs/heads/main 2>>"$LOG" | cut -f1)"
-log "Remote boltable/main after: ${NEW_SHA:-unknown}"
-
-# Success = agent exited cleanly AND a new commit actually landed on the remote.
-# dashboard.json's updatedAt always changes on a real refresh, so a successful
-# run always advances the remote SHA.
-if [ "$AGENT_EXIT" -eq 0 ] && [ -n "$NEW_SHA" ] && [ "$NEW_SHA" != "$PREV_SHA" ]; then
-  echo "$TODAY" > "$STATE_FILE"
-  log "SUCCESS — pushed $NEW_SHA. Marked $TODAY done (no more runs today)."
-  exit 0
+git add data/dashboard.json data/mtd-details.json
+if git diff --cached --quiet; then
+  log "No data changes after rebuild — not committing."
+  exit 1
 fi
 
-log "FAILURE — not marking $TODAY done; will retry on the next wake after 13:00."
-exit 1
+UPDATED_AT="$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/dashboard.json','utf8')).updatedAt || '')")"
+git commit -m "chore(data): local Databricks refresh ${UPDATED_AT}" >> "$LOG" 2>&1
+git push "$REMOTE_NAME" "HEAD:${REMOTE_BRANCH}" >> "$LOG" 2>&1
+NEW_SHA="$(git rev-parse HEAD)"
+log "Pushed ${NEW_SHA} (was ${PREV_SHA:-unknown}). updatedAt=${UPDATED_AT}"
+
+if [ -n "${SLACK_BOT_TOKEN:-}" ]; then
+  BODY=$(UPDATED_AT="$UPDATED_AT" node -e '
+    const text = `Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated ${process.env.UPDATED_AT}). Please check the data when you get a chance.`;
+    process.stdout.write(JSON.stringify({ channel: "U01AHG4UAPR", text }));
+  ')
+  curl -sS -X POST "https://slack.com/api/chat.postMessage" \
+    -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
+    -H "Content-Type: application/json; charset=utf-8" \
+    -d "$BODY" >> "$LOG" 2>&1 || log "Slack notify failed (non-fatal)."
+fi
+
+echo "$TODAY" > "$STATE_FILE"
+log "SUCCESS — marked $TODAY done."
+exit 0

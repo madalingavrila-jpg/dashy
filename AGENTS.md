@@ -1,6 +1,39 @@
 # AGENTS.md — dashy data refresh
 
-This app does **not** call Salesforce or Looker at runtime. You (the Cursor agent) fetch live data via MCP, optionally upload to Google Sheet via Bolt MCP, and write `data/dashboard.json`.
+This app does **not** call Salesforce or Looker at runtime. Data is pulled into
+`scripts/.cache/`, rebuilt into `data/dashboard.json`, then deployed.
+
+## Automated nightly refresh (preferred)
+
+**n8n (schedule) → GitHub Actions (worker) → Databricks SQL API**
+
+| Step | Who | What |
+|------|-----|------|
+| 1 | n8n | Schedule Trigger daily **14:00 Europe/Bucharest** dispatches `dashy-data-refresh.yml` |
+| 2 | GH Action | `npm run data:pull-databricks` pulls Batch A/B from `main.fivetran_salesforcefood` + Batch C from `main.ng_delivery` |
+| 3 | GH Action | `fetch-sf-stage-history.mjs --kind=all` → `npm run refresh-all` → `npm run build` |
+| 4 | GH Action | Commit + push `data/dashboard.json` (+ `mtd-details.json`) to `main` → Paketo redeploy |
+| 5 | GH Action | Slack DM Bianca `U01AHG4UAPR` with `updatedAt` |
+
+Workflow: [`.github/workflows/dashy-data-refresh.yml`](.github/workflows/dashy-data-refresh.yml)  
+Pull script: [`scripts/pull-all-caches-databricks.mjs`](scripts/pull-all-caches-databricks.mjs)  
+n8n import JSON: [`docs/n8n-dashy-refresh.workflow.json`](docs/n8n-dashy-refresh.workflow.json)  
+Ops / secrets: [`docs/databricks-sf-handoff.md`](docs/databricks-sf-handoff.md) § Ops runbook
+
+**No Salesforce MCP** is required for the nightly path. Food SF CRM is mirrored via
+Fivetran into Databricks (`main.fivetran_salesforcefood`). Expect ~few hours of
+Fivetran lag vs live SF; the pull script fails if opportunity sync is older than
+`DATABRICKS_MAX_SYNC_AGE_HOURS` (default 12).
+
+Local / manual fallback:
+
+```bash
+export DATABRICKS_HOST=... DATABRICKS_TOKEN=... DATABRICKS_WAREHOUSE_ID=...
+npm run data:pull-databricks
+node scripts/fetch-sf-stage-history.mjs --kind=all
+npm run refresh-all && npm run build
+# or: bash scripts/refresh-and-deploy.sh
+```
 
 ## Refresh all data — one command
 
@@ -30,8 +63,9 @@ data. Closed-month chunk files being *old* is fine (expected with the incrementa
 refresh); a *missing* closed-month chunk is a hard error.
 
 The full **"refresh date"** flow (pull fresh from all sources, then rebuild + deploy) is:
-**refresh the SF + Databricks caches via MCP → `npm run refresh-all` → `npm run build` → commit +
-push `boltable/main`.** `scripts/refresh-and-deploy.sh` automates exactly this (launchd).
+**`npm run data:pull-databricks` → `fetch-sf-stage-history --kind=all` → `npm run refresh-all` → `npm run build` → commit +
+push `boltable/main`.** Nightly automation: n8n → GitHub Action (see above). Local script:
+`scripts/refresh-and-deploy.sh`. Cursor MCP pulls remain available for ad-hoc / parity checks.
 
 ## Canonical query manifest + parallel pulls
 

@@ -13,6 +13,7 @@
     "refresh-all": "node scripts/build-all-data.mjs",
     "data:build": "node scripts/build-all-data.mjs",
     "data:refresh": "node scripts/build-all-data.mjs",
+    "data:pull-databricks": "node scripts/pull-all-caches-databricks.mjs",
     "start": "node --max-old-space-size=384 dist/src/server.js",
     "start:server": "node --max-old-space-size=384 dist/src/server.js",
     "dev": "next dev",

@@ -1,0 +1,107 @@
+name: Dashy data refresh
+
+# Nightly / on-demand refresh: Databricks Food SF + ng_delivery → dashboard.json → main.
+# Triggered by n8n (Schedule 14:00 Europe/Bucharest) via workflow_dispatch.
+# Requires repo secrets: DATABRICKS_HOST, DATABRICKS_TOKEN, DATABRICKS_WAREHOUSE_ID, SLACK_BOT_TOKEN
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Why this refresh was triggered"
+        required: false
+        default: "manual"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashy-data-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Pull caches from Databricks
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_WAREHOUSE_ID: ${{ secrets.DATABRICKS_WAREHOUSE_ID }}
+          DATABRICKS_MAX_SYNC_AGE_HOURS: "12"
+        run: npm run data:pull-databricks
+
+      - name: Merge stage-history / weekly chunks
+        run: node scripts/fetch-sf-stage-history.mjs --kind=all
+
+      - name: Rebuild dashboard data
+        run: npm run refresh-all
+
+      - name: Build + verify
+        run: npm run build
+
+      - name: Commit and push
+        id: commit
+        run: |
+          set -euo pipefail
+          git config user.name "dashy-data-refresh[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/dashboard.json data/mtd-details.json scripts/.cache || true
+          # caches are gitignored — only commit data artifacts
+          git add -f data/dashboard.json data/mtd-details.json 2>/dev/null || git add data/dashboard.json data/mtd-details.json
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No data changes to commit."
+            exit 0
+          fi
+          UPDATED_AT="$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/dashboard.json','utf8')).updatedAt || '')")"
+          git commit -m "chore(data): automated Databricks refresh ${UPDATED_AT}"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "updated_at=${UPDATED_AT}" >> "$GITHUB_OUTPUT"
+
+      - name: Slack DM Bianca
+        if: success() && steps.commit.outputs.changed == 'true'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          UPDATED_AT: ${{ steps.commit.outputs.updated_at }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SLACK_BOT_TOKEN:-}" ]; then
+            echo "SLACK_BOT_TOKEN not set — skipping Bianca notify"
+            exit 0
+          fi
+          BODY=$(UPDATED_AT="$UPDATED_AT" node -e '
+            const text = `Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated ${process.env.UPDATED_AT}). Please check the data when you get a chance.`;
+            process.stdout.write(JSON.stringify({ channel: "U01AHG4UAPR", text }));
+          ')
+          RESP=$(curl -sS -X POST "https://slack.com/api/chat.postMessage" \
+            -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "$BODY")
+          echo "$RESP" | node -e "
+            let s='';
+            process.stdin.on('data', d => s += d);
+            process.stdin.on('end', () => {
+              const j = JSON.parse(s);
+              if (!j.ok) { console.error(j); process.exit(1); }
+              console.log('Slack ok', j.ts);
+            });
+          "

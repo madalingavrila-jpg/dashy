@@ -1,0 +1,45 @@
+{
+  "name": "Dashy refresh error alert",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "error-trigger",
+      "name": "On workflow error",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "mode": "id",
+          "value": "U07M4KBEUES"
+        },
+        "text": "=Dashy nightly refresh failed in n8n.\nWorkflow: {{ $json.workflow?.name || \"unknown\" }}\nExecution: {{ $json.execution?.id || \"unknown\" }}\nError: {{ $json.execution?.error?.message || $json.error?.message || \"see n8n execution\" }}\nCheck GitHub Actions: https://github.com/boltable/dashy/actions/workflows/dashy-data-refresh.yml"
+      },
+      "id": "slack-madalin",
+      "name": "DM Madalin",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [280, 0],
+      "notesInFlow": true,
+      "notes": "Attach Slack bot credential. Replace REPLACE_WITH_MADALIN_SLACK_USER_ID (lookup madalin.gavrila@bolt.eu). Set this workflow as the Error Workflow on Dashy nightly data refresh."
+    }
+  ],
+  "connections": {
+    "On workflow error": {
+      "main": [[{ "node": "DM Madalin", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "timezone": "Europe/Bucharest",
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

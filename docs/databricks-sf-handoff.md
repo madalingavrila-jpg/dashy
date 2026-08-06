@@ -346,21 +346,24 @@ Translate those SOQL fields 1:1 via the mapping table in §4.
 
 ---
 
-## 9. Suggested implementation plan
+## 9. Implementation status (shipped)
 
-1. **Spike script:** `scripts/pull-sf-caches-from-databricks.mjs`
-   - Runs mapped SQL via Databricks MCP / warehouse
-   - Writes SF-shaped JSON into `scripts/.cache/`
-   - Logs `MAX(_fivetran_synced)` for opportunity / account / history as freshness metadata
-2. **Parity gate:** for each cache, compare counts (and Won MTD ID sets) vs Salesforce MCP before cutover
-3. **Wire refresh:** update `AGENTS.md` (+ optionally `scripts/refresh-and-deploy.sh`) so Batch A/B use Databricks; keep C1/C2 as today
-4. **Optional hybrid:** if Fivetran sync older than N hours, SF MCP only for `sf-won-mtd` + current-month stage-history
-5. **Do not change** Won vs Activated semantics, targets (`data/target-config.json`), or UI
+Automated path is implemented:
 
-### Connectors in Cursor
+| Artifact | Role |
+|----------|------|
+| `lib/databricks-sql.mjs` | Databricks SQL Statement API client (paginated) |
+| `scripts/pull-all-caches-databricks.mjs` | Pulls Batch A/B/C into `scripts/.cache/` |
+| `npm run data:pull-databricks` | npm alias for the pull script |
+| `.github/workflows/dashy-data-refresh.yml` | GH Action worker (pull → build → push → Slack Bianca) |
+| `docs/n8n-dashy-refresh.workflow.json` | n8n schedule + GitHub dispatch (import) |
+| `docs/n8n-dashy-refresh-error.workflow.json` | n8n error → DM Madalin |
+| `scripts/refresh-and-deploy.sh` | Local/manual Databricks refresh + push |
 
-- `user-mcp-databricks-bolt` → `execute_query` / `execute_sql` (catalog `main`)
-- `user-Salesforce` → `soqlQuery` (parity / fallback)
+### Connectors
+
+- **Nightly:** Databricks SQL API (token in GH secrets) — no MCP
+- **Ad-hoc / parity:** Cursor `user-mcp-databricks-bolt` + `user-Salesforce`
 - Looker MCP → not for this CRM path
 
 ---
@@ -368,10 +371,11 @@ Translate those SOQL fields 1:1 via the mapping table in §4.
 ## 10. End-to-end refresh after caches land
 
 ```bash
-node scripts/fetch-sf-stage-history.mjs --kind=all   # if using monthly chunks
+npm run data:pull-databricks
+node scripts/fetch-sf-stage-history.mjs --kind=all
 npm run refresh-all
 npm run build
-# commit data/dashboard.json (+ caches if committed) + push boltable/main
+# commit data/dashboard.json + data/mtd-details.json and push boltable/main
 ```
 
 Then Slack DM Bianca (`U01AHG4UAPR`):
@@ -384,20 +388,49 @@ Replace `<updatedAt>` with `data/dashboard.json` → `updatedAt`.
 
 ## 11. Definition of done
 
-- [ ] All Batch A/B SF caches regenerable from Databricks without requiring SF MCP
-- [ ] `node scripts/validate-caches.mjs` passes
-- [ ] `npm run refresh-all && npm run build` passes (`verify-build`: Won ≠ Activated; myPipeline / inbound / accountsPerformance non-empty)
-- [ ] Lag caveat documented + optional SF same-day fallback
-- [ ] Spot parity recheck: July Won / Activated / stage-history still exact vs SF
+- [x] Batch A/B/C regenerable from Databricks without SF MCP (`data:pull-databricks`)
+- [x] GH Action workflow committed
+- [x] n8n import JSON committed (activate after secrets + manual dispatch)
+- [ ] Manual `workflow_dispatch` green on `boltable/dashy` (requires Actions enabled + secrets)
+- [ ] n8n schedule published for 14:00 Bucharest
+- [ ] Bianca receives Slack DM with correct `updatedAt`
 
 ---
 
-## 12. How to start (concrete first step)
+## 12. Ops runbook (n8n + GitHub Actions)
 
-1. Read one existing cache, e.g. `scripts/.cache/sf-won-mtd.json`, and its SOQL from `gen-all-cache-queries.mjs`.
-2. Run the Databricks Won MTD SQL in §8.1.
-3. Reshape to SF JSON; write the cache file.
-4. Assert: count + ID set vs Salesforce MCP (expect exact on closed days; ≤ few IDs lag today).
-5. Generalize into `pull-sf-caches-from-databricks.mjs` for the rest of Batch A, then B.
+### One-time setup
 
-**Do not invent owner IDs, metrics, or Won/Activated logic.** When unsure, read `AGENTS.md` and the existing build scripts.
+1. **Enable GitHub Actions** on `boltable/dashy` (currently disabled at org/repo level).
+2. Add **repo secrets** on `boltable/dashy`:
+   - `DATABRICKS_HOST` — e.g. `https://bolt-common.cloud.databricks.com`
+   - `DATABRICKS_TOKEN` — Databricks PAT / SP token (never commit)
+   - `DATABRICKS_WAREHOUSE_ID` — SQL warehouse id
+   - `SLACK_BOT_TOKEN` — bot with `chat:write` that can DM Bianca (`U01AHG4UAPR`)
+3. Merge this branch so `.github/workflows/dashy-data-refresh.yml` is on `main`.
+4. Run a **manual** Actions dispatch of `Dashy data refresh` and confirm:
+   - job green
+   - `data/dashboard.json` updated on `main`
+   - Bianca Slack DM received
+5. In n8n (**DELIVERY-FOOD-SALES-OPS - Sales Internal**):
+   - Create GitHub credential (`actions:write` + `repo` on `boltable/dashy`)
+   - Create Slack credential for failure DMs to Madalin (`U07M4KBEUES`)
+   - Import `docs/n8n-dashy-refresh.workflow.json` + `docs/n8n-dashy-refresh-error.workflow.json`
+   - Attach credentials; set error workflow on the nightly schedule workflow
+   - Timezone `Europe/Bucharest`; cron `0 14 * * *`
+   - **Publish / activate only after step 4 succeeds**
+
+### Day-2 operations
+
+- Success path: check Actions run + dashy.boltable.eu `updatedAt`
+- Failure path: n8n error workflow DMs Madalin; also check Actions logs
+- Same-day live parity (optional): compare Won MTD ID set via Salesforce MCP vs Databricks
+- Fivetran lag: pull aborts if opportunity `_fivetran_synced` older than 12h (`DATABRICKS_MAX_SYNC_AGE_HOURS`)
+
+### Manual local run
+
+```bash
+export DATABRICKS_HOST=... DATABRICKS_TOKEN=... DATABRICKS_WAREHOUSE_ID=...
+export SLACK_BOT_TOKEN=...   # optional
+DASHY_FORCE_REFRESH=1 bash scripts/refresh-and-deploy.sh
+```
