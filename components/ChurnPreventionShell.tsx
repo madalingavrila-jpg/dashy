@@ -559,10 +559,22 @@ export function ChurnPreventionShell() {
                     </td>
                     <td className="px-md py-sm text-body-md">
                       {a.hasOrder ? (
-                        <span className="text-on-surface">{formatDate(a.firstOrderDate)}</span>
+                        <span
+                          className="text-on-surface"
+                          title={
+                            a.ordersAfterActivation != null && a.ordersAfterActivation > 0
+                              ? `${a.ordersAfterActivation} delivered orders in months on/after activation`
+                              : undefined
+                          }
+                        >
+                          {formatDate(a.firstOrderDate) || "Ordered after act."}
+                        </span>
                       ) : a.firstOrderDate ? (
-                        <span className="font-semibold text-error" title={`First order ${a.firstOrderDate} was before activation`}>
-                          No order since act.
+                        <span
+                          className="font-semibold text-error"
+                          title={`Lifetime first order ${a.firstOrderDate} was before activation; no delivered orders in months on/after activation`}
+                        >
+                          No order after act.
                         </span>
                       ) : (
                         <span className="font-semibold text-error">No order</span>

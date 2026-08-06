@@ -626,12 +626,14 @@ export type ChurnPreventionAccount = {
   dbStatus: string | null;
   statusMismatch: boolean;
   inactive30Days: boolean;
-  /** Delivered order on/after activation date. */
+  /** Delivered order on/after activation (monthly ≥ act month OR first_order ≥ act). */
   hasOrder: boolean;
   neverOrdered: boolean;
   /** SF status in {inactive, hidden, deleted} or IsDeleted. */
   problemStatus: boolean;
   firstOrderDate: string | null;
+  /** Sum of delivered orders in months ≥ activation month; null if monthly cache absent. */
+  ordersAfterActivation?: number | null;
   accountId: string | null;
   opportunityId: string | null;
   accountUrl: string | null;

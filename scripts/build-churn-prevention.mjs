@@ -5,6 +5,7 @@
  * Sources:
  *   scripts/.cache/accounts-perf-accounts.json       — YTD RO activation universe (Databricks)
  *   scripts/.cache/accounts-perf-prov-opp.json       — provider → opportunity map
+ *   scripts/.cache/accounts-perf-monthly.json        — monthly delivered orders (post-activation signal)
  *   scripts/.cache/churn-prevention-sf-status.json   — Salesforce Account.Status__c etc.
  *
  * Keeps only Complex + Density roster owners (lib/agent-segments.mjs).
@@ -16,8 +17,10 @@ import { isTeamAgent, agentSegment, ownerIdForName } from "../lib/agent-segments
 import { readMcpResult } from "../lib/accounts-performance-build.mjs";
 import {
   assembleChurnAccount,
+  buildMonthlyOrdersByProvider,
   buildOppByProvider,
   buildSfStatusByProvider,
+  ordersSinceActivationMonth,
   rollupChurnTotals,
 } from "../lib/churn-prevention-build.mjs";
 import { currentTrackingYear } from "../lib/weekly-stages-build.mjs";
@@ -32,6 +35,16 @@ function main() {
   const accountRows = readMcpResult(cacheDir, "accounts-perf-accounts.json");
   const oppRows = readMcpResult(cacheDir, "accounts-perf-prov-opp.json");
   const oppByProvider = buildOppByProvider(oppRows);
+
+  let monthlyByProvider = new Map();
+  try {
+    const monthlyRows = readMcpResult(cacheDir, "accounts-perf-monthly.json");
+    monthlyByProvider = buildMonthlyOrdersByProvider(monthlyRows);
+  } catch {
+    console.warn(
+      "[build-churn-prevention] no accounts-perf-monthly.json — hasOrder falls back to first_order_date only.",
+    );
+  }
 
   let sfRows = [];
   try {
@@ -65,6 +78,13 @@ function main() {
     const sf = sfByProvider.get(providerId) ?? null;
     if (!sf) missingSf += 1;
 
+    const activatedDate = row[3] != null ? String(row[3]).slice(0, 10) : null;
+    const ordersAfterActivation = ordersSinceActivationMonth(
+      monthlyByProvider,
+      providerId,
+      activatedDate,
+    );
+
     accounts.push(
       assembleChurnAccount(row, {
         agentId,
@@ -72,6 +92,7 @@ function main() {
         segment,
         sf,
         opportunityId: oppByProvider.get(providerId) ?? null,
+        ordersAfterActivation,
       }),
     );
   }
@@ -113,7 +134,8 @@ function main() {
     metricsNote:
       "YTD Romania activations by Complex + Density reps. SF Status__c is the source of truth " +
       "for inactive (archived/inactive), hidden, and deleted; Databricks provider_status is a " +
-      "platform cross-check. Never ordered = no delivered order on/after the activation date.",
+      "platform cross-check. Never ordered = no delivered orders in any calendar month on/after " +
+      "activation (fact_provider_monthly) and first_order_date is before activation (or null).",
     totals,
     agents,
     accounts,
