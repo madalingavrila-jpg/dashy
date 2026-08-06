@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { WeeklyMetricsGrid, WeeklyHistoryChart } from "@/components/WeeklyCharts";
 import { WeeklyHistoryTable } from "@/components/WeeklyHistoryTable";
+import { DashyPage, SoftTip } from "@/components/ui/DashyUI";
 import {
   WeeklyDetailPanel,
   type WeeklyFilter,
@@ -92,7 +93,7 @@ export function WeeklyShell() {
   const expandedContent =
     selectedWeek &&
     (loading && !selectedDetail ? (
-      <div className="glass-card h-48 animate-pulse rounded-xl" />
+      <div className="dashboard-card h-48 animate-pulse" />
     ) : selectedDetail ? (
       <WeeklyDetailPanel
         detail={selectedDetail}
@@ -112,7 +113,7 @@ export function WeeklyShell() {
     ));
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-md">
+    <DashyPage>
       <PageHeader
         title="Weekly Performance"
         subtitle="Click any week row (chevron) or chart bar to expand Complex & Density team cards inline — click agent rows inside to see accounts."
@@ -123,15 +124,14 @@ export function WeeklyShell() {
       <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
       {!selectedWeek && hasBreakdown && !loading && (
-        <div className="flex items-start gap-sm rounded-xl border border-primary/30 bg-primary-container/20 px-md py-sm">
-          <span className="material-symbols-outlined mt-[2px] text-primary">touch_app</span>
-          <p className="text-body-md text-on-surface">
+        <SoftTip>
+          <p>
             <span className="font-semibold">Tip:</span> click any week row — the{" "}
             <span className="material-symbols-outlined align-middle text-[16px]">chevron_right</span>{" "}
             expands team cards right below that week. Click an agent name inside to expand their
             accounts. Use <span className="font-semibold">Filter view</span> for one team or agent.
           </p>
-        </div>
+        </SoftTip>
       )}
 
       <WeeklyMetricsGrid
@@ -157,6 +157,6 @@ export function WeeklyShell() {
         expandedContent={expandedContent || undefined}
         detailRef={detailRef}
       />
-    </div>
+    </DashyPage>
   );
 }

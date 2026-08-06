@@ -16,6 +16,7 @@ import {
 } from "@/lib/weekly-stages";
 import { DASHBOARD_WEEK_YEAR, formatWeekLabel } from "@/lib/weekDateRange";
 import { salesforceOpportunityUrl } from "@/lib/salesforce";
+import { AgentAvatar } from "@/components/AgentAvatar";
 
 /** Dynamic "W01–Wnn" range derived from the supplied weekly breakdown rows. */
 function weekRangeLabel(breakdown: { week: string }[]): string {
@@ -121,7 +122,7 @@ function StatusCard({ status }: { status: WeeklyStatusProgressView }) {
   const barWidth = Math.min(100, Math.max(status.progress > 0 ? 4 : 0, status.progress));
 
   return (
-    <div className="min-w-0 flex-1 rounded-lg border border-outline-variant/60 bg-white/60 p-md">
+    <div className="dashboard-card min-w-0 flex-1 p-md shadow-none">
       <div className="flex items-start gap-sm">
         <StatusDonut status={status} />
         <div className="min-w-0 flex-1">
@@ -216,7 +217,7 @@ function AgentAccountList({
   return (
     <div className="space-y-sm px-md pb-md">
       {groups.map(([key, items]) => (
-        <div key={key} className="rounded-lg border border-outline-variant/50 bg-white/70">
+        <div key={key} className="dashboard-card overflow-hidden shadow-none">
           <p className={`border-b border-outline-variant/40 px-sm py-xs text-[10px] font-bold uppercase ${accentTextClass(weeklyStatusAccentLocal(key))}`}>
             {WEEKLY_STATUS_LABELS[key]} · {items.length}
           </p>
@@ -317,6 +318,7 @@ function AgentWeeklyRows({
                       <span className="material-symbols-outlined text-[18px] text-on-surface-variant">
                         {isExpanded ? "expand_less" : "expand_more"}
                       </span>
+                      <AgentAvatar name={agent.name} size={28} />
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-xs">
                           <span className="font-semibold text-primary">{agent.name}</span>
@@ -374,7 +376,7 @@ function TeamWeeklyCard({
 
   return (
     <div
-      className={`team-card ${cardAccent} glass-card flex h-full min-w-0 flex-col rounded-xl border-l-4 ${borderColor} ${parallel ? "p-md" : "p-lg"}`}
+      className={`team-card ${cardAccent} dashboard-card flex h-full min-w-0 flex-col border-l-4 ${borderColor} ${parallel ? "p-md" : "p-lg"}`}
     >
       <header className={`space-y-md ${parallel ? "mb-md" : "mb-lg"}`}>
         <div className="space-y-xs">
@@ -442,9 +444,12 @@ function AgentWeeklyTimeline({
   }
 
   return (
-    <div className="glass-card overflow-hidden rounded-xl border border-outline-variant/60">
+    <div className="dashboard-card overflow-hidden">
       <div className="border-b border-outline-variant/60 px-lg py-md">
-        <h4 className="text-title-lg font-bold text-on-surface">{agent.name} · {range || `${DASHBOARD_WEEK_YEAR}`}</h4>
+        <div className="flex items-center gap-sm">
+          <AgentAvatar name={agent.name} size={32} />
+          <h4 className="text-title-lg font-bold text-on-surface">{agent.name} · {range || `${DASHBOARD_WEEK_YEAR}`}</h4>
+        </div>
         <p className="text-body-md text-on-surface-variant">Weekly status counts vs targets across all ISO weeks</p>
       </div>
       <div className="overflow-x-auto">
@@ -485,8 +490,9 @@ function AgentWeeklyTimeline({
 
 function AgentWeeklyCard({ agent, salesforceUrl }: { agent: WeeklyAgentStatusView; salesforceUrl?: string }) {
   return (
-    <div className="glass-card rounded-xl border border-outline-variant/60 p-lg">
+    <div className="dashboard-card p-lg">
       <div className="mb-md flex flex-wrap items-center gap-sm">
+        <AgentAvatar name={agent.name} size={36} />
         <h4 className="text-title-lg font-bold text-on-surface">{agent.name}</h4>
         <span className={`rounded-full px-xs py-[2px] text-[11px] font-bold ${agent.segmentColor}`}>
           {agent.segment}
@@ -555,7 +561,7 @@ export function WeeklyFilterSelect({
             onChange({ type: "agent", ownerId: next.slice(6) });
           }
         }}
-        className={`w-full rounded-lg border-2 border-primary/30 bg-white px-md py-2.5 text-body-md font-medium text-on-surface shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/30 ${
+        className={`dashy-select w-full text-body-md font-medium ${
           prominent ? "text-title-md" : ""
         }`}
       >
@@ -626,14 +632,14 @@ export function WeeklyDetailPanel({
   }, [detail, filter, salesforceUrl, agentTimeline]);
 
   if (loading && !detail) {
-    return <div className="glass-card h-96 animate-pulse rounded-xl p-lg" />;
+    return <div className="dashboard-card h-96 animate-pulse p-lg" />;
   }
 
   if (!detail) return null;
 
   return (
     <section className="space-y-md">
-      <div className="sticky top-16 z-30 -mx-lg -mt-lg mb-md border-b-2 border-primary/20 bg-white/95 px-lg py-md shadow-sm backdrop-blur-md">
+      <div className="dashboard-card sticky top-16 z-30 -mx-lg -mt-lg mb-md rounded-none border-x-0 border-t-0 px-lg py-md backdrop-blur-md">
         <div className="flex flex-wrap items-end justify-between gap-md">
           <div className="min-w-0 flex-1 space-y-xs">
             <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
@@ -656,7 +662,7 @@ export function WeeklyDetailPanel({
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex shrink-0 items-center gap-xs rounded-lg bg-surface-container px-md py-sm text-label-md font-semibold text-on-surface-variant transition-colors hover:bg-surface-container-high"
+              className="dashy-btn dashy-btn-ghost shrink-0"
             >
               <span className="material-symbols-outlined text-[18px]">close</span>
               Close

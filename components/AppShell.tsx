@@ -23,7 +23,9 @@ export function AppShell({ children }: AppShellProps) {
         />
       )}
       <TopBar onMenuClick={() => setSidebarOpen(true)} />
-      <main className="mt-16 p-lg lg:ml-[280px]">{children}</main>
+      <main className="min-h-screen pt-[72px] lg:ml-[232px]">
+        <div className="px-md py-lg">{children}</div>
+      </main>
     </>
   );
 }

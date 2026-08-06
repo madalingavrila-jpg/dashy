@@ -3,6 +3,7 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
+import { AgentAvatar } from "@/components/AgentAvatar";
 import { WeeklyMetricsGrid, WeeklyHistoryChart } from "@/components/WeeklyCharts";
 import { AccountsPerformanceTable } from "@/components/AccountsPerformanceTable";
 import { WowReportsList } from "@/components/WowReportsList";
@@ -182,9 +183,7 @@ function RepSection({ rep, loading }: { rep: InboundRep; loading?: boolean }) {
     <section className="flex flex-col rounded-2xl border border-outline-variant bg-surface-container-lowest">
       <div className="flex flex-wrap items-center justify-between gap-sm border-b border-outline-variant px-md py-sm">
         <div className="flex min-w-0 items-center gap-sm">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary-container/50 text-on-secondary-container">
-            <span className="material-symbols-outlined text-[20px]">person</span>
-          </span>
+          <AgentAvatar name={rep.name} size={36} />
           <div className="min-w-0">
             <h3 className="truncate text-title-md font-bold text-on-surface">{rep.name}</h3>
             <p className="truncate text-[11px] text-on-surface-variant">{rep.email} · Inbound RO</p>
@@ -239,7 +238,7 @@ function RepSection({ rep, loading }: { rep: InboundRep; loading?: boolean }) {
                 <select
                   value={selectedMonth}
                   onChange={(event) => setMonthChoice(event.target.value)}
-                  className="min-w-[160px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+                  className="dashy-select min-w-[160px]"
                 >
                   {months.map((month) => (
                     <option key={month} value={month}>
@@ -281,7 +280,7 @@ export function InboundShell() {
     : [];
 
   return (
-    <div className="mx-auto max-w-[1500px] space-y-md">
+    <div className="dashy-page">
       <PageHeader
         title="Inbound team"
         subtitle="Ana-Maria Preda & Catalin Corbeanu — inbound RO, side by side. Expand weekly, WoW and accounts per rep — actuals only."
@@ -294,7 +293,7 @@ export function InboundShell() {
       {inbound && (
         <section className="grid grid-cols-3 gap-sm md:grid-cols-6">
           {rollupCards.map((card) => (
-            <div key={card.label} className="glass-card rounded-xl p-sm">
+            <div key={card.label} className="dashboard-card rounded-xl p-sm">
               <div className="flex items-center gap-xs text-on-surface-variant">
                 <span className="material-symbols-outlined text-[16px] text-primary">{card.icon}</span>
                 <p className="text-[10px] font-semibold uppercase tracking-wide leading-tight">{card.label}</p>
@@ -308,11 +307,11 @@ export function InboundShell() {
       )}
 
       {!inbound && loading && (
-        <div className="glass-card h-96 animate-pulse rounded-2xl" />
+        <div className="dashboard-card h-96 animate-pulse rounded-2xl" />
       )}
 
       {!inbound && !loading && (
-        <div className="glass-card rounded-2xl p-lg text-center text-body-md text-on-surface-variant">
+        <div className="dashboard-card rounded-2xl p-lg text-center text-body-md text-on-surface-variant">
           No inbound team data available yet. Run the inbound refresh workflow.
         </div>
       )}

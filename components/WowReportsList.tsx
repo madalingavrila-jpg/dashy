@@ -10,7 +10,7 @@ export function WowReportsList({ reports, loading }: WowReportsListProps) {
     return (
       <div className="space-y-md">
         {Array.from({ length: 2 }).map((_, i) => (
-          <div key={i} className="glass-card animate-pulse rounded-xl p-lg h-48" />
+          <div key={i} className="dashboard-card h-48 animate-pulse p-lg" />
         ))}
       </div>
     );
@@ -18,7 +18,7 @@ export function WowReportsList({ reports, loading }: WowReportsListProps) {
 
   if (!reports?.length) {
     return (
-      <div className="glass-card rounded-xl p-lg text-on-surface-variant">
+      <div className="dashboard-card p-lg text-on-surface-variant">
         No pre-configured WoW reports in dashboard data.
       </div>
     );
@@ -27,11 +27,12 @@ export function WowReportsList({ reports, loading }: WowReportsListProps) {
   return (
     <div className="space-y-md">
       {reports.map((report) => (
-        <div key={report.id} className="glass-card overflow-hidden rounded-xl">
-          <div className="border-b border-outline-variant bg-surface-container-low p-lg">
+        <div key={report.id} className="dashboard-card overflow-hidden">
+          <div className="border-b border-outline-variant/60 bg-surface-container-low/35 p-lg">
             <div className="flex flex-wrap items-start justify-between gap-sm">
               <div>
-                <h3 className="text-title-lg font-title-lg font-bold">{report.title}</h3>
+                <p className="eyebrow text-brand">Saved comparison</p>
+                <h3 className="mt-1 text-title-lg font-title-lg font-bold">{report.title}</h3>
                 {report.description && (
                   <p className="text-body-md text-on-surface-variant">{report.description}</p>
                 )}
@@ -45,25 +46,25 @@ export function WowReportsList({ reports, loading }: WowReportsListProps) {
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left">
-              <thead className="bg-surface-container-lowest">
+              <thead className="bg-surface-container-low/35">
                 <tr>
-                  <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
+                  <th className="px-lg py-md text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                     Metric
                   </th>
-                  <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
+                  <th className="px-lg py-md text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                     {report.currentWeek}
                   </th>
-                  <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
+                  <th className="px-lg py-md text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                     {report.priorWeek}
                   </th>
-                  <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">
+                  <th className="px-lg py-md text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                     Change
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-outline-variant">
+              <tbody className="divide-y divide-outline-variant/45">
                 {report.rows.map((row) => (
-                  <tr key={row.metric} className="hover:bg-surface-container-low">
+                  <tr key={row.metric} className="transition-colors hover:bg-surface-container-low/60">
                     <td className="px-lg py-md font-semibold">{row.metric}</td>
                     <td className="px-lg py-md text-data-mono font-data-mono">{row.current}</td>
                     <td className="px-lg py-md text-data-mono font-data-mono text-on-surface-variant">

@@ -134,22 +134,23 @@ export function WowYtdTrendChart({ history, loading }: WowYtdTrendChartProps) {
   const labelStep = series.length > 16 ? 2 : 1;
 
   if (loading && !history?.length) {
-    return <div className="glass-card h-80 animate-pulse rounded-xl" />;
+    return <div className="dashboard-card h-80 animate-pulse" />;
   }
 
   if (!history?.length) {
     return (
-      <div className="glass-card rounded-xl p-lg text-on-surface-variant">
+      <div className="dashboard-card p-lg text-on-surface-variant">
         No weekly history available for YTD trend.
       </div>
     );
   }
 
   return (
-    <div id="wow-ytd-chart" className="glass-card rounded-xl p-lg">
+    <div id="wow-ytd-chart" className="dashboard-card p-lg">
       <div className="mb-lg flex flex-wrap items-start justify-between gap-md">
         <div>
-          <h3 className="text-title-lg font-title-lg font-bold">Closed Won &amp; Active — YTD Evolution</h3>
+          <p className="eyebrow text-brand">Year to date</p>
+          <h3 className="mt-1 text-title-lg font-title-lg font-bold">Closed Won &amp; Active — YTD Evolution</h3>
           <p className="text-body-md text-on-surface-variant">
             Weekly counts from Salesforce field history · {history.length} weeks (Q2 + forward)
           </p>

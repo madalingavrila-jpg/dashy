@@ -244,7 +244,7 @@ export function ChurnPreventionShell() {
     : "YTD Complex + Density activations — SF status (inactive/hidden/deleted) and no-order flags.";
 
   return (
-    <div className="mx-auto max-w-[1500px] space-y-md">
+    <div className="dashy-page">
       <PageHeader
         title="Churn prevention"
         subtitle={subtitle}
@@ -256,7 +256,7 @@ export function ChurnPreventionShell() {
 
       <section className="grid grid-cols-2 gap-md md:grid-cols-4">
         {cards.map((card) => (
-          <div key={card.label} className="glass-card rounded-xl p-md" title={card.hint}>
+          <div key={card.label} className="dashboard-card rounded-xl p-md" title={card.hint}>
             <div className="flex items-center gap-xs text-on-surface-variant">
               <span className="material-symbols-outlined text-[18px]">{card.icon}</span>
               <p className="text-label-md font-label-md">{card.label}</p>
@@ -290,7 +290,7 @@ export function ChurnPreventionShell() {
         })}
       </section>
 
-      <section className="flex flex-col gap-sm rounded-xl border border-outline-variant bg-surface-container-low p-md lg:flex-row lg:flex-wrap lg:items-end">
+      <section className="dashy-filter-bar flex flex-col gap-sm lg:flex-row lg:flex-wrap lg:items-end">
         <div className="flex flex-col gap-1">
           <label className="text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
             Agent
@@ -298,7 +298,7 @@ export function ChurnPreventionShell() {
           <select
             value={agentFilter}
             onChange={(e) => setAgentFilter(e.target.value as AgentFilter)}
-            className="min-w-[220px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="dashy-select min-w-[220px]"
           >
             <option value="all">All agents ({cp?.totals.accounts ?? 0})</option>
             <option value="seg:complex">Complex team ({complexCount})</option>
@@ -320,7 +320,7 @@ export function ChurnPreventionShell() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-            className="min-w-[180px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="dashy-select min-w-[180px]"
           >
             <option value="all">All SF statuses</option>
             <option value="inactive">Archived ({sfStatusCounts.inactive ?? 0})</option>
@@ -339,7 +339,7 @@ export function ChurnPreventionShell() {
           <select
             value={dbStatusFilter}
             onChange={(e) => setDbStatusFilter(e.target.value as DbStatusFilter)}
-            className="min-w-[180px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="dashy-select min-w-[180px]"
           >
             <option value="all">All DB statuses</option>
             <option value="active">Active ({dbStatusCounts.active ?? 0})</option>
@@ -357,7 +357,7 @@ export function ChurnPreventionShell() {
           <select
             value={orderFilter}
             onChange={(e) => setOrderFilter(e.target.value as OrderFilter)}
-            className="min-w-[160px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="dashy-select min-w-[160px]"
           >
             <option value="all">All</option>
             <option value="yes">Has order</option>
@@ -374,7 +374,7 @@ export function ChurnPreventionShell() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Account, city, rep, provider id…"
-            className="rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="dashy-input"
           />
         </div>
 
@@ -385,7 +385,7 @@ export function ChurnPreventionShell() {
           <select
             value={activationSort}
             onChange={(e) => setActivationSort(e.target.value as ActivationSort)}
-            className="min-w-[180px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="dashy-select min-w-[180px]"
           >
             <option value="desc">Newest first</option>
             <option value="asc">Oldest first</option>
@@ -397,7 +397,7 @@ export function ChurnPreventionShell() {
         </p>
       </section>
 
-      <section className="glass-card rounded-xl p-lg">
+      <section className="dashboard-card rounded-xl p-lg">
         <h3 className="mb-xs text-title-md font-bold text-on-surface">
           Accounts by agent{" "}
           <span className="text-label-md font-normal text-on-surface-variant">
@@ -469,7 +469,7 @@ export function ChurnPreventionShell() {
         )}
       </section>
 
-      <div className="glass-card overflow-hidden rounded-xl">
+      <div className="dashboard-card overflow-hidden rounded-xl">
         {loading && !cp ? (
           <div className="animate-pulse p-lg h-96" />
         ) : filtered.length === 0 ? (
@@ -481,10 +481,10 @@ export function ChurnPreventionShell() {
             <table className="w-full min-w-[1100px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-outline-variant bg-surface-container-low">
-                  <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">Account</th>
-                  <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">City</th>
-                  <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">Rep</th>
-                  <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">
+                  <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">Account</th>
+                  <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">City</th>
+                  <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">Rep</th>
+                  <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">
                     <button
                       type="button"
                       onClick={() =>
@@ -503,10 +503,10 @@ export function ChurnPreventionShell() {
                       </span>
                     </button>
                   </th>
-                  <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">SF status</th>
-                  <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">DB status</th>
-                  <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">First order</th>
-                  <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">Links</th>
+                  <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">SF status</th>
+                  <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">DB status</th>
+                  <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">First order</th>
+                  <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wide text-on-surface-variant">Links</th>
                 </tr>
               </thead>
               <tbody>

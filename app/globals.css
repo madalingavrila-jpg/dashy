@@ -3,17 +3,133 @@
 @tailwind utilities;
 
 body {
-  background-color: #f4f6fb;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 78% -20%, rgba(52, 209, 134, 0.08), transparent 32rem),
+    #f7f8fa;
+  color: #171c1a;
   font-feature-settings: "tnum";
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  color: #003820;
+  background: rgba(52, 209, 134, 0.28);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.85);
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(200, 208, 203, 0.9);
   box-shadow:
-    0 1px 2px rgba(15, 23, 42, 0.04),
-    0 4px 16px rgba(15, 23, 42, 0.04);
+    0 1px 2px rgba(23, 28, 26, 0.04),
+    0 8px 24px rgba(23, 28, 26, 0.035);
+}
+
+.dashboard-card {
+  background: #fff;
+  border: 1px solid rgba(200, 208, 203, 0.95);
+  border-radius: 0.875rem;
+  box-shadow:
+    0 1px 2px rgba(23, 28, 26, 0.035),
+    0 6px 18px rgba(23, 28, 26, 0.03);
+}
+
+.eyebrow {
+  color: #4c5751;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1rem;
+  text-transform: uppercase;
+}
+
+.dashy-page {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dashy-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  border: 1px solid rgba(200, 208, 203, 0.95);
+  border-radius: 0.875rem;
+  background: #fff;
+  padding: 12px 16px;
+  box-shadow: 0 1px 2px rgba(23, 28, 26, 0.03);
+}
+
+.dashy-input,
+.dashy-select {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #171c1a;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+}
+
+.dashy-input:focus,
+.dashy-select:focus {
+  outline: none;
+  border-color: #34d186;
+  box-shadow: 0 0 0 3px rgba(52, 209, 134, 0.18);
+}
+
+.dashy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 12px;
+  font-weight: 700;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.dashy-btn-primary {
+  background: #00cd84;
+  color: #fff;
+}
+
+.dashy-btn-primary:hover {
+  background: #00b874;
+}
+
+.dashy-btn-ghost {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #006d44;
+}
+
+.dashy-btn-ghost:hover {
+  background: #d9f7e8;
+}
+
+.status-on-track {
+  background: rgba(5, 150, 105, 0.12);
+  color: #047857;
+}
+
+.status-average {
+  background: rgba(107, 56, 212, 0.1);
+  color: #5b21b6;
+}
+
+.status-behind {
+  background: rgba(220, 38, 38, 0.1);
+  color: #b91c1c;
+}
+
+.status-lagging {
+  background: rgba(217, 119, 6, 0.14);
+  color: #b45309;
 }
 
 .team-card {
@@ -22,14 +138,14 @@ body {
 
 .team-card--complex:hover {
   box-shadow:
-    0 2px 4px rgba(15, 23, 42, 0.05),
-    0 8px 24px rgba(29, 78, 216, 0.08);
+    0 2px 4px rgba(23, 28, 26, 0.04),
+    0 8px 24px rgba(59, 130, 246, 0.08);
 }
 
 .team-card--density:hover {
   box-shadow:
-    0 2px 4px rgba(15, 23, 42, 0.05),
-    0 8px 24px rgba(13, 148, 136, 0.08);
+    0 2px 4px rgba(23, 28, 26, 0.04),
+    0 8px 24px rgba(20, 184, 166, 0.08);
 }
 
 /* Complex Team | Density Team — parallel equal columns on md+, stack on mobile */

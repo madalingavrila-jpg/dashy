@@ -26,45 +26,46 @@ export function WeeklyHistoryTable({
   detailRef,
 }: WeeklyHistoryTableProps) {
   if (loading && !history?.length) {
-    return <div className="glass-card animate-pulse rounded-xl p-lg h-96" />;
+    return <div className="dashboard-card h-96 animate-pulse p-lg" />;
   }
 
   const normalizedCurrent = currentWeek?.replace(/^W0?/, "W") ?? "W24";
 
   return (
-    <div className="glass-card overflow-hidden rounded-xl">
-      <div className="border-b border-outline-variant p-lg">
-        <h3 className="text-title-lg font-title-lg font-bold">{DASHBOARD_WEEK_YEAR} Weekly Performance</h3>
+    <div className="dashboard-card overflow-hidden">
+      <div className="border-b border-outline-variant/60 p-lg">
+        <p className="eyebrow text-brand">History</p>
+        <h3 className="mt-1 text-title-lg font-title-lg font-bold">{DASHBOARD_WEEK_YEAR} Weekly Performance</h3>
         <p className="text-body-md text-on-surface-variant">
           Q2+ weeks {visibleWeekRange ?? "—"} · click any row to expand team drill-down inline
         </p>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px] text-left">
-          <thead className="bg-surface-container-low">
+          <thead className="bg-surface-container-low/50">
             <tr>
               <th className="w-10 px-sm py-sm" aria-hidden="true" />
-              <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+              <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                 Week
               </th>
-              <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+              <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                 Leads
               </th>
-              <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
+              <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                 Qualified
               </th>
-              <th className="px-md py-sm text-label-md font-semibold uppercase text-secondary">
+              <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wider text-secondary">
                 Negotiations
               </th>
-              <th className="px-md py-sm text-label-md font-semibold uppercase text-won">
+              <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wider text-won">
                 Closed Won
               </th>
-              <th className="px-md py-sm text-label-md font-semibold uppercase text-activated">
+              <th className="px-md py-sm text-[10px] font-bold uppercase tracking-wider text-activated">
                 Active
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-outline-variant">
+          <tbody className="divide-y divide-outline-variant/45">
             {history?.map((row) => {
               const weekNum = row.week.replace(/^W0?/, "");
               const isCurrent =
@@ -128,10 +129,10 @@ function WeekRowGroup({
         }}
         className={
           isSelected
-            ? "cursor-pointer bg-primary-container/30 ring-2 ring-inset ring-primary/50"
+              ? "cursor-pointer bg-brand-container/60 ring-1 ring-inset ring-brand/35"
             : isCurrent
-              ? "cursor-pointer bg-primary-container/20 ring-1 ring-inset ring-primary/30"
-              : "cursor-pointer hover:bg-surface-container-low"
+              ? "cursor-pointer bg-brand-container/35 ring-1 ring-inset ring-brand/20"
+              : "cursor-pointer transition-colors hover:bg-surface-container-low/60"
         }
       >
         <td className="px-sm py-sm text-center">
@@ -164,12 +165,12 @@ function WeekRowGroup({
         <td className="px-md py-sm font-semibold text-activated">{row.active}</td>
       </tr>
       {isSelected && (
-        <tr className="bg-primary-container/10">
-          <td colSpan={7} className="border-l-4 border-l-primary p-0">
+        <tr className="bg-surface-container-low/25">
+          <td colSpan={7} className="border-l-4 border-l-brand p-0">
             <div
               ref={detailRef}
               id="weekly-detail"
-              className="border-t border-primary/20 p-lg shadow-inner"
+              className="border-t border-outline-variant/50 p-lg"
             >
               {expandedContent ?? (
                 <p className="rounded-lg bg-surface-container-low px-md py-sm text-body-md text-on-surface-variant">

@@ -4,13 +4,14 @@ import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { MtdProgressCards, TierTrackingTable, MtdSummaryCards } from "@/components/MtdPanels";
 import { TeamProgressGrid } from "@/components/TeamProgressPanel";
+import { DashyPage, SoftTip } from "@/components/ui/DashyUI";
 import { useDashboard } from "@/lib/useDashboard";
 
 export function MtdShell() {
   const { model, error, loading, sourceHint } = useDashboard({ sections: ["overview", "mtd"] });
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-md">
+    <DashyPage>
       <PageHeader
         title="MTD & Segment Tracking"
         subtitle={`${model?.mtdAchievement.month ?? "Current month"} only — month-to-date production, not year-to-date.`}
@@ -19,6 +20,11 @@ export function MtdShell() {
       />
 
       <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
+
+      <SoftTip>
+        Won tracks commercial deals closed this month. Activated tracks accounts that went live.
+        These metrics remain separate throughout every target and segment view.
+      </SoftTip>
 
       <MtdSummaryCards
         month={model?.mtdAchievement.month}
@@ -48,6 +54,6 @@ export function MtdShell() {
         variant="detailed"
         salesforceUrl={model?.salesforceInstanceUrl}
       />
-    </div>
+    </DashyPage>
   );
 }

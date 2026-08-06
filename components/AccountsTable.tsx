@@ -62,7 +62,7 @@ function AccountRows({ data, loading }: { data?: AccountViewRow[]; loading?: boo
                   href={account.sfAccountUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-xs rounded-lg bg-primary px-sm py-xs text-label-md font-semibold text-on-primary transition hover:opacity-90"
+                  className="dashy-btn dashy-btn-primary"
                 >
                   <span className="material-symbols-outlined text-[16px]">open_in_new</span>
                   Salesforce
@@ -115,7 +115,7 @@ export function AccountsTable({
   const activeTotals = tabTotal(tab);
 
   return (
-    <div className="glass-card overflow-hidden rounded-xl">
+    <div className="dashboard-card overflow-hidden rounded-xl">
       <div className="flex flex-wrap items-center justify-between gap-sm border-b border-outline-variant p-lg">
         <div>
           <h3 className="text-title-lg font-title-lg font-bold">Accounts Management</h3>
@@ -189,7 +189,7 @@ export function AccountsTable({
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-outline-variant">
+          <tbody className="divide-y divide-outline-variant/50">
             <AccountRows data={data} loading={loading} />
           </tbody>
         </table>

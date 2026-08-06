@@ -276,7 +276,7 @@ export function TargetSettingsPanel({
   const pausedCount = draft.pausedAgentIds.length;
 
   return (
-    <div className="glass-card rounded-xl border-l-4 border-l-primary p-lg shadow-md">
+    <div className="dashboard-card border-l-4 border-l-brand p-lg">
       <div className="mb-md flex flex-wrap items-start justify-between gap-md">
         <div>
           <div className="mb-xs flex items-center gap-sm">
@@ -299,7 +299,7 @@ export function TargetSettingsPanel({
           <button
             type="button"
             onClick={handleLock}
-            className="rounded-lg bg-surface-container px-md py-sm text-label-md font-semibold text-on-surface-variant transition-colors hover:bg-surface-container-high"
+            className="dashy-btn dashy-btn-ghost"
           >
             Lock
           </button>
@@ -349,12 +349,12 @@ export function TargetSettingsPanel({
               onKeyDown={(event) => {
                 if (event.key === "Enter") handleUnlock();
               }}
-              className="flex-1 rounded-lg border-none bg-surface-container px-md py-2 text-body-md focus:ring-2 focus:ring-primary"
+              className="dashy-input flex-1"
             />
             <button
               type="button"
               onClick={handleUnlock}
-              className="rounded-lg bg-primary px-md py-2 text-label-md font-bold text-on-primary transition-opacity hover:opacity-90"
+              className="dashy-btn dashy-btn-primary"
             >
               Unlock
             </button>
@@ -664,7 +664,7 @@ export function TargetSettingsPanel({
               type="button"
               onClick={() => void handleSave()}
               disabled={saving}
-              className="rounded-lg bg-primary px-lg py-2 text-label-md font-bold text-on-primary transition-opacity hover:opacity-90 disabled:opacity-60"
+              className="dashy-btn dashy-btn-primary"
             >
               {saving ? "Saving…" : "Save targets"}
             </button>
@@ -672,7 +672,7 @@ export function TargetSettingsPanel({
               type="button"
               onClick={() => void handleReset()}
               disabled={saving}
-              className="rounded-lg bg-surface-container px-lg py-2 text-label-md font-semibold text-on-surface-variant transition-colors hover:bg-surface-container-high disabled:opacity-60"
+              className="dashy-btn dashy-btn-ghost"
             >
               Reset to defaults
             </button>

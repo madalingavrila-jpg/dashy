@@ -9,8 +9,7 @@ type MetricCardsProps = {
 
 function SkeletonCard() {
   return (
-    <div className="glass-card animate-pulse rounded-xl p-md">
-      <div className="mb-sm h-8 w-8 rounded-lg bg-surface-container-high" />
+    <div className="dashboard-card animate-pulse p-sm">
       <div className="mb-xs h-4 w-24 rounded bg-surface-container-high" />
       <div className="mb-xs h-8 w-32 rounded bg-surface-container-high" />
       <div className="h-3 w-40 rounded bg-surface-container-high" />
@@ -50,46 +49,34 @@ export function MetricCards({ metrics, loading, columns = 4, compact = false }: 
       {metrics.map((metric) => (
         <div
           key={metric.label}
-          className={`glass-card cursor-default rounded-xl ${cardPadding} transition-colors hover:bg-surface-container-low ${
+          className={`dashboard-card cursor-default ${cardPadding} transition-all hover:-translate-y-0.5 hover:shadow-md ${
             compact ? "opacity-90" : ""
-          } ${
-            metric.variant === "won"
-              ? "border-l-4 border-l-won"
-              : metric.variant === "activated"
-                ? "border-l-4 border-l-activated"
-                : compact
-                  ? "border-l-2 border-l-outline-variant"
-                  : ""
           }`}
         >
-          <div className={`mb-sm flex items-start justify-between ${compact ? "mb-xs" : ""}`}>
-            <div className={`rounded-lg p-xs ${metric.iconBg} ${compact ? "scale-90" : ""}`}>
-              <span className={`material-symbols-outlined ${metric.iconColor} ${compact ? "text-[18px]" : ""}`}>
+          <div className="flex items-start justify-between gap-xs">
+            <p className="eyebrow">{metric.label}</p>
+            <div className={`${compact ? "" : "mt-[-2px]"}`}>
+              <span className={`material-symbols-outlined ${metric.iconColor} ${compact ? "text-[17px]" : "text-[20px]"}`}>
                 {metric.icon}
               </span>
             </div>
+          </div>
+          <h3 className={valueClass}>{metric.value}</h3>
+          <div className="mt-sm flex items-center justify-between gap-xs border-t border-outline-variant/55 pt-xs">
             <span
-              className={`flex items-center gap-[2px] rounded-full px-xs py-[2px] text-[10px] font-bold ${
+              className={`flex items-center gap-[2px] text-[11px] font-bold ${
                 metric.trend === "up"
-                  ? "trend-up"
+                  ? "text-won"
                   : metric.trend === "down"
-                    ? "trend-down"
-                    : "trend-neutral"
+                    ? "text-error"
+                    : "text-on-surface-variant"
               }`}
             >
-              <span className="material-symbols-outlined text-[12px]">
-                {metric.trendIcon}
-              </span>
+              <span className="material-symbols-outlined text-[13px]">{metric.trendIcon}</span>
               {metric.trendValue}
             </span>
+            <p className="truncate text-right text-[10px] text-on-surface-variant">{metric.subtitle}</p>
           </div>
-          <p className="text-label-md font-label-md font-medium text-on-surface-variant">
-            {metric.label}
-          </p>
-          <h3 className={valueClass}>{metric.value}</h3>
-          <p className="mt-xs text-label-md font-label-md text-on-surface-variant opacity-60">
-            {metric.subtitle}
-          </p>
         </div>
       ))}
     </div>

@@ -12,7 +12,7 @@ export function SettingsShell() {
   });
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-md">
+    <div className="dashy-page">
       <PageHeader
         title="Settings & Admin"
         subtitle="MTD + Weekly status targets at the top (password required). Integrations below."

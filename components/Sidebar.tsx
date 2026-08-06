@@ -5,42 +5,39 @@ import { usePathname } from "next/navigation";
 import { Logo } from "@/components/Logo";
 
 type NavItem = { icon: string; label: string; href: string; title?: string };
+type NavGroup = { label: string; items: NavItem[] };
 
-const navItems: NavItem[] = [
-  { icon: "dashboard", label: "Overview", href: "/" },
+const navGroups: NavGroup[] = [
   {
-    icon: "calendar_view_month",
-    label: "Monthly Overview",
-    href: "/pipeline",
-    title: "Overview team breakdown filtered by month — per-agent Won & Activated",
-  },
-  { icon: "account_tree", label: "MyPipeline", href: "/my-pipeline" },
-  { icon: "call_received", label: "Inbound team", href: "/inbound" },
-  { icon: "calendar_view_week", label: "Weekly", href: "/weekly" },
-  { icon: "flag", label: "MTD & Tiers", href: "/mtd" },
-  { icon: "compare_arrows", label: "WoW Reports", href: "/wow" },
-  {
-    icon: "storefront",
-    label: "Accounts performance",
-    href: "/accounts-performance",
-    title: "Accounts perf (90d) — rolling monthly performance per account",
+    label: "Workspace",
+    items: [{ icon: "space_dashboard", label: "Overview", href: "/" }],
   },
   {
-    icon: "calendar_month",
-    label: "Accounts performance MOM",
-    href: "/accounts-performance-mom",
-    title: "Accounts perf (cohorts) — grouped by activation month",
+    label: "Sales",
+    items: [
+      { icon: "calendar_view_month", label: "Monthly overview", href: "/pipeline" },
+      { icon: "account_tree", label: "MyPipeline", href: "/my-pipeline" },
+      { icon: "calendar_view_week", label: "Weekly", href: "/weekly" },
+      { icon: "flag", label: "MTD & segments", href: "/mtd" },
+      { icon: "compare_arrows", label: "WoW reports", href: "/wow" },
+    ],
   },
   {
-    icon: "heart_broken",
-    label: "Churn prevention",
-    href: "/churn-prevention",
-    title: "YTD activations — SF inactive/hidden/deleted and never-ordered flags",
+    label: "Account health",
+    items: [
+      { icon: "storefront", label: "Performance", href: "/accounts-performance" },
+      { icon: "calendar_month", label: "Monthly cohorts", href: "/accounts-performance-mom" },
+      { icon: "heart_broken", label: "Churn prevention", href: "/churn-prevention" },
+    ],
   },
-  { icon: "support_agent", label: "MOps", href: "/mops" },
+  {
+    label: "Operations",
+    items: [
+      { icon: "call_received", label: "Inbound team", href: "/inbound" },
+      { icon: "support_agent", label: "MOps", href: "/mops" },
+    ],
+  },
 ];
-
-const bottomItems: NavItem[] = [{ icon: "settings", label: "Settings", href: "/settings" }];
 
 function isActive(pathname: string, href: string): boolean {
   if (href === "/") {
@@ -61,68 +58,74 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
 
   return (
     <nav
-      className={`fixed left-0 top-0 z-50 flex h-full w-[280px] flex-col border-r border-outline-variant bg-surface-container-lowest py-md px-xs transition-transform duration-200 ease-out lg:translate-x-0 ${
+      className={`fixed left-0 top-0 z-50 flex h-full w-[232px] flex-col border-r border-outline-variant/80 bg-surface-container-lowest transition-transform duration-200 ease-out lg:translate-x-0 ${
         isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
       }`}
     >
-      <div className="mb-lg px-sm">
-        <Logo size={40} subtitle="Ultimate Sales Dashboard" />
+      <div className="flex h-[72px] items-center border-b border-outline-variant/60 px-md">
+        <Logo size={32} subtitle="Bolt Food Romania" />
       </div>
 
-      <div className="mb-md mx-xs rounded-lg border border-outline-variant bg-surface-container-low px-sm py-xs">
-        <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
-          Key rule
-        </p>
-        <p className="text-label-md font-label-md text-on-surface">
-          <span className="font-bold text-won">Won</span> ≠{" "}
-          <span className="font-bold text-activated">Activated</span>
-        </p>
+      <div className="no-scrollbar flex-1 overflow-y-auto px-sm py-md">
+        {navGroups.map((group) => (
+          <div key={group.label} className="mb-md">
+            <p className="mb-xs px-sm text-[10px] font-bold uppercase tracking-[0.12em] text-on-surface-variant/65">
+              {group.label}
+            </p>
+            <div className="space-y-1">
+              {group.items.map((item) => {
+                const active = isActive(pathname, item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onClose}
+                    title={item.title}
+                    aria-current={active ? "page" : undefined}
+                    className={`group relative flex h-10 items-center gap-sm rounded-lg px-sm text-[13px] font-semibold transition-all ${
+                      active
+                        ? "bg-brand-container text-brand"
+                        : "text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
+                    }`}
+                  >
+                    {active ? (
+                      <span className="absolute -left-sm h-6 w-[3px] rounded-r-full bg-brand" />
+                    ) : null}
+                    <span
+                      className={`material-symbols-outlined text-[19px] ${
+                        active ? "text-brand" : "text-on-surface-variant/80 group-hover:text-brand"
+                      }`}
+                    >
+                      {item.icon}
+                    </span>
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
 
-      <div className="flex-1 space-y-1 overflow-y-auto no-scrollbar">
-        {navItems.map((item) => {
-          const active = isActive(pathname, item.href);
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              onClick={onClose}
-              title={item.title}
-              aria-current={active ? "page" : undefined}
-              className={
-                active
-                  ? "mx-xs my-1 flex items-center gap-sm rounded-lg bg-primary px-md py-sm text-label-md font-label-md text-on-primary transition-transform active:scale-[0.98]"
-                  : "mx-xs my-1 flex items-center gap-sm rounded-lg px-md py-sm text-label-md font-label-md text-on-surface-variant transition-all hover:bg-surface-container active:scale-[0.98]"
-              }
-            >
-              <span className="material-symbols-outlined">{item.icon}</span>
-              {item.label}
-            </Link>
-          );
-        })}
-      </div>
-
-      <div className="mt-auto border-t border-outline-variant pt-md">
-        {bottomItems.map((item) => {
-          const active = isActive(pathname, item.href);
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              onClick={onClose}
-              title={item.title}
-              aria-current={active ? "page" : undefined}
-              className={
-                active
-                  ? "mx-xs my-1 flex items-center gap-sm rounded-lg bg-primary px-md py-sm text-label-md font-label-md text-on-primary"
-                  : "mx-xs my-1 flex items-center gap-sm rounded-lg px-md py-sm text-label-md font-label-md text-on-surface-variant transition-all hover:bg-surface-container"
-              }
-            >
-              <span className="material-symbols-outlined">{item.icon}</span>
-              {item.label}
-            </Link>
-          );
-        })}
+      <div className="border-t border-outline-variant/60 p-sm">
+        <div className="mb-xs flex items-center justify-center gap-xs rounded-lg bg-surface-container-low px-sm py-xs text-[10px] font-bold">
+          <span className="text-won">Won</span>
+          <span className="text-on-surface-variant">≠</span>
+          <span className="text-activated">Activated</span>
+        </div>
+        <Link
+          href="/settings"
+          onClick={onClose}
+          aria-current={isActive(pathname, "/settings") ? "page" : undefined}
+          className={`flex h-10 items-center gap-sm rounded-lg px-sm text-[13px] font-semibold transition-colors ${
+            isActive(pathname, "/settings")
+              ? "bg-brand-container text-brand"
+              : "text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
+          }`}
+        >
+          <span className="material-symbols-outlined text-[19px]">settings</span>
+          Settings
+        </Link>
       </div>
     </nav>
   );

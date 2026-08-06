@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { apiBase } from "@/lib/api";
+import { AgentAvatar } from "@/components/AgentAvatar";
 
 type TopBarProps = {
   onMenuClick?: () => void;
@@ -83,10 +84,19 @@ export function TopBar({ onMenuClick }: TopBarProps) {
     () => (updatedAt ? formatRelative(updatedAt, now) : null),
     [updatedAt, now],
   );
+  const reportingPeriod = useMemo(
+    () =>
+      new Intl.DateTimeFormat("en-GB", {
+        timeZone: BUCHAREST,
+        month: "short",
+        year: "numeric",
+      }).format(new Date(now)),
+    [now],
+  );
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-40 flex h-16 items-center justify-between border-b border-outline-variant bg-surface px-md lg:left-[280px] lg:px-lg">
-      <div className="flex flex-1 items-center gap-md">
+    <header className="fixed left-0 right-0 top-0 z-40 flex h-[72px] items-center justify-between border-b border-outline-variant/80 bg-white/95 px-md backdrop-blur-lg lg:left-[232px] lg:px-md">
+      <div className="flex min-w-0 flex-1 items-center gap-md">
         <button
           type="button"
           onClick={onMenuClick}
@@ -95,44 +105,47 @@ export function TopBar({ onMenuClick }: TopBarProps) {
         >
           <span className="material-symbols-outlined">menu</span>
         </button>
-      </div>
-
-      <div className="flex items-center gap-sm md:gap-md">
         {absolute ? (
           <div
-            className="flex items-center gap-xs rounded-lg bg-surface-container-low px-sm py-1 text-on-surface-variant"
-            title={`Ultima actualizare: ${absolute} (Europe/Bucharest)`}
+            className="flex min-w-0 items-center gap-xs text-[11px] text-on-surface-variant"
+            title={`Last updated: ${absolute} (Europe/Bucharest)`}
           >
-            <span className="material-symbols-outlined text-[16px] leading-none text-primary">
-              update
-            </span>
-            <span className="hidden text-label-md sm:inline">Ultima actualizare:</span>
-            <span className="text-label-md font-medium text-on-surface">{absolute}</span>
-            {relative && (
-              <span className="hidden text-label-sm text-on-surface-variant lg:inline">
-                · {relative}
-              </span>
-            )}
+            <span className="material-symbols-outlined text-[16px] text-brand">schedule</span>
+            <span className="hidden font-medium sm:inline">Last updated:</span>
+            <span className="truncate font-bold text-on-surface">{absolute}</span>
+            {relative ? <span className="hidden text-on-surface-variant/65 xl:inline">· {relative}</span> : null}
           </div>
         ) : failed ? (
-          <div
-            className="flex items-center gap-xs rounded-lg bg-surface-container-low px-sm py-1 text-on-surface-variant"
-            title="Nu am putut încărca data ultimei actualizări (overview fetch failed)"
-          >
-            <span className="material-symbols-outlined text-[16px] leading-none text-amber-600">
-              update_disabled
-            </span>
-            <span className="text-label-md font-medium">Data freshness unknown</span>
+          <div className="flex items-center gap-xs text-[11px] font-medium text-amber-700">
+            <span className="material-symbols-outlined text-[16px]">update_disabled</span>
+            Data freshness unknown
           </div>
-        ) : null}
-        <div className="hidden items-center gap-xs rounded-lg bg-surface-container-low px-sm py-1 md:flex">
-          <span className="rounded-full px-xs py-[2px] text-[10px] font-bold badge-won">Won</span>
-          <span className="text-label-md text-on-surface-variant">vs</span>
-          <span className="rounded-full px-xs py-[2px] text-[10px] font-bold badge-activated">
-            Activated
-          </span>
+        ) : (
+          <div className="h-4 w-44 animate-pulse rounded bg-surface-container" />
+        )}
+      </div>
+
+      <div className="flex items-center gap-xs">
+        <div className="hidden items-center gap-xs rounded-full border border-outline-variant/80 bg-surface-container-lowest px-sm py-xs text-[11px] lg:flex">
+          <span className="text-on-surface-variant">Reporting period</span>
+          <span className="font-bold text-on-surface">{reportingPeriod}</span>
         </div>
+        <LinkIcon icon="notifications" label="Notifications" />
+        <LinkIcon icon="help_outline" label="Help" />
+        <AgentAvatar name="Ionut-Mădălin Gavrilă" size={32} className="ml-xs" />
       </div>
     </header>
+  );
+}
+
+function LinkIcon({ icon, label }: { icon: string; label: string }) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      className="inline-flex h-9 w-9 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container-low hover:text-brand"
+    >
+      <span className="material-symbols-outlined text-[19px]">{icon}</span>
+    </button>
   );
 }

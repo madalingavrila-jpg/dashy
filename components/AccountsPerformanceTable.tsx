@@ -337,26 +337,27 @@ export function AccountsPerformanceTable({
     });
 
   if (loading && !accounts.length) {
-    return <div className="glass-card animate-pulse rounded-xl p-lg h-96" />;
+    return <div className="dashboard-card animate-pulse rounded-xl p-lg h-96" />;
   }
 
   if (!accounts.length) {
     return (
-      <div className="glass-card rounded-xl p-lg text-center text-body-md text-on-surface-variant">
+      <div className="dashboard-card rounded-xl p-lg text-center text-body-md text-on-surface-variant">
         No activated accounts for this filter.
       </div>
     );
   }
 
   const COLS = 11;
-  const thBase = "px-xs py-xs text-label-md font-bold text-on-surface-variant";
+  const thBase =
+    "px-xs py-xs text-[10px] font-bold uppercase tracking-wide text-on-surface-variant";
   const numTh = `${thBase} text-right`;
   // Sticky first column so the account name stays visible while scrolling the
   // 11-column table horizontally on narrow screens.
   const thFirst = `${thBase} sticky left-0 z-20 bg-surface-container-low`;
 
   return (
-    <div className="glass-card overflow-hidden rounded-xl">
+    <div className="dashboard-card overflow-hidden rounded-xl">
       <div className="flex flex-wrap items-center gap-x-md gap-y-1 border-b border-outline-variant bg-surface-container-low px-md py-xs text-[11px] text-on-surface-variant">
         <span className="inline-flex items-center gap-1 font-semibold text-on-surface">
           <span className="material-symbols-outlined text-[14px] text-won">info</span>

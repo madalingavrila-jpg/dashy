@@ -9,7 +9,7 @@ type MopsCasesTableProps = {
 
 export function MopsCasesTable({ cases, loading }: MopsCasesTableProps) {
   return (
-    <div className="glass-card overflow-hidden rounded-xl">
+    <div className="dashboard-card overflow-hidden rounded-xl">
       <div className="border-b border-outline-variant p-lg">
         <h3 className="text-title-lg font-title-lg font-bold">Open cases</h3>
         <p className="text-body-md text-on-surface-variant">
@@ -37,7 +37,7 @@ export function MopsCasesTable({ cases, loading }: MopsCasesTableProps) {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-outline-variant">
+          <tbody className="divide-y divide-outline-variant/50">
             {loading && !cases?.length ? (
               <tr>
                 <td colSpan={5} className="px-lg py-xl text-center text-on-surface-variant">

@@ -6,6 +6,7 @@ import { DataAlert } from "@/components/DataAlert";
 import { TeamProgressGrid } from "@/components/TeamProgressPanel";
 import { StageBreakdown } from "@/components/StageBreakdown";
 import { MtdProgressCards } from "@/components/MtdPanels";
+import { DashyPage, SoftTip } from "@/components/ui/DashyUI";
 import { useDashboard } from "@/lib/useDashboard";
 import { applyTargetConfig } from "@/lib/targetConfig";
 import { fetchMtdDetails } from "@/lib/api";
@@ -70,7 +71,7 @@ export function PipelineShell() {
   const monthLabel = model?.mtdMonthLabel ?? "Current month";
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-md">
+    <DashyPage>
       <PageHeader
         title="Monthly Overview"
         subtitle={`${monthLabel} — the Overview team breakdown filtered by month: per-agent Won & Activated vs monthly targets.`}
@@ -80,24 +81,22 @@ export function PipelineShell() {
 
       <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
 
-      <div className="flex flex-col gap-xs sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="text-label-md font-semibold uppercase tracking-wide text-primary">
-            Month
-          </p>
-          <p className="text-body-md text-on-surface-variant">
+      <div className="dashy-filter-bar justify-between">
+        <div className="min-w-0">
+          <p className="eyebrow text-brand">Reporting period</p>
+          <p className="mt-0.5 text-[13px] text-on-surface-variant">
             Defaults to the current month (live MTD). Past months show final historical numbers.
           </p>
         </div>
-        <label className="flex min-w-[min(100%,280px)] flex-col gap-xs sm:max-w-xs">
-          <span className="text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
+        <label className="flex min-w-[min(100%,240px)] flex-col gap-1 sm:max-w-xs">
+          <span className="eyebrow">
             Filter by month
           </span>
           <select
             value={selectedMonthKey || defaultMonthKey}
             onChange={(event) => setSelectedMonthKey(event.target.value)}
             disabled={loading || !monthOptions.length}
-            className="w-full rounded-lg border-2 border-primary/30 bg-white px-md py-2.5 text-body-md font-medium text-on-surface shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/30 disabled:opacity-60"
+            className="dashy-select w-full disabled:cursor-not-allowed disabled:opacity-60"
           >
             {monthOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -120,10 +119,10 @@ export function PipelineShell() {
       />
 
       {!isLiveMonth ? (
-        <p className="rounded-lg border border-outline-variant/60 bg-surface-container-low/40 px-md py-sm text-body-md text-on-surface-variant">
+        <SoftTip>
           <span className="font-semibold text-on-surface">{monthLabel}</span> — final historical
           numbers. Click an agent&apos;s Won or Activated count to see that month&apos;s accounts.
-        </p>
+        </SoftTip>
       ) : null}
 
       <TeamProgressGrid
@@ -134,7 +133,7 @@ export function PipelineShell() {
         salesforceUrl={model?.salesforceInstanceUrl}
       />
 
-      <details className="group rounded-xl border border-outline-variant/60 bg-surface-container-low/30">
+      <details className="dashboard-card group overflow-hidden">
         <summary className="cursor-pointer list-none px-lg py-md [&::-webkit-details-marker]:hidden">
           <div className="flex items-center justify-between gap-sm">
             <div>
@@ -157,6 +156,6 @@ export function PipelineShell() {
           <StageBreakdown sales={model?.snapshot.sales} loading={loading} />
         </div>
       </details>
-    </div>
+    </DashyPage>
   );
 }

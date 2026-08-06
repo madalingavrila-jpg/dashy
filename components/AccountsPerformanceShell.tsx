@@ -204,7 +204,7 @@ export function AccountsPerformanceShell() {
     : "Accounts activated in the last 90 days with Bolt Food gross GMV (before discounts), orders, gross AOV, commission & availability/performance.";
 
   return (
-    <div className="mx-auto max-w-[1500px] space-y-md">
+    <div className="dashy-page">
       <PageHeader
         title="Accounts performance"
         subtitle={subtitle}
@@ -216,7 +216,7 @@ export function AccountsPerformanceShell() {
 
       <section className="grid grid-cols-2 gap-md md:grid-cols-5">
         {cards.map((card) => (
-          <div key={card.label} className="glass-card rounded-xl p-md" title={card.hint}>
+          <div key={card.label} className="dashboard-card rounded-xl p-md" title={card.hint}>
             <div className="flex items-center gap-xs text-on-surface-variant">
               <span className="material-symbols-outlined text-[18px]">{card.icon}</span>
               <p className="text-label-md font-label-md">{card.label}</p>
@@ -240,7 +240,7 @@ export function AccountsPerformanceShell() {
         </div>
         <div className="grid grid-cols-2 gap-md md:grid-cols-5">
           {qualityCards.map((card) => (
-            <div key={card.label} className="glass-card rounded-xl p-md" title={card.hint}>
+            <div key={card.label} className="dashboard-card rounded-xl p-md" title={card.hint}>
               <div className="flex items-center gap-xs text-on-surface-variant">
                 <span className="material-symbols-outlined text-[18px] text-won">{card.icon}</span>
                 <p className="text-label-md font-label-md">{card.label}</p>
@@ -253,7 +253,7 @@ export function AccountsPerformanceShell() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-sm rounded-xl border border-outline-variant bg-surface-container-low p-md md:flex-row md:items-end md:justify-between">
+      <section className="dashy-filter-bar flex flex-col gap-sm md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col gap-1">
           <label className="text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
             Agent
@@ -261,7 +261,7 @@ export function AccountsPerformanceShell() {
           <select
             value={agentFilter}
             onChange={(event) => setAgentFilter(event.target.value as AgentFilter)}
-            className="min-w-[260px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="dashy-select min-w-[260px]"
           >
             <option value="all">All agents ({windowedAccounts.length})</option>
             <option value="seg:complex">Complex team ({complexCount})</option>
@@ -283,7 +283,7 @@ export function AccountsPerformanceShell() {
           <select
             value={selectedMonth}
             onChange={(event) => setMonthChoice(event.target.value)}
-            className="min-w-[180px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="dashy-select min-w-[180px]"
           >
             {months.map((month) => (
               <option key={month} value={month}>
@@ -294,7 +294,7 @@ export function AccountsPerformanceShell() {
         </div>
       </section>
 
-      <section className="glass-card rounded-xl p-lg">
+      <section className="dashboard-card rounded-xl p-lg">
         <h3 className="mb-md text-title-md font-bold text-on-surface">
           Team GMV by month{" "}
           <span className="text-label-md font-normal text-on-surface-variant">

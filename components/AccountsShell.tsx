@@ -45,7 +45,7 @@ function AccountsContent() {
     .join(" · ");
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-md">
+    <div className="dashy-page">
       <PageHeader
         title="Accounts Management"
         subtitle={

@@ -10,26 +10,30 @@ type MtdSummaryProps = {
 export function MtdSummaryCards({ month, leadsMtd, qualifiedMtd, loading }: MtdSummaryProps) {
   if (loading) {
     return (
-      <div className="grid grid-cols-1 gap-md md:grid-cols-2">
-        <div className="glass-card animate-pulse rounded-xl p-lg h-28" />
-        <div className="glass-card animate-pulse rounded-xl p-lg h-28" />
+      <div className="grid grid-cols-1 gap-sm md:grid-cols-2">
+        <div className="dashboard-card h-28 animate-pulse" />
+        <div className="dashboard-card h-28 animate-pulse" />
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 gap-md md:grid-cols-2">
-      <div className="glass-card rounded-xl border-l-4 border-l-primary p-lg">
-        <p className="text-label-md text-on-surface-variant">{month} · MTD only</p>
-        <h3 className="text-title-lg font-bold">Leads MTD</h3>
-        <p className="mt-sm text-headline-md font-extrabold">{leadsMtd}</p>
+    <section className="grid grid-cols-1 gap-sm md:grid-cols-2" aria-label="MTD funnel summary">
+      <div className="dashboard-card border-l-4 border-l-brand p-md">
+        <p className="eyebrow text-brand">Leads · {month}</p>
+        <div className="mt-xs flex items-end justify-between gap-sm">
+          <h3 className="text-[15px] font-bold text-on-surface">Leads MTD</h3>
+          <p className="text-[28px] font-extrabold leading-none tabular-nums text-on-surface">{leadsMtd}</p>
+        </div>
       </div>
-      <div className="glass-card rounded-xl border-l-4 border-l-secondary p-lg">
-        <p className="text-label-md text-on-surface-variant">{month} · MTD only</p>
-        <h3 className="text-title-lg font-bold">Qualified MTD</h3>
-        <p className="mt-sm text-headline-md font-extrabold">{qualifiedMtd}</p>
+      <div className="dashboard-card border-l-4 border-l-secondary p-md">
+        <p className="eyebrow text-secondary">Qualified · {month}</p>
+        <div className="mt-xs flex items-end justify-between gap-sm">
+          <h3 className="text-[15px] font-bold text-on-surface">Qualified MTD</h3>
+          <p className="text-[28px] font-extrabold leading-none tabular-nums text-on-surface">{qualifiedMtd}</p>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -56,15 +60,15 @@ export function MtdProgressCards({
 }: MtdProgressProps) {
   if (loading) {
     return (
-      <div className="grid grid-cols-1 gap-md md:grid-cols-2">
-        <div className="glass-card animate-pulse rounded-xl p-lg h-40" />
-        <div className="glass-card animate-pulse rounded-xl p-lg h-40" />
+      <div className="grid grid-cols-1 gap-sm md:grid-cols-2">
+        <div className="dashboard-card h-40 animate-pulse" />
+        <div className="dashboard-card h-40 animate-pulse" />
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 gap-md md:grid-cols-2">
+    <section className="grid grid-cols-1 gap-sm md:grid-cols-2" aria-label="Monthly target progress">
       <ProgressCard
         title="MTD Won"
         month={month}
@@ -81,7 +85,7 @@ export function MtdProgressCards({
         progress={activatedProgress}
         accent="activated"
       />
-    </div>
+    </section>
   );
 }
 
@@ -101,32 +105,32 @@ function ProgressCard({
   accent: "won" | "activated";
 }) {
   const barColor = accent === "won" ? "bg-won" : "bg-activated";
+  const textColor = accent === "won" ? "text-won" : "text-activated";
+  const badgeColor = accent === "won" ? "badge-won" : "badge-activated";
   const over = progress > 100;
   const width = Math.min(100, progress);
   return (
-    <div className={`glass-card rounded-xl p-lg border-l-4 ${accent === "won" ? "border-l-won" : "border-l-activated"}`}>
-      <p className="text-label-md font-label-md text-on-surface-variant">{month} · MTD only</p>
-      <h3 className="text-title-lg font-title-lg font-bold">{title}</h3>
-      <p className="mt-sm text-headline-md font-headline-md font-extrabold">
-        {actual} <span className="text-body-md font-normal text-on-surface-variant">/ {target}</span>
+    <article className={`dashboard-card border-l-4 p-md ${accent === "won" ? "border-l-won" : "border-l-activated"}`}>
+      <div className="flex items-start justify-between gap-sm">
+        <div>
+          <p className={`eyebrow ${textColor}`}>{month} · MTD only</p>
+          <h3 className="mt-1 text-[16px] font-bold text-on-surface">{title}</h3>
+        </div>
+        <span className={`rounded-full px-sm py-1 text-[11px] font-bold tabular-nums ${over ? "badge-over" : badgeColor}`}>
+          {over ? "▲ " : ""}{progress}%
+        </span>
+      </div>
+      <p className="mt-md text-[30px] font-extrabold leading-none tabular-nums text-on-surface">
+        {actual} <span className="text-[13px] font-medium text-on-surface-variant">/ {target} target</span>
       </p>
-      <div className="mt-md h-3 overflow-hidden rounded-full bg-surface-container">
+      <div className="mt-md h-2.5 overflow-hidden rounded-full bg-surface-container">
         <div
           className={`h-full rounded-full ${barColor} ${over ? "bar-over" : ""}`}
           style={{ width: `${width}%` }}
         />
       </div>
-      <p className="mt-xs flex items-center gap-xs text-label-md font-label-md text-on-surface-variant">
-        {over ? (
-          <span className="rounded-full badge-over px-xs py-[1px] font-bold tabular-nums">
-            ▲ {progress}%
-          </span>
-        ) : (
-          <span className="tabular-nums">{progress}%</span>
-        )}
-        of target
-      </p>
-    </div>
+      <p className="mt-xs text-[11px] text-on-surface-variant">{progress}% of monthly target</p>
+    </article>
   );
 }
 
@@ -137,36 +141,37 @@ type TierTableProps = {
 
 export function TierTrackingTable({ tiers, loading }: TierTableProps) {
   return (
-    <div className="glass-card overflow-hidden rounded-xl">
-      <div className="border-b border-outline-variant p-lg">
-        <h3 className="text-title-lg font-title-lg font-bold">Segment Breakdown</h3>
-        <p className="text-body-md text-on-surface-variant">
+    <section className="dashboard-card overflow-hidden">
+      <div className="border-b border-outline-variant/60 px-md py-sm">
+        <p className="eyebrow text-brand">MTD targets</p>
+        <h3 className="mt-1 text-[17px] font-bold text-on-surface">Segment breakdown</h3>
+        <p className="mt-0.5 text-[12px] text-on-surface-variant">
           MTD achievement by segment — Won: Complex 10/rep, Density 30/rep · Activated: Complex 8/rep, Density 25/rep
         </p>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-left">
-          <thead className="bg-surface-container-low">
+          <thead className="bg-surface-container-low/60">
             <tr>
-              <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">Segment</th>
-              <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">Type</th>
-              <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">Actual</th>
-              <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">Target</th>
-              <th className="px-lg py-md text-label-md font-semibold uppercase text-on-surface-variant">Progress</th>
+              <th className="px-md py-xs text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Segment</th>
+              <th className="px-md py-xs text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Type</th>
+              <th className="px-md py-xs text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Actual</th>
+              <th className="px-md py-xs text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Target</th>
+              <th className="px-md py-xs text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Progress</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-outline-variant">
             {loading && !tiers?.length ? (
               <tr>
-                <td colSpan={5} className="px-lg py-xl text-center text-on-surface-variant">
+                  <td colSpan={5} className="px-md py-xl text-center text-on-surface-variant">
                   Loading tiers…
                 </td>
               </tr>
             ) : (
               tiers?.map((tier) => (
-                <tr key={`${tier.name}-${tier.type}`} className="hover:bg-surface-container-low">
-                  <td className="px-lg py-md font-semibold">{tier.name}</td>
-                  <td className="px-lg py-md">
+                <tr key={`${tier.name}-${tier.type}`} className="hover:bg-surface-container-low/45">
+                  <td className="px-md py-sm text-[13px] font-semibold">{tier.name}</td>
+                  <td className="px-md py-sm">
                     <span
                       className={`rounded-full px-xs py-[2px] text-[11px] font-bold ${
                         tier.type === "won" ? "badge-won" : "badge-activated"
@@ -175,9 +180,9 @@ export function TierTrackingTable({ tiers, loading }: TierTableProps) {
                       {tier.typeLabel}
                     </span>
                   </td>
-                  <td className="px-lg py-md text-data-mono font-data-mono">{tier.actual}</td>
-                  <td className="px-lg py-md text-data-mono font-data-mono">{tier.target}</td>
-                  <td className="px-lg py-md">
+                  <td className="px-md py-sm text-data-mono font-data-mono">{tier.actual}</td>
+                  <td className="px-md py-sm text-data-mono font-data-mono">{tier.target}</td>
+                  <td className="px-md py-sm">
                     <div className="flex items-center gap-sm">
                       <div className="h-2 w-24 overflow-hidden rounded-full bg-surface-container">
                         <div
@@ -203,6 +208,6 @@ export function TierTrackingTable({ tiers, loading }: TierTableProps) {
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   );
 }

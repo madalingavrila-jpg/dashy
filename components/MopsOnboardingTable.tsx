@@ -112,7 +112,7 @@ function SegmentCard({
 
   return (
     <div
-      className={`team-card ${meta.card} glass-card flex h-full min-w-0 flex-col rounded-xl border-l-4 ${meta.border} p-md`}
+      className={`team-card ${meta.card} dashboard-card flex h-full min-w-0 flex-col rounded-xl border-l-4 ${meta.border} p-md`}
     >
       <header className="mb-md flex items-start justify-between gap-sm">
         <div className="min-w-0 space-y-xs">
@@ -228,7 +228,7 @@ export function MopsOnboardingTable({
 
   return (
     <div className="space-y-md">
-      <div className="glass-card rounded-xl p-lg">
+      <div className="dashboard-card rounded-xl p-lg">
         <div className="flex flex-wrap items-center justify-between gap-sm">
           <h3 className="text-title-lg font-title-lg font-bold">{title}</h3>
           {total ? (
@@ -241,11 +241,11 @@ export function MopsOnboardingTable({
       </div>
 
       {loading && !agents?.length ? (
-        <div className="glass-card rounded-xl p-xl text-center text-on-surface-variant">
+        <div className="dashboard-card rounded-xl p-xl text-center text-on-surface-variant">
           {loadingLabel}
         </div>
       ) : !agents?.length ? (
-        <div className="glass-card rounded-xl p-xl text-center text-on-surface-variant">
+        <div className="dashboard-card rounded-xl p-xl text-center text-on-surface-variant">
           {emptyLabel}
         </div>
       ) : (

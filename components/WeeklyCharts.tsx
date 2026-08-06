@@ -14,7 +14,7 @@ export function WeeklyMetricsGrid({ metrics, weekLabel, loading }: WeeklyMetrics
     return (
       <div className="grid grid-cols-2 gap-md md:grid-cols-5">
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="glass-card animate-pulse rounded-xl p-md h-28" />
+          <div key={i} className="dashboard-card h-28 animate-pulse p-md" />
         ))}
       </div>
     );
@@ -27,19 +27,21 @@ export function WeeklyMetricsGrid({ metrics, weekLabel, loading }: WeeklyMetrics
           {weekLabel}
         </p>
       )}
-      <div className="grid grid-cols-2 gap-md md:grid-cols-5">
+      <div className="grid grid-cols-2 gap-sm md:grid-cols-5">
         {metrics?.map((metric) => {
           const isClosedWon = metric.label.toLowerCase() === "closed won";
           const isActive = metric.label.toLowerCase() === "active";
           return (
             <div
               key={metric.label}
-              className={`glass-card rounded-xl p-md ${
-                isClosedWon ? "border-t-4 border-t-won" : isActive ? "border-t-4 border-t-activated" : ""
+              className={`dashboard-card relative overflow-hidden p-md ${
+                isClosedWon ? "border-l-4 border-l-won" : isActive ? "border-l-4 border-l-activated" : ""
               }`}
             >
-              <p className="text-label-md font-label-md text-on-surface-variant">{metric.label}</p>
-              <h3 className="mt-xs text-headline-md font-headline-md font-extrabold">{metric.value}</h3>
+              <p className="eyebrow">{metric.label}</p>
+              <h3 className="mt-xs text-[26px] font-extrabold leading-none tabular-nums text-on-surface">
+                {metric.value}
+              </h3>
               <span
                 className={`mt-xs inline-flex rounded-full px-xs py-[2px] text-[10px] font-bold ${
                   metric.trend === "up"
@@ -73,7 +75,7 @@ export function WeeklyHistoryChart({
   onWeekSelect,
 }: WeeklyHistoryChartProps) {
   if (loading && !history?.length) {
-    return <div className="glass-card animate-pulse rounded-xl p-lg h-64" />;
+    return <div className="dashboard-card h-64 animate-pulse p-lg" />;
   }
 
   // Shared Y max across both series so Closed Won vs Active bar heights are
@@ -81,8 +83,9 @@ export function WeeklyHistoryChart({
   const sharedMax = Math.max(...(history ?? []).map((h) => Math.max(h.closedWon, h.active)), 1);
 
   return (
-    <div className="glass-card rounded-xl p-lg">
-      <h3 className="text-title-lg font-title-lg font-bold">
+    <div className="dashboard-card p-lg">
+      <p className="eyebrow text-brand">Weekly production</p>
+      <h3 className="mt-1 text-title-lg font-title-lg font-bold">
         {DASHBOARD_WEEK_YEAR} Trend (Closed Won vs Active)
       </h3>
       <p className="mb-lg text-label-md text-on-surface-variant">

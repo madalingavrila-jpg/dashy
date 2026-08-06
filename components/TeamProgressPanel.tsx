@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { MtdItem, TeamProgressView } from "@/types/dashboard";
 import { salesforceOpportunityUrl } from "@/lib/salesforce";
+import { AgentAvatar } from "@/components/AgentAvatar";
 
 type TeamProgressPanelProps = {
   team: TeamProgressView;
@@ -85,7 +86,7 @@ function MtdStatChip({
   const labelColor = tone === "won" ? "text-won" : "text-activated";
 
   return (
-    <div className="min-w-0 flex-1 rounded-lg border border-outline-variant/60 bg-white/60 p-md">
+    <div className="min-w-0 flex-1 rounded-lg border border-outline-variant/60 bg-surface-container-low/35 p-md">
       <p className={`text-label-md font-semibold uppercase tracking-wide ${labelColor}`}>{label}</p>
       <div className="mt-xs flex flex-wrap items-end justify-between gap-xs">
         <p className="text-headline-sm font-extrabold tabular-nums text-on-surface">
@@ -337,9 +338,12 @@ function AgentRowsTable({
                 className={`hover:bg-surface-container-low/40 ${agent.targetPaused ? "opacity-75" : ""}`}
               >
                 <td className="px-md py-sm">
-                  <div className="flex flex-wrap items-center gap-xs">
-                    <span className="font-semibold text-on-surface">{agent.name}</span>
-                    {agent.targetPaused ? <PauseBadge /> : null}
+                  <div className="flex items-center gap-xs">
+                    <AgentAvatar name={agent.name} size={30} />
+                    <div className="flex flex-wrap items-center gap-xs">
+                      <span className="font-semibold text-on-surface">{agent.name}</span>
+                      {agent.targetPaused ? <PauseBadge /> : null}
+                    </div>
                   </div>
                 </td>
                 <td className="px-md py-sm">
@@ -424,14 +428,17 @@ function AgentRowsTable({
               className={`${index % 2 === 0 ? "bg-surface-container-low/30" : ""} ${agent.targetPaused ? "opacity-75" : ""}`}
             >
               <td className={cellPad}>
-                <div className="flex flex-wrap items-center gap-xs">
-                  <span className="font-semibold text-on-surface">{agent.name}</span>
-                  <span
-                    className={`rounded-full px-xs py-[2px] text-[10px] font-bold uppercase ${agent.segmentColor}`}
-                  >
-                    {agent.segment}
-                  </span>
-                  {agent.targetPaused ? <PauseBadge /> : null}
+                <div className="flex items-center gap-xs">
+                  <AgentAvatar name={agent.name} size={parallel ? 26 : 30} />
+                  <div className="flex flex-wrap items-center gap-xs">
+                    <span className="font-semibold text-on-surface">{agent.name}</span>
+                    <span
+                      className={`rounded-full px-xs py-[2px] text-[10px] font-bold uppercase ${agent.segmentColor}`}
+                    >
+                      {agent.segment}
+                    </span>
+                    {agent.targetPaused ? <PauseBadge /> : null}
+                  </div>
                 </div>
               </td>
               <td className={cellPad}>
@@ -484,7 +491,7 @@ export function TeamProgressPanel({
 
   return (
     <div
-      className={`team-card ${cardAccent} glass-card flex h-full min-w-0 flex-col rounded-xl border-l-4 ${borderColor} ${parallel ? "p-md" : "p-lg"}`}
+      className={`team-card ${cardAccent} dashboard-card flex h-full min-w-0 flex-col border-l-4 ${borderColor} ${parallel ? "p-md" : "p-lg"}`}
       id={team.segment === "complex" ? "complex-team" : "density-team"}
     >
       <header className={`space-y-md ${parallel ? "mb-md" : "mb-lg"}`}>
@@ -608,8 +615,8 @@ export function TeamProgressGrid({
       <div className="team-progress-grid grid grid-cols-1 gap-lg md:grid-cols-2 md:items-stretch md:gap-md">
         {loading && !teams?.length ? (
           <>
-            <div className="glass-card h-[32rem] min-w-0 animate-pulse rounded-xl" />
-            <div className="glass-card h-[32rem] min-w-0 animate-pulse rounded-xl" />
+            <div className="dashboard-card h-[32rem] min-w-0 animate-pulse" />
+            <div className="dashboard-card h-[32rem] min-w-0 animate-pulse" />
           </>
         ) : (
           teams?.map((team) => (

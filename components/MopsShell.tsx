@@ -15,7 +15,7 @@ export function MopsShell() {
   const mops = model?.mops;
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-md">
+    <div className="dashy-page">
       <PageHeader
         title="MOps"
         subtitle="Live onboarding pipeline by agent + open MOps case workload."
@@ -26,7 +26,7 @@ export function MopsShell() {
             href={mops?.dashboardUrl ?? SF_DASHBOARD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-xs rounded-lg border border-outline-variant bg-surface-container-low px-md py-sm text-label-md font-medium text-primary transition hover:bg-surface-container"
+            className="dashy-btn dashy-btn-ghost"
           >
             <span className="material-symbols-outlined text-[18px]">open_in_new</span>
             SF dashboard
@@ -105,7 +105,7 @@ export function MopsShell() {
       </section>
 
       {mops?.openCaseStatuses?.length ? (
-        <div className="glass-card rounded-xl p-lg">
+        <div className="dashboard-card rounded-xl p-lg">
           <h3 className="mb-md text-title-md font-bold text-on-surface">Open cases by status</h3>
           <div className="flex flex-wrap gap-sm">
             {mops.openCaseStatuses.map((row) => (
@@ -122,7 +122,7 @@ export function MopsShell() {
       ) : null}
 
       {mops?.openCaseRecordTypes?.length ? (
-        <div className="glass-card rounded-xl p-lg">
+        <div className="dashboard-card rounded-xl p-lg">
           <h3 className="mb-md text-title-md font-bold text-on-surface">
             Open cases by record type
           </h3>
@@ -141,7 +141,7 @@ export function MopsShell() {
       ) : null}
 
       {mops?.openByOwner?.length ? (
-        <div className="glass-card rounded-xl p-lg">
+        <div className="dashboard-card rounded-xl p-lg">
           <h3 className="mb-md text-title-md font-bold text-on-surface">Open cases by owner</h3>
           <div className="flex flex-wrap gap-sm">
             {mops.openByOwner.map((row) => (

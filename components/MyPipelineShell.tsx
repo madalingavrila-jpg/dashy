@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
+import { AgentAvatar } from "@/components/AgentAvatar";
 import { useDashboard } from "@/lib/useDashboard";
 import { formatInteger } from "@/lib/format";
 import type { MyPipelineItemView } from "@/types/dashboard";
@@ -39,7 +40,7 @@ function SummaryCard({
   accent: string;
 }) {
   return (
-    <div className="glass-card flex items-center gap-md rounded-xl p-md">
+    <div className="dashboard-card flex items-center gap-md rounded-xl p-md">
       <span className={`material-symbols-outlined rounded-lg p-sm text-[22px] ${accent}`}>{icon}</span>
       <div className="min-w-0">
         <p className="text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
@@ -102,11 +103,10 @@ export function MyPipelineShell() {
 
   const visible = filtered.slice(0, VISIBLE_CAP);
 
-  const selectClass =
-    "w-full rounded-lg border-2 border-primary/30 bg-white px-md py-2.5 text-body-md font-medium text-on-surface shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/30 disabled:opacity-60";
+  const selectClass = "dashy-select w-full";
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-md">
+    <div className="dashy-page">
       <PageHeader
         title="MyPipeline"
         subtitle="Open pipeline per rep — Leads, Accounts & Opportunities assigned to you (before win, onboarding & activation)."
@@ -148,7 +148,7 @@ export function MyPipelineShell() {
         />
       </div>
 
-      <div className="glass-card space-y-md rounded-xl p-lg">
+      <div className="dashy-filter-bar space-y-md">
         <div className="flex flex-wrap items-center gap-1 rounded-lg bg-surface-container-low p-1">
           {TYPE_OPTIONS.map((opt) => (
             <button
@@ -241,7 +241,7 @@ export function MyPipelineShell() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Name, account or rep…"
-              className={selectClass}
+              className="dashy-input w-full"
             />
           </label>
         </div>
@@ -274,7 +274,7 @@ export function MyPipelineShell() {
         </div>
       </div>
 
-      <div className="glass-card overflow-hidden rounded-xl">
+      <div className="dashboard-card overflow-hidden rounded-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead className="bg-surface-container-low">
@@ -289,7 +289,7 @@ export function MyPipelineShell() {
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-outline-variant">
+            <tbody className="divide-y divide-outline-variant/50">
               {loading && !mp ? (
                 <tr>
                   <td colSpan={7} className="px-lg py-xl text-center text-on-surface-variant">
@@ -324,8 +324,15 @@ export function MyPipelineShell() {
                     <td className="px-lg py-md text-on-surface-variant">{item.account ?? "—"}</td>
                     <td className="px-lg py-md">{item.city}</td>
                     <td className="px-lg py-md">
-                      <div className="text-on-surface-variant">{item.ownerName}</div>
-                      <span className="text-[11px] text-on-surface-variant">{item.segmentLabel}</span>
+                      <div className="flex items-center gap-sm">
+                        <AgentAvatar name={item.ownerName} size={28} />
+                        <div className="min-w-0">
+                          <div className="truncate text-on-surface">{item.ownerName}</div>
+                          <span className="text-[11px] text-on-surface-variant">
+                            {item.segmentLabel}
+                          </span>
+                        </div>
+                      </div>
                     </td>
                     <td className="px-lg py-md">
                       {item.url ? (
@@ -333,7 +340,7 @@ export function MyPipelineShell() {
                           href={item.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-xs rounded-lg bg-primary px-sm py-xs text-label-md font-semibold text-on-primary transition hover:opacity-90"
+                          className="dashy-btn dashy-btn-primary"
                         >
                           <span className="material-symbols-outlined text-[16px]">open_in_new</span>
                           Open

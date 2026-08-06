@@ -7,6 +7,7 @@ import { WowReportsList } from "@/components/WowReportsList";
 import { WowYtdTrendChart } from "@/components/WowYtdTrendChart";
 import { useDashboard } from "@/lib/useDashboard";
 import { useFilteredWeeklyHistory } from "@/lib/useFilteredWeeklyHistory";
+import { DashyPage } from "@/components/ui/DashyUI";
 
 export function WowShell() {
   const { model, error, loading, sourceHint, targetConfig } = useDashboard({
@@ -17,7 +18,7 @@ export function WowShell() {
   );
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-md">
+    <DashyPage>
       <PageHeader
         title="WoW Reports"
         subtitle="YTD Closed Won vs Active trend chart below · compare any two weeks side-by-side."
@@ -39,8 +40,8 @@ export function WowShell() {
       />
 
       {model?.wowReports?.length ? (
-        <details className="group">
-          <summary className="cursor-pointer list-none rounded-xl border border-outline-variant bg-surface-container-low px-lg py-md text-body-md font-semibold text-on-surface-variant hover:bg-surface-container">
+        <details className="dashboard-card group overflow-hidden">
+          <summary className="cursor-pointer list-none px-lg py-md text-body-md font-semibold text-on-surface-variant hover:bg-surface-container-low/60">
             <span className="inline-flex items-center gap-xs">
               <span className="material-symbols-outlined text-[20px] transition-transform group-open:rotate-90">
                 chevron_right
@@ -53,6 +54,6 @@ export function WowShell() {
           </div>
         </details>
       ) : null}
-    </div>
+    </DashyPage>
   );
 }
