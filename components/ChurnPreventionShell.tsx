@@ -7,14 +7,66 @@ import { useDashboard } from "@/lib/useDashboard";
 import { formatInteger } from "@/lib/format";
 import type { ChurnPreventionAccount } from "@/types/dashboard";
 
-type ViewMode = "all" | "inactive" | "never-ordered";
+type ViewMode = "all" | "archived" | "active" | "never-ordered";
 type AgentFilter = "all" | "seg:complex" | "seg:density" | `agent:${string}`;
 type OrderFilter = "all" | "yes" | "no";
 type StatusFilter = "all" | "inactive" | "hidden" | "deleted" | "active" | "onboarding" | "unknown";
+type DbStatusFilter = "all" | "active" | "hidden" | "deleted" | "onboarding" | "unknown";
+type ActivationSort = "desc" | "asc";
+
+function applyChurnFilters(
+  rows: ChurnPreventionAccount[],
+  opts: {
+    view: ViewMode;
+    agentFilter: AgentFilter;
+    statusFilter: StatusFilter;
+    dbStatusFilter: DbStatusFilter;
+    orderFilter: OrderFilter;
+    search: string;
+    includeAgentPick: boolean;
+  },
+): ChurnPreventionAccount[] {
+  let out = rows;
+
+  // Quick views: Archived (SF inactive) and Active are separate — not lumped with hidden/deleted.
+  if (opts.view === "archived") out = out.filter((a) => a.sfStatus === "inactive");
+  else if (opts.view === "active") out = out.filter((a) => a.sfStatus === "active");
+  else if (opts.view === "never-ordered") out = out.filter((a) => a.neverOrdered);
+
+  if (opts.agentFilter === "seg:complex") out = out.filter((a) => a.segment === "complex");
+  else if (opts.agentFilter === "seg:density") out = out.filter((a) => a.segment === "density");
+  else if (opts.includeAgentPick && opts.agentFilter.startsWith("agent:")) {
+    const id = opts.agentFilter.slice("agent:".length);
+    out = out.filter((a) => a.agentId === id);
+  }
+
+  if (opts.statusFilter === "unknown") out = out.filter((a) => !a.sfStatus);
+  else if (opts.statusFilter !== "all") out = out.filter((a) => a.sfStatus === opts.statusFilter);
+
+  if (opts.dbStatusFilter === "unknown") out = out.filter((a) => !a.dbStatus);
+  else if (opts.dbStatusFilter !== "all") {
+    out = out.filter((a) => a.dbStatus === opts.dbStatusFilter);
+  }
+
+  if (opts.orderFilter === "yes") out = out.filter((a) => a.hasOrder);
+  else if (opts.orderFilter === "no") out = out.filter((a) => a.neverOrdered);
+
+  const q = opts.search.trim().toLowerCase();
+  if (q) {
+    out = out.filter(
+      (a) =>
+        a.accountName.toLowerCase().includes(q) ||
+        a.city.toLowerCase().includes(q) ||
+        a.agentName.toLowerCase().includes(q) ||
+        a.id.includes(q),
+    );
+  }
+  return out;
+}
 
 function statusLabel(status: string | null): string {
   if (!status) return "Unknown";
-  if (status === "inactive") return "Archived/Inactive";
+  if (status === "inactive") return "Archived";
   return status.charAt(0).toUpperCase() + status.slice(1);
 }
 
@@ -57,8 +109,10 @@ export function ChurnPreventionShell() {
   const [view, setView] = useState<ViewMode>("all");
   const [agentFilter, setAgentFilter] = useState<AgentFilter>("all");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [dbStatusFilter, setDbStatusFilter] = useState<DbStatusFilter>("all");
   const [orderFilter, setOrderFilter] = useState<OrderFilter>("all");
   const [search, setSearch] = useState("");
+  const [activationSort, setActivationSort] = useState<ActivationSort>("desc");
 
   const agents = cp?.agents ?? [];
   const complexCount = useMemo(
@@ -71,45 +125,84 @@ export function ChurnPreventionShell() {
   );
 
   const filtered = useMemo<ChurnPreventionAccount[]>(() => {
-    let rows = cp?.accounts ?? [];
+    const rows = applyChurnFilters(cp?.accounts ?? [], {
+      view,
+      agentFilter,
+      statusFilter,
+      dbStatusFilter,
+      orderFilter,
+      search,
+      includeAgentPick: true,
+    });
+    const dir = activationSort === "desc" ? -1 : 1;
+    return [...rows].sort((a, b) => {
+      const aDate = a.activatedDate ?? "";
+      const bDate = b.activatedDate ?? "";
+      if (aDate === bDate) return a.accountName.localeCompare(b.accountName);
+      // Missing dates sink to the end regardless of direction.
+      if (!aDate) return 1;
+      if (!bDate) return -1;
+      return aDate < bDate ? -dir : dir;
+    });
+  }, [cp, view, agentFilter, statusFilter, dbStatusFilter, orderFilter, search, activationSort]);
 
-    if (view === "inactive") rows = rows.filter((a) => a.problemStatus);
-    else if (view === "never-ordered") rows = rows.filter((a) => a.neverOrdered);
-
-    if (agentFilter === "seg:complex") rows = rows.filter((a) => a.segment === "complex");
-    else if (agentFilter === "seg:density") rows = rows.filter((a) => a.segment === "density");
-    else if (agentFilter.startsWith("agent:")) {
-      const id = agentFilter.slice("agent:".length);
-      rows = rows.filter((a) => a.agentId === id);
+  /**
+   * Per-agent counts from the current filters, excluding an individual-agent pick
+   * so bars stay navigable when a rep is selected. View / segment / status / order /
+   * search still apply so the chart stays coherent with the table.
+   */
+  const agentBars = useMemo(() => {
+    const rows = applyChurnFilters(cp?.accounts ?? [], {
+      view,
+      agentFilter,
+      statusFilter,
+      dbStatusFilter,
+      orderFilter,
+      search,
+      includeAgentPick: false,
+    });
+    const byAgent = new Map<
+      string,
+      { agentId: string; name: string; segment: "complex" | "density"; count: number }
+    >();
+    for (const a of rows) {
+      const existing = byAgent.get(a.agentId);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        byAgent.set(a.agentId, {
+          agentId: a.agentId,
+          name: a.agentName,
+          segment: a.segment,
+          count: 1,
+        });
+      }
     }
+    return [...byAgent.values()].sort(
+      (a, b) => b.count - a.count || a.name.localeCompare(b.name),
+    );
+  }, [cp, view, agentFilter, statusFilter, dbStatusFilter, orderFilter, search]);
 
-    if (statusFilter === "unknown") rows = rows.filter((a) => !a.sfStatus);
-    else if (statusFilter !== "all") rows = rows.filter((a) => a.sfStatus === statusFilter);
-
-    if (orderFilter === "yes") rows = rows.filter((a) => a.hasOrder);
-    else if (orderFilter === "no") rows = rows.filter((a) => a.neverOrdered);
-
-    const q = search.trim().toLowerCase();
-    if (q) {
-      rows = rows.filter(
-        (a) =>
-          a.accountName.toLowerCase().includes(q) ||
-          a.city.toLowerCase().includes(q) ||
-          a.agentName.toLowerCase().includes(q) ||
-          a.id.includes(q),
-      );
-    }
-
-    return rows;
-  }, [cp, view, agentFilter, statusFilter, orderFilter, search]);
+  const maxAgentCount = Math.max(...agentBars.map((a) => a.count), 1);
 
   const viewCounts = useMemo(() => {
     const accounts = cp?.accounts ?? [];
     return {
       all: accounts.length,
-      inactive: accounts.filter((a) => a.problemStatus).length,
+      archived: accounts.filter((a) => a.sfStatus === "inactive").length,
+      active: accounts.filter((a) => a.sfStatus === "active").length,
       neverOrdered: accounts.filter((a) => a.neverOrdered).length,
     };
+  }, [cp]);
+
+  const sfStatusCounts = cp?.totals.bySfStatus ?? {};
+  const dbStatusCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const a of cp?.accounts ?? []) {
+      const key = a.dbStatus ?? "unknown";
+      counts[key] = (counts[key] ?? 0) + 1;
+    }
+    return counts;
   }, [cp]);
 
   const cards = [
@@ -120,10 +213,16 @@ export function ChurnPreventionShell() {
       hint: "Complex + Density Romania activations this year",
     },
     {
-      label: "Went inactive",
-      value: formatInteger(cp?.totals.problemStatus ?? 0),
-      icon: "heart_broken",
-      hint: "SF Status__c in inactive / hidden / deleted (or IsDeleted)",
+      label: "Archived (SF)",
+      value: formatInteger(sfStatusCounts.inactive ?? 0),
+      icon: "inventory_2",
+      hint: "Salesforce Status__c = inactive (archived)",
+    },
+    {
+      label: "Active (SF)",
+      value: formatInteger(sfStatusCounts.active ?? 0),
+      icon: "check_circle",
+      hint: "Salesforce Status__c = active",
     },
     {
       label: "Never ordered",
@@ -131,17 +230,12 @@ export function ChurnPreventionShell() {
       icon: "receipt_long",
       hint: "No delivered order on/after activation date",
     },
-    {
-      label: "Inactive + no order",
-      value: formatInteger(cp?.totals.both ?? 0),
-      icon: "priority_high",
-      hint: "Problem SF status and never ordered since activation",
-    },
   ];
 
   const viewButtons: { id: ViewMode; label: string; count: number }[] = [
     { id: "all", label: "All", count: viewCounts.all },
-    { id: "inactive", label: "Went inactive", count: viewCounts.inactive },
+    { id: "archived", label: "Archived", count: viewCounts.archived },
+    { id: "active", label: "Active", count: viewCounts.active },
     { id: "never-ordered", label: "Never ordered", count: viewCounts.neverOrdered },
   ];
 
@@ -228,13 +322,31 @@ export function ChurnPreventionShell() {
             onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
             className="min-w-[180px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
           >
-            <option value="all">All statuses</option>
-            <option value="inactive">Archived/Inactive</option>
-            <option value="hidden">Hidden</option>
-            <option value="deleted">Deleted</option>
-            <option value="active">Active</option>
-            <option value="onboarding">Onboarding</option>
+            <option value="all">All SF statuses</option>
+            <option value="inactive">Archived ({sfStatusCounts.inactive ?? 0})</option>
+            <option value="active">Active ({sfStatusCounts.active ?? 0})</option>
+            <option value="hidden">Hidden ({sfStatusCounts.hidden ?? 0})</option>
+            <option value="deleted">Deleted ({sfStatusCounts.deleted ?? 0})</option>
+            <option value="onboarding">Onboarding ({sfStatusCounts.onboarding ?? 0})</option>
             <option value="unknown">Unknown</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
+            DB status
+          </label>
+          <select
+            value={dbStatusFilter}
+            onChange={(e) => setDbStatusFilter(e.target.value as DbStatusFilter)}
+            className="min-w-[180px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+          >
+            <option value="all">All DB statuses</option>
+            <option value="active">Active ({dbStatusCounts.active ?? 0})</option>
+            <option value="hidden">Hidden ({dbStatusCounts.hidden ?? 0})</option>
+            <option value="deleted">Deleted ({dbStatusCounts.deleted ?? 0})</option>
+            <option value="onboarding">Onboarding ({dbStatusCounts.onboarding ?? 0})</option>
+            <option value="unknown">Unknown ({dbStatusCounts.unknown ?? 0})</option>
           </select>
         </div>
 
@@ -266,9 +378,95 @@ export function ChurnPreventionShell() {
           />
         </div>
 
+        <div className="flex flex-col gap-1">
+          <label className="text-label-md font-semibold uppercase tracking-wide text-on-surface-variant">
+            Activation date
+          </label>
+          <select
+            value={activationSort}
+            onChange={(e) => setActivationSort(e.target.value as ActivationSort)}
+            className="min-w-[180px] rounded-lg border border-outline-variant bg-surface-container px-md py-sm text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+          >
+            <option value="desc">Newest first</option>
+            <option value="asc">Oldest first</option>
+          </select>
+        </div>
+
         <p className="text-body-md text-on-surface-variant lg:ml-auto">
           Showing <span className="font-semibold text-on-surface">{formatInteger(filtered.length)}</span>
         </p>
+      </section>
+
+      <section className="glass-card rounded-xl p-lg">
+        <h3 className="mb-xs text-title-md font-bold text-on-surface">
+          Accounts by agent{" "}
+          <span className="text-label-md font-normal text-on-surface-variant">
+            (current filters · click a bar to filter by rep)
+          </span>
+        </h3>
+        <div className="mb-md flex flex-wrap gap-md text-label-md text-on-surface-variant">
+          <span className="flex items-center gap-xs">
+            <span className="h-3 w-3 rounded bg-primary" /> Complex
+          </span>
+          <span className="flex items-center gap-xs">
+            <span className="h-3 w-3 rounded bg-tertiary" /> Density
+          </span>
+        </div>
+        {loading && !cp ? (
+          <div className="animate-pulse h-40" />
+        ) : agentBars.length === 0 ? (
+          <p className="py-md text-center text-body-md text-on-surface-variant">
+            No agents in the current filter set.
+          </p>
+        ) : (
+          <div className="overflow-x-auto pb-sm">
+            <div
+              className="flex items-end justify-between gap-sm"
+              style={{ minHeight: 180, minWidth: Math.max(480, agentBars.length * 72) }}
+            >
+              {agentBars.map((bar) => {
+                const selected = agentFilter === `agent:${bar.agentId}`;
+                const barColor =
+                  bar.segment === "complex"
+                    ? selected
+                      ? "bg-primary"
+                      : "bg-primary/55"
+                    : selected
+                      ? "bg-tertiary"
+                      : "bg-tertiary/55";
+                return (
+                  <button
+                    key={bar.agentId}
+                    type="button"
+                    onClick={() =>
+                      setAgentFilter(selected ? "all" : (`agent:${bar.agentId}` as AgentFilter))
+                    }
+                    className={
+                      "flex min-w-[56px] flex-1 flex-col items-center gap-xs rounded-lg p-xs transition-colors hover:bg-surface-container-low " +
+                      (selected ? "ring-2 ring-primary/50" : "")
+                    }
+                    title={`${bar.name} · ${bar.count} · ${bar.segment}`}
+                  >
+                    <span className="text-label-md font-semibold text-on-surface">
+                      {formatInteger(bar.count)}
+                    </span>
+                    <div className="flex w-full items-end justify-center" style={{ height: 110 }}>
+                      <div
+                        className={`w-8 rounded-t ${barColor}`}
+                        style={{
+                          height: `${Math.max(6, (bar.count / maxAgentCount) * 100)}%`,
+                        }}
+                      />
+                    </div>
+                    <span className="max-w-[72px] truncate text-center text-[11px] font-semibold leading-tight text-on-surface-variant">
+                      {bar.name.split(" ").slice(-1)[0] || bar.name}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </section>
 
       <div className="glass-card overflow-hidden rounded-xl">
@@ -286,7 +484,25 @@ export function ChurnPreventionShell() {
                   <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">Account</th>
                   <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">City</th>
                   <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">Rep</th>
-                  <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">Activated</th>
+                  <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setActivationSort((prev) => (prev === "desc" ? "asc" : "desc"))
+                      }
+                      className="inline-flex items-center gap-1 hover:text-on-surface"
+                      title={
+                        activationSort === "desc"
+                          ? "Sorted newest first — click for oldest first"
+                          : "Sorted oldest first — click for newest first"
+                      }
+                    >
+                      Activated
+                      <span className="material-symbols-outlined text-[14px]" aria-hidden>
+                        {activationSort === "desc" ? "arrow_downward" : "arrow_upward"}
+                      </span>
+                    </button>
+                  </th>
                   <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">SF status</th>
                   <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">DB status</th>
                   <th className="px-md py-sm text-label-md font-bold text-on-surface-variant">First order</th>
