@@ -1,0 +1,117 @@
+name: Dashy data refresh
+
+# Nightly worker for dashy. Triggered by n8n (workflow_dispatch) or manually.
+# Pulls CRM + delivery caches from Databricks, rebuilds dashboard.json, pushes
+# main (Paketo redeploy), then Slack-DMs Bianca.
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_freshness:
+        description: "Skip Fivetran sync-age gate (emergency only)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashy-data-refresh
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Pull caches from Databricks
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_WAREHOUSE_ID: ${{ secrets.DATABRICKS_WAREHOUSE_ID }}
+          DASHY_SKIP_FRESHNESS: ${{ inputs.skip_freshness == 'true' && '1' || '' }}
+        run: npm run data:pull-databricks
+
+      - name: Merge stage-history / weekly chunks
+        run: node scripts/fetch-sf-stage-history.mjs --kind=all
+
+      - name: Rebuild dashboard sections
+        run: npm run refresh-all
+
+      - name: Production build + verify
+        run: npm run build
+
+      - name: Commit refreshed data
+        id: commit
+        run: |
+          set -euo pipefail
+          git config user.name "dashy-data-refresh[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/dashboard.json data/mtd-details.json scripts/.cache || true
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No data changes to commit."
+          else
+            UPDATED_AT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/dashboard.json','utf8')).updatedAt || '')")
+            git commit -m "chore(data): Databricks refresh ${UPDATED_AT}"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "updated_at=${UPDATED_AT}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push to main
+        if: steps.commit.outputs.changed == 'true'
+        run: |
+          git push origin HEAD:main
+
+      - name: Resolve updatedAt
+        id: meta
+        run: |
+          UPDATED_AT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/dashboard.json','utf8')).updatedAt || '')")
+          echo "updated_at=${UPDATED_AT}" >> "$GITHUB_OUTPUT"
+
+      - name: Slack DM Bianca
+        if: success()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          UPDATED_AT: ${{ steps.meta.outputs.updated_at }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SLACK_BOT_TOKEN:-}" ]; then
+            echo "SLACK_BOT_TOKEN not set — skipping Bianca notify"
+            exit 0
+          fi
+          MSG="Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated ${UPDATED_AT}). Please check the data when you get a chance."
+          curl -sS -X POST https://slack.com/api/chat.postMessage \
+            -H "Authorization: Bearer ${SLACK_BOT_TOKEN}" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "$(jq -n --arg channel "U01AHG4UAPR" --arg text "$MSG" '{channel:$channel,text:$text}')" \
+            | tee /tmp/slack-bianca.json
+          ok=$(jq -r .ok /tmp/slack-bianca.json)
+          if [ "$ok" != "true" ]; then
+            echo "Slack API error:"
+            cat /tmp/slack-bianca.json
+            exit 1
+          fi
