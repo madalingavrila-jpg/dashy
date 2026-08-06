@@ -563,8 +563,8 @@ export function ChurnPreventionShell() {
                           className="text-on-surface"
                           title={
                             a.ordersAfterActivation != null && a.ordersAfterActivation > 0
-                              ? `${a.ordersAfterActivation} delivered orders in months on/after activation`
-                              : undefined
+                              ? `${a.ordersAfterActivation} delivered orders in activation month and later`
+                              : "Has delivered orders in the current query month"
                           }
                         >
                           {formatDate(a.firstOrderDate) || "Ordered after act."}
@@ -572,7 +572,7 @@ export function ChurnPreventionShell() {
                       ) : a.firstOrderDate ? (
                         <span
                           className="font-semibold text-error"
-                          title={`Lifetime first order ${a.firstOrderDate} was before activation; no delivered orders in months on/after activation`}
+                          title={`No delivered orders in activation month or later (lifetime first order ${a.firstOrderDate} is display-only)`}
                         >
                           No order after act.
                         </span>

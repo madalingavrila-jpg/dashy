@@ -168536,10 +168536,10 @@
     }
   },
   "churnPrevention": {
-    "generatedAt": "2026-08-06T11:01:26.679Z",
+    "generatedAt": "2026-08-06T17:17:06.731Z",
     "year": 2026,
     "country": "Romania",
-    "metricsNote": "YTD Romania activations by Complex + Density reps. SF Status__c is the source of truth for inactive (archived/inactive), hidden, and deleted; Databricks provider_status is a platform cross-check. Never ordered = no delivered orders in any calendar month on/after activation (fact_provider_monthly) and first_order_date is before activation (or null).",
+    "metricsNote": "YTD Romania activations by Complex + Density reps. SF Status__c is the source of truth for inactive (archived/inactive), hidden, and deleted; Databricks provider_status is a platform cross-check. Never ordered = zero delivered orders in the activation month and every month after (fact_provider_monthly); accounts with any order in the current query month are not shown as without orders. Lifetime first_order_date is display-only.",
     "totals": {
       "accounts": 1212,
       "problemStatus": 541,

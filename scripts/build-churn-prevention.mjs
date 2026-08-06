@@ -20,6 +20,8 @@ import {
   buildMonthlyOrdersByProvider,
   buildOppByProvider,
   buildSfStatusByProvider,
+  currentQueryMonth,
+  hasOrdersInMonth,
   ordersSinceActivationMonth,
   rollupChurnTotals,
 } from "../lib/churn-prevention-build.mjs";
@@ -36,13 +38,16 @@ function main() {
   const oppRows = readMcpResult(cacheDir, "accounts-perf-prov-opp.json");
   const oppByProvider = buildOppByProvider(oppRows);
 
+  const queryMonth = currentQueryMonth();
   let monthlyByProvider = new Map();
+  let hasMonthly = false;
   try {
     const monthlyRows = readMcpResult(cacheDir, "accounts-perf-monthly.json");
     monthlyByProvider = buildMonthlyOrdersByProvider(monthlyRows);
+    hasMonthly = true;
   } catch {
     console.warn(
-      "[build-churn-prevention] no accounts-perf-monthly.json — hasOrder falls back to first_order_date only.",
+      "[build-churn-prevention] no accounts-perf-monthly.json — neverOrdered cannot be computed from monthly orders (all accounts treated as never-ordered).",
     );
   }
 
@@ -79,11 +84,12 @@ function main() {
     if (!sf) missingSf += 1;
 
     const activatedDate = row[3] != null ? String(row[3]).slice(0, 10) : null;
-    const ordersAfterActivation = ordersSinceActivationMonth(
-      monthlyByProvider,
-      providerId,
-      activatedDate,
-    );
+    const ordersAfterActivation = hasMonthly
+      ? ordersSinceActivationMonth(monthlyByProvider, providerId, activatedDate)
+      : 0;
+    const hasOrderInQueryMonth = hasMonthly
+      ? hasOrdersInMonth(monthlyByProvider, providerId, queryMonth)
+      : false;
 
     accounts.push(
       assembleChurnAccount(row, {
@@ -93,6 +99,7 @@ function main() {
         sf,
         opportunityId: oppByProvider.get(providerId) ?? null,
         ordersAfterActivation,
+        hasOrderInQueryMonth,
       }),
     );
   }
@@ -134,8 +141,9 @@ function main() {
     metricsNote:
       "YTD Romania activations by Complex + Density reps. SF Status__c is the source of truth " +
       "for inactive (archived/inactive), hidden, and deleted; Databricks provider_status is a " +
-      "platform cross-check. Never ordered = no delivered orders in any calendar month on/after " +
-      "activation (fact_provider_monthly) and first_order_date is before activation (or null).",
+      "platform cross-check. Never ordered = zero delivered orders in the activation month and " +
+      "every month after (fact_provider_monthly); accounts with any order in the current query " +
+      "month are not shown as without orders. Lifetime first_order_date is display-only.",
     totals,
     agents,
     accounts,
