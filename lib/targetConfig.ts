@@ -90,13 +90,16 @@ function progressPercent(actual: number, target: number): number {
 }
 
 export type TargetConfigPersistence = {
-  mode: "github" | "filesystem";
+  mode: "s3" | "github" | "filesystem";
   committed?: boolean;
   commitSha?: string;
   warning?: string;
 };
 
 export function formatTargetSaveMessage(persistence?: TargetConfigPersistence): string {
+  if (persistence?.mode === "s3" && persistence.committed) {
+    return "Targets saved to File Storage (S3) — survives redeploy.";
+  }
   if (persistence?.mode === "github" && persistence.committed) {
     const sha = persistence.commitSha?.slice(0, 7);
     return sha

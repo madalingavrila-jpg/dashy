@@ -579,19 +579,76 @@ curl http://localhost:8080/api/health | jq '.gitSha'
 
 ## Target overrides (`data/target-config.json`)
 
-Settings → **Save targets** calls `PUT /api/target-config`. On Boltable the container filesystem is **ephemeral** — file-only saves are lost on Paketo redeploy.
+Settings → **Save targets** calls `PUT /api/target-config`. On Boltable the
+container filesystem is **ephemeral** — durable saves go to **File Storage (S3)**.
 
-**Production (Boltable):** set `GITHUB_TOKEN`, `GITHUB_REPO=boltable/dashy`, and optional `GITHUB_BRANCH=main`. Each save writes the file locally **and** commits it via the GitHub Contents API so the next deploy restores overrides from git.
+**Production (Boltable):** File Storage is enabled (`boltable-dashy`,
+`eu-central-1`, IRSA). Each save writes locally **and** to
+`s3://boltable-dashy/data/target-config.json`. On boot the API prefers the S3
+copy (and seeds S3 from the repo file on first run if the object is missing).
 
-**Cursor agents:** When updating target overrides via Settings or API, ensure `data/target-config.json` is committed to git before/after deploy. If `GITHUB_TOKEN` is configured on Boltable, Settings saves auto-commit; otherwise commit the file manually and push to `boltable/dashy`.
+**Optional dual-write:** `GITHUB_TOKEN` + `GITHUB_REPO=boltable/dashy` still
+commits the file to git as a backup, but **S3 is the source of truth**.
 
-**Local dev:** without `GITHUB_TOKEN`, saves work for the current process only (filesystem mode).
+**Cursor agents:** Prefer updating overrides via Settings on production (S3) or
+editing `data/target-config.json` then committing for the seed/fallback copy.
+Do not rely on git alone for runtime persistence.
+
+**Local dev:** without IRSA, saves are filesystem-only for the current process.
+
+## File Storage (S3) — preferred
+
+The recommended way to persist runtime data on Boltable. Durable, platform-managed,
+nothing to back up yourself.
+
+**Enabled for this app:**
+
+- **Bucket name**: `boltable-dashy`
+- **Region**: `eu-central-1`
+- **Authentication**: IRSA injects credentials automatically. **Never hardcode AWS keys.**
+
+Install / usage (server-side only):
+
+```
+npm install @aws-sdk/client-s3
+```
+
+```ts
+import {
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+  ListObjectsV2Command,
+} from "@aws-sdk/client-s3";
+
+const s3 = new S3Client({ region: "eu-central-1" });
+const BUCKET = "boltable-dashy";
+
+await s3.send(
+  new PutObjectCommand({
+    Bucket: BUCKET,
+    Key: "data/target-config.json",
+    Body: json,
+  }),
+);
+
+const { Body } = await s3.send(
+  new GetObjectCommand({ Bucket: BUCKET, Key: "data/target-config.json" }),
+);
+const text = await Body!.transformToString();
+```
+
+Helpers live in `src/services/s3.ts`. Today **target overrides** use S3; dashboard
+JSON is still built/committed via the Cursor refresh workflow (precomputed at
+build time). Prefer S3 for any new runtime-mutable state — do not use git as a
+data store for scheduled refreshes.
 
 ## Do not
 
 - Add login/logout or auth flows.
 - Require `SALESFORCE_*` or `LOOKER_*` env vars on Boltable.
 - Merge Won and Activated into a single metric.
+- Hardcode AWS credentials (IRSA only).
 
 ## Slack
 

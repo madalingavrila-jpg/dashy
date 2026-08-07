@@ -73,15 +73,11 @@ PORT=8080
 
 `DASHY_CACHE_TTL_MS` (default **5 minutes**) controls how long the server keeps the parsed dashboard in memory before re-reading the file (also invalidated when `dashboard.json` mtime changes).
 
-**Target overrides (Settings → Save targets):** `PUT /api/target-config` writes `data/target-config.json`. Boltable’s filesystem is ephemeral — without git persistence, overrides are lost on redeploy. Set on Boltable:
-
-```
-GITHUB_TOKEN=<PAT with repo contents write on boltable/dashy>
-GITHUB_REPO=boltable/dashy
-GITHUB_BRANCH=main
-```
-
-When configured, each save commits `data/target-config.json` via the GitHub Contents API; the next Paketo build pulls the file from git. Expect a short redeploy (~1–2 min) after each target save, same as dashboard data pushes.
+**Target overrides (Settings → Save targets):** `PUT /api/target-config` writes
+`data/target-config.json` locally and to **Boltable File Storage (S3)**
+(`s3://boltable-dashy/data/target-config.json`, region `eu-central-1`, IRSA — no
+AWS keys). S3 is the source of truth across redeploys. Optional: set
+`GITHUB_TOKEN` + `GITHUB_REPO=boltable/dashy` for a git dual-write backup.
 
 Google Sheet (agent refresh): `1IW8IxEs-YCsYMlCeTfkIz-b51eStjR5uUIEpkV1akRE` — see `AGENTS.md`.
 
