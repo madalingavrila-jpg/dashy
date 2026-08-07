@@ -1,0 +1,13 @@
+import type { DatabaseConfig } from '@n8n/config';
+import { DateTime } from 'luxon';
+export declare const getDateRangesCommonTableExpressionQuery: ({ startDate, endDate, dbType, }: {
+    startDate: Date;
+    endDate: Date;
+    dbType: DatabaseConfig["type"];
+}) => string;
+export declare function getDateRangesSelectQuery({ dbType, prevStartDateTime, startDateTime, endDateTime, }: {
+    dbType: DatabaseConfig['type'];
+    prevStartDateTime: DateTime;
+    startDateTime: DateTime;
+    endDateTime: DateTime;
+}): string;

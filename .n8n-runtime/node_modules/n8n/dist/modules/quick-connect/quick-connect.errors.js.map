@@ -1,0 +1,1 @@
+{"version":3,"file":"quick-connect.errors.js","sourceRoot":"","sources":["../../../src/modules/quick-connect/quick-connect.errors.ts"],"names":[],"mappings":";;;AAAA,+CAAgD;AAKhD,MAAa,iBAAkB,SAAQ,+BAAgB;IACtD,YACC,OAAe,EACN,cAAsB,EAC/B,KAAa;QAEb,KAAK,CAAC,OAAO,EAAE,EAAE,KAAK,EAAE,KAAK,EAAE,EAAE,cAAc,EAAE,EAAE,CAAC,CAAC;QAH5C,mBAAc,GAAd,cAAc,CAAQ;IAIhC,CAAC;CACD;AARD,8CAQC"}

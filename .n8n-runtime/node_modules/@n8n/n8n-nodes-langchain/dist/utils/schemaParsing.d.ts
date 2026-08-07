@@ -1,0 +1,6 @@
+import type { JSONSchema7 } from 'json-schema';
+import type { IExecuteFunctions } from 'n8n-workflow';
+import type { z } from 'zod';
+export declare function generateSchemaFromExample(exampleJsonString: string, allFieldsRequired?: boolean): JSONSchema7;
+export declare function convertJsonSchemaToZod<T extends z.ZodTypeAny = z.ZodTypeAny>(schema: JSONSchema7): T;
+export declare function throwIfToolSchema(ctx: IExecuteFunctions, error: Error): void;

@@ -1,0 +1,7 @@
+import { type DynamicStructuredTool, type StructuredToolInterface, BaseToolkit } from '@langchain/core/tools';
+export declare class StructuredToolkit extends BaseToolkit {
+    tools: DynamicStructuredTool[];
+    constructor(tools: DynamicStructuredTool[]);
+    getTools(): StructuredToolInterface[];
+}
+export type SupplyDataToolResponse = DynamicStructuredTool | StructuredToolkit;

@@ -1,0 +1,13 @@
+import type { OpenAIClient } from '@langchain/openai';
+import { type IDataObject, type IExecuteFunctions } from 'n8n-workflow';
+import type { ChatResponseRequest } from '../../../../helpers/interfaces';
+export declare function formatInputMessages(this: IExecuteFunctions, i: number, messages: IDataObject[]): Promise<OpenAIClient.Responses.ResponseInputItem.Message[]>;
+interface CreateRequestOptions {
+    model: string;
+    messages: IDataObject[];
+    options: IDataObject;
+    builtInTools?: IDataObject;
+    tools?: OpenAIClient.Responses.FunctionTool[];
+}
+export declare function createRequest(this: IExecuteFunctions, i: number, { model, messages, options, builtInTools, tools }: CreateRequestOptions): Promise<ChatResponseRequest>;
+export {};

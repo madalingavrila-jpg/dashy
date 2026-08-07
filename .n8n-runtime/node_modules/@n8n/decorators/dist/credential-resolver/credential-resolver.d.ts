@@ -1,0 +1,25 @@
+import type { Constructable } from '@n8n/di';
+import type { ICredentialContext, ICredentialDataDecryptedObject, INodeProperties } from 'n8n-workflow';
+export type CredentialResolverConfiguration = Record<string, unknown>;
+export type CredentialResolverHandle = {
+    configuration: CredentialResolverConfiguration;
+    resolverName: string;
+    resolverId: string;
+};
+export interface CredentialResolverMetadata {
+    name: string;
+    description: string;
+    displayName?: string;
+    options?: INodeProperties[];
+}
+export interface ICredentialResolver {
+    metadata: CredentialResolverMetadata;
+    getSecret(credentialId: string, context: ICredentialContext, handle: CredentialResolverHandle): Promise<ICredentialDataDecryptedObject>;
+    setSecret(credentialId: string, context: ICredentialContext, data: ICredentialDataDecryptedObject, handle: CredentialResolverHandle): Promise<void>;
+    deleteSecret?(credentialId: string, context: ICredentialContext, handle: CredentialResolverHandle): Promise<void>;
+    deleteAllSecrets?(handle: CredentialResolverHandle): Promise<void>;
+    validateOptions(options: CredentialResolverConfiguration): Promise<void>;
+    validateIdentity?(context: ICredentialContext, handle: CredentialResolverHandle): Promise<void>;
+    init?(): Promise<void>;
+}
+export type CredentialResolverClass = Constructable<ICredentialResolver>;

@@ -1,0 +1,16 @@
+export interface RateLimiterLimits {
+    limit?: number;
+    windowMs?: number;
+}
+export interface BodyKeyedRateLimiterConfig extends RateLimiterLimits {
+    source: 'body';
+    field: string;
+}
+export interface UserKeyedRateLimiterConfig extends RateLimiterLimits {
+    source: 'user';
+}
+export type KeyedRateLimiterConfig = BodyKeyedRateLimiterConfig | UserKeyedRateLimiterConfig;
+export declare const createBodyKeyedRateLimiter: <T extends object>({ limit, windowMs, field, }: RateLimiterLimits & {
+    field: keyof T & string;
+}) => BodyKeyedRateLimiterConfig;
+export declare const createUserKeyedRateLimiter: ({ limit, windowMs, }: RateLimiterLimits) => UserKeyedRateLimiterConfig;

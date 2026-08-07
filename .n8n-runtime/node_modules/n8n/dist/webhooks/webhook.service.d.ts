@@ -1,0 +1,37 @@
+import { Logger } from '@n8n/backend-common';
+import type { WebhookEntity } from '@n8n/db';
+import { WebhookRepository } from '@n8n/db';
+import type { IHttpRequestMethods, INode, IRunExecutionData, IWebhookData, IWebhookResponseData, IWorkflowExecuteAdditionalData, Workflow, WorkflowActivateMode, WorkflowExecuteMode } from 'n8n-workflow';
+import { NodeTypes } from '../node-types';
+import { CacheService } from '../services/cache/cache.service';
+import type { Method } from './webhook.types';
+export declare class WebhookService {
+    private readonly logger;
+    private readonly webhookRepository;
+    private readonly cacheService;
+    private readonly nodeTypes;
+    constructor(logger: Logger, webhookRepository: WebhookRepository, cacheService: CacheService, nodeTypes: NodeTypes);
+    populateCache(): Promise<void>;
+    findAll(): Promise<WebhookEntity[]>;
+    private findCached;
+    private findStaticWebhook;
+    private findDynamicWebhook;
+    findWebhook(method: Method, path: string): Promise<WebhookEntity | null>;
+    storeWebhook(webhook: WebhookEntity): Promise<void>;
+    createWebhook(data: Partial<WebhookEntity>): WebhookEntity;
+    deleteWorkflowWebhooks(workflowId: string): Promise<WebhookEntity[]>;
+    private deleteWebhooks;
+    getWebhookMethods(rawPath: string): Promise<IHttpRequestMethods[]>;
+    private isDynamicPath;
+    getWebhookPath(webhook: IWebhookData): string;
+    getNodeWebhooks(workflow: Workflow, node: INode, additionalData: IWorkflowExecuteAdditionalData, ignoreRestartWebhooks?: boolean): IWebhookData[];
+    private _findWebhookConflicts;
+    findWebhookConflicts(workflow: Workflow, additionalData: IWorkflowExecuteAdditionalData): Promise<{
+        trigger: INode;
+        conflict: Partial<WebhookEntity>;
+    }[]>;
+    createWebhookIfNotExists(workflow: Workflow, webhookData: IWebhookData, mode: WorkflowExecuteMode, activation: WorkflowActivateMode): Promise<void>;
+    deleteWebhook(workflow: Workflow, webhookData: IWebhookData, mode: WorkflowExecuteMode, activation: WorkflowActivateMode): Promise<void>;
+    private runWebhookMethod;
+    runWebhook(workflow: Workflow, webhookData: IWebhookData, node: INode, additionalData: IWorkflowExecuteAdditionalData, mode: WorkflowExecuteMode, runExecutionData: IRunExecutionData | null): Promise<IWebhookResponseData>;
+}

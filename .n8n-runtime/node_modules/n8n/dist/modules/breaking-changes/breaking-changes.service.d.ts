@@ -1,0 +1,32 @@
+import { BreakingChangeInstanceRuleResult, BreakingChangeReportResult, BreakingChangeVersion, BreakingChangeWorkflowRuleResult } from '@n8n/api-types';
+import { Logger } from '@n8n/backend-common';
+import { WorkflowRepository, WorkflowStatisticsRepository } from '@n8n/db';
+import { ErrorReporter } from 'n8n-core';
+import { CacheService } from '../../services/cache/cache.service';
+import { RuleRegistry } from './breaking-changes.rule-registry.service';
+import type { IBreakingChangeInstanceRule } from './types';
+export declare class BreakingChangeService {
+    private readonly ruleRegistry;
+    private readonly workflowRepository;
+    private readonly workflowStatisticsRepository;
+    private readonly cacheService;
+    private readonly logger;
+    private readonly errorReporter;
+    private readonly batchSize;
+    private static readonly REPORT_DURATION_CACHE_THRESHOLD;
+    private static readonly CACHE_KEY_PREFIX;
+    private readonly ongoingDetections;
+    constructor(ruleRegistry: RuleRegistry, workflowRepository: WorkflowRepository, workflowStatisticsRepository: WorkflowStatisticsRepository, cacheService: CacheService, logger: Logger, errorReporter: ErrorReporter);
+    registerRules(): void;
+    getAllInstanceRulesResults(instanceLevelRules: IBreakingChangeInstanceRule[]): Promise<BreakingChangeInstanceRuleResult[]>;
+    private groupNodesByType;
+    private aggregateRegularRuleResults;
+    private aggregateBatchRuleResults;
+    private getAllWorkflowRulesResults;
+    refreshDetectionResults(targetVersion: BreakingChangeVersion): Promise<BreakingChangeReportResult>;
+    getDetectionResults(targetVersion: BreakingChangeVersion): Promise<BreakingChangeReportResult>;
+    private shouldCacheDetection;
+    detect(targetVersion: BreakingChangeVersion): Promise<BreakingChangeReportResult>;
+    getDetectionReportForRule(ruleId: string): Promise<BreakingChangeInstanceRuleResult | BreakingChangeWorkflowRuleResult | undefined>;
+    private createDetectionReport;
+}

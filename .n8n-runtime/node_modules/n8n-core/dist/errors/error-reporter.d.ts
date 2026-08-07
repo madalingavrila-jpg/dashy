@@ -1,0 +1,44 @@
+import { Logger } from '@n8n/backend-common';
+import { type InstanceType } from '@n8n/constants';
+import type { ReportingOptions } from '@n8n/errors';
+import type { ErrorEvent, EventHint } from '@sentry/core';
+import { Tracing } from '../observability';
+type SentryIntegration = 'Redis' | 'Postgres' | 'Http' | 'Express';
+type ErrorReporterInitOptions = {
+    serverType: InstanceType | 'task_runner';
+    dsn: string;
+    release: string;
+    environment: string;
+    serverName: string;
+    releaseDate?: Date;
+    withEventLoopBlockDetection: boolean;
+    eventLoopBlockThreshold?: number;
+    tracesSampleRate: number;
+    profilesSampleRate: number;
+    beforeSendFilter?: (event: ErrorEvent, hint: EventHint) => boolean;
+    eligibleIntegrations?: Partial<Record<SentryIntegration, boolean>>;
+    healthEndpoint?: string;
+};
+export declare class ErrorReporter {
+    private readonly logger;
+    private readonly tracing;
+    private expirationTimer?;
+    private seenErrors;
+    private report;
+    private beforeSendFilter?;
+    constructor(logger: Logger, tracing: Tracing);
+    private defaultReport;
+    shutdown(timeoutInMs?: number): Promise<void>;
+    init({ beforeSendFilter, dsn, serverType, release, environment, serverName, releaseDate, withEventLoopBlockDetection, eventLoopBlockThreshold, profilesSampleRate, tracesSampleRate, eligibleIntegrations, healthEndpoint, }: ErrorReporterInitOptions): Promise<void>;
+    beforeSend(event: ErrorEvent, hint: EventHint): Promise<ErrorEvent | null>;
+    error(e: unknown, options?: ReportingOptions): void;
+    warn(warning: Error | string, options?: ReportingOptions): void;
+    info(msg: string, options?: ReportingOptions): void;
+    private wrap;
+    private isIgnoredSqliteError;
+    private isIgnoredN8nError;
+    private extractEventDetailsFromN8nError;
+    private getEventLoopBlockIntegration;
+    private getProfilingIntegration;
+}
+export {};
