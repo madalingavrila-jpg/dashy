@@ -79,8 +79,7 @@ export function SettingsPanels({
             <div className="flex justify-between border-b border-outline-variant py-sm">
               <dt className="text-on-surface-variant">Target overrides</dt>
               <dd className="max-w-[60%] text-right text-sm">
-                With GITHUB_TOKEN: saved to git (all browsers). Without: localStorage fallback until
-                redeploy.
+                Saved to File Storage (S3) — shared by all users, survives redeploy.
               </dd>
             </div>
             <div className="flex justify-between border-b border-outline-variant py-sm">

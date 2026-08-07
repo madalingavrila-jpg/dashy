@@ -2,9 +2,8 @@ import type { DashboardModel, MtdDetails } from "@/types/dashboard";
 import type { TargetConfig } from "@/lib/targetConfig";
 
 export type TargetConfigPersistence = {
-  mode: "github" | "filesystem";
+  mode: "s3" | "filesystem";
   committed?: boolean;
-  commitSha?: string;
   warning?: string;
 };
 

@@ -74,7 +74,9 @@ Refresh ALL Bolt Food sales dashboard data and deploy it. Run fully non-interact
 2. Databricks MCP (mcp-databricks-bolt) — refresh accounts-perf-accounts.json, accounts-perf-monthly.json, accounts-perf-quality.json (revenue/quality; replaces Looker).
 3. Run: npm run refresh-all   (orchestrator — rebuilds ALL sections: Overview/MTD, Weekly, WoW, MOPS, Accounts performance, MyPipeline, Inbound — into data/dashboard.json with a fresh updatedAt; never wipes a tab).
 4. Run: npm run build   (Next build + precompute + verify-build; it must pass — verify-build fails loudly if any section is empty or Won == Activated).
-5. Commit data/dashboard.json and the refreshed scripts/.cache exports, then push to the "boltable" remote main branch so Boltable (Paketo) redeploys.
+5. Commit data/dashboard.json and the refreshed scripts/.cache exports (optional if using S3 publish), then either:
+   a) `npm run upload-s3` / publish API for data-only (no Paketo), OR
+   b) push to the "boltable" remote main branch so Boltable (Paketo) redeploys (also seeds S3 on boot).
 
 Do NOT send any Slack messages. If the Salesforce or Databricks MCP is unavailable, stop and report the failure instead of committing stale data.
 EOF

@@ -11,18 +11,30 @@ export const S3_REGION = config.s3Region;
 
 const s3 = new S3Client({ region: S3_REGION });
 
-export async function putS3Object(key: string, body: string, contentType = "application/json"): Promise<void> {
+export async function putS3Object(
+  key: string,
+  body: string | Uint8Array | Buffer,
+  contentType = "application/json",
+  contentEncoding?: string,
+): Promise<void> {
   await s3.send(
     new PutObjectCommand({
       Bucket: S3_BUCKET,
       Key: key,
       Body: body,
       ContentType: contentType,
+      ...(contentEncoding ? { ContentEncoding: contentEncoding } : {}),
     }),
   );
 }
 
 export async function getS3ObjectText(key: string): Promise<string | null> {
+  const bytes = await getS3ObjectBytes(key);
+  if (!bytes) return null;
+  return Buffer.from(bytes).toString("utf8");
+}
+
+export async function getS3ObjectBytes(key: string): Promise<Buffer | null> {
   try {
     const result = await s3.send(
       new GetObjectCommand({
@@ -31,7 +43,8 @@ export async function getS3ObjectText(key: string): Promise<string | null> {
       }),
     );
     if (!result.Body) return null;
-    return await result.Body.transformToString();
+    const bytes = await result.Body.transformToByteArray();
+    return Buffer.from(bytes);
   } catch (error) {
     const name = error instanceof Error ? error.name : "";
     const message = error instanceof Error ? error.message : String(error);

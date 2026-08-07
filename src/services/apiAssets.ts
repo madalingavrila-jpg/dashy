@@ -32,36 +32,60 @@ function readIfExists(filePath: string): Buffer | null {
   }
 }
 
+function etagForRaw(raw: Buffer): string {
+  return `"${crypto.createHash("sha1").update(raw).digest("base64").slice(0, 27)}"`;
+}
+
 function loadAsset(filePath: string): ApiAsset | null {
   const raw = readIfExists(filePath);
   if (!raw) {
     return null;
   }
-  const etag = `"${crypto.createHash("sha1").update(raw).digest("base64").slice(0, 27)}"`;
   return {
     raw,
     gzip: readIfExists(`${filePath}.gz`),
     br: readIfExists(`${filePath}.br`),
-    etag,
+    etag: etagForRaw(raw),
     contentType: CONTENT_TYPE_JSON,
   };
 }
 
-const assets = new Map<string, ApiAsset>();
+/** Build an ApiAsset from in-memory buffers (S3 sync / publish). */
+export function buildApiAsset(
+  raw: Buffer,
+  gzip: Buffer | null = null,
+  br: Buffer | null = null,
+): ApiAsset {
+  return {
+    raw,
+    gzip,
+    br,
+    etag: etagForRaw(raw),
+    contentType: CONTENT_TYPE_JSON,
+  };
+}
+
+let assets = new Map<string, ApiAsset>();
 
 /** Preload precomputed JSON (+ gzip/br) into memory. Safe to call repeatedly. */
 export function preloadApiAssets(): void {
-  assets.clear();
+  const next = new Map<string, ApiAsset>();
   const full = loadAsset(getPrecomputedApiPath());
   if (full) {
-    assets.set("dashboard", full);
+    next.set("dashboard", full);
   }
   for (const section of DASHBOARD_SECTIONS) {
     const asset = loadAsset(getPrecomputedSectionPath(section));
     if (asset) {
-      assets.set(`dashboard/${section}`, asset);
+      next.set(`dashboard/${section}`, asset);
     }
   }
+  assets = next;
+}
+
+/** Atomically replace the in-memory asset map (S3 / publish hot-swap). */
+export function replaceApiAssets(next: Map<string, ApiAsset>): void {
+  assets = next;
 }
 
 export function getFullDashboardAsset(): ApiAsset | undefined {
@@ -70,6 +94,22 @@ export function getFullDashboardAsset(): ApiAsset | undefined {
 
 export function getSectionAsset(section: DashboardSection): ApiAsset | undefined {
   return assets.get(`dashboard/${section}`);
+}
+
+export function getApiAsset(key: string): ApiAsset | undefined {
+  return assets.get(key);
+}
+
+/** Parse updatedAt from the preloaded full dashboard payload, if present. */
+export function getLocalDashboardUpdatedAt(): string | null {
+  const full = assets.get("dashboard");
+  if (!full) return null;
+  try {
+    const parsed = JSON.parse(full.raw.toString("utf8")) as { updatedAt?: string };
+    return typeof parsed.updatedAt === "string" ? parsed.updatedAt : null;
+  } catch {
+    return null;
+  }
 }
 
 function acceptsEncoding(req: Request, encoding: string): boolean {

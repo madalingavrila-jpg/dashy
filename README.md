@@ -76,8 +76,17 @@ PORT=8080
 **Target overrides (Settings → Save targets):** `PUT /api/target-config` writes
 `data/target-config.json` locally and to **Boltable File Storage (S3)**
 (`s3://boltable-dashy/data/target-config.json`, region `eu-central-1`, IRSA — no
-AWS keys). S3 is the source of truth across redeploys. Optional: set
-`GITHUB_TOKEN` + `GITHUB_REPO=boltable/dashy` for a git dual-write backup.
+AWS keys). S3 is the sole durable store (no GitHub dual-write).
+
+**Live dashboard on S3:** after `npm run build`, run `npm run upload-s3` (needs AWS
+creds) or `npm run upload-s3 -- --publish https://dashy.boltable.eu` (needs
+`DASHY_PUBLISH_TOKEN` on Boltable + locally). On boot the server syncs S3 ↔ local
+precompute (newer wins) and polls for fresher S3 data without redeploy.
+
+**Runtime prefs:** `GET/PUT /api/prefs` → `s3://boltable-dashy/data/dashy-prefs.json`
+(banner / WoW favorites / filters).
+
+**Do not put in S3:** secrets, Salesforce tokens, or huge raw dumps over ~25MB.
 
 Google Sheet (agent refresh): `1IW8IxEs-YCsYMlCeTfkIz-b51eStjR5uUIEpkV1akRE` — see `AGENTS.md`.
 
@@ -89,17 +98,23 @@ Config files: `project.toml`, `Procfile`.
 
 **Auto-update:** every `git push` to the Boltable remote triggers a full rebuild and restart. Expect **~1–2 minutes of 503** (“Application is not responding”) while Paketo builds Next.js and swaps the container — this is normal redeploy downtime, not a crash.
 
-**Health check:** `GET /api/health` is lightweight (no dashboard load). It reports `staticReady`, `dashboardCacheReady`, `gitSha`, `cacheTtlMs`, and `uptime`.
+**Health check:** `GET /api/health` is lightweight (no dashboard load). It reports
+`staticReady`, `dashboardCacheReady`, `dashboardUpdatedAt`, `dashboardS3Sync`,
+`gitSha`, `cacheTtlMs`, and `uptime`.
 
 **Payload size:** `scripts/build-dashboard-data.mjs` and `scripts/slim-dashboard-json.mjs` write a **slim source** `data/dashboard.json` (~200–300KB): MTD `wonItems`/`activatedItems` only for the current month, weekly account lists only for the current ISO week, account tabs capped at 28 rows with Salesforce list URLs. Build precomputes `out/api/dashboard.json` (~200KB, must stay under **350KB**). UI shows **Date actualizate** in TopBar and page headers.
 
-**Tips to avoid repeated downtime:** batch commits before pushing; data-only updates (`data/dashboard.json`) still trigger a full rebuild on Boltable.
+**Tips to avoid repeated downtime:** batch commits before pushing; for **data-only**
+updates prefer `npm run upload-s3` / publish API (no Paketo rebuild) once S3 is
+seeded. UI/code changes still need a git push + redeploy.
 
 ## Scripts
 
 | Script | Description |
 |--------|-------------|
 | **`npm run refresh-all`** | **Rebuild ALL dashboard sections** from cached SF + Databricks exports (orchestrator — Overview/MTD, Weekly, WoW, MOPS, Accounts performance, MyPipeline, Inbound). Idempotent; never wipes a tab. Aliases: `npm run data:build`, `npm run data:refresh`. |
+| `npm run upload-s3` | Upload precomputed `out/api/*` (+ source mirrors) to S3 (or `--publish URL` via publish API) |
+| `npm run sync-caches:upload` / `:download` | Mirror `scripts/.cache/*.json` ↔ `s3://boltable-dashy/cache/` |
 | `npm run dev` | Next.js dev server |
 | `npm run dev:server` | Express + API (requires prior build) |
 | `npm run build:boltable` | Production build for Boltable |

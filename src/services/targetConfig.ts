@@ -2,7 +2,6 @@ import fs from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { config } from "../config.js";
-import { commitFileToGitHub, isGitHubPersistEnabled } from "./githubPersist.js";
 import { getS3ObjectText, isS3LikelyAvailable, putS3Object } from "./s3.js";
 import {
   COMPLEX_ACTIVATED_MTD_TARGET,
@@ -47,9 +46,8 @@ export type TargetConfigPayload = {
 };
 
 export type TargetConfigPersistence = {
-  mode: "s3" | "github" | "filesystem";
+  mode: "s3" | "filesystem";
   committed?: boolean;
-  commitSha?: string;
   warning?: string;
 };
 
@@ -58,7 +56,6 @@ export type WriteTargetConfigResult = {
   persistence: TargetConfigPersistence;
 };
 
-const TARGET_CONFIG_REPO_PATH = "data/target-config.json";
 const TARGET_CONFIG_S3_KEY = "data/target-config.json";
 
 function targetConfigPath(): string {
@@ -117,7 +114,6 @@ async function readS3TargetConfig(): Promise<TargetConfigPayload | null> {
     return mergeTargetConfig(JSON.parse(text) as Partial<TargetConfigPayload>);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    // Locally / without IRSA this is expected — fall back quietly.
     if (config.isProduction || isS3LikelyAvailable()) {
       console.warn("[target-config] S3 read failed:", message);
     }
@@ -126,10 +122,8 @@ async function readS3TargetConfig(): Promise<TargetConfigPayload | null> {
 }
 
 export async function readTargetConfig(): Promise<TargetConfigPayload> {
-  // Prefer durable S3 on Boltable; fall back to repo/filesystem copy.
   const fromS3 = await readS3TargetConfig();
   if (fromS3) {
-    // Keep local mirror warm for process restarts within the same pod.
     try {
       await writeFile(targetConfigPath(), serializeTargetConfig(fromS3), "utf8");
     } catch {
@@ -140,7 +134,6 @@ export async function readTargetConfig(): Promise<TargetConfigPayload> {
 
   const local = await readLocalTargetConfig();
   if (local) {
-    // Seed S3 from the committed/local file the first time File Storage is available.
     try {
       await putS3Object(TARGET_CONFIG_S3_KEY, serializeTargetConfig(local));
       console.log("[target-config] seeded S3 from local data/target-config.json");
@@ -170,31 +163,11 @@ export async function writeTargetConfig(payload: TargetConfigPayload): Promise<W
   };
 
   const serialized = serializeTargetConfig(toWrite);
-  const filePath = targetConfigPath();
-  await writeFile(filePath, serialized, "utf8");
+  await writeFile(targetConfigPath(), serialized, "utf8");
 
-  // Preferred durable store on Boltable.
   try {
     await putS3Object(TARGET_CONFIG_S3_KEY, serialized);
     console.log(`[target-config] saved to s3://${config.s3Bucket}/${TARGET_CONFIG_S3_KEY}`);
-
-    // Optional dual-write to git when configured (legacy); S3 is source of truth.
-    if (isGitHubPersistEnabled()) {
-      try {
-        const commit = await commitFileToGitHub(
-          TARGET_CONFIG_REPO_PATH,
-          serialized,
-          `chore(targets): update target-config.json [dashy]`,
-        );
-        console.log(
-          `[target-config] also committed to ${config.githubRepo}@${config.githubBranch} (${commit.commitSha.slice(0, 7)})`,
-        );
-      } catch (error) {
-        const message = error instanceof Error ? error.message : "GitHub commit failed";
-        console.warn("[target-config] GitHub dual-write failed (S3 save OK):", message);
-      }
-    }
-
     return {
       payload: toWrite,
       persistence: {
@@ -204,47 +177,14 @@ export async function writeTargetConfig(payload: TargetConfigPayload): Promise<W
     };
   } catch (s3Error) {
     const s3Message = s3Error instanceof Error ? s3Error.message : "S3 write failed";
-    console.warn("[target-config] S3 write failed, falling back:", s3Message);
-
-    if (!isGitHubPersistEnabled()) {
-      return {
-        payload: toWrite,
-        persistence: {
-          mode: "filesystem",
-          warning:
-            "Saved on server filesystem only — enable Boltable File Storage (S3) so overrides survive redeploy.",
-        },
-      };
-    }
-
-    try {
-      const commit = await commitFileToGitHub(
-        TARGET_CONFIG_REPO_PATH,
-        serialized,
-        `chore(targets): update target-config.json [dashy]`,
-      );
-      console.log(
-        `[target-config] committed to ${config.githubRepo}@${config.githubBranch} (${commit.commitSha.slice(0, 7)})`,
-      );
-      return {
-        payload: toWrite,
-        persistence: {
-          mode: "github",
-          committed: true,
-          commitSha: commit.commitSha,
-          warning: `S3 unavailable (${s3Message}); saved via GitHub instead.`,
-        },
-      };
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "GitHub commit failed";
-      console.error("[target-config] GitHub commit failed:", message);
-      return {
-        payload: toWrite,
-        persistence: {
-          mode: "filesystem",
-          warning: `${s3Message}; ${message} — file saved locally but may be lost on redeploy.`,
-        },
-      };
-    }
+    console.warn("[target-config] S3 write failed:", s3Message);
+    return {
+      payload: toWrite,
+      persistence: {
+        mode: "filesystem",
+        warning:
+          "Saved on server filesystem only — enable Boltable File Storage (S3) so overrides survive redeploy.",
+      },
+    };
   }
 }

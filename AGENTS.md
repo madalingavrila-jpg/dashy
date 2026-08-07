@@ -29,9 +29,10 @@ files that should be re-pulled each run) and **fails fast** instead of building 
 data. Closed-month chunk files being *old* is fine (expected with the incremental
 refresh); a *missing* closed-month chunk is a hard error.
 
-The full **"refresh date"** flow (pull fresh from all sources, then rebuild + deploy) is:
-**refresh the SF + Databricks caches via MCP → `npm run refresh-all` → `npm run build` → commit +
-push `boltable/main`.** `scripts/refresh-and-deploy.sh` automates exactly this (launchd).
+The full **"refresh date"** flow (pull fresh from all sources, then rebuild + publish) is:
+**refresh the SF + Databricks caches via MCP → `npm run refresh-all` → `npm run build` →
+`npm run upload-s3` (or push `boltable/main` which seeds S3 on boot).**
+`scripts/refresh-and-deploy.sh` automates the MCP + build + push path (launchd).
 
 ## Canonical query manifest + parallel pulls
 
@@ -76,8 +77,8 @@ Two hard-won caveats baked into the manifest:
 4. Set `updatedAt` to the current ISO timestamp.
 5. **Slim at source:** `build-dashboard-data.mjs` calls `lib/slim-dashboard-source.mjs` — keeps MTD/weekly **aggregates for all periods**, but drill-down lists only for the **current month** and **current ISO week**; caps account tabs at 28 with SF list URLs. Re-run `node scripts/slim-dashboard-json.mjs` after manual JSON edits.
 6. Rebuild **all** sections with `npm run refresh-all` (orchestrator), not just `build-dashboard-data.mjs`. Then `npm run build`.
-7. Commit `data/dashboard.json` and push — Paketo redeploys dashy on Boltable.
-8. **After a successful data refresh + deploy, auto-notify Bianca Medrea** on
+7. **Publish live data:** prefer `npm run upload-s3` (or `--publish` with `DASHY_PUBLISH_TOKEN`) so pods hot-load from S3 without Paketo. For UI/code changes, or when S3 publish is unavailable, commit `data/dashboard.json` and push — Paketo redeploys and **seeds S3 on boot**.
+8. **After a successful data refresh + deploy (or S3 publish), auto-notify Bianca Medrea** on
    **Slack DM only** (`U01AHG4UAPR`) that the refresh is complete and to check the
    data. This is **standing pre-authorized** — no per-message confirmation needed.
    Use the message template below. See `.cursor/rules/slack-notifications.mdc` for
@@ -586,13 +587,10 @@ container filesystem is **ephemeral** — durable saves go to **File Storage (S3
 `eu-central-1`, IRSA). Each save writes locally **and** to
 `s3://boltable-dashy/data/target-config.json`. On boot the API prefers the S3
 copy (and seeds S3 from the repo file on first run if the object is missing).
-
-**Optional dual-write:** `GITHUB_TOKEN` + `GITHUB_REPO=boltable/dashy` still
-commits the file to git as a backup, but **S3 is the source of truth**.
+**S3 is the sole durable store** — there is no GitHub dual-write for targets.
 
 **Cursor agents:** Prefer updating overrides via Settings on production (S3) or
-editing `data/target-config.json` then committing for the seed/fallback copy.
-Do not rely on git alone for runtime persistence.
+editing `data/target-config.json` then deploying once so the pod can seed S3.
 
 **Local dev:** without IRSA, saves are filesystem-only for the current process.
 
@@ -607,41 +605,55 @@ nothing to back up yourself.
 - **Region**: `eu-central-1`
 - **Authentication**: IRSA injects credentials automatically. **Never hardcode AWS keys.**
 
-Install / usage (server-side only):
+### Key layout
 
+| Key | Purpose |
+|-----|---------|
+| `data/target-config.json` | Settings MTD/Weekly target overrides |
+| `data/dashy-prefs.json` | Runtime prefs (banner, WoW favorites, filters) via `/api/prefs` |
+| `data/dashboard.json` | Source mirror (optional DR) |
+| `data/mtd-details.json` | Source mirror (optional DR) |
+| `api/dashboard.json` (+ `.gz`/`.br`) | Live precomputed full API payload |
+| `api/dashboard/{section}.json` (+ encodings) | Live section payloads |
+| `meta/dashboard-manifest.json` | Atomic pointer (`updatedAt`, file list) |
+| `cache/{filename}` | Optional SF/Databricks refresh caches |
+
+Helpers: `src/services/s3.ts`, `dashboardS3.ts`, `prefs.ts`, `targetConfig.ts`.
+
+### Live dashboard (data refresh without Paketo)
+
+1. MCP pulls → `npm run refresh-all` → `npm run build` (verify-build must pass).
+2. Publish artifacts:
+   - **On Boltable / with AWS creds:** `npm run upload-s3`
+   - **From laptop without AWS:** set `DASHY_PUBLISH_TOKEN` on Boltable + locally, then
+     `npm run upload-s3 -- --publish https://dashy.boltable.eu`
+3. Running pods poll S3 (cache TTL) and hot-swap `/api/dashboard*` when the
+   manifest `updatedAt` is newer — **no redeploy** for data-only updates.
+4. First deploy after enabling this feature **seeds** S3 from the container’s
+   build-time `out/api/*` on boot if S3 is empty/older.
+
+UI/code changes still need `git push` → Paketo rebuild.
+
+### Refresh caches (optional)
+
+```bash
+npm run sync-caches:upload    # after MCP pulls
+npm run sync-caches:download  # restore scripts/.cache before refresh-all
 ```
-npm install @aws-sdk/client-s3
-```
+
+Skips files over 25MB. Not served by the public API.
+
+### Do not put in S3
+
+- Secrets / tokens / `.env`
+- Huge unbounded raw dumps (prefer slim caches under the 25MB sync cap)
+- Anything that must not be readable by the dashy IRSA role
 
 ```ts
-import {
-  S3Client,
-  PutObjectCommand,
-  GetObjectCommand,
-  ListObjectsV2Command,
-} from "@aws-sdk/client-s3";
-
-const s3 = new S3Client({ region: "eu-central-1" });
-const BUCKET = "boltable-dashy";
-
-await s3.send(
-  new PutObjectCommand({
-    Bucket: BUCKET,
-    Key: "data/target-config.json",
-    Body: json,
-  }),
-);
-
-const { Body } = await s3.send(
-  new GetObjectCommand({ Bucket: BUCKET, Key: "data/target-config.json" }),
-);
-const text = await Body!.transformToString();
+import { putS3Object, getS3ObjectText } from "./src/services/s3.js";
+await putS3Object("data/target-config.json", json);
+const text = await getS3ObjectText("data/target-config.json");
 ```
-
-Helpers live in `src/services/s3.ts`. Today **target overrides** use S3; dashboard
-JSON is still built/committed via the Cursor refresh workflow (precomputed at
-build time). Prefer S3 for any new runtime-mutable state — do not use git as a
-data store for scheduled refreshes.
 
 ## Do not
 

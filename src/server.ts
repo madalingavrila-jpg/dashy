@@ -11,6 +11,10 @@ import {
   preloadApiAssets,
   sendApiAsset,
 } from "./services/apiAssets.js";
+import {
+  startDashboardS3Poller,
+  syncDashboardAssets,
+} from "./services/dashboardS3.js";
 
 const staticIndexPath = path.join(config.staticDir, "index.html");
 const precomputedDashboardPath = getPrecomputedApiPath();
@@ -49,7 +53,9 @@ app.use(
     contentSecurityPolicy: false,
   }),
 );
-app.use(express.json({ limit: "256kb" }));
+// Publish payloads carry base64 of precomputed API files (~few MB). Other
+// routes stay small; Express applies the limit to the whole app JSON parser.
+app.use(express.json({ limit: "20mb" }));
 
 app.use(
   compression({
@@ -193,6 +199,16 @@ const server = app.listen(config.port, config.host, () => {
     );
     preloadApiAssets();
     preloadDashboardCache();
+    void syncDashboardAssets()
+      .then((result) => {
+        console.log(`[dashy] dashboard S3 sync: ${result.action}`);
+        startDashboardS3Poller();
+      })
+      .catch((error) => {
+        const message = error instanceof Error ? error.message : String(error);
+        console.warn("[dashy] dashboard S3 sync failed:", message);
+        startDashboardS3Poller();
+      });
 });
 
 server.keepAliveTimeout = 65_000;
