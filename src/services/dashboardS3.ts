@@ -148,12 +148,10 @@ export async function uploadLocalDashboardToS3(
     }
   }
 
-  // Source mirrors (optional; useful for DR / offline rebuild). Skip if missing.
-  const dataDash = path.join(config.rootDir, "data", "dashboard.json");
+  // Source mirrors for DR. Skip the full dashboard.json (multi-MB) on boot
+  // seed to avoid RSS spikes on the 384MB Boltable heap — upload-s3 script
+  // still ships it when run explicitly. mtd-details is small enough to keep.
   const dataMtd = path.join(config.rootDir, "data", "mtd-details.json");
-  if (await uploadFile(dataDash, "data/dashboard.json", "application/json")) {
-    files.push("data/dashboard.json");
-  }
   if (await uploadFile(dataMtd, "data/mtd-details.json", "application/json")) {
     files.push("data/mtd-details.json");
   }

@@ -70,6 +70,14 @@ function serializePrefs(payload: DashyPrefsPayload): string {
   return `${JSON.stringify(payload, null, 2)}\n`;
 }
 
+async function mirrorLocal(serialized: string): Promise<void> {
+  try {
+    await writeFile(prefsPath(), serialized, "utf8");
+  } catch {
+    /* ephemeral / read-only FS — ignore */
+  }
+}
+
 async function readLocalPrefs(): Promise<DashyPrefsPayload | null> {
   const filePath = prefsPath();
   if (!fs.existsSync(filePath)) return null;
@@ -98,30 +106,25 @@ async function readS3Prefs(): Promise<DashyPrefsPayload | null> {
 export async function readPrefs(): Promise<DashyPrefsPayload> {
   const fromS3 = await readS3Prefs();
   if (fromS3) {
-    try {
-      await writeFile(prefsPath(), serializePrefs(fromS3), "utf8");
-    } catch {
-      /* ignore */
-    }
+    void mirrorLocal(serializePrefs(fromS3));
     return fromS3;
   }
 
   const local = await readLocalPrefs();
   if (local) {
-    try {
-      await putS3Object(PREFS_S3_KEY, serializePrefs(local));
-      console.log("[prefs] seeded S3 from local data/dashy-prefs.json");
-    } catch (error) {
+    void putS3Object(PREFS_S3_KEY, serializePrefs(local)).catch((error) => {
       const message = error instanceof Error ? error.message : String(error);
-      if (config.isProduction || isS3LikelyAvailable()) {
-        console.warn("[prefs] S3 seed skipped:", message);
-      }
-    }
+      console.warn("[prefs] S3 seed skipped:", message);
+    });
     return local;
   }
 
+  // Do not block the request on first-write seeding — return defaults immediately.
   const defaults = defaultPrefs();
-  await writePrefs(defaults);
+  void writePrefs(defaults).catch((error) => {
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn("[prefs] background seed failed:", message);
+  });
   return defaults;
 }
 
@@ -132,7 +135,7 @@ export async function writePrefs(payload: DashyPrefsPayload): Promise<WritePrefs
     updatedAt: new Date().toISOString(),
   };
   const serialized = serializePrefs(toWrite);
-  await writeFile(prefsPath(), serialized, "utf8");
+  await mirrorLocal(serialized);
 
   try {
     await putS3Object(PREFS_S3_KEY, serialized);

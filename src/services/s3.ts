@@ -3,13 +3,20 @@ import {
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
+import { NodeHttpHandler } from "@smithy/node-http-handler";
 import { config } from "../config.js";
 
 /** Boltable File Storage bucket for this app (IRSA — no hardcoded AWS keys). */
 export const S3_BUCKET = config.s3Bucket;
 export const S3_REGION = config.s3Region;
 
-const s3 = new S3Client({ region: S3_REGION });
+const s3 = new S3Client({
+  region: S3_REGION,
+  requestHandler: new NodeHttpHandler({
+    connectionTimeout: 5_000,
+    requestTimeout: 15_000,
+  }),
+});
 
 export async function putS3Object(
   key: string,

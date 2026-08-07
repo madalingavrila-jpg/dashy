@@ -180,6 +180,38 @@ apiRouter.put("/prefs", async (req, res) => {
   }
 });
 
+// Alias — some gateways mishandle /api/prefs; same handlers.
+apiRouter.get("/runtime-prefs", async (_req, res) => {
+  try {
+    const payload = await readPrefs();
+    res.setHeader("Cache-Control", "no-store");
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.json(payload);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Prefs load failed";
+    console.error("[api/runtime-prefs]", message);
+    res.status(500).json({ error: message });
+  }
+});
+
+apiRouter.put("/runtime-prefs", async (req, res) => {
+  try {
+    const body = req.body as Partial<DashyPrefsPayload> | undefined;
+    if (!body || typeof body !== "object") {
+      res.status(400).json({ error: "Request body must be a JSON object" });
+      return;
+    }
+    const { payload, persistence } = await writePrefs(mergePrefs(body));
+    res.setHeader("Cache-Control", "no-store");
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.json({ ...payload, _persistence: persistence });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Prefs save failed";
+    console.error("[api/runtime-prefs PUT]", message);
+    res.status(500).json({ error: message });
+  }
+});
+
 type PublishAssetBody = {
   raw: string;
   gzip?: string | null;
