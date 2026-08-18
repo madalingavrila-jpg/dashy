@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { Fragment, useState } from "react";
 import { DataAlert } from "@/components/DataAlert";
 import { MetricCards } from "@/components/MetricCards";
 import { CurrentWeekStatus } from "@/components/CurrentWeekStatus";
 import { AgentAvatar } from "@/components/AgentAvatar";
+import { MtdItemList } from "@/components/MtdItemList";
 import { useDashboard } from "@/lib/useDashboard";
-import type { TeamProgressView } from "@/types/dashboard";
+import type { MtdItem, TeamProgressView } from "@/types/dashboard";
 
 export function OverviewShell() {
   const { model, error, loading, sourceHint } = useDashboard({ sections: ["overview"] });
@@ -67,7 +69,13 @@ export function OverviewShell() {
               <div className="dashboard-card h-64 animate-pulse" />
             </>
           ) : (
-            model?.teamProgress.map((team) => <OverviewTeamTable key={team.segment} team={team} />)
+            model?.teamProgress.map((team) => (
+              <OverviewTeamTable
+                key={team.segment}
+                team={team}
+                salesforceUrl={model?.salesforceInstanceUrl}
+              />
+            ))
           )}
         </div>
       </section>
@@ -156,10 +164,119 @@ function MonthlyProgress({
   );
 }
 
-function OverviewTeamTable({ team }: { team: TeamProgressView }) {
+type DrilldownTone = "won" | "activated";
+
+function AgentCountCell({
+  actual,
+  target,
+  tone,
+  hasItems,
+  expanded,
+  onToggle,
+  agentName,
+}: {
+  actual: string;
+  target: string;
+  tone: DrilldownTone;
+  hasItems: boolean;
+  expanded: boolean;
+  onToggle: () => void;
+  agentName: string;
+}) {
+  if (!hasItems) {
+    return (
+      <span className="text-[12px] font-bold tabular-nums text-on-surface">
+        {actual}
+        <span className="font-normal text-on-surface-variant"> / {target}</span>
+      </span>
+    );
+  }
+
+  const toneColor = tone === "won" ? "text-won" : "text-activated";
+
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-expanded={expanded}
+      aria-label={`Show ${agentName} ${tone === "won" ? "won" : "activated"} accounts`}
+      className={`inline-flex items-center gap-1 rounded-md px-1 text-[12px] font-bold tabular-nums underline-offset-2 hover:underline ${toneColor} ${
+        expanded ? "bg-surface-container" : ""
+      }`}
+    >
+      {actual}
+      <span className="font-normal text-on-surface-variant">/ {target}</span>
+      <span
+        className={`material-symbols-outlined text-[14px] text-on-surface-variant transition ${
+          expanded ? "rotate-180" : ""
+        }`}
+      >
+        expand_more
+      </span>
+    </button>
+  );
+}
+
+function AgentDrilldownRow({
+  agentName,
+  tone,
+  count,
+  items,
+  salesforceUrl,
+  onClose,
+}: {
+  agentName: string;
+  tone: DrilldownTone;
+  count: string;
+  items: MtdItem[];
+  salesforceUrl?: string;
+  onClose: () => void;
+}) {
+  const toneColor = tone === "won" ? "text-won" : "text-activated";
+
+  return (
+    <tr className="bg-surface-container-low/40">
+      <td colSpan={4} className="px-sm pb-sm">
+        <div className="rounded-lg border border-outline-variant/60 bg-white">
+          <div className="flex items-center justify-between gap-sm border-b border-outline-variant/40 px-sm py-xs">
+            <p className={`text-[10px] font-bold uppercase tracking-wide ${toneColor}`}>
+              {agentName} · {tone === "won" ? "Won MTD" : "Activated MTD"} · {count}
+            </p>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close accounts list"
+              className="inline-flex h-6 w-6 items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container"
+            >
+              <span className="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
+          <MtdItemList items={items} tone={tone} salesforceUrl={salesforceUrl} />
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+function OverviewTeamTable({
+  team,
+  salesforceUrl,
+}: {
+  team: TeamProgressView;
+  salesforceUrl?: string;
+}) {
   const complex = team.segment === "complex";
   const accent = complex ? "bg-complex" : "bg-density";
   const progressAccent = complex ? "bg-complex" : "bg-density";
+  const [openDrilldown, setOpenDrilldown] = useState<{
+    ownerId: string;
+    tone: DrilldownTone;
+  } | null>(null);
+
+  const toggleDrilldown = (ownerId: string, tone: DrilldownTone) =>
+    setOpenDrilldown((current) =>
+      current?.ownerId === ownerId && current.tone === tone ? null : { ownerId, tone },
+    );
 
   return (
     <article className="dashboard-card overflow-hidden">
@@ -191,57 +308,78 @@ function OverviewTeamTable({ team }: { team: TeamProgressView }) {
               <th className="w-[34%] px-sm py-xs text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                 Target progress
               </th>
-              <th className="px-sm py-xs text-right text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
-                Accounts
-              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-outline-variant/45">
-            {team.agents.map((agent) => (
-              <tr key={agent.ownerId} className="group hover:bg-surface-container-low/45">
-                <td className="px-sm py-xs">
-                  <div className="flex items-center gap-xs">
-                    <AgentAvatar name={agent.name} size={30} />
-                    <div className="min-w-0">
-                      <p className="truncate text-[12px] font-semibold text-on-surface">{agent.name}</p>
-                      {agent.targetPaused ? <p className="text-[9px] font-bold uppercase text-on-surface-variant">On pause</p> : null}
-                    </div>
-                  </div>
-                </td>
-                <td className="px-sm py-xs text-[12px] font-bold tabular-nums text-on-surface">
-                  {agent.mtdActual}
-                  <span className="font-normal text-on-surface-variant"> / {agent.mtdTarget}</span>
-                </td>
-                <td className="px-sm py-xs text-[12px] font-bold tabular-nums text-on-surface">
-                  {agent.activatedActual}
-                  <span className="font-normal text-on-surface-variant"> / {agent.activatedTarget}</span>
-                </td>
-                <td className="px-sm py-xs">
-                  <div className="grid grid-cols-[20px_minmax(0,1fr)_32px] items-center gap-xs">
-                    <span className="text-[9px] font-bold text-won">W</span>
-                    <div className="h-1.5 overflow-hidden rounded-full bg-surface-container">
-                      <div className={`h-full rounded-full ${progressAccent}`} style={{ width: `${Math.min(100, agent.progress)}%` }} />
-                    </div>
-                    <span className="text-right text-[10px] font-semibold tabular-nums text-on-surface-variant">{agent.progress}%</span>
-                    <span className="text-[9px] font-bold text-activated">A</span>
-                    <div className="h-1.5 overflow-hidden rounded-full bg-surface-container">
-                      <div className="h-full rounded-full bg-activated" style={{ width: `${Math.min(100, agent.activatedProgress)}%` }} />
-                    </div>
-                    <span className="text-right text-[10px] font-semibold tabular-nums text-on-surface-variant">{agent.activatedProgress}%</span>
-                  </div>
-                </td>
-                <td className="px-sm py-xs text-right">
-                  <Link
-                    href={agent.accountsUrl}
-                    target="_blank"
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full text-on-surface-variant hover:bg-brand-container hover:text-brand"
-                    aria-label={`Open ${agent.name} accounts`}
-                  >
-                    <span className="material-symbols-outlined text-[16px]">open_in_new</span>
-                  </Link>
-                </td>
-              </tr>
-            ))}
+            {team.agents.map((agent) => {
+              const wonItems = agent.wonItems ?? [];
+              const activatedItems = agent.activatedItems ?? [];
+              const openTone =
+                openDrilldown?.ownerId === agent.ownerId ? openDrilldown.tone : null;
+              const openItems = openTone === "won" ? wonItems : activatedItems;
+
+              return (
+                <Fragment key={agent.ownerId}>
+                  <tr className="group hover:bg-surface-container-low/45">
+                    <td className="px-sm py-xs">
+                      <div className="flex items-center gap-xs">
+                        <AgentAvatar name={agent.name} size={30} />
+                        <div className="min-w-0">
+                          <p className="truncate text-[12px] font-semibold text-on-surface">{agent.name}</p>
+                          {agent.targetPaused ? <p className="text-[9px] font-bold uppercase text-on-surface-variant">On pause</p> : null}
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-sm py-xs">
+                      <AgentCountCell
+                        actual={agent.mtdActual}
+                        target={agent.mtdTarget}
+                        tone="won"
+                        hasItems={wonItems.length > 0}
+                        expanded={openTone === "won"}
+                        onToggle={() => toggleDrilldown(agent.ownerId, "won")}
+                        agentName={agent.name}
+                      />
+                    </td>
+                    <td className="px-sm py-xs">
+                      <AgentCountCell
+                        actual={agent.activatedActual}
+                        target={agent.activatedTarget}
+                        tone="activated"
+                        hasItems={activatedItems.length > 0}
+                        expanded={openTone === "activated"}
+                        onToggle={() => toggleDrilldown(agent.ownerId, "activated")}
+                        agentName={agent.name}
+                      />
+                    </td>
+                    <td className="px-sm py-xs">
+                      <div className="grid grid-cols-[20px_minmax(0,1fr)_32px] items-center gap-xs">
+                        <span className="text-[9px] font-bold text-won">W</span>
+                        <div className="h-1.5 overflow-hidden rounded-full bg-surface-container">
+                          <div className={`h-full rounded-full ${progressAccent}`} style={{ width: `${Math.min(100, agent.progress)}%` }} />
+                        </div>
+                        <span className="text-right text-[10px] font-semibold tabular-nums text-on-surface-variant">{agent.progress}%</span>
+                        <span className="text-[9px] font-bold text-activated">A</span>
+                        <div className="h-1.5 overflow-hidden rounded-full bg-surface-container">
+                          <div className="h-full rounded-full bg-activated" style={{ width: `${Math.min(100, agent.activatedProgress)}%` }} />
+                        </div>
+                        <span className="text-right text-[10px] font-semibold tabular-nums text-on-surface-variant">{agent.activatedProgress}%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  {openTone ? (
+                    <AgentDrilldownRow
+                      agentName={agent.name}
+                      tone={openTone}
+                      count={openTone === "won" ? agent.mtdActual : agent.activatedActual}
+                      items={openItems}
+                      salesforceUrl={salesforceUrl}
+                      onClose={() => setOpenDrilldown(null)}
+                    />
+                  ) : null}
+                </Fragment>
+              );
+            })}
           </tbody>
         </table>
       </div>

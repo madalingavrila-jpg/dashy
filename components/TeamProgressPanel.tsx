@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { MtdItem, TeamProgressView } from "@/types/dashboard";
-import { salesforceOpportunityUrl } from "@/lib/salesforce";
+import { MtdItemList } from "@/components/MtdItemList";
 import { AgentAvatar } from "@/components/AgentAvatar";
 
 type TeamProgressPanelProps = {
@@ -99,66 +98,6 @@ function MtdStatChip({
         {progressBar(progress, tone, tone === "won" ? "sm" : "xs")}
       </div>
     </div>
-  );
-}
-
-function MtdItemList({
-  items,
-  tone,
-  salesforceUrl,
-}: {
-  items: MtdItem[];
-  tone: "won" | "activated";
-  salesforceUrl?: string;
-}) {
-  const labelColor = tone === "won" ? "text-won" : "text-activated";
-
-  return (
-    <ul className="max-h-56 divide-y divide-outline-variant/30 overflow-y-auto">
-      {items.map((item) => {
-        const href = salesforceOpportunityUrl(item.sfOpportunityId, salesforceUrl);
-        return (
-          <li key={item.id} className="flex flex-wrap items-center justify-between gap-sm px-sm py-xs text-[11px]">
-            <div className="min-w-0">
-              {href ? (
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-primary hover:underline"
-                >
-                  {item.name}
-                </a>
-              ) : (
-                <span className="font-semibold text-on-surface">{item.name}</span>
-              )}
-              {item.reactivated ? (
-                <span className="ml-xs rounded-sm bg-tertiary-container px-xs text-[9px] font-bold uppercase text-on-tertiary-container">
-                  reactivated
-                </span>
-              ) : null}
-              <p className="text-on-surface-variant">
-                {item.city} · {item.closeDate}
-              </p>
-            </div>
-            {href ? (
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-xs text-primary hover:underline"
-              >
-                <span className="material-symbols-outlined text-[14px]">open_in_new</span>
-                SF
-              </a>
-            ) : null}
-          </li>
-        );
-      })}
-      <li className={`px-sm py-xs text-[10px] font-bold uppercase ${labelColor}`}>
-        {items.length} {tone === "won" ? "won" : "activated"}
-      </li>
-    </ul>
   );
 }
 
@@ -326,9 +265,6 @@ function AgentRowsTable({
               <th className="px-md py-sm text-label-md font-semibold uppercase text-activated">
                 Activated MTD
               </th>
-              <th className="px-md py-sm text-label-md font-semibold uppercase text-on-surface-variant">
-                Accounts
-              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-outline-variant/40">
@@ -374,17 +310,6 @@ function AgentRowsTable({
                     items={agent.activatedItems}
                     salesforceUrl={salesforceUrl}
                   />
-                </td>
-                <td className="px-md py-sm">
-                  <Link
-                    href={agent.accountsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-xs text-label-md font-semibold text-primary hover:underline"
-                  >
-                    <span className="material-symbols-outlined text-[16px]">open_in_new</span>
-                    Open
-                  </Link>
                 </td>
               </tr>
             ))}

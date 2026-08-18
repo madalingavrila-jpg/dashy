@@ -13,7 +13,6 @@ import {
   DENSITY_MTD_TARGET,
 } from "@/lib/agent-segments";
 import { formatInteger } from "@/lib/format";
-import { accountsFilterUrl } from "@/lib/salesforce";
 
 const BUCHAREST = "Europe/Bucharest";
 
@@ -76,7 +75,6 @@ export function buildTeamProgressFromMtdAgents(agents: MtdAgentInput[]): TeamPro
       activatedProgress,
       wonItems: agent.wonItems,
       activatedItems: agent.activatedItems,
-      accountsUrl: accountsFilterUrl({ ownerId: agent.ownerId }),
     };
   });
 
@@ -128,7 +126,6 @@ export function buildTeamProgressFromMtdAgents(agents: MtdAgentInput[]): TeamPro
           activatedTarget: formatInteger(agent.activatedTarget),
           activatedActual: formatInteger(agent.activatedActual),
           activatedProgress: agent.activatedProgress,
-          accountsUrl: agent.accountsUrl,
           wonItems: agent.wonItems,
           activatedItems: agent.activatedItems,
         } satisfies TeamAgentProgressView;

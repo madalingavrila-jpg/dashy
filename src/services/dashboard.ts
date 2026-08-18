@@ -302,7 +302,6 @@ function buildTeamProgress(
         activatedTarget,
         activatedActual,
         activatedProgress,
-        accountsUrl: accountsFilterUrl({ ownerId: agent.ownerId }),
       };
     })
     .filter((agent) => agent.segment);
@@ -358,7 +357,6 @@ function buildTeamProgress(
           activatedTarget: formatInteger(agent.activatedTarget),
           activatedActual: formatInteger(agent.activatedActual),
           activatedProgress: agent.activatedProgress,
-          accountsUrl: agent.accountsUrl,
           wonItems: items?.wonItems ?? [],
           activatedItems: items?.activatedItems ?? [],
         };

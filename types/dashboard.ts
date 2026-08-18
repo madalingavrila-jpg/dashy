@@ -224,7 +224,6 @@ export type TeamAgentProgressView = {
   activatedTarget: string;
   activatedActual: string;
   activatedProgress: number;
-  accountsUrl: string;
   wonItems?: MtdItem[];
   activatedItems?: MtdItem[];
   /** Excluded from team target math when true. */
