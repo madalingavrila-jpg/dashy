@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-20T09:27:30.829Z",
+  "updatedAt": "2026-08-20T10:41:28.290Z",
   "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -8383,7 +8383,7 @@
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-08-20T09:27:29.920Z",
+      "generatedAt": "2026-08-20T10:41:27.357Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -47818,31 +47818,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-08-20T09:27:29.017Z",
+        "lastSync": "2026-08-20T10:41:26.358Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-08-20T09:27:29.017Z",
+        "lastSync": "2026-08-20T10:41:26.358Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-08-20T09:27:29.017Z",
+        "lastSync": "2026-08-20T10:41:26.358Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-08-20T09:27:29.017Z",
+        "lastSync": "2026-08-20T10:41:26.358Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-08-20T09:27:30.226Z",
+    "generatedAt": "2026-08-20T10:41:27.677Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -162617,7 +162617,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-08-20T09:27:30.829Z",
+    "generatedAt": "2026-08-20T10:41:28.290Z",
     "monthKey": "2026-08",
     "monthLabel": "August 2026",
     "currentWeek": "W34",
@@ -174619,7 +174619,7 @@
     }
   },
   "churnPrevention": {
-    "generatedAt": "2026-08-20T09:27:31.085Z",
+    "generatedAt": "2026-08-20T10:41:28.547Z",
     "year": 2026,
     "country": "Romania",
     "metricsNote": "YTD Romania activations by Complex + Density reps. SF Status__c is the source of truth for inactive (archived/inactive), hidden, and deleted; Databricks provider_status is a platform cross-check. Never ordered = zero delivered orders in the activation month and every month after (fact_provider_monthly); accounts with any order in the current query month are not shown as without orders. Lifetime first_order_date is display-only.",
