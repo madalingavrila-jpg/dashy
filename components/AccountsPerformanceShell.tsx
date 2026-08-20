@@ -355,6 +355,12 @@ export function AccountsPerformanceShell() {
           dataMonthMax={ap?.dataMonthMax}
           loading={loading}
         />
+        {ap?.dataQuality?.note ? (
+          <p className="flex items-start gap-xs px-xs text-[11px] leading-relaxed text-amber-700">
+            <span className="material-symbols-outlined text-[13px] leading-none">warning</span>
+            {ap.dataQuality.note}
+          </p>
+        ) : null}
         {ap?.metricsNote ? (
           <p className="px-xs text-[11px] leading-relaxed text-on-surface-variant">
             {ap.metricsNote}
