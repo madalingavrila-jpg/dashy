@@ -11,19 +11,7 @@ this list (or mark done) so it does not re-run forever.
 
 ## Open
 
-### Databricks provider-facts break — August 2026 (2026-08-20)
-
-- `main.ng_delivery.fact_provider_monthly` / `fact_provider_daily` inflate GMV +
- orders from **2026-08-12** (~14× expected). `lib/accounts-performance-anomaly.mjs`
- detects the jump and **suppresses** the month on Accounts performance / Monthly
- cohorts; Jan–Jul are untouched.
-- While the month stays flagged, also pull the optional daily cache so August is
- rebuilt from its clean days instead of dropped:
- `node scripts/gen-accounts-perf-queries.mjs --kind=daily` →
- `scripts/.cache/accounts-perf-daily.json`.
-- Once the warehouse is fixed the heuristic self-heals (no flag, full month
- returns). Then drop the `KNOWN_WAREHOUSE_BREAK` constant + its daily fallback
- and stop pulling the daily cache.
+_(none)_
 
 ## Done
 

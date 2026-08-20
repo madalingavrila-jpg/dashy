@@ -53,7 +53,6 @@ import {
   rollupByMonth,
   rollupQualityTotals,
 } from "../lib/accounts-performance-build.mjs";
-import { sanitizeProviderFacts } from "../lib/accounts-performance-anomaly.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(here, "..");
@@ -69,6 +68,8 @@ function main() {
   // monthly: [provider_id, month, gmv_before_discounts (GROSS), orders, commission,
   //           gmv_after_discounts (NET, context), campaign_discount (context)]
   const monthlyRows = readMcpResult("accounts-perf-monthly.json");
+
+  const monthlyByProvider = buildMonthlyByProvider(monthlyRows);
 
   // SF commission: [provider_id, Opportunity.Commission__c (rate %), opportunity_id]
   let commissionRows = [];
@@ -97,32 +98,7 @@ function main() {
   } catch {
     console.warn("[build-accounts-performance] no accounts-perf-quality.json cache — skipping quality metrics");
   }
-
-  // daily: [provider_id, date, gmv_before, orders, commission, gmv_after, discount].
-  // Optional — only present once the daily pull has run; it lets a warehouse-broken
-  // month be rebuilt from its clean days instead of dropped wholesale.
-  let dailyRows = [];
-  try {
-    dailyRows = readMcpResult("accounts-perf-daily.json");
-  } catch {
-    // no daily cache — sanitizeProviderFacts falls back to suppressing bad months
-  }
-
-  // Drop (or rebuild from clean days) any month the Databricks warehouse corrupted.
-  const sanitized = sanitizeProviderFacts(monthlyRows, qualityRows, { dailyRows });
-  const { dataQuality } = sanitized;
-  if (dataQuality) {
-    for (const m of dataQuality.months) {
-      console.warn(
-        `[build-accounts-performance] ${m.month}: ${m.status.toUpperCase()} — orders jumped ` +
-          `${m.jumpFactor}× vs ${m.comparedWith} across ${m.matchedProviders} matched providers` +
-          (m.status === "partial" ? ` (kept days through ${m.throughDate}, dropped ${m.droppedDays})` : ""),
-      );
-    }
-  }
-
-  const monthlyByProvider = buildMonthlyByProvider(sanitized.monthlyRows);
-  const qualityByProvider = buildQualityByProvider(sanitized.qualityRows);
+  const qualityByProvider = buildQualityByProvider(qualityRows);
 
   const accounts = [];
   let skippedNonRoster = 0;
@@ -207,8 +183,6 @@ function main() {
     country: "Romania",
     currency: "EUR",
     dataMonthMax: monthsCovered.length ? monthsCovered[monthsCovered.length - 1] : null,
-    // Present only while a Databricks month is corrupt — see lib/accounts-performance-anomaly.mjs.
-    dataQuality,
     metricsNote:
       "GMV is GROSS (before discounts, Databricks total_gmv_before_discounts_eur); AOV = gross GMV ÷ " +
       "delivered orders. Commission € = the Salesforce negotiated rate (Opportunity.Commission__c) × " +

@@ -154,10 +154,6 @@ function main() {
     const name = entry.file;
 
     if (!existsSync(path)) {
-      if (entry.optional) {
-        // Not pulled yet — the build has a documented fallback for it.
-        continue;
-      }
       if (entry.closedMonthChunk) {
         errors.push(
           `${name}: MISSING closed-month chunk — the incremental refresh reads closed months from disk; ` +

@@ -56,7 +56,6 @@
  *   node scripts/gen-accounts-perf-queries.mjs            # print all three kinds
  *   node scripts/gen-accounts-perf-queries.mjs --kind=monthly
  *   node scripts/gen-accounts-perf-queries.mjs --kind=quality
- *   node scripts/gen-accounts-perf-queries.mjs --kind=daily  # opt-in, current month only
  *   node scripts/gen-accounts-perf-queries.mjs --kind=sf-commission
  *   node scripts/gen-accounts-perf-queries.mjs --chunk=300 # batched Databricks IN-lists
  *
@@ -77,9 +76,6 @@ const cacheDir = path.join(here, ".cache");
 // year through the start of next month (exclusive). Dynamic so it never goes stale.
 const now = new Date();
 const WINDOW_START = `${now.getUTCFullYear()}-01-01`;
-// Start of the current month — the daily pull is scoped to it (a full year of
-// daily rows per provider would blow past the 10,000-row Databricks MCP cap).
-const MONTH_START = `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, "0")}-01`;
 const WINDOW_END = (() => {
   const y = now.getUTCFullYear();
   const m = now.getUTCMonth() + 1; // 0-indexed → next month is +1 over the +1
@@ -152,34 +148,6 @@ export function monthlyQuery(ids) {
 }
 
 /**
- * DAILY GMV / orders / commission per provider — same columns as monthlyQuery
- * but one row per day, scoped to the CURRENT month only (the whole year would
- * blow past the 10,000-row cap).
- *
- * Optional cache (`accounts-perf-daily.json`): when it exists,
- * lib/accounts-performance-anomaly.mjs rebuilds a warehouse-corrupted month from
- * its clean days instead of suppressing the month outright. Pull it whenever a
- * month is flagged; skip it while the source is healthy.
- * Columns: [provider_id, date, gmv_before, orders, commission, gmv_after, discount]
- */
-export function dailyQuery(ids) {
-  return (
-    "SELECT provider_id, " +
-    "date_format(metric_timestamp_partition,'yyyy-MM-dd') AS d, " +
-    "ROUND(SUM(total_gmv_before_discounts_eur),2) AS gmv_before, " +
-    "CAST(SUM(delivered_orders_count) AS INT) AS orders, " +
-    "ROUND(SUM(total_provider_commission_eur),2) AS commission, " +
-    "ROUND(SUM(total_gmv_after_discounts_eur),2) AS gmv_after, " +
-    "ROUND(SUM(total_campaign_discount_eur),2) AS discount " +
-    "FROM main.ng_delivery.fact_provider_daily " +
-    `WHERE provider_id IN (${ids.join(",")}) ` +
-    `AND metric_timestamp_partition >= '${MONTH_START}' ` +
-    `AND metric_timestamp_partition < '${WINDOW_END}' ` +
-    "GROUP BY 1,2 ORDER BY 1,2"
-  );
-}
-
-/**
  * Monthly availability & performance value/weight pairs per provider/month.
  * Columns (order matters — see buildQualityByProvider):
  *   [provider_id, month, orders,
@@ -222,7 +190,7 @@ function main() {
   );
   const kinds = args.kind ? [args.kind] : ["monthly", "quality", "sf-commission"];
 
-  const dbKinds = kinds.filter((k) => k === "monthly" || k === "quality" || k === "daily");
+  const dbKinds = kinds.filter((k) => k === "monthly" || k === "quality");
   if (dbKinds.length > 0) {
     const ids = readActivatedProviderIds();
     const size = Number(args.chunk) || 0;
@@ -231,9 +199,8 @@ function main() {
       `[gen-accounts-perf-queries] ${ids.length} activated providers, ` +
         `${batches.length} Databricks batch(es)${size ? ` of ≤${size}` : ""}.`,
     );
-    const builders = { monthly: monthlyQuery, quality: qualityQuery, daily: dailyQuery };
     for (const kind of dbKinds) {
-      const build = builders[kind];
+      const build = kind === "monthly" ? monthlyQuery : qualityQuery;
       batches.forEach((batch, i) => {
         const tag = batches.length > 1 ? ` [${kind} batch ${i + 1}/${batches.length}]` : ` [${kind}]`;
         console.log(`-- ${tag}`);

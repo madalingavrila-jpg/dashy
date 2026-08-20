@@ -60,7 +60,6 @@ import {
   rollupByMonth,
   rollupQualityTotals,
 } from "../lib/accounts-performance-build.mjs";
-import { sanitizeProviderFacts } from "../lib/accounts-performance-anomaly.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(here, "..");
@@ -258,19 +257,8 @@ try {
   console.warn("[build-inbound-team] no accounts-perf-sf-segment.json — using Databricks segment");
 }
 
-let dailyRows = [];
-try {
-  dailyRows = readMcpResult("accounts-perf-daily.json");
-} catch {
-  // optional — sanitizeProviderFacts suppresses bad months when daily data is absent
-}
-
-// Same warehouse-anomaly guard as the team build, so both tabs agree on which
-// Databricks months are usable.
-const sanitizedFacts = sanitizeProviderFacts(monthlyRows, qualityRows, { dailyRows });
-
-const monthlyByProvider = buildMonthlyByProvider(sanitizedFacts.monthlyRows);
-const qualityByProvider = buildQualityByProvider(sanitizedFacts.qualityRows);
+const monthlyByProvider = buildMonthlyByProvider(monthlyRows);
+const qualityByProvider = buildQualityByProvider(qualityRows);
 const commissionRateByProvider = buildCommissionRateByProvider(commissionRows);
 const segmentByProvider = buildSegmentByProvider(segmentRows);
 

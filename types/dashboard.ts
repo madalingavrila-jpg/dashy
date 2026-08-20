@@ -462,32 +462,12 @@ export type AccountsPerformanceQualityTotals = {
   accountsWithSignal: number;
 };
 
-/**
- * Set only while a Databricks month is corrupt (see lib/accounts-performance-anomaly.mjs):
- * the month's GMV/orders/commission/quality were dropped or rebuilt from clean days.
- */
-export type AccountsPerformanceDataQuality = {
-  source: string;
-  months: {
-    month: string;
-    status: "suppressed" | "partial";
-    comparedWith: string;
-    jumpFactor: number;
-    matchedProviders: number;
-    throughDate?: string | null;
-    keptDays?: number;
-    droppedDays?: number;
-  }[];
-  note: string;
-};
-
 export type AccountsPerformance = {
   generatedAt: string;
   windowDays: number;
   country: string;
   currency: string;
   dataMonthMax: string | null;
-  dataQuality?: AccountsPerformanceDataQuality | null;
   metricsNote: string;
   /** Human-readable reference period for the availability/performance block. */
   qualityPeriod?: string;
