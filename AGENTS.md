@@ -232,6 +232,20 @@ owner attribution as base Activated. Candidate caches:
 carry `reactivated: true` (shown as a badge in the MTD lists). Base + reactivation
 sets are disjoint by the date filter, so nothing is double-counted.
 
+**Same-year reactivations are NOT a rule — they are a manual allow-list.** An
+account that goes live, churns, and is re-won *within* the same tracking year is
+skipped by both accumulators (base counts one event per account; the
+reactivation rule requires first-active before the tracking year). Reviewed
+2026-08-21 and deliberately left uncounted in general, with named exceptions in
+`lib/activation-overrides.mjs` (`FORCED_REACTIVATION_OPP_IDS`, keyed by the
+**re-win** opportunity Id). Wired via `accumulateMtdForcedReactivations`
+(`lib/mtd-history.mjs`, called from `buildHybridMtdStore`) and
+`accumulateWeeklyForcedReactivations` (`lib/weekly-stages-build.mjs`). Each
+forced entry is dated by that opportunity's **own** first transition INTO
+`Activated` — the account's earlier opp has its own Activated transition in the
+same year, so a group-wide earliest lookup would land in the original month.
+Current entry: Floraria Bloom Studio (Eusebiu, Aug 2026).
+
 Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore(wonRecords, activationRecords)` —
 won from `accumulateMtdWonFromWonDate()`, activated from
 `accumulateMtdActivatedFromActivationDate()` (the legacy
@@ -365,7 +379,7 @@ schema changes).
    (e.g. `sf-stage-history-2026-07.json`).
 
 2. **Run the printed queries IN PARALLEL** through the Salesforce MCP
-   (`user-Salesforce` → `soqlQuery`) — they are independent, fire them in one
+   (`user-SalesforceRO` → `soqlQuery`; renamed 2026-08-21 after OAuth-identity reset) — they are independent, fire them in one
    batch. **Confirm `done: true` and `< 2000` records per chunk** (if any
    chunk hits 2,000 it was truncated — split that month further). Save each JSON
    to its `scripts/.cache/sf-stage-history-YYYY-MM.json` /

@@ -25,6 +25,7 @@ import {
   accumulateWeeklyClosedWonFromWonDate,
   accumulateWeeklyActiveFromActivationDate,
   accumulateWeeklyReactivations,
+  accumulateWeeklyForcedReactivations,
   accumulateNewOpportunityFallback,
   breakdownStoreToHistory,
   countWeeklyLeads,
@@ -427,6 +428,13 @@ accumulateWeeklyActiveFromActivationDate(
 );
 accumulateWeeklyReactivations(
   reactivation.records,
+  reactivation.historyRecords,
+  weeklyBreakdownStore,
+  agentSegment,
+  isExcludedAgent,
+);
+accumulateWeeklyForcedReactivations(
+  activationRecords,
   reactivation.historyRecords,
   weeklyBreakdownStore,
   agentSegment,
