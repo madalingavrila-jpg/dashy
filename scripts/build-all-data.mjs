@@ -19,9 +19,9 @@
  * builders and is preserved unchanged here.
  *
  * Refreshing the underlying caches (Salesforce + Databricks via MCP) is done by
- * the Cursor agent in scripts/refresh-and-deploy.sh; this orchestrator turns
- * those refreshed caches into the dashboard payload. Run `npm run build`
- * afterwards to regenerate the precomputed API artifacts and verify them.
+ * the Cursor agent before this script; this orchestrator turns those refreshed
+ * caches into the dashboard payload. Run `npm run build` afterwards to
+ * regenerate the precomputed API artifacts and verify them.
  *
  * Usage: `npm run refresh-all`  (alias: `npm run data:build`)
  */

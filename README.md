@@ -123,7 +123,7 @@ seeded. UI/code changes still need a git push + redeploy.
 
 **Refresh all data (one command):** refresh the SF + Databricks caches under `scripts/.cache/` via
 MCP, then run `npm run refresh-all && npm run build`, commit `data/dashboard.json`, and push
-`boltable/main`. `scripts/refresh-and-deploy.sh` automates this end-to-end. See `AGENTS.md`.
+`boltable/main`. See `AGENTS.md`.
 
 ## Design reference
 

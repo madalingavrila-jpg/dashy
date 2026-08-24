@@ -32,7 +32,6 @@ refresh); a *missing* closed-month chunk is a hard error.
 The full **"refresh date"** flow (pull fresh from all sources, then rebuild + publish) is:
 **refresh the SF + Databricks caches via MCP → `npm run refresh-all` → `npm run build` →
 `npm run upload-s3` (or push `boltable/main` which seeds S3 on boot).**
-`scripts/refresh-and-deploy.sh` automates the MCP + build + push path (launchd).
 
 ## Canonical query manifest + parallel pulls
 
