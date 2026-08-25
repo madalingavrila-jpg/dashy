@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-25T11:04:21.279Z",
+  "updatedAt": "2026-08-25T12:12:51.733Z",
   "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -10,9 +10,9 @@
         "period": "YTD"
       },
       "activated": {
-        "value": 1316,
+        "value": 1319,
         "previousValue": 1220,
-        "changePercent": 7.9,
+        "changePercent": 8.1,
         "period": "YTD"
       }
     },
@@ -71,7 +71,7 @@
       "targetWon": 260,
       "actualWon": 144,
       "targetActivated": 215,
-      "actualActivated": 96,
+      "actualActivated": 99,
       "leadsMtd": 11,
       "qualifiedMtd": 118,
       "complexRepCount": 5,
@@ -98,7 +98,7 @@
         {
           "name": "Density",
           "target": 175,
-          "actual": 81,
+          "actual": 84,
           "type": "activated"
         }
       ]
@@ -133,9 +133,9 @@
         },
         {
           "label": "Active",
-          "value": 5,
-          "previousValue": 36,
-          "changePercent": -86.1
+          "value": 6,
+          "previousValue": 38,
+          "changePercent": -84.2
         }
       ],
       "history": [
@@ -409,7 +409,7 @@
           "qualified": 56,
           "negotiations": 32,
           "closedWon": 56,
-          "active": 36
+          "active": 38
         },
         {
           "week": "W35",
@@ -417,7 +417,7 @@
           "qualified": 15,
           "negotiations": 7,
           "closedWon": 11,
-          "active": 5
+          "active": 6
         }
       ],
       "breakdown": [
@@ -2933,7 +2933,7 @@
               "qualified": 52,
               "negotiations": 28,
               "closedWon": 41,
-              "active": 33
+              "active": 35
             }
           },
           "agents": {
@@ -2947,7 +2947,7 @@
               "qualified": 1,
               "negotiations": 1,
               "closedWon": 11,
-              "active": 8
+              "active": 10
             },
             "005Ts00000BtX53IAF": {
               "qualified": 9,
@@ -3012,7 +3012,7 @@
               "qualified": 15,
               "negotiations": 7,
               "closedWon": 11,
-              "active": 4
+              "active": 5
             }
           },
           "agents": {
@@ -3020,7 +3020,7 @@
               "qualified": 3,
               "negotiations": 1,
               "closedWon": 1,
-              "active": 1,
+              "active": 2,
               "accounts": {
                 "qualified": [
                   {
@@ -3082,6 +3082,16 @@
                     "date": "2026-08-24",
                     "sfOpportunityId": "006Qs00000l5MfyIAE",
                     "sfAccountId": "001Qs00000slMndIAE"
+                  },
+                  {
+                    "id": "006Qs00000lO0AJIA0",
+                    "name": "HAI PIZZA & WINE",
+                    "city": "—",
+                    "stage": "Activated",
+                    "date": "2026-08-25",
+                    "sfOpportunityId": "006Qs00000lO0AJIA0",
+                    "sfAccountId": "001Qs00000gjOMDIA2",
+                    "reactivated": true
                   }
                 ]
               }
@@ -3475,9 +3485,9 @@
           },
           {
             "metric": "Active",
-            "current": 5,
-            "prior": 36,
-            "changePercent": -86.1
+            "current": 6,
+            "prior": 38,
+            "changePercent": -84.2
           }
         ]
       }
@@ -3498,7 +3508,7 @@
           "1st Pitch": 1
         },
         "wonMtd": 23,
-        "activatedMtd": 12,
+        "activatedMtd": 14,
         "wonYtd": 13,
         "segment": "density",
         "mtdTarget": 30
@@ -3518,7 +3528,7 @@
           "1st Pitch": 3
         },
         "wonMtd": 26,
-        "activatedMtd": 20,
+        "activatedMtd": 21,
         "wonYtd": 22,
         "segment": "density",
         "mtdTarget": 30
@@ -3709,7 +3719,7 @@
             "name": "Eusebiu Hanganu",
             "segment": "density",
             "wonMtd": 26,
-            "activatedMtd": 20,
+            "activatedMtd": 21,
             "wonItems": [
               {
                 "id": "006Qs00000lb1RuIAI",
@@ -4074,6 +4084,15 @@
                 "sfAccountId": "001Qs00000slMndIAE"
               },
               {
+                "id": "006Qs00000lO0AJIA0",
+                "name": "HAI PIZZA & WINE",
+                "city": "—",
+                "closeDate": "2026-08-25",
+                "sfOpportunityId": "006Qs00000lO0AJIA0",
+                "sfAccountId": "001Qs00000gjOMDIA2",
+                "reactivated": true
+              },
+              {
                 "id": "006Qs00000l5NtmIAE",
                 "name": "Floraria Bloom Studio",
                 "city": "—",
@@ -4089,7 +4108,7 @@
             "name": "Ciprian Teodorescu",
             "segment": "density",
             "wonMtd": 23,
-            "activatedMtd": 12,
+            "activatedMtd": 14,
             "wonItems": [
               {
                 "id": "006Qs00000lZUjKIAW",
@@ -4373,6 +4392,24 @@
                 "closeDate": "2026-08-25",
                 "sfOpportunityId": "006Qs00000lZRdOIAW",
                 "sfAccountId": "001Qs00000cTCEPIA4",
+                "reactivated": true
+              },
+              {
+                "id": "006Qs00000lNuuZIAS",
+                "name": "Floraria Royal Flowers",
+                "city": "—",
+                "closeDate": "2026-08-18",
+                "sfOpportunityId": "006Qs00000lNuuZIAS",
+                "sfAccountId": "001Qs00000iTXSMIA4",
+                "reactivated": true
+              },
+              {
+                "id": "006Qs00000lQJTnIAO",
+                "name": "Platoo",
+                "city": "—",
+                "closeDate": "2026-08-19",
+                "sfOpportunityId": "006Qs00000lQJTnIAO",
+                "sfAccountId": "001Qs00000qLgT7IAK",
                 "reactivated": true
               }
             ]
@@ -5763,7 +5800,7 @@
           "targetWon": 260,
           "actualWon": 144,
           "targetActivated": 215,
-          "actualActivated": 96,
+          "actualActivated": 99,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -5790,7 +5827,7 @@
             {
               "name": "Density",
               "target": 175,
-              "actual": 81,
+              "actual": 84,
               "type": "activated"
             }
           ]
@@ -7969,7 +8006,7 @@
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-08-25T11:04:20.375Z",
+      "generatedAt": "2026-08-25T12:12:50.787Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -47380,31 +47417,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-08-25T11:04:19.321Z",
+        "lastSync": "2026-08-25T12:12:49.710Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-08-25T11:04:19.321Z",
+        "lastSync": "2026-08-25T12:12:49.710Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-08-25T11:04:19.321Z",
+        "lastSync": "2026-08-25T12:12:49.710Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-08-25T11:04:19.321Z",
+        "lastSync": "2026-08-25T12:12:49.710Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-08-25T11:04:20.680Z",
+    "generatedAt": "2026-08-25T12:12:51.101Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -163307,7 +163344,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-08-25T11:04:21.279Z",
+    "generatedAt": "2026-08-25T12:12:51.733Z",
     "monthKey": "2026-08",
     "monthLabel": "August 2026",
     "currentWeek": "W35",
@@ -175615,7 +175652,7 @@
     }
   },
   "churnPrevention": {
-    "generatedAt": "2026-08-25T11:04:21.520Z",
+    "generatedAt": "2026-08-25T12:12:51.997Z",
     "year": 2026,
     "country": "Romania",
     "metricsNote": "YTD Romania activations by Complex + Density reps. SF Status__c is the source of truth for inactive (archived/inactive), hidden, and deleted; Databricks provider_status is a platform cross-check. Never ordered = zero delivered orders in the activation month and every month after (fact_provider_monthly); accounts with any order in the current query month are not shown as without orders. Lifetime first_order_date is display-only.",
