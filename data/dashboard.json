@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-27T08:51:17.887Z",
+  "updatedAt": "2026-08-27T09:24:38.868Z",
   "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -40,7 +40,7 @@
         },
         {
           "stage": "Contract sent",
-          "count": 340
+          "count": 342
         },
         {
           "stage": "Won",
@@ -54,11 +54,11 @@
         },
         {
           "stage": "Onboarding",
-          "count": 42
+          "count": 41
         },
         {
           "stage": "Ready for TA",
-          "count": 77
+          "count": 78
         },
         {
           "stage": "Activated",
@@ -4533,24 +4533,6 @@
         "mtdTarget": 30
       },
       {
-        "ownerId": "005Ts00000BtZV3IAN",
-        "name": "Borcaeas Georgian",
-        "pipelineCount": 47,
-        "stageCounts": {
-          "Ready for TA": 7,
-          "Contacting Decision Maker": 4,
-          "1st Pitch": 8,
-          "Negotiation": 16,
-          "Contract sent": 8,
-          "New Opportunity": 4
-        },
-        "wonMtd": 22,
-        "activatedMtd": 22,
-        "wonYtd": 17,
-        "segment": "density",
-        "mtdTarget": 30
-      },
-      {
         "ownerId": "005Ts00000BtGPDIA3",
         "name": "Daniel-Alexandru Boboc",
         "pipelineCount": 47,
@@ -4566,6 +4548,24 @@
         "wonMtd": 13,
         "activatedMtd": 6,
         "wonYtd": 5,
+        "segment": "density",
+        "mtdTarget": 30
+      },
+      {
+        "ownerId": "005Ts00000BtZV3IAN",
+        "name": "Borcaeas Georgian",
+        "pipelineCount": 47,
+        "stageCounts": {
+          "Ready for TA": 7,
+          "Contacting Decision Maker": 4,
+          "1st Pitch": 8,
+          "Negotiation": 16,
+          "Contract sent": 8,
+          "New Opportunity": 4
+        },
+        "wonMtd": 22,
+        "activatedMtd": 22,
+        "wonYtd": 17,
         "segment": "density",
         "mtdTarget": 30
       },
@@ -4643,8 +4643,8 @@
         "name": "Paul-Daniel Rîngheanu",
         "pipelineCount": 15,
         "stageCounts": {
-          "Onboarding": 3,
-          "Ready for TA": 4,
+          "Ready for TA": 5,
+          "Onboarding": 2,
           "Negotiation": 1,
           "New Opportunity": 7
         },
@@ -8917,6 +8917,34 @@
       ],
       "backlog": [
         {
+          "id": "006Qs00000lSteXIAS",
+          "name": "Burger Han (Bucuresti)",
+          "city": "Ploiești",
+          "owner": "Paul-Daniel Rîngheanu",
+          "tier": "Standard",
+          "stage": "Ready for TA",
+          "status": "backlog",
+          "closedDate": "2026-09-30",
+          "sfAccountId": "001Qs00000tI3PeIAK",
+          "sfOpportunityId": "006Qs00000lSteXIAS",
+          "ownerId": "005Qs00000Mxc6EIAR",
+          "segment": "density"
+        },
+        {
+          "id": "006Qs00000lei46IAA",
+          "name": "Meat Factory",
+          "city": "—",
+          "owner": "Daniel-Alexandru Boboc",
+          "tier": "Standard",
+          "stage": "Onboarding",
+          "status": "backlog",
+          "closedDate": "2026-09-30",
+          "sfAccountId": "001Qs00000tYceJIAS",
+          "sfOpportunityId": "006Qs00000lei46IAA",
+          "ownerId": "005Ts00000BtGPDIA3",
+          "segment": "density"
+        },
+        {
           "id": "006Qs00000ldKgYIAU",
           "name": "Utopia Fried Chicken",
           "city": "—",
@@ -8998,20 +9026,6 @@
           "sfAccountId": "001Qs00000ta3PXIAY",
           "sfOpportunityId": "006Qs00000lfbjiIAA",
           "ownerId": "005Ts00000BtZV3IAN",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000lSteXIAS",
-          "name": "Burger Han (Bucuresti)",
-          "city": "Ploiești",
-          "owner": "Paul-Daniel Rîngheanu",
-          "tier": "Standard",
-          "stage": "Onboarding",
-          "status": "backlog",
-          "closedDate": "2026-09-30",
-          "sfAccountId": "001Qs00000tI3PeIAK",
-          "sfOpportunityId": "006Qs00000lSteXIAS",
-          "ownerId": "005Qs00000Mxc6EIAR",
           "segment": "density"
         },
         {
@@ -9109,20 +9123,6 @@
           "closedDate": "2026-09-05",
           "sfAccountId": "001Qs00000rul7QIAQ",
           "sfOpportunityId": "006Qs00000lGJOeIAO",
-          "ownerId": "005Ts00000BtGPDIA3",
-          "segment": "density"
-        },
-        {
-          "id": "006Qs00000lei46IAA",
-          "name": "Meat Factory",
-          "city": "—",
-          "owner": "Daniel-Alexandru Boboc",
-          "tier": "Standard",
-          "stage": "Onboarding",
-          "status": "backlog",
-          "closedDate": "2026-09-30",
-          "sfAccountId": "001Qs00000tYceJIAS",
-          "sfOpportunityId": "006Qs00000lei46IAA",
           "ownerId": "005Ts00000BtGPDIA3",
           "segment": "density"
         },
@@ -9325,7 +9325,7 @@
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-08-27T08:51:16.869Z",
+      "generatedAt": "2026-08-27T09:24:34.247Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -46971,47 +46971,47 @@
       {
         "id": "onboarding-live",
         "label": "Accounts in onboarding",
-        "value": 26,
+        "value": 25,
         "subtitle": "Onboarding → Escalation (opps)",
         "icon": "rocket_launch"
       },
       {
         "id": "ready-to-activate",
         "label": "Ready to Activate",
-        "value": 66,
+        "value": 67,
         "subtitle": "Onboarding complete, awaiting go-live (opps)",
         "icon": "bolt"
       },
       {
         "id": "open-cases",
         "label": "Open cases",
-        "value": 113,
+        "value": 110,
         "subtitle": "IsClosed = false",
         "icon": "inbox"
       },
       {
         "id": "open-new-onboarding",
         "label": "Open onboarding cases",
-        "value": 64,
+        "value": 63,
         "subtitle": "New Onboarding record type",
         "icon": "support_agent"
       },
       {
         "id": "open-other-cases",
         "label": "Other open cases",
-        "value": 49,
+        "value": 47,
         "subtitle": "Menu update, self signup, expansion…",
         "icon": "folder_open"
       },
       {
         "id": "open-top-status",
         "label": "Menu & Assets",
-        "value": 62,
+        "value": 60,
         "subtitle": "Largest open status bucket",
         "icon": "pending"
       }
     ],
-    "totalLiveOnboarding": 26,
+    "totalLiveOnboarding": 25,
     "onboardingByAgent": [
       {
         "ownerId": "005Ts000001Ak10IAC",
@@ -47206,19 +47206,11 @@
         "ownerId": "005Qs00000Mxc6EIAR",
         "name": "Paul-Daniel Rîngheanu",
         "segment": "complex",
-        "count": 3,
+        "count": 2,
         "stageCounts": {
-          "Onboarding": 3
+          "Onboarding": 2
         },
         "accounts": [
-          {
-            "id": "006Qs00000lSteXIAS",
-            "name": "Burger Han (Bucuresti)",
-            "city": "Ploiești",
-            "stage": "Onboarding",
-            "sfOpportunityId": "006Qs00000lSteXIAS",
-            "sfAccountId": "001Qs00000tI3PeIAK"
-          },
           {
             "id": "006Qs00000ldmEcIAI",
             "name": "Pizza San Marco",
@@ -47333,7 +47325,7 @@
         ]
       }
     ],
-    "totalReadyToActivate": 66,
+    "totalReadyToActivate": 67,
     "readyToActivateByAgent": [
       {
         "ownerId": "005Qs00000Pr1HKIAZ",
@@ -47751,6 +47743,57 @@
         ]
       },
       {
+        "ownerId": "005Qs00000Mxc6EIAR",
+        "name": "Paul-Daniel Rîngheanu",
+        "segment": "complex",
+        "count": 5,
+        "stageCounts": {
+          "Ready for TA": 5
+        },
+        "accounts": [
+          {
+            "id": "006Qs00000h2QoAIAU",
+            "name": "Mamaliguta & Sushi Han PH",
+            "city": "Ploiești",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000h2QoAIAU",
+            "sfAccountId": "001Qs00000mdVhtIAE"
+          },
+          {
+            "id": "006Qs00000h2ldCIAQ",
+            "name": "Mamaliguta& Sushi Han BV",
+            "city": "Ploiești",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000h2ldCIAQ",
+            "sfAccountId": "001Qs00000mdLPAIA2"
+          },
+          {
+            "id": "006Qs00000hDivTIAS",
+            "name": "Mamaliguta & Sushi Han PH",
+            "city": "Ploiești",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000hDivTIAS",
+            "sfAccountId": "001Qs00000mdVhtIAE"
+          },
+          {
+            "id": "006Qs00000h2eiCIAQ",
+            "name": "Mamaliguta& Sushi Han BV",
+            "city": "Ploiești",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000h2eiCIAQ",
+            "sfAccountId": "001Qs00000mdLPAIA2"
+          },
+          {
+            "id": "006Qs00000lSteXIAS",
+            "name": "Burger Han (Bucuresti)",
+            "city": "Ploiești",
+            "stage": "Ready for TA",
+            "sfOpportunityId": "006Qs00000lSteXIAS",
+            "sfAccountId": "001Qs00000tI3PeIAK"
+          }
+        ]
+      },
+      {
         "ownerId": "005Ts0000060ICnIAM",
         "name": "Ionut-Mădălin Gavrilă",
         "segment": "complex",
@@ -47849,49 +47892,6 @@
             "stage": "Ready for TA",
             "sfOpportunityId": "006Qs00000lb1RuIAI",
             "sfAccountId": "001Qs00000tTBZxIAO"
-          }
-        ]
-      },
-      {
-        "ownerId": "005Qs00000Mxc6EIAR",
-        "name": "Paul-Daniel Rîngheanu",
-        "segment": "complex",
-        "count": 4,
-        "stageCounts": {
-          "Ready for TA": 4
-        },
-        "accounts": [
-          {
-            "id": "006Qs00000h2QoAIAU",
-            "name": "Mamaliguta & Sushi Han PH",
-            "city": "Ploiești",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000h2QoAIAU",
-            "sfAccountId": "001Qs00000mdVhtIAE"
-          },
-          {
-            "id": "006Qs00000h2ldCIAQ",
-            "name": "Mamaliguta& Sushi Han BV",
-            "city": "Ploiești",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000h2ldCIAQ",
-            "sfAccountId": "001Qs00000mdLPAIA2"
-          },
-          {
-            "id": "006Qs00000hDivTIAS",
-            "name": "Mamaliguta & Sushi Han PH",
-            "city": "Ploiești",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000hDivTIAS",
-            "sfAccountId": "001Qs00000mdVhtIAE"
-          },
-          {
-            "id": "006Qs00000h2eiCIAQ",
-            "name": "Mamaliguta& Sushi Han BV",
-            "city": "Ploiești",
-            "stage": "Ready for TA",
-            "sfOpportunityId": "006Qs00000h2eiCIAQ",
-            "sfAccountId": "001Qs00000mdLPAIA2"
           }
         ]
       },
@@ -47999,11 +47999,11 @@
     "openCaseStatuses": [
       {
         "status": "Menu & Assets",
-        "count": 62
+        "count": 60
       },
       {
         "status": "Onboarding Qualify",
-        "count": 35
+        "count": 34
       },
       {
         "status": "Menu Update",
@@ -48017,7 +48017,7 @@
     "openCaseRecordTypes": [
       {
         "recordType": "New Onboarding",
-        "count": 64
+        "count": 63
       },
       {
         "recordType": "Self Signup",
@@ -48028,12 +48028,12 @@
         "count": 16
       },
       {
-        "recordType": "Reactivation",
-        "count": 6
-      },
-      {
         "recordType": "Expansion",
         "count": 5
+      },
+      {
+        "recordType": "Reactivation",
+        "count": 4
       },
       {
         "recordType": "New Merchant Venue",
@@ -48059,12 +48059,7 @@
       {
         "ownerId": "005Ts00000FDPj8IAH",
         "name": "JericoAngelo Marcelo",
-        "count": 12
-      },
-      {
-        "ownerId": "005Ts00000C6gIeIAJ",
-        "name": "javi javier",
-        "count": 8
+        "count": 10
       },
       {
         "ownerId": "005Ts000009HhGHIA0",
@@ -48074,6 +48069,11 @@
       {
         "ownerId": "005Qs00000LaMKUIA3",
         "name": "Vhictoria Inton",
+        "count": 7
+      },
+      {
+        "ownerId": "005Ts00000C6gIeIAJ",
+        "name": "javi javier",
         "count": 7
       },
       {
@@ -48227,9 +48227,6 @@
       {},
       {},
       {},
-      {},
-      {},
-      {},
       {}
     ]
   },
@@ -48240,31 +48237,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-08-27T08:51:15.688Z",
+        "lastSync": "2026-08-27T09:24:32.844Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-08-27T08:51:15.688Z",
+        "lastSync": "2026-08-27T09:24:32.844Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-08-27T08:51:15.688Z",
+        "lastSync": "2026-08-27T09:24:32.844Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-08-27T08:51:15.688Z",
+        "lastSync": "2026-08-27T09:24:32.844Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-08-27T08:51:17.219Z",
+    "generatedAt": "2026-08-27T09:24:35.745Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -164692,7 +164689,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-08-27T08:51:17.887Z",
+    "generatedAt": "2026-08-27T09:24:38.868Z",
     "monthKey": "2026-08",
     "monthLabel": "August 2026",
     "currentWeek": "W35",
@@ -177256,7 +177253,7 @@
     }
   },
   "churnPrevention": {
-    "generatedAt": "2026-08-27T08:51:18.170Z",
+    "generatedAt": "2026-08-27T09:24:39.134Z",
     "year": 2026,
     "country": "Romania",
     "metricsNote": "YTD Romania activations by Complex + Density reps. SF Status__c is the source of truth for inactive (archived/inactive), hidden, and deleted; Databricks provider_status is a platform cross-check. Never ordered = zero delivered orders in the activation month and every month after (fact_provider_monthly); accounts with any order in the current query month are not shown as without orders. Lifetime first_order_date is display-only.",
