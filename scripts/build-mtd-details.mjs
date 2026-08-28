@@ -8,7 +8,7 @@
  * captures those lists from the same SF caches BEFORE slimming, and is served
  * as the lazily-fetched /api/dashboard/mtd-details section so the Monthly
  * Overview tab can show which accounts are behind a historical Won/Activated
- * count without inflating the main /api/dashboard payload (350KB cap).
+ * count without inflating the main /api/dashboard payload (360KB cap).
  *
  * Reads the same caches as build-dashboard-data.mjs (won exports + stage
  * history); writes ONLY data/mtd-details.json — never touches dashboard.json,
