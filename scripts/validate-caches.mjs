@@ -105,6 +105,11 @@ function checkRosterPresence() {
     { file: "scripts/.cache/sf-won-ytd-bydate.json", nested: false, source: "Won (all months)" },
     { file: `scripts/.cache/sf-stage-history-${year}.json`, nested: true, source: "Activated / stage history" },
     { file: `scripts/.cache/sf-weekly-${year}.json`, nested: false, source: "Weekly production" },
+    {
+      file: `scripts/.cache/sf-account-activation-${year}.json`,
+      nested: false,
+      source: "Activated (provider_first_active_date__c)",
+    },
   ];
   for (const t of targets) {
     const path = join(root, t.file);
