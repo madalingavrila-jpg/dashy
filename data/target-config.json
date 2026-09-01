@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-06T17:55:00.000Z",
+  "updatedAt": "2026-09-01T07:30:00.000Z",
   "segment": {
     "complex": {
       "won": 10,
@@ -25,20 +25,20 @@
     }
   },
   "perRep": {
-    "005Ts000002AX4nIAG": { "activated": 23, "monthKey": "2026-08" },
-    "005Ts00000BtGPDIA3": { "activated": 23, "monthKey": "2026-08" },
-    "005Ts000002AWIQIA4": { "activated": 23, "monthKey": "2026-08" },
-    "005Ts00000BtZV3IAN": { "activated": 23, "monthKey": "2026-08" },
-    "005Ts000001Ak10IAC": { "activated": 23, "monthKey": "2026-08" },
-    "005Ts00000BtX53IAF": { "activated": 21, "monthKey": "2026-08" },
-    "005Ts000006V3vpIAC": { "activated": 15, "monthKey": "2026-08" },
-    "005Ts0000060ICnIAM": { "activated": 5, "monthKey": "2026-08" },
-    "005Qs00000Mxc6EIAR": { "activated": 5, "monthKey": "2026-08" },
-    "005Ts000005c4hFIAQ": { "activated": 5, "monthKey": "2026-08" },
-    "005Qs00000Pr1HKIAZ": { "activated": 5, "monthKey": "2026-08" },
-    "005Qs00000N2Hh3IAF": { "activated": 5, "monthKey": "2026-08" },
-    "005Ts00000BtHpvIAF": { "activated": 45, "monthKey": "2026-08" },
-    "005Qs00000OLyBRIA1": { "activated": 45, "monthKey": "2026-08" }
+    "005Ts000002AX4nIAG": { "activated": 29, "monthKey": "2026-09" },
+    "005Ts00000BtGPDIA3": { "activated": 29, "monthKey": "2026-09" },
+    "005Ts00000BtX53IAF": { "activated": 29, "monthKey": "2026-09" },
+    "005Ts000002AWIQIA4": { "activated": 29, "monthKey": "2026-09" },
+    "005Ts00000BtZV3IAN": { "activated": 29, "monthKey": "2026-09" },
+    "005Ts000001Ak10IAC": { "activated": 29, "monthKey": "2026-09" },
+    "005Ts000006V3vpIAC": { "activated": 29, "monthKey": "2026-09" },
+    "005Ts0000060ICnIAM": { "activated": 6, "monthKey": "2026-09" },
+    "005Qs00000N2Hh3IAF": { "activated": 6, "monthKey": "2026-09" },
+    "005Qs00000Pr1HKIAZ": { "activated": 6, "monthKey": "2026-09" },
+    "005Ts000005c4hFIAQ": { "activated": 6, "monthKey": "2026-09" },
+    "005Qs00000Mxc6EIAR": { "activated": 6, "monthKey": "2026-09" },
+    "005Ts00000BtHpvIAF": { "activated": 60, "monthKey": "2026-09" },
+    "005Qs00000OLyBRIA1": { "activated": 60, "monthKey": "2026-09" }
   },
   "weeklyPerRep": {},
   "pausedAgentIds": []

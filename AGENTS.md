@@ -177,11 +177,11 @@ per-rep entry may carry a `monthKey` (e.g. `"2026-07"`) so the override applies 
 when the dashboard's current/selected month matches, auto-reverting to the segment
 default otherwise (resolved in `lib/targetConfig.ts` `resolveMtdOverrideValue`
 against `model.mtdMonthKey`). An `activated`-only override leaves Won at the segment
-default. **July 2026 Activated targets** (Activated MTD only; Won unchanged; auto-revert
-in August): Density 23/rep except **Daniel-Alexandru Boboc 15** (vacation) → 153;
-Complex 5/rep except **Corneliu-Ștefan Radu 4** (vacation) → 24; Inbound Ana-Maria
-Preda & Catalin Corbeanu 45 each (stored in `perRep`; the Inbound tab is actuals-only
-so not displayed as a target there).
+default. **September 2026 Activated targets** (Activated MTD only; Won unchanged;
+auto-revert in October): Density **29**/rep × 7 → 203; Complex **6**/rep × 5 → 30
+(country plan 50+ from pipeline overdelivery); Inbound Ana-Maria Preda & Catalin
+Corbeanu **60** each → 120 (stored in `perRep`; the Inbound tab is actuals-only so
+not displayed as a target there). Country Activated plan **370**.
 
 ### MTD Won vs Activated (hybrid — aligned with SF dashboard)
 

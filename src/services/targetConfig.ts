@@ -155,6 +155,14 @@ function serializeTargetConfig(payload: TargetConfigPayload): string {
   return `${JSON.stringify(payload, null, 2)}\n`;
 }
 
+async function mirrorLocal(serialized: string): Promise<void> {
+  try {
+    await writeFile(targetConfigPath(), serialized, "utf8");
+  } catch {
+    /* ephemeral / read-only FS — ignore */
+  }
+}
+
 export async function writeTargetConfig(payload: TargetConfigPayload): Promise<WriteTargetConfigResult> {
   const merged = mergeTargetConfig(payload);
   const toWrite: TargetConfigPayload = {
@@ -163,7 +171,7 @@ export async function writeTargetConfig(payload: TargetConfigPayload): Promise<W
   };
 
   const serialized = serializeTargetConfig(toWrite);
-  await writeFile(targetConfigPath(), serialized, "utf8");
+  await mirrorLocal(serialized);
 
   try {
     await putS3Object(TARGET_CONFIG_S3_KEY, serialized);
