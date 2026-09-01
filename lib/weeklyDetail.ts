@@ -46,6 +46,7 @@ function asTargetConfig(config: WeeklyTargetConfig): TargetConfig {
     },
     weekly: config.weekly,
     perRep: {},
+    perRepByMonth: {},
     weeklyPerRep: config.weeklyPerRep,
     pausedAgentIds: config.pausedAgentIds ?? [],
   };

@@ -40,6 +40,40 @@
     "005Ts00000BtHpvIAF": { "activated": 60, "monthKey": "2026-09" },
     "005Qs00000OLyBRIA1": { "activated": 60, "monthKey": "2026-09" }
   },
+  "perRepByMonth": {
+    "2026-08": {
+      "005Ts000002AX4nIAG": { "activated": 23 },
+      "005Ts00000BtGPDIA3": { "activated": 23 },
+      "005Ts000002AWIQIA4": { "activated": 23 },
+      "005Ts00000BtZV3IAN": { "activated": 23 },
+      "005Ts000001Ak10IAC": { "activated": 23 },
+      "005Ts00000BtX53IAF": { "activated": 21 },
+      "005Ts000006V3vpIAC": { "activated": 15 },
+      "005Ts0000060ICnIAM": { "activated": 5 },
+      "005Qs00000Mxc6EIAR": { "activated": 5 },
+      "005Ts000005c4hFIAQ": { "activated": 5 },
+      "005Qs00000Pr1HKIAZ": { "activated": 5 },
+      "005Qs00000N2Hh3IAF": { "activated": 5 },
+      "005Ts00000BtHpvIAF": { "activated": 45 },
+      "005Qs00000OLyBRIA1": { "activated": 45 }
+    },
+    "2026-07": {
+      "005Ts000002AX4nIAG": { "activated": 23 },
+      "005Ts00000BtGPDIA3": { "activated": 15 },
+      "005Ts000002AWIQIA4": { "activated": 23 },
+      "005Ts00000BtZV3IAN": { "activated": 23 },
+      "005Ts000001Ak10IAC": { "activated": 23 },
+      "005Ts00000BtX53IAF": { "activated": 23 },
+      "005Ts000006V3vpIAC": { "activated": 23 },
+      "005Ts0000060ICnIAM": { "activated": 5 },
+      "005Qs00000Mxc6EIAR": { "activated": 5 },
+      "005Ts000005c4hFIAQ": { "activated": 4 },
+      "005Qs00000Pr1HKIAZ": { "activated": 5 },
+      "005Qs00000N2Hh3IAF": { "activated": 5 },
+      "005Ts00000BtHpvIAF": { "activated": 45 },
+      "005Qs00000OLyBRIA1": { "activated": 45 }
+    }
+  },
   "weeklyPerRep": {},
   "pausedAgentIds": []
 }

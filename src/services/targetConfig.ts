@@ -26,6 +26,11 @@ export type PerRepMtdOverride = {
   monthKey?: string;
 };
 
+export type PerRepMonthOverride = {
+  won?: number;
+  activated?: number;
+};
+
 export type PerRepWeeklyOverride = Partial<WeeklyStatusCounts> & {
   week?: string;
 };
@@ -41,6 +46,8 @@ export type TargetConfigPayload = {
     density: WeeklyStatusCounts;
   };
   perRep: Record<string, PerRepMtdOverride>;
+  /** `YYYY-MM` → ownerId → override; keeps past months' targets after `perRep` moves on. */
+  perRepByMonth: Record<string, Record<string, PerRepMonthOverride>>;
   weeklyPerRep: Record<string, PerRepWeeklyOverride>;
   pausedAgentIds: string[];
 };
@@ -73,13 +80,38 @@ export function defaultTargetConfig(): TargetConfigPayload {
       density: { ...DENSITY_WEEKLY_TARGETS },
     },
     perRep: {},
+    perRepByMonth: {},
     weeklyPerRep: {},
     pausedAgentIds: [],
   };
 }
 
+function archivePerRepByMonth(
+  perRep: Record<string, PerRepMtdOverride>,
+  existing: Record<string, Record<string, PerRepMonthOverride>> | undefined,
+): Record<string, Record<string, PerRepMonthOverride>> {
+  const archive: Record<string, Record<string, PerRepMonthOverride>> = {};
+  for (const [monthKey, owners] of Object.entries(existing ?? {})) {
+    if (!owners || typeof owners !== "object") continue;
+    archive[monthKey] = { ...owners };
+  }
+  for (const [ownerId, override] of Object.entries(perRep)) {
+    const monthKey = override?.monthKey;
+    if (!monthKey) continue;
+    const month = archive[monthKey] ?? {};
+    const entry: PerRepMonthOverride = { ...month[ownerId] };
+    if (override.won != null) entry.won = override.won;
+    if (override.activated != null) entry.activated = override.activated;
+    if (entry.won == null && entry.activated == null) continue;
+    month[ownerId] = entry;
+    archive[monthKey] = month;
+  }
+  return archive;
+}
+
 export function mergeTargetConfig(parsed: Partial<TargetConfigPayload>): TargetConfigPayload {
   const defaults = defaultTargetConfig();
+  const perRep = parsed.perRep ?? {};
   return {
     updatedAt: parsed.updatedAt,
     segment: {
@@ -90,7 +122,8 @@ export function mergeTargetConfig(parsed: Partial<TargetConfigPayload>): TargetC
       complex: { ...defaults.weekly.complex, ...parsed.weekly?.complex },
       density: { ...defaults.weekly.density, ...parsed.weekly?.density },
     },
-    perRep: parsed.perRep ?? {},
+    perRep,
+    perRepByMonth: archivePerRepByMonth(perRep, parsed.perRepByMonth),
     weeklyPerRep: parsed.weeklyPerRep ?? {},
     pausedAgentIds: Array.isArray(parsed.pausedAgentIds) ? parsed.pausedAgentIds : [],
   };

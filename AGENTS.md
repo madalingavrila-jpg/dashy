@@ -177,7 +177,18 @@ per-rep entry may carry a `monthKey` (e.g. `"2026-07"`) so the override applies 
 when the dashboard's current/selected month matches, auto-reverting to the segment
 default otherwise (resolved in `lib/targetConfig.ts` `resolveMtdOverrideValue`
 against `model.mtdMonthKey`). An `activated`-only override leaves Won at the segment
-default. **September 2026 Activated targets** (Activated MTD only; Won unchanged;
+default.
+
+`perRep` holds only ONE month per rep, so **past months live in
+`perRepByMonth`** (`YYYY-MM` → ownerId → `{won?, activated?}`). Every save folds
+month-scoped `perRep` entries into that archive (`archivePerRepByMonth`, mirrored
+in `src/services/targetConfig.ts`), so pointing `perRep` at a new month no longer
+resets the month it replaced — historical months in Monthly Overview keep the
+targets they were run with. Resolution order: `perRep` (month match or unscoped) →
+`perRepByMonth[selectedMonth]` → segment default. Archived so far: **2026-07**
+(Density 23/rep, Boboc 15 → 153; Complex 5/rep, Radu 4 → 24; Inbound 45) and
+**2026-08** (Density 23/rep, Toltică 21, Roșu 15 → 151; Complex 5/rep → 25;
+Inbound 45). **September 2026 Activated targets** (Activated MTD only; Won unchanged;
 auto-revert in October): Density **29**/rep × 7 → 203; Complex **6**/rep × 5 → 30
 (country plan 50+ from pipeline overdelivery); Inbound Ana-Maria Preda & Catalin
 Corbeanu **60** each → 120 (stored in `perRep`; the Inbound tab is actuals-only so

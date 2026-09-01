@@ -34,6 +34,12 @@ export type PerRepMtdOverride = {
   monthKey?: string;
 };
 
+/** Archived per-rep override for one month — keeps past months' targets intact. */
+export type PerRepMonthOverride = {
+  won?: number;
+  activated?: number;
+};
+
 export type PerRepWeeklyOverride = Partial<WeeklyStatusTargets> & {
   /** Week code (e.g. W24). When set, override applies only to that week. */
   week?: string;
@@ -49,6 +55,12 @@ export type TargetConfig = {
     density: WeeklyStatusTargets;
   };
   perRep: Record<string, PerRepMtdOverride>;
+  /**
+   * Month-keyed archive (`YYYY-MM` → ownerId → override). `perRep` only holds one
+   * month per rep, so every month-scoped edit is also archived here; historical
+   * months keep the targets they were set with.
+   */
+  perRepByMonth: Record<string, Record<string, PerRepMonthOverride>>;
   weeklyPerRep: Record<string, PerRepWeeklyOverride>;
   /** Reps excluded from team target math (still shown with actuals). */
   pausedAgentIds: string[];
@@ -65,6 +77,7 @@ export function defaultTargetConfig(): TargetConfig {
       density: { ...DENSITY_WEEKLY_TARGETS },
     },
     perRep: {},
+    perRepByMonth: {},
     weeklyPerRep: {},
     pausedAgentIds: [],
   };
@@ -112,8 +125,36 @@ export function formatTargetSummary(config: TargetConfig): string {
   return `Won target Complex ${complex.won}/rep, Density ${density.won}/rep · Activated target Complex ${complex.activated}/rep, Density ${density.activated}/rep · Weekly Complex Q${wc.qualified}/N${wc.negotiations}/W${wc.closedWon}/A${wc.active} · Density Q${wd.qualified}/N${wd.negotiations}/W${wd.closedWon}/A${wd.active}`;
 }
 
+/**
+ * Folds month-scoped `perRep` entries into the month archive so switching the live
+ * override to a new month never erases the month it replaced.
+ */
+export function archivePerRepByMonth(
+  perRep: Record<string, PerRepMtdOverride>,
+  existing: Record<string, Record<string, PerRepMonthOverride>> | undefined,
+): Record<string, Record<string, PerRepMonthOverride>> {
+  const archive: Record<string, Record<string, PerRepMonthOverride>> = {};
+  for (const [monthKey, owners] of Object.entries(existing ?? {})) {
+    if (!owners || typeof owners !== "object") continue;
+    archive[monthKey] = { ...owners };
+  }
+  for (const [ownerId, override] of Object.entries(perRep)) {
+    const monthKey = override?.monthKey;
+    if (!monthKey) continue;
+    const month = archive[monthKey] ?? {};
+    const entry: PerRepMonthOverride = { ...month[ownerId] };
+    if (override.won != null) entry.won = override.won;
+    if (override.activated != null) entry.activated = override.activated;
+    if (entry.won == null && entry.activated == null) continue;
+    month[ownerId] = entry;
+    archive[monthKey] = month;
+  }
+  return archive;
+}
+
 export function mergeTargetConfig(parsed: Partial<TargetConfig>): TargetConfig {
   const defaults = defaultTargetConfig();
+  const perRep = parsed.perRep ?? {};
   return {
     segment: {
       complex: { ...defaults.segment.complex, ...parsed.segment?.complex },
@@ -123,7 +164,8 @@ export function mergeTargetConfig(parsed: Partial<TargetConfig>): TargetConfig {
       complex: { ...defaults.weekly.complex, ...parsed.weekly?.complex },
       density: { ...defaults.weekly.density, ...parsed.weekly?.density },
     },
-    perRep: parsed.perRep ?? {},
+    perRep,
+    perRepByMonth: archivePerRepByMonth(perRep, parsed.perRepByMonth),
     weeklyPerRep: parsed.weeklyPerRep ?? {},
     pausedAgentIds: Array.isArray(parsed.pausedAgentIds) ? parsed.pausedAgentIds : [],
   };
@@ -144,6 +186,7 @@ export function hasTargetOverrides(config: TargetConfig): boolean {
   const defaults = defaultTargetConfig();
   if (config.pausedAgentIds.length > 0) return true;
   if (Object.keys(config.perRep).length > 0) return true;
+  if (Object.keys(config.perRepByMonth ?? {}).length > 0) return true;
   if (Object.keys(config.weeklyPerRep).length > 0) return true;
   return JSON.stringify(config.segment) !== JSON.stringify(defaults.segment)
     || JSON.stringify(config.weekly) !== JSON.stringify(defaults.weekly);
@@ -239,18 +282,23 @@ export function dispatchTargetConfigUpdated(): void {
 }
 
 function resolveMtdOverrideValue(
-  override: PerRepMtdOverride | undefined,
+  config: TargetConfig,
+  ownerId: string,
   field: "won" | "activated",
   segmentDefault: number,
   contextMonthKey?: string,
 ): number {
+  const override = config.perRep[ownerId];
   const value = override?.[field];
-  if (value == null) return segmentDefault;
-  if (override?.monthKey) {
+  if (value != null) {
+    if (!override?.monthKey) return value;
     if (contextMonthKey && override.monthKey === contextMonthKey) return value;
-    return segmentDefault;
   }
-  return value;
+  if (contextMonthKey) {
+    const archived = config.perRepByMonth?.[contextMonthKey]?.[ownerId]?.[field];
+    if (archived != null) return archived;
+  }
+  return segmentDefault;
 }
 
 function wonTargetFor(
@@ -260,7 +308,8 @@ function wonTargetFor(
   contextMonthKey?: string,
 ): number {
   return resolveMtdOverrideValue(
-    config.perRep[ownerId],
+    config,
+    ownerId,
     "won",
     config.segment[segment].won,
     contextMonthKey,
@@ -274,7 +323,8 @@ function activatedTargetFor(
   contextMonthKey?: string,
 ): number {
   return resolveMtdOverrideValue(
-    config.perRep[ownerId],
+    config,
+    ownerId,
     "activated",
     config.segment[segment].activated,
     contextMonthKey,
