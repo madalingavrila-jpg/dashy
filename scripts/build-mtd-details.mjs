@@ -17,8 +17,14 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildHybridMtdStore, mergeWonExportRecords } from "../lib/mtd-history.mjs";
-import { filterTeamAgents } from "../lib/agent-segments.mjs";
+import {
+  accumulateMtdActivatedFromActivationDate,
+  accumulateMtdReactivated,
+  accumulateMtdWonFromWonDate,
+  buildHybridMtdStore,
+  mergeWonExportRecords,
+} from "../lib/mtd-history.mjs";
+import { filterTeamAgents, isInboundAgent } from "../lib/agent-segments.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
@@ -64,6 +70,40 @@ const store = buildHybridMtdStore(wonAllRecords, activationData.records ?? [], {
   historyRecords: stageHistoryData.records ?? [],
 });
 
+// Build the two inbound reps with the same canonical Won/Activated rules. Their
+// historical lists share this lazy artifact so the Inbound monthly overview
+// does not inflate the main section payload.
+const inboundWonMtdData = parseSfJson(join(cacheDir, "sf-inbound-won-mtd.json"));
+const inboundWonYtdData = parseSfJson(join(cacheDir, "sf-inbound-won-ytd-bydate.json"));
+const inboundActivationData = parseSfJson(
+  join(cacheDir, "sf-inbound-account-activation-2026.json"),
+);
+const inboundReactivationData = parseSfJson(
+  join(cacheDir, "sf-inbound-reactivation-2026.json"),
+);
+const inboundHistoryData = parseSfJson(join(cacheDir, "sf-inbound-stage-history-2026.json"));
+const inboundClassifier = {
+  segmentOf: (name, ownerId) => (isInboundAgent(name, ownerId) ? "inbound" : null),
+  isExcluded: () => false,
+};
+const inboundStore = new Map();
+accumulateMtdActivatedFromActivationDate(
+  inboundActivationData.records ?? [],
+  inboundStore,
+  inboundClassifier,
+);
+accumulateMtdReactivated(
+  inboundReactivationData.records ?? [],
+  inboundHistoryData.records ?? [],
+  inboundStore,
+  inboundClassifier,
+);
+accumulateMtdWonFromWonDate(
+  mergeWonExportRecords([inboundWonYtdData, inboundWonMtdData]),
+  inboundStore,
+  inboundClassifier,
+);
+
 // Keep each item slim — just what the drill-down popover needs (name, city,
 // date, SF opportunity link). Drops sfAccountId from mapMtdItem's shape.
 const slimItem = ({ id, name, city, closeDate, sfOpportunityId, reactivated }) => ({
@@ -75,15 +115,18 @@ const slimItem = ({ id, name, city, closeDate, sfOpportunityId, reactivated }) =
   ...(reactivated ? { reactivated: true } : {}),
 });
 
-const months = [...store.keys()]
+const months = [...new Set([...store.keys(), ...inboundStore.keys()])]
   .sort((a, b) => b.localeCompare(a))
   .map((monthKey) => ({
     monthKey,
-    agents: filterTeamAgents([...store.get(monthKey).values()]).map((agent) => ({
-      ownerId: agent.ownerId,
-      wonItems: agent.wonItems.map(slimItem),
-      activatedItems: agent.activatedItems.map(slimItem),
-    })),
+    agents: [
+      ...filterTeamAgents([...(store.get(monthKey)?.values() ?? [])]),
+      ...(inboundStore.get(monthKey)?.values() ?? []),
+    ].map((agent) => ({
+        ownerId: agent.ownerId,
+        wonItems: agent.wonItems.map(slimItem),
+        activatedItems: agent.activatedItems.map(slimItem),
+      })),
   }));
 
 const payload = { updatedAt: new Date().toISOString(), months };

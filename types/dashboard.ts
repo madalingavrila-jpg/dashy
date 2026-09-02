@@ -517,7 +517,21 @@ export type InboundRepAccountsPerformance = {
   accounts: AccountsPerformanceAccount[];
 };
 
-/** One inbound rep — actuals only (no predefined targets). */
+export type InboundMtdHistoryRep = {
+  ownerId: string;
+  won: number;
+  activated: number;
+  wonItems: MtdItem[];
+  activatedItems: MtdItem[];
+};
+
+export type InboundMtdHistoryMonth = {
+  monthKey: string;
+  monthLabel: string;
+  reps: InboundMtdHistoryRep[];
+};
+
+/** One inbound rep — Won actuals plus month-scoped Activated targets. */
 export type InboundRep = {
   ownerId: string;
   name: string;
@@ -541,7 +555,7 @@ export type InboundRep = {
   accountsPerformance: InboundRepAccountsPerformance;
 };
 
-/** Inbound team tab — two reps, broken down per person; actuals only. */
+/** Inbound team tab — two reps, broken down per person. */
 export type InboundTeam = {
   generatedAt: string;
   monthKey: string;
@@ -551,6 +565,7 @@ export type InboundTeam = {
   country: string;
   currency: string;
   dataMonthMax: string | null;
+  mtdHistory: InboundMtdHistoryMonth[];
   reps: InboundRep[];
   totals: {
     reps: number;

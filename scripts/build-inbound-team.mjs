@@ -18,10 +18,11 @@
  * pull that already includes the inbound owners — filtered here by owner email):
  *   accounts-perf-accounts.json / accounts-perf-monthly.json / accounts-perf-quality.json
  *
- * Per person we compute: MTD won/activated (+ item lists), weekly history /
+ * Per person we compute: monthly Won/Activated history (+ item lists), weekly history /
  * metrics / breakdown, WoW current-vs-prior rows, and accounts-performance
  * (totals / byMonth / accounts) using the EXACT same math as
- * build-accounts-performance.mjs. Inbound has no predefined targets — actuals only.
+ * build-accounts-performance.mjs. Month-scoped targets are applied in the UI
+ * from data/target-config.json.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -132,6 +133,38 @@ const monthLabel = new Date().toLocaleString("en-GB", {
   timeZone: "Europe/Bucharest",
 });
 const monthAgents = mtdStore.get(monthKey) ?? new Map();
+
+function monthLabelFromKey(key) {
+  const [year, month] = key.split("-").map(Number);
+  return new Date(Date.UTC(year, month - 1, 1)).toLocaleString("en-GB", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+// Keep all monthly counts in the Inbound section. Historical item lists are
+// loaded lazily from mtd-details, matching the main Monthly Overview.
+const mtdHistory = [...mtdStore.keys()]
+  .sort((a, b) => b.localeCompare(a))
+  .map((historyMonthKey) => {
+    const historyAgents = mtdStore.get(historyMonthKey) ?? new Map();
+    return {
+      monthKey: historyMonthKey,
+      monthLabel: monthLabelFromKey(historyMonthKey),
+      reps: REPS.map((rep) => {
+        const agent = historyAgents.get(rep.ownerId);
+        const includeItems = historyMonthKey === monthKey;
+        return {
+          ownerId: rep.ownerId,
+          won: agent?.wonMtd ?? 0,
+          activated: agent?.activatedMtd ?? 0,
+          wonItems: includeItems ? (agent?.wonItems ?? []) : [],
+          activatedItems: includeItems ? (agent?.activatedItems ?? []) : [],
+        };
+      }),
+    };
+  });
 
 // --- Weekly store, inbound-scoped (add an inbound team bucket to each week) ---
 const currentWeekKey = weekKey(new Date());
@@ -370,6 +403,7 @@ const inboundTeam = {
   country: "Romania",
   currency: "EUR",
   dataMonthMax,
+  mtdHistory,
   reps,
   totals,
 };

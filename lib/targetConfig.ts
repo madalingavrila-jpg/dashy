@@ -301,6 +301,23 @@ function resolveMtdOverrideValue(
   return segmentDefault;
 }
 
+/** Resolve a month-scoped per-rep MTD target for non-roster views such as Inbound. */
+export function getRepMtdTarget(
+  config: TargetConfig,
+  ownerId: string,
+  field: "won" | "activated",
+  segmentDefault = 0,
+  contextMonthKey?: string,
+): number {
+  return resolveMtdOverrideValue(
+    config,
+    ownerId,
+    field,
+    segmentDefault,
+    contextMonthKey,
+  );
+}
+
 function wonTargetFor(
   config: TargetConfig,
   ownerId: string,

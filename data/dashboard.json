@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-02T09:18:59.835Z",
+  "updatedAt": "2026-09-02T14:39:42.893Z",
   "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -183077,7 +183077,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-09-02T09:18:59.835Z",
+    "generatedAt": "2026-09-02T14:39:42.893Z",
     "monthKey": "2026-09",
     "monthLabel": "September 2026",
     "currentWeek": "W36",
@@ -183085,6 +183085,231 @@
     "country": "Romania",
     "currency": "EUR",
     "dataMonthMax": "2026-09",
+    "mtdHistory": [
+      {
+        "monthKey": "2026-09",
+        "monthLabel": "September 2026",
+        "reps": [
+          {
+            "ownerId": "005Ts00000BtHpvIAF",
+            "won": 3,
+            "activated": 1,
+            "wonItems": [
+              {
+                "id": "006Qs00000lOSo7IAG",
+                "name": "Treevi Pizza al Taglio Barbu Vacarescu",
+                "city": "—",
+                "closeDate": "2026-09-01",
+                "sfOpportunityId": "006Qs00000lOSo7IAG",
+                "sfAccountId": "001Qs00000tC3CHIA0"
+              },
+              {
+                "id": "006Qs00000lozzjIAA",
+                "name": "LOLO",
+                "city": "Iasi",
+                "closeDate": "2026-09-01",
+                "sfOpportunityId": "006Qs00000lozzjIAA",
+                "sfAccountId": "001Qs00000tFyicIAC"
+              },
+              {
+                "id": "006Qs00000loxh0IAA",
+                "name": "Patiseria PIZZA LUCA Iancului",
+                "city": "—",
+                "closeDate": "2026-09-01",
+                "sfOpportunityId": "006Qs00000loxh0IAA",
+                "sfAccountId": "001Qs00000tnGYhIAM"
+              }
+            ],
+            "activatedItems": [
+              {
+                "id": "006Qs00000llsrYIAQ",
+                "name": "Lipie",
+                "city": "—",
+                "closeDate": "2026-09-01",
+                "sfOpportunityId": "006Qs00000llsrYIAQ",
+                "sfAccountId": "001Qs00000tjCiLIAU"
+              }
+            ]
+          },
+          {
+            "ownerId": "005Qs00000OLyBRIA1",
+            "won": 0,
+            "activated": 1,
+            "wonItems": [],
+            "activatedItems": [
+              {
+                "id": "006Qs00000lYqsSIAS",
+                "name": "Verde - Fresh Salads and Wraps",
+                "city": "București",
+                "closeDate": "2026-09-01",
+                "sfOpportunityId": "006Qs00000lYqsSIAS",
+                "sfAccountId": "001Qs00000tQAybIAG"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "monthKey": "2026-08",
+        "monthLabel": "August 2026",
+        "reps": [
+          {
+            "ownerId": "005Ts00000BtHpvIAF",
+            "won": 36,
+            "activated": 41,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000OLyBRIA1",
+            "won": 27,
+            "activated": 25,
+            "wonItems": [],
+            "activatedItems": []
+          }
+        ]
+      },
+      {
+        "monthKey": "2026-07",
+        "monthLabel": "July 2026",
+        "reps": [
+          {
+            "ownerId": "005Ts00000BtHpvIAF",
+            "won": 41,
+            "activated": 55,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000OLyBRIA1",
+            "won": 26,
+            "activated": 25,
+            "wonItems": [],
+            "activatedItems": []
+          }
+        ]
+      },
+      {
+        "monthKey": "2026-06",
+        "monthLabel": "June 2026",
+        "reps": [
+          {
+            "ownerId": "005Ts00000BtHpvIAF",
+            "won": 43,
+            "activated": 19,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000OLyBRIA1",
+            "won": 20,
+            "activated": 17,
+            "wonItems": [],
+            "activatedItems": []
+          }
+        ]
+      },
+      {
+        "monthKey": "2026-05",
+        "monthLabel": "May 2026",
+        "reps": [
+          {
+            "ownerId": "005Ts00000BtHpvIAF",
+            "won": 16,
+            "activated": 42,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000OLyBRIA1",
+            "won": 0,
+            "activated": 0,
+            "wonItems": [],
+            "activatedItems": []
+          }
+        ]
+      },
+      {
+        "monthKey": "2026-04",
+        "monthLabel": "April 2026",
+        "reps": [
+          {
+            "ownerId": "005Ts00000BtHpvIAF",
+            "won": 88,
+            "activated": 84,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000OLyBRIA1",
+            "won": 0,
+            "activated": 0,
+            "wonItems": [],
+            "activatedItems": []
+          }
+        ]
+      },
+      {
+        "monthKey": "2026-03",
+        "monthLabel": "March 2026",
+        "reps": [
+          {
+            "ownerId": "005Ts00000BtHpvIAF",
+            "won": 83,
+            "activated": 75,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000OLyBRIA1",
+            "won": 0,
+            "activated": 0,
+            "wonItems": [],
+            "activatedItems": []
+          }
+        ]
+      },
+      {
+        "monthKey": "2026-02",
+        "monthLabel": "February 2026",
+        "reps": [
+          {
+            "ownerId": "005Ts00000BtHpvIAF",
+            "won": 67,
+            "activated": 73,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000OLyBRIA1",
+            "won": 0,
+            "activated": 0,
+            "wonItems": [],
+            "activatedItems": []
+          }
+        ]
+      },
+      {
+        "monthKey": "2026-01",
+        "monthLabel": "January 2026",
+        "reps": [
+          {
+            "ownerId": "005Ts00000BtHpvIAF",
+            "won": 84,
+            "activated": 77,
+            "wonItems": [],
+            "activatedItems": []
+          },
+          {
+            "ownerId": "005Qs00000OLyBRIA1",
+            "won": 0,
+            "activated": 0,
+            "wonItems": [],
+            "activatedItems": []
+          }
+        ]
+      }
+    ],
     "reps": [
       {
         "ownerId": "005Ts00000BtHpvIAF",

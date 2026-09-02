@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { DataAlert } from "@/components/DataAlert";
 import { AgentAvatar } from "@/components/AgentAvatar";
@@ -8,6 +8,8 @@ import { WeeklyMetricsGrid, WeeklyHistoryChart } from "@/components/WeeklyCharts
 import { AccountsPerformanceTable } from "@/components/AccountsPerformanceTable";
 import { WowReportsList } from "@/components/WowReportsList";
 import { useDashboard } from "@/lib/useDashboard";
+import { fetchMtdDetails } from "@/lib/api";
+import { getRepMtdTarget } from "@/lib/targetConfig";
 import {
   formatInteger,
   formatSignedDelta,
@@ -18,6 +20,7 @@ import {
 import { formatWeekLabel } from "@/lib/weekDateRange";
 import type {
   InboundRep,
+  MtdDetails,
   WeeklyMetric,
   WeeklyMetricView,
   WowReportView,
@@ -148,7 +151,17 @@ function CollapseBlock({
   );
 }
 
-function RepSection({ rep, loading }: { rep: InboundRep; loading?: boolean }) {
+function RepSection({
+  rep,
+  loading,
+  mtdMonthLabel,
+  activatedTarget,
+}: {
+  rep: InboundRep;
+  loading?: boolean;
+  mtdMonthLabel: string;
+  activatedTarget: number;
+}) {
   const ap = rep.accountsPerformance;
   const months = useMemo(() => ap.byMonth.map((m) => m.month), [ap]);
   const [monthChoice, setMonthChoice] = useState<string>("");
@@ -169,9 +182,18 @@ function RepSection({ rep, loading }: { rep: InboundRep; loading?: boolean }) {
     [ap.accounts, selectedMonth],
   );
 
+  const activatedProgress = activatedTarget
+    ? Math.round((rep.mtd.activated / activatedTarget) * 100)
+    : 0;
   const kpis = [
-    { label: "Won MTD", value: formatInteger(rep.mtd.won), accent: "text-won" },
-    { label: "Active MTD", value: formatInteger(rep.mtd.activated), accent: "text-activated" },
+    { label: "Won", value: formatInteger(rep.mtd.won), accent: "text-won" },
+    {
+      label: "Activated",
+      value: activatedTarget
+        ? `${formatInteger(rep.mtd.activated)} / ${formatInteger(activatedTarget)}`
+        : formatInteger(rep.mtd.activated),
+      accent: "text-activated",
+    },
     { label: "Accounts 90d", value: formatInteger(ap.totals.accounts), accent: "text-on-surface" },
     { label: "GMV gross", value: formatEurCompact(ap.totals.gmv), accent: "text-on-surface" },
   ];
@@ -189,8 +211,10 @@ function RepSection({ rep, loading }: { rep: InboundRep; loading?: boolean }) {
             <p className="truncate text-[11px] text-on-surface-variant">{rep.email} · Inbound RO</p>
           </div>
         </div>
-        <span className="rounded-full bg-secondary-container/40 px-sm py-[2px] text-[10px] font-bold text-on-secondary-container">
-          Actuals only
+        <span className="rounded-full bg-activated-container px-sm py-[2px] text-[10px] font-bold text-activated">
+          {activatedTarget
+            ? `Activation target ${formatInteger(activatedTarget)}`
+            : "No activation target"}
         </span>
       </div>
 
@@ -208,10 +232,28 @@ function RepSection({ rep, loading }: { rep: InboundRep; loading?: boolean }) {
       </div>
 
       <div className="space-y-sm px-md py-sm">
+        {activatedTarget > 0 ? (
+          <div className="space-y-xs rounded-lg bg-surface-container-low px-sm py-xs">
+            <div className="flex items-center justify-between text-[11px]">
+              <span className="font-semibold text-activated">
+                {mtdMonthLabel} activation progress
+              </span>
+              <span className="font-bold tabular-nums text-on-surface">
+                {activatedProgress}%
+              </span>
+            </div>
+            <div className="h-2 overflow-hidden rounded-full bg-surface-container">
+              <div
+                className="h-full rounded-full bg-activated"
+                style={{ width: `${Math.min(100, activatedProgress)}%` }}
+              />
+            </div>
+          </div>
+        ) : null}
         {hasMtdItems ? (
-          <CollapseBlock title="Won / Activated this month" icon="emoji_events">
-            <MtdItemList title="Won this month" items={rep.mtd.wonItems} accent="text-won" />
-            <MtdItemList title="Activated this month" items={rep.mtd.activatedItems} accent="text-activated" />
+          <CollapseBlock title={`Won / Activated · ${mtdMonthLabel}`} icon="emoji_events">
+            <MtdItemList title="Won" items={rep.mtd.wonItems} accent="text-won" />
+            <MtdItemList title="Activated" items={rep.mtd.activatedItems} accent="text-activated" />
           </CollapseBlock>
         ) : null}
 
@@ -265,14 +307,79 @@ function RepSection({ rep, loading }: { rep: InboundRep; loading?: boolean }) {
 }
 
 export function InboundShell() {
-  const { model, error, loading, sourceHint } = useDashboard({ sections: ["inbound"] });
+  const { model, error, loading, sourceHint, targetConfig } = useDashboard({
+    sections: ["inbound"],
+  });
   const inbound = model?.inboundTeam;
+  const [selectedMonthKey, setSelectedMonthKey] = useState("");
+  const [mtdDetails, setMtdDetails] = useState<MtdDetails | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetchMtdDetails(controller.signal)
+      .then(setMtdDetails)
+      .catch(() => {
+        // Counts and targets still render if historical drill-downs are unavailable.
+      });
+    return () => controller.abort();
+  }, []);
+
+  const monthOptions = inbound?.mtdHistory ?? [];
+  const activeMonthKey = selectedMonthKey || inbound?.monthKey || "";
+  const selectedHistory = monthOptions.find((month) => month.monthKey === activeMonthKey);
+  const activeMonthLabel = selectedHistory?.monthLabel ?? inbound?.monthLabel ?? "Current month";
+
+  const displayedReps = useMemo(() => {
+    if (!inbound) return [];
+    if (!selectedHistory) return inbound.reps;
+    const detailMonth = mtdDetails?.months.find((month) => month.monthKey === activeMonthKey);
+    const detailsByOwner = new Map(
+      detailMonth?.agents.map((agent) => [agent.ownerId, agent]) ?? [],
+    );
+    const historyByOwner = new Map(selectedHistory.reps.map((rep) => [rep.ownerId, rep]));
+    return inbound.reps.map((rep) => {
+      const history = historyByOwner.get(rep.ownerId);
+      const details = detailsByOwner.get(rep.ownerId);
+      return {
+        ...rep,
+        mtd: {
+          won: history?.won ?? 0,
+          activated: history?.activated ?? 0,
+          wonItems: history?.wonItems.length ? history.wonItems : (details?.wonItems ?? []),
+          activatedItems: history?.activatedItems.length
+            ? history.activatedItems
+            : (details?.activatedItems ?? []),
+        },
+      };
+    });
+  }, [inbound, selectedHistory, mtdDetails, activeMonthKey]);
+
+  const activatedTargets = useMemo(
+    () =>
+      new Map(
+        displayedReps.map((rep) => [
+          rep.ownerId,
+          getRepMtdTarget(targetConfig, rep.ownerId, "activated", 0, activeMonthKey),
+        ]),
+      ),
+    [displayedReps, targetConfig, activeMonthKey],
+  );
+  const wonTotal = displayedReps.reduce((sum, rep) => sum + rep.mtd.won, 0);
+  const activatedTotal = displayedReps.reduce((sum, rep) => sum + rep.mtd.activated, 0);
+  const activatedTargetTotal = displayedReps.reduce(
+    (sum, rep) => sum + (activatedTargets.get(rep.ownerId) ?? 0),
+    0,
+  );
 
   const rollupCards = inbound
     ? [
-        { label: "Reps", value: formatInteger(inbound.totals.reps), icon: "groups" },
-        { label: "Won MTD", value: formatInteger(inbound.totals.wonMtd), icon: "emoji_events" },
-        { label: "Activated MTD", value: formatInteger(inbound.totals.activatedMtd), icon: "rocket_launch" },
+        { label: "Won", value: formatInteger(wonTotal), icon: "emoji_events" },
+        { label: "Activated", value: formatInteger(activatedTotal), icon: "rocket_launch" },
+        {
+          label: "Activation target",
+          value: activatedTargetTotal ? formatInteger(activatedTargetTotal) : "—",
+          icon: "flag",
+        },
         { label: "Accounts (90d)", value: formatInteger(inbound.totals.accounts90d), icon: "storefront" },
         { label: "GMV gross", value: formatEurCompact(inbound.totals.gmv), icon: "payments" },
         { label: "Commission", value: formatEurCompact(inbound.totals.commission), icon: "percent" },
@@ -283,12 +390,38 @@ export function InboundShell() {
     <div className="dashy-page">
       <PageHeader
         title="Inbound team"
-        subtitle="Ana-Maria Preda & Catalin Corbeanu — inbound RO, side by side. Expand weekly, WoW and accounts per rep — actuals only."
+        subtitle={`${activeMonthLabel} monthly overview for Ana-Maria Preda & Catalin Corbeanu, with per-rep activation targets.`}
         updatedAt={inbound?.generatedAt ?? model?.updatedAt}
         loading={loading}
       />
 
       <DataAlert error={error} sourceHint={sourceHint} updatedAt={model?.updatedAt} />
+
+      {inbound && (
+        <div className="dashy-filter-bar justify-between">
+          <div className="min-w-0">
+            <p className="eyebrow text-brand">Reporting period</p>
+            <p className="mt-0.5 text-[13px] text-on-surface-variant">
+              Current month is live MTD; past months show final Won and Activated results.
+            </p>
+          </div>
+          <label className="flex min-w-[min(100%,240px)] flex-col gap-1 sm:max-w-xs">
+            <span className="eyebrow">Filter by month</span>
+            <select
+              value={activeMonthKey}
+              onChange={(event) => setSelectedMonthKey(event.target.value)}
+              disabled={loading || !monthOptions.length}
+              className="dashy-select w-full disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {monthOptions.map((month) => (
+                <option key={month.monthKey} value={month.monthKey}>
+                  {month.monthLabel}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      )}
 
       {inbound && (
         <section className="grid grid-cols-3 gap-sm md:grid-cols-6">
@@ -316,10 +449,16 @@ export function InboundShell() {
         </div>
       )}
 
-      {inbound && inbound.reps.length > 0 && (
+      {inbound && displayedReps.length > 0 && (
         <section className="grid grid-cols-1 gap-md xl:grid-cols-2 xl:items-start">
-          {inbound.reps.map((rep) => (
-            <RepSection key={rep.ownerId} rep={rep} loading={loading} />
+          {displayedReps.map((rep) => (
+            <RepSection
+              key={rep.ownerId}
+              rep={rep}
+              loading={loading}
+              mtdMonthLabel={activeMonthLabel}
+              activatedTarget={activatedTargets.get(rep.ownerId) ?? 0}
+            />
           ))}
         </section>
       )}
