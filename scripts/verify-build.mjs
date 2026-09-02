@@ -316,9 +316,9 @@ if (apiBytes > API_PAYLOAD_MAX_BYTES) {
 // files (my-pipeline, accounts-performance) are NOT in that payload, so guard
 // them separately. Generous ceiling — meant to catch runaway growth, not to be
 // a tight budget.
-// 1.6 MB: on 2026-08-31 accounts-performance reached ~1.52 MB from organic growth
-// (2,137-provider YTD universe over 8 months), with all 11 sections still ~4.4 MB raw.
-const SECTION_PAYLOAD_MAX_BYTES = 1_600_000;
+// 1.8 MB: on 2026-09-02 accounts-performance reached ~1.69 MB from organic growth
+// (2,146-provider YTD universe over 9 months). Catch runaway dumps, not month-add.
+const SECTION_PAYLOAD_MAX_BYTES = 1_800_000;
 const oversizeSections = [];
 for (const section of SECTIONS) {
   const sectionPath = path.join(root, `out/api/dashboard/${section}.json`);
