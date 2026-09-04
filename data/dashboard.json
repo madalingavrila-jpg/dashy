@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-04T08:54:31.172Z",
+  "updatedAt": "2026-09-04T09:40:50.812Z",
   "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -11,7 +11,7 @@
       },
       "activated": {
         "value": 1410,
-        "previousValue": 1387,
+        "previousValue": 1386,
         "changePercent": 1.7,
         "period": "YTD"
       }
@@ -71,7 +71,7 @@
       "targetWon": 260,
       "actualWon": 23,
       "targetActivated": 215,
-      "actualActivated": 23,
+      "actualActivated": 24,
       "leadsMtd": 0,
       "qualifiedMtd": 19,
       "complexRepCount": 5,
@@ -92,7 +92,7 @@
         {
           "name": "Complex",
           "target": 40,
-          "actual": 15,
+          "actual": 16,
           "type": "activated"
         },
         {
@@ -133,9 +133,9 @@
         },
         {
           "label": "Active",
-          "value": 30,
+          "value": 31,
           "previousValue": 67,
-          "changePercent": -55.2
+          "changePercent": -53.7
         }
       ],
       "history": [
@@ -385,7 +385,7 @@
           "qualified": 10,
           "negotiations": 7,
           "closedWon": 25,
-          "active": 43
+          "active": 42
         },
         {
           "week": "W32",
@@ -425,7 +425,7 @@
           "qualified": 34,
           "negotiations": 14,
           "closedWon": 27,
-          "active": 30
+          "active": 31
         }
       ],
       "breakdown": [
@@ -2698,7 +2698,7 @@
               "qualified": 2,
               "negotiations": 0,
               "closedWon": 3,
-              "active": 5
+              "active": 4
             },
             "density": {
               "qualified": 8,
@@ -2766,7 +2766,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 4
+              "active": 3
             },
             "005Qs00000Mxc6EIAR": {
               "qualified": 0,
@@ -3093,7 +3093,7 @@
               "qualified": 6,
               "negotiations": 0,
               "closedWon": 3,
-              "active": 16
+              "active": 17
             },
             "density": {
               "qualified": 28,
@@ -3856,7 +3856,7 @@
               "qualified": 6,
               "negotiations": 0,
               "closedWon": 1,
-              "active": 0,
+              "active": 1,
               "accounts": {
                 "closedWon": [
                   {
@@ -3867,6 +3867,18 @@
                     "date": "2026-08-31",
                     "sfOpportunityId": "006Qs00000lmMXqIAM",
                     "sfAccountId": "001Qs00000tjfkBIAQ"
+                  }
+                ],
+                "active": [
+                  {
+                    "id": "006Qs00000krfkAIAQ",
+                    "name": "El Torito",
+                    "city": "—",
+                    "stage": "Closed Won",
+                    "date": "2026-09-03",
+                    "sfOpportunityId": "006Qs00000krfkAIAQ",
+                    "sfAccountId": "0017Q00001HLsIFQA1",
+                    "reactivated": true
                   }
                 ],
                 "qualified": [
@@ -4215,9 +4227,9 @@
           },
           {
             "metric": "Active",
-            "current": 30,
+            "current": 31,
             "prior": 67,
-            "changePercent": -55.2
+            "changePercent": -53.7
           }
         ]
       }
@@ -4365,7 +4377,7 @@
           "Signed / Onb Checklist": 2
         },
         "wonMtd": 0,
-        "activatedMtd": 0,
+        "activatedMtd": 1,
         "wonYtd": 3,
         "segment": "complex",
         "mtdTarget": 10
@@ -4819,9 +4831,19 @@
             "name": "Ionut-Mădălin Gavrilă",
             "segment": "complex",
             "wonMtd": 0,
-            "activatedMtd": 0,
+            "activatedMtd": 1,
             "wonItems": [],
-            "activatedItems": []
+            "activatedItems": [
+              {
+                "id": "006Qs00000krfkAIAQ",
+                "name": "El Torito",
+                "city": "—",
+                "closeDate": "2026-09-03",
+                "sfOpportunityId": "006Qs00000krfkAIAQ",
+                "sfAccountId": "0017Q00001HLsIFQA1",
+                "reactivated": true
+              }
+            ]
           },
           {
             "ownerId": "005Ts000006V3vpIAC",
@@ -4939,7 +4961,7 @@
           "targetWon": 260,
           "actualWon": 23,
           "targetActivated": 215,
-          "actualActivated": 23,
+          "actualActivated": 24,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -4960,7 +4982,7 @@
             {
               "name": "Complex",
               "target": 40,
-              "actual": 15,
+              "actual": 16,
               "type": "activated"
             },
             {
@@ -5231,7 +5253,7 @@
             "name": "Ionut-Mădălin Gavrilă",
             "segment": "complex",
             "wonMtd": 2,
-            "activatedMtd": 6,
+            "activatedMtd": 5,
             "wonItems": [],
             "activatedItems": []
           }
@@ -5241,7 +5263,7 @@
           "targetWon": 260,
           "actualWon": 171,
           "targetActivated": 215,
-          "actualActivated": 184,
+          "actualActivated": 183,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -5262,7 +5284,7 @@
             {
               "name": "Complex",
               "target": 40,
-              "actual": 27,
+              "actual": 26,
               "type": "activated"
             },
             {
@@ -7282,7 +7304,7 @@
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-09-04T08:54:30.064Z",
+      "generatedAt": "2026-09-04T09:40:49.916Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -47016,31 +47038,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-09-04T08:54:28.775Z",
+        "lastSync": "2026-09-04T09:40:48.874Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-09-04T08:54:28.775Z",
+        "lastSync": "2026-09-04T09:40:48.874Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-09-04T08:54:28.775Z",
+        "lastSync": "2026-09-04T09:40:48.874Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-09-04T08:54:28.775Z",
+        "lastSync": "2026-09-04T09:40:48.874Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-09-04T08:54:30.439Z",
+    "generatedAt": "2026-09-04T09:40:50.217Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -184600,7 +184622,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-09-04T08:54:31.172Z",
+    "generatedAt": "2026-09-04T09:40:50.812Z",
     "monthKey": "2026-09",
     "monthLabel": "September 2026",
     "currentWeek": "W36",
@@ -199085,7 +199107,7 @@
     }
   },
   "churnPrevention": {
-    "generatedAt": "2026-09-04T08:54:31.492Z",
+    "generatedAt": "2026-09-04T09:40:51.158Z",
     "year": 2026,
     "country": "Romania",
     "metricsNote": "YTD Romania activations by Complex + Density reps. SF Status__c is the source of truth for inactive (archived/inactive), hidden, and deleted; Databricks provider_status is a platform cross-check. Never ordered = zero delivered orders in the activation month and every month after (fact_provider_monthly); accounts with any order in the current query month are not shown as without orders. Lifetime first_order_date is display-only.",

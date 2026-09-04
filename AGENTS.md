@@ -254,7 +254,15 @@ reactivation rule requires first-active before the tracking year). Reviewed
 forced entry is dated by that opportunity's **own** first transition INTO
 `Activated` — the account's earlier opp has its own Activated transition in the
 same year, so a group-wide earliest lookup would land in the original month.
-Current entry: Floraria Bloom Studio (Eusebiu, Aug 2026).
+Current forced entries: Floraria Bloom Studio and HAI Pizza & Wine (Eusebiu,
+Aug 2026); Floraria Royal Flowers and Platoo (Ciprian, Aug 2026).
+
+**Reactivation event-date overrides** also live in
+`lib/activation-overrides.mjs` (`REACTIVATION_EVENT_DATE_OVERRIDES`) for cases
+where the operational go-live date is known to differ from Salesforce's stale
+`Account.Reactivated_Date__c`. Current entry: El Torito (Madalin) counts on
+2026-09-03 instead of the stale SF date 2026-07-31. The override is used by both
+MTD and Weekly Active.
 
 Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore(wonRecords, activationRecords)` —
 won from `accumulateMtdWonFromWonDate()`, activated from
