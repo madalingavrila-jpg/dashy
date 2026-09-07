@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T12:00:01.675Z",
+  "updatedAt": "2026-09-07T12:04:56.748Z",
   "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
   "salesPipeline": {
     "totals": {
@@ -11,8 +11,8 @@
       },
       "activated": {
         "value": 1411,
-        "previousValue": 1385,
-        "changePercent": 1.9,
+        "previousValue": 1384,
+        "changePercent": 2,
         "period": "YTD"
       }
     },
@@ -71,7 +71,7 @@
       "targetWon": 260,
       "actualWon": 27,
       "targetActivated": 215,
-      "actualActivated": 26,
+      "actualActivated": 27,
       "leadsMtd": 0,
       "qualifiedMtd": 30,
       "complexRepCount": 5,
@@ -92,7 +92,7 @@
         {
           "name": "Complex",
           "target": 40,
-          "actual": 18,
+          "actual": 19,
           "type": "activated"
         },
         {
@@ -134,7 +134,7 @@
         {
           "label": "Active",
           "value": 0,
-          "previousValue": 33,
+          "previousValue": 34,
           "changePercent": -100
         }
       ],
@@ -385,7 +385,7 @@
           "qualified": 10,
           "negotiations": 7,
           "closedWon": 25,
-          "active": 41
+          "active": 40
         },
         {
           "week": "W32",
@@ -425,7 +425,7 @@
           "qualified": 41,
           "negotiations": 17,
           "closedWon": 31,
-          "active": 33
+          "active": 34
         },
         {
           "week": "W37",
@@ -2706,7 +2706,7 @@
               "qualified": 2,
               "negotiations": 0,
               "closedWon": 3,
-              "active": 3
+              "active": 2
             },
             "density": {
               "qualified": 8,
@@ -2774,7 +2774,7 @@
               "qualified": 0,
               "negotiations": 0,
               "closedWon": 0,
-              "active": 2
+              "active": 1
             },
             "005Qs00000Mxc6EIAR": {
               "qualified": 0,
@@ -3101,7 +3101,7 @@
               "qualified": 6,
               "negotiations": 0,
               "closedWon": 3,
-              "active": 19
+              "active": 20
             },
             "density": {
               "qualified": 35,
@@ -3145,7 +3145,7 @@
               "qualified": 6,
               "negotiations": 0,
               "closedWon": 1,
-              "active": 2
+              "active": 3
             },
             "005Ts000006V3vpIAC": {
               "qualified": 0,
@@ -3296,7 +3296,7 @@
           {
             "metric": "Active",
             "current": 0,
-            "prior": 33,
+            "prior": 34,
             "changePercent": -100
           }
         ]
@@ -3443,7 +3443,7 @@
           "Signed / Onb Checklist": 2
         },
         "wonMtd": 0,
-        "activatedMtd": 2,
+        "activatedMtd": 3,
         "wonYtd": 3,
         "segment": "complex",
         "mtdTarget": 10
@@ -3929,7 +3929,7 @@
             "name": "Ionut-Mădălin Gavrilă",
             "segment": "complex",
             "wonMtd": 0,
-            "activatedMtd": 2,
+            "activatedMtd": 3,
             "wonItems": [],
             "activatedItems": [
               {
@@ -3948,6 +3948,15 @@
                 "closeDate": "2026-09-04",
                 "sfOpportunityId": "006Qs00000krbN8IAI",
                 "sfAccountId": "0017Q00001HM7BDQA1",
+                "reactivated": true
+              },
+              {
+                "id": "006Qs00000krz9JIAQ",
+                "name": "Banjo Jack",
+                "city": "—",
+                "closeDate": "2026-09-03",
+                "sfOpportunityId": "006Qs00000krz9JIAQ",
+                "sfAccountId": "0017Q00001HLsFrQAL",
                 "reactivated": true
               }
             ]
@@ -4076,7 +4085,7 @@
           "targetWon": 260,
           "actualWon": 27,
           "targetActivated": 215,
-          "actualActivated": 26,
+          "actualActivated": 27,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -4097,7 +4106,7 @@
             {
               "name": "Complex",
               "target": 40,
-              "actual": 18,
+              "actual": 19,
               "type": "activated"
             },
             {
@@ -4368,7 +4377,7 @@
             "name": "Ionut-Mădălin Gavrilă",
             "segment": "complex",
             "wonMtd": 2,
-            "activatedMtd": 4,
+            "activatedMtd": 3,
             "wonItems": [],
             "activatedItems": []
           }
@@ -4378,7 +4387,7 @@
           "targetWon": 260,
           "actualWon": 171,
           "targetActivated": 215,
-          "actualActivated": 182,
+          "actualActivated": 181,
           "leadsMtd": 0,
           "qualifiedMtd": 0,
           "complexRepCount": 5,
@@ -4399,7 +4408,7 @@
             {
               "name": "Complex",
               "target": 40,
-              "actual": 25,
+              "actual": 24,
               "type": "activated"
             },
             {
@@ -6433,7 +6442,7 @@
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-09-07T12:00:00.739Z",
+      "generatedAt": "2026-09-07T12:04:55.801Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -46298,31 +46307,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-09-07T11:59:59.623Z",
+        "lastSync": "2026-09-07T12:04:54.604Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-09-07T11:59:59.623Z",
+        "lastSync": "2026-09-07T12:04:54.604Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-09-07T11:59:59.623Z",
+        "lastSync": "2026-09-07T12:04:54.604Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-09-07T11:59:59.623Z",
+        "lastSync": "2026-09-07T12:04:54.604Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-09-07T12:00:01.050Z",
+    "generatedAt": "2026-09-07T12:04:56.121Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -184352,7 +184361,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-09-07T12:00:01.675Z",
+    "generatedAt": "2026-09-07T12:04:56.748Z",
     "monthKey": "2026-09",
     "monthLabel": "September 2026",
     "currentWeek": "W37",
@@ -198817,7 +198826,7 @@
     }
   },
   "churnPrevention": {
-    "generatedAt": "2026-09-07T12:00:01.937Z",
+    "generatedAt": "2026-09-07T12:04:57.016Z",
     "year": 2026,
     "country": "Romania",
     "metricsNote": "YTD Romania activations by Complex + Density reps. SF Status__c is the source of truth for inactive (archived/inactive), hidden, and deleted; Databricks provider_status is a platform cross-check. Never ordered = zero delivered orders in the activation month and every month after (fact_provider_monthly); accounts with any order in the current query month are not shown as without orders. Lifetime first_order_date is display-only.",

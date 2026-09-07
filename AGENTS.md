@@ -260,10 +260,12 @@ Aug 2026); Floraria Royal Flowers and Platoo (Ciprian, Aug 2026).
 **Reactivation event-date overrides** also live in
 `lib/activation-overrides.mjs` (`REACTIVATION_EVENT_DATE_OVERRIDES`) for cases
 where the operational go-live date is known to differ from Salesforce's stale
-`Account.Reactivated_Date__c`. Current entries (both Madalin, both stale SF date
-2026-07-31): El Torito counts on **2026-09-03** and Taqueria by El Torito on
-**2026-09-04** — the first delivered-order dates of providers 78104 / 78180 after
-the July re-win. The override is used by both MTD and Weekly Active.
+`Account.Reactivated_Date__c`. Current entries are the July re-win batch of three
+Madalin accounts that all carry the stale SF date 2026-07-31 but only went live
+in September: El Torito **2026-09-03** and Taqueria by El Torito **2026-09-04**
+(first delivered-order dates of providers 78104 / 78180), Banjo Jack
+**2026-09-03** (provider 78105 back online but no orders yet — dated with the
+group go-live). The override is used by both MTD and Weekly Active.
 
 Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore(wonRecords, activationRecords)` —
 won from `accumulateMtdWonFromWonDate()`, activated from
