@@ -267,6 +267,12 @@ in September: El Torito **2026-09-03** and Taqueria by El Torito **2026-09-04**
 **2026-09-03** (provider 78105 back online but no orders yet — dated with the
 group go-live). The override is used by both MTD and Weekly Active.
 
+**Activation exclusions** live in `lib/activation-overrides.mjs`
+(`EXCLUDED_ACTIVATION_ACCOUNT_IDS`) and apply to base activations, reactivations,
+and forced reactivations in both MTD and Weekly Active. Current exclusion:
+Comoara Cu Clatite - Mosnita (`001Qs00000u3h1pIAA`, opportunity
+`006Qs00000m167mIAA`) must not receive Activated credit for Eusebiu Hanganu.
+
 Logic: `lib/mtd-history.mjs` → `buildHybridMtdStore(wonRecords, activationRecords)` —
 won from `accumulateMtdWonFromWonDate()`, activated from
 `accumulateMtdActivatedFromActivationDate()` (the legacy
