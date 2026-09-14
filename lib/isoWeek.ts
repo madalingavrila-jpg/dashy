@@ -25,6 +25,8 @@ export function formatWeekTitle(week: number, year: number): string {
   return `Week ${week} · ${year}`;
 }
 
+const BUCHAREST = "Europe/Bucharest";
+
 export function isoWeekDateRange(year: number, week: number): { start: Date; end: Date } {
   const jan4 = new Date(Date.UTC(year, 0, 4));
   const dayOfWeek = jan4.getUTCDay() || 7;
@@ -54,6 +56,35 @@ export function formatIsoWeekDateRange(
   }
 
   return `${startDay} ${startMonth} – ${endDay} ${endMonth} ${year}`;
+}
+
+/** Bucharest calendar month (YYYY-MM) of the ISO week's Sunday. */
+export function isoWeekEndMonthKey(
+  year: number,
+  week: number,
+  timeZone = BUCHAREST,
+): string {
+  const { end } = isoWeekDateRange(year, week);
+  const noon = new Date(end);
+  noon.setUTCHours(12, 0, 0, 0);
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+  }).formatToParts(noon);
+  const y = parts.find((part) => part.type === "year")?.value;
+  const m = parts.find((part) => part.type === "month")?.value;
+  return y && m ? `${y}-${m}` : "";
+}
+
+export function weekCodeEndMonthKey(
+  weekCode: string,
+  year: number,
+  timeZone = BUCHAREST,
+): string {
+  const week = parseWeekCode(weekCode);
+  if (week == null) return "";
+  return isoWeekEndMonthKey(year, week, timeZone);
 }
 
 export function priorWeekCode(currentCode: string): string | null {

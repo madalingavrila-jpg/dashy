@@ -11,6 +11,7 @@ import {
   COMPLEX_MTD_TARGET,
   DENSITY_ACTIVATED_MTD_TARGET,
   DENSITY_MTD_TARGET,
+  isHiddenFromRoster,
 } from "@/lib/agent-segments";
 import { formatInteger } from "@/lib/format";
 
@@ -53,8 +54,14 @@ export function resolveDefaultMonthKey(model: DashboardModel | null): string {
   return model.mtdHistory[0]?.monthKey ?? currentKey;
 }
 
-export function buildTeamProgressFromMtdAgents(agents: MtdAgentInput[]): TeamProgressView[] {
-  const enriched = agents.map((agent) => {
+export function buildTeamProgressFromMtdAgents(
+  agents: MtdAgentInput[],
+  monthKey?: string,
+): TeamProgressView[] {
+  const visible = monthKey
+    ? agents.filter((agent) => !isHiddenFromRoster(agent.ownerId, monthKey))
+    : agents;
+  const enriched = visible.map((agent) => {
     const mtdTarget = agent.segment === "complex" ? COMPLEX_MTD_TARGET : DENSITY_MTD_TARGET;
     const activatedTarget =
       agent.segment === "complex" ? COMPLEX_ACTIVATED_MTD_TARGET : DENSITY_ACTIVATED_MTD_TARGET;
@@ -192,7 +199,7 @@ export function applyMtdMonthToModel(model: DashboardModel, monthKey: string): D
     ...model,
     mtdMonthLabel: entry.monthLabel,
     mtdMonthKey: entry.monthKey,
-    teamProgress: buildTeamProgressFromMtdAgents(entry.agents),
+    teamProgress: buildTeamProgressFromMtdAgents(entry.agents, monthKey),
     mtdAchievement: {
       ...model.mtdAchievement,
       month: entry.monthLabel,

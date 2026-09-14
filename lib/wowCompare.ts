@@ -5,6 +5,8 @@ import type {
   WeeklyStatusKey,
 } from "@/types/dashboard";
 import { formatInteger, formatSignedDelta, formatSignedPct, pctChange, trendDirection } from "@/lib/format";
+import { isHiddenFromRoster } from "@/lib/agent-segments";
+import { weekCodeEndMonthKey } from "@/lib/isoWeek";
 import { DASHBOARD_WEEK_YEAR, formatWeekLabel } from "@/lib/weekDateRange";
 import { filterWeeklyHistory, pickDefaultWeek, sortWeekCodes } from "@/lib/weekQuarterFilter";
 
@@ -51,14 +53,6 @@ function breakdownRow(
   week: string,
 ): WeeklyBreakdownRow | undefined {
   return breakdown?.find((entry) => entry.week === week);
-}
-
-function teamValue(
-  row: WeeklyBreakdownRow | undefined,
-  segment: "complex" | "density",
-  metric: WeeklyStatusKey,
-): number {
-  return row?.teams[segment][metric] ?? 0;
 }
 
 export type WowCompareCell = {
@@ -135,12 +129,23 @@ export function buildWowComparison(input: {
 
   const leftBreakdown = breakdownRow(breakdown, leftWeek);
   const rightBreakdown = breakdownRow(breakdown, rightWeek);
+  const hideMonth = [weekCodeEndMonthKey(leftWeek, DASHBOARD_WEEK_YEAR), weekCodeEndMonthKey(rightWeek, DASHBOARD_WEEK_YEAR)]
+    .filter(Boolean)
+    .sort()
+    .at(-1);
+  const visibleAgents = hideMonth
+    ? agents.filter((agent) => !isHiddenFromRoster(agent.ownerId, hideMonth))
+    : agents;
 
   const teams: WowCompareRow[] = hasBreakdown
     ? (["complex", "density"] as const).map((segment) => {
         const label = segment === "complex" ? "Complex Team" : "Density Team";
-        const leftValue = teamValue(leftBreakdown, segment, metric);
-        const rightValue = teamValue(rightBreakdown, segment, metric);
+        const leftValue = visibleAgents
+          .filter((agent) => agent.segment === segment)
+          .reduce((sum, agent) => sum + (leftBreakdown?.agents[agent.ownerId]?.[metric] ?? 0), 0);
+        const rightValue = visibleAgents
+          .filter((agent) => agent.segment === segment)
+          .reduce((sum, agent) => sum + (rightBreakdown?.agents[agent.ownerId]?.[metric] ?? 0), 0);
         return compareRow(segment, label, leftValue, rightValue, {
           segment,
           subtitle: segment === "complex" ? "Complex" : "Density",
@@ -149,7 +154,7 @@ export function buildWowComparison(input: {
     : [];
 
   const agentsRows: WowCompareRow[] = hasBreakdown
-    ? agents
+    ? visibleAgents
         .map((agent) => {
           const leftValue = leftBreakdown?.agents[agent.ownerId]?.[metric] ?? 0;
           const rightValue = rightBreakdown?.agents[agent.ownerId]?.[metric] ?? 0;

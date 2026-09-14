@@ -6,6 +6,7 @@ import {
   COMPLEX_MTD_TARGET,
   DENSITY_ACTIVATED_MTD_TARGET,
   DENSITY_MTD_TARGET,
+  isHiddenFromRoster,
 } from "@/lib/agent-segments";
 import {
   COMPLEX_WEEKLY_TARGETS,
@@ -435,6 +436,7 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
     const defaultActivated = config.segment[segment].activated;
 
     const agents = team.agents
+      .filter((agent) => !isHiddenFromRoster(agent.ownerId, contextMonthKey))
       .map((agent) => {
         const paused = isPausedAgent(agent.ownerId, config);
         const wonTarget = wonTargetFor(config, agent.ownerId, segment, contextMonthKey);
@@ -538,6 +540,58 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
     };
   });
 
+  const currentKey = currentMonthKey();
+  const accounts = model.accounts
+    ? {
+        ...model.accounts,
+        won: (model.accounts.won ?? []).filter(
+          (row) => !isHiddenFromRoster(row.ownerId, currentKey),
+        ),
+        activated: (model.accounts.activated ?? []).filter(
+          (row) => !isHiddenFromRoster(row.ownerId, currentKey),
+        ),
+        backlog: (model.accounts.backlog ?? []).filter(
+          (row) => !isHiddenFromRoster(row.ownerId, currentKey),
+        ),
+      }
+    : model.accounts;
+
+  const accountsPerformance = model.accountsPerformance
+    ? {
+        ...model.accountsPerformance,
+        accounts: (model.accountsPerformance.accounts ?? []).filter(
+          (row) => !isHiddenFromRoster(row.agentId, currentKey),
+        ),
+        agents: (model.accountsPerformance.agents ?? []).filter(
+          (row) => !isHiddenFromRoster(row.agentId, currentKey),
+        ),
+      }
+    : model.accountsPerformance;
+
+  const churnPrevention = model.churnPrevention
+    ? {
+        ...model.churnPrevention,
+        accounts: (model.churnPrevention.accounts ?? []).filter(
+          (row) => !isHiddenFromRoster(row.agentId, currentKey),
+        ),
+        agents: (model.churnPrevention.agents ?? []).filter(
+          (row) => !isHiddenFromRoster(row.agentId, currentKey),
+        ),
+      }
+    : model.churnPrevention;
+
+  const myPipeline = model.myPipeline
+    ? {
+        ...model.myPipeline,
+        agents: (model.myPipeline.agents ?? []).filter(
+          (row) => !isHiddenFromRoster(row.ownerId, currentKey),
+        ),
+        items: (model.myPipeline.items ?? []).filter(
+          (row) => !isHiddenFromRoster(row.ownerId, currentKey),
+        ),
+      }
+    : model.myPipeline;
+
   return {
     ...model,
     overviewMetrics: updateOverviewMetrics(
@@ -552,6 +606,10 @@ export function applyTargetConfig(model: DashboardModel, config: TargetConfig): 
     ),
     teamProgress: updatedTeams,
     weeklyPerformance: model.weeklyPerformance,
+    accounts,
+    accountsPerformance,
+    churnPrevention,
+    myPipeline,
     mtdAchievement: {
       ...model.mtdAchievement,
       wonProgress,

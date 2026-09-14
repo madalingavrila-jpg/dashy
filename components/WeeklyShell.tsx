@@ -13,6 +13,9 @@ import {
 import { useDashboard } from "@/lib/useDashboard";
 import { useFilteredWeeklyHistory } from "@/lib/useFilteredWeeklyHistory";
 import { buildWeeklyDetailViews } from "@/lib/weeklyDetail";
+import { isHiddenFromRoster } from "@/lib/agent-segments";
+import { weekCodeEndMonthKey } from "@/lib/isoWeek";
+import { DASHBOARD_WEEK_YEAR } from "@/lib/weekDateRange";
 import type { AgentRow } from "@/types/dashboard";
 
 function agentsForWeeklyBuild(
@@ -84,11 +87,17 @@ export function WeeklyShell() {
   }, [selectedWeek, selectedDetail]);
 
   const hasBreakdown = filteredBreakdown.length > 0;
-  const agentOptions = model?.agents.map((agent) => ({
-    ownerId: agent.ownerId,
-    name: agent.name,
-    segment: agent.segment,
-  }));
+  const agentOptions = (model?.agents ?? [])
+    .filter((agent) => {
+      const week = selectedWeek ?? model?.weeklyPerformance.currentWeek;
+      if (!week) return true;
+      return !isHiddenFromRoster(agent.ownerId, weekCodeEndMonthKey(week, DASHBOARD_WEEK_YEAR));
+    })
+    .map((agent) => ({
+      ownerId: agent.ownerId,
+      name: agent.name,
+      segment: agent.segment,
+    }));
 
   const expandedContent =
     selectedWeek &&

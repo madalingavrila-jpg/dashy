@@ -12,6 +12,9 @@ import {
   teamWeeklyStatusTarget,
   type TargetConfig,
 } from "@/lib/targetConfig";
+import { isHiddenFromRoster } from "@/lib/agent-segments";
+import { DASHBOARD_WEEK_YEAR } from "@/lib/weekDateRange";
+import { weekCodeEndMonthKey } from "@/lib/isoWeek";
 import {
   emptyWeeklyStatusCounts,
   WEEKLY_STATUS_KEYS,
@@ -94,11 +97,6 @@ export function buildWeeklyDetailViews(
 ): WeeklyDetailView[] {
   if (!breakdown?.length) return [];
 
-  const teamAgents = {
-    complex: agents.filter((agent) => agent.segment === "complex"),
-    density: agents.filter((agent) => agent.segment === "density"),
-  };
-
   function buildAgentView(
     agent: AgentRow,
     breakdownRow: WeeklyBreakdownRow,
@@ -135,7 +133,24 @@ export function buildWeeklyDetailViews(
   }
 
   return breakdown.map((row) => {
-    const agentViews = agents.map((agent) => buildAgentView(agent, row));
+    const monthKey = weekCodeEndMonthKey(row.week, DASHBOARD_WEEK_YEAR);
+    const visibleAgents = agents.filter((agent) => !isHiddenFromRoster(agent.ownerId, monthKey));
+    const hiddenAgents = agents.filter((agent) => isHiddenFromRoster(agent.ownerId, monthKey));
+    const teamsCounts = {
+      complex: { ...row.teams.complex },
+      density: { ...row.teams.density },
+    };
+    for (const agent of hiddenAgents) {
+      const counts = row.agents[agent.ownerId];
+      if (!counts) continue;
+      const bucket = teamsCounts[agent.segment];
+      for (const key of WEEKLY_STATUS_KEYS) {
+        bucket[key] = Math.max(0, (bucket[key] ?? 0) - (counts[key] ?? 0));
+      }
+    }
+    const visibleRow = { ...row, teams: teamsCounts };
+
+    const agentViews = visibleAgents.map((agent) => buildAgentView(agent, visibleRow));
     const complexAgents = sortAgents(
       agentViews.filter((agent) => agent.segment === "Complex"),
     );
@@ -143,8 +158,12 @@ export function buildWeeklyDetailViews(
       agentViews.filter((agent) => agent.segment === "Density"),
     );
 
-    const activeComplex = teamAgents.complex.filter((agent) => !isPausedAgent(agent.ownerId, config));
-    const activeDensity = teamAgents.density.filter((agent) => !isPausedAgent(agent.ownerId, config));
+    const activeComplex = visibleAgents.filter(
+      (agent) => agent.segment === "complex" && !isPausedAgent(agent.ownerId, config),
+    );
+    const activeDensity = visibleAgents.filter(
+      (agent) => agent.segment === "density" && !isPausedAgent(agent.ownerId, config),
+    );
 
     const teams: WeeklyTeamStatusView[] = [
       {
@@ -152,7 +171,7 @@ export function buildWeeklyDetailViews(
         segmentLabel: "Complex",
         name: "Complex Team",
         repCount: activeComplex.length,
-        statuses: buildStatusViews(row.teams.complex, "complex", config, {
+        statuses: buildStatusViews(teamsCounts.complex, "complex", config, {
           activeAgents: activeComplex,
           week: row.week,
         }),
@@ -163,7 +182,7 @@ export function buildWeeklyDetailViews(
         segmentLabel: "Density",
         name: "Density Team",
         repCount: activeDensity.length,
-        statuses: buildStatusViews(row.teams.density, "density", config, {
+        statuses: buildStatusViews(teamsCounts.density, "density", config, {
           activeAgents: activeDensity,
           week: row.week,
         }),

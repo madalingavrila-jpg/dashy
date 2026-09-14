@@ -144,6 +144,15 @@ Per-rep monthly targets apply to **both Won MTD and Activated MTD** separately.
 | Mihnea | Silviu-Mihnea Voicu | `005Ts000001Ak10IAC` |
 | Oroles | Oroles Roșu | `005Ts000006V3vpIAC` |
 
+**Hidden from UI (month-scoped, `TEAM_ROSTER.hiddenFromMonth`):** still in SF pulls
+and historical months, but omitted from Overview / MTD / Weekly / WoW / Accounts /
+MyPipeline / Churn starting that month.
+
+| Alias | Hidden from | Notes |
+|-------|-------------|-------|
+| Daniel Boboc | **2026-09** | Not shown from September 2026 onward |
+| Oroles | **2026-10** | Shown in September 2026 with Won/Activated target **0**; hidden from October |
+
 **Excluded from team roster** (do not show in agents/MTD; same as `Administrator`):
 
 | Alias | Salesforce name | Owner ID |
@@ -188,8 +197,9 @@ targets they were run with. Resolution order: `perRep` (month match or unscoped)
 `perRepByMonth[selectedMonth]` → segment default. Archived so far: **2026-07**
 (Density 23/rep, Boboc 15 → 153; Complex 5/rep, Radu 4 → 24; Inbound 45) and
 **2026-08** (Density 23/rep, Toltică 21, Roșu 15 → 151; Complex 5/rep → 25;
-Inbound 45). **September 2026 Activated targets** (Activated MTD only; Won unchanged;
-auto-revert in October): Density **29**/rep × 7 → 203; Complex **6**/rep × 5 → 30
+Inbound 45). **September 2026 Activated targets** (Activated MTD only; Won unchanged
+except Oroles): Density **29**/rep for remaining visible Density reps; **Oroles
+Won/Activated = 0**; Boboc is hidden from September UI. Complex **6**/rep × 5 → 30
 (country plan 50+ from pipeline overdelivery); Inbound Ana-Maria Preda & Catalin
 Corbeanu **60** each → 120 (stored in `perRep`; the Inbound tab is actuals-only so
 not displayed as a target there). Country Activated plan **370**.

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T07:30:00.000Z",
+  "updatedAt": "2026-09-11T12:00:00.000Z",
   "segment": {
     "complex": {
       "won": 10,
@@ -31,7 +31,7 @@
     "005Ts000002AWIQIA4": { "activated": 29, "monthKey": "2026-09" },
     "005Ts00000BtZV3IAN": { "activated": 29, "monthKey": "2026-09" },
     "005Ts000001Ak10IAC": { "activated": 29, "monthKey": "2026-09" },
-    "005Ts000006V3vpIAC": { "activated": 29, "monthKey": "2026-09" },
+    "005Ts000006V3vpIAC": { "won": 0, "activated": 0, "monthKey": "2026-09" },
     "005Ts0000060ICnIAM": { "activated": 6, "monthKey": "2026-09" },
     "005Qs00000N2Hh3IAF": { "activated": 6, "monthKey": "2026-09" },
     "005Qs00000Pr1HKIAZ": { "activated": 6, "monthKey": "2026-09" },
