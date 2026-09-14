@@ -640,8 +640,17 @@ container filesystem is **ephemeral** — durable saves go to **File Storage (S3
 copy (and seeds S3 from the repo file on first run if the object is missing).
 **S3 is the sole durable store** — there is no GitHub dual-write for targets.
 
-**Cursor agents:** Prefer updating overrides via Settings on production (S3) or
-editing `data/target-config.json` then deploying once so the pod can seed S3.
+**Cursor agents: editing `data/target-config.json` and deploying does NOT change
+production targets.** `readTargetConfig` prefers the S3 object whenever it exists
+and then mirrors it *down* onto the repo file, so a committed edit is silently
+overwritten on the next boot. The repo file only seeds S3 when the object is
+missing (first run). Neither `npm run upload-s3` nor `PUT /api/publish/dashboard`
+carries target config — the publish API accepts dashboard assets only. The only
+way to change live targets is **Settings → Save targets on production**
+(`PUT /api/target-config` → S3), which an agent cannot reach: the endpoint is
+behind Boltable SSO (302) and there are no local AWS credentials. Keep the repo
+file updated as the source of record, but **ask the user to save the change in
+Settings** and do not report a target change as live until they confirm it.
 
 **Local dev:** without IRSA, saves are filesystem-only for the current process.
 
