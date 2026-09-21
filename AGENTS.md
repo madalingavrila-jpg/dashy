@@ -360,7 +360,7 @@ WHERE RecordType.Name IN ('Sales Opportunity', 'Reactivation')
  AND Account.provider_first_active_date__c != null
  AND Account.provider_first_active_date__c < 2026-01-01
  AND (
-   Won_Date__c >= 2026-01-01
+   Won_Date__c >= 2026-01-01T00:00:00Z
    OR (RecordType.Name = 'Reactivation' AND (
      Account.Reactivated_Date__c >= 2026-01-01 OR CloseDate >= 2026-01-01
    ))
