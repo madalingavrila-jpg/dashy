@@ -298,8 +298,8 @@ if (dataErrors.length > 0) {
 
 const apiPath = path.join(root, "out/api/dashboard.json");
 const apiBytes = fs.statSync(apiPath).size;
-// 360 KB: Aug 2026 YTD volume landed ~351 KB while still fully slimmed (gzip ~42 KB).
-const API_PAYLOAD_MAX_BYTES = 360_000;
+// 370 KB: Sep 2026 YTD slim payload is ~361 KB gzip ~42 KB (still fully slimmed).
+const API_PAYLOAD_MAX_BYTES = 370_000;
 if (apiBytes > API_PAYLOAD_MAX_BYTES) {
   console.error(
     `[verify-build] out/api/dashboard.json is ${apiBytes} bytes (max ${API_PAYLOAD_MAX_BYTES}). ` +
