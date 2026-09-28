@@ -318,7 +318,9 @@ if (apiBytes > API_PAYLOAD_MAX_BYTES) {
 // a tight budget.
 // 1.8 MB: on 2026-09-02 accounts-performance reached ~1.69 MB from organic growth
 // (2,146-provider YTD universe over 9 months). Catch runaway dumps, not month-add.
-const SECTION_PAYLOAD_MAX_BYTES = 1_800_000;
+// 2.2 MB: on 2026-09-28 it reached ~1.81 MB (2,358-provider universe, 1,518
+// roster accounts). Q4 adds 3 more months, so leave headroom through year end.
+const SECTION_PAYLOAD_MAX_BYTES = 2_200_000;
 const oversizeSections = [];
 for (const section of SECTIONS) {
   const sectionPath = path.join(root, `out/api/dashboard/${section}.json`);
