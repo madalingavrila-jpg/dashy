@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-28T11:14:00.379Z",
+  "updatedAt": "2026-09-28T13:45:56.632Z",
   "salesforceInstanceUrl": "https://boltfood.lightning.force.com",
   "salesPipeline": {
     "totals": {
       "won": {
-        "value": 1602,
+        "value": 1610,
         "previousValue": 1421,
-        "changePercent": 12.7,
+        "changePercent": 13.3,
         "period": "YTD"
       },
       "activated": {
@@ -69,7 +69,7 @@
     "mtdAchievement": {
       "month": "September 2026",
       "targetWon": 260,
-      "actualWon": 181,
+      "actualWon": 189,
       "targetActivated": 215,
       "actualActivated": 159,
       "leadsMtd": 49,
@@ -80,7 +80,7 @@
         {
           "name": "Complex",
           "target": 50,
-          "actual": 35,
+          "actual": 43,
           "type": "won"
         },
         {
@@ -109,15 +109,15 @@
       "metrics": [
         {
           "label": "Leads",
-          "value": 1,
-          "previousValue": 15,
-          "changePercent": -93.3
+          "value": 3,
+          "previousValue": 13,
+          "changePercent": -76.9
         },
         {
           "label": "Qualified",
-          "value": 3,
-          "previousValue": 68,
-          "changePercent": -95.6
+          "value": 5,
+          "previousValue": 66,
+          "changePercent": -92.4
         },
         {
           "label": "Negotiations",
@@ -127,9 +127,9 @@
         },
         {
           "label": "Closed Won",
-          "value": 17,
+          "value": 25,
           "previousValue": 48,
-          "changePercent": -64.6
+          "changePercent": -47.9
         },
         {
           "label": "Active",
@@ -445,18 +445,18 @@
         },
         {
           "week": "W39",
-          "leads": 15,
-          "qualified": 68,
+          "leads": 13,
+          "qualified": 66,
           "negotiations": 54,
           "closedWon": 48,
           "active": 68
         },
         {
           "week": "W40",
-          "leads": 1,
-          "qualified": 3,
+          "leads": 3,
+          "qualified": 5,
           "negotiations": 1,
-          "closedWon": 17,
+          "closedWon": 25,
           "active": 0
         }
       ],
@@ -3359,7 +3359,7 @@
           "week": "W39",
           "teams": {
             "complex": {
-              "qualified": 9,
+              "qualified": 7,
               "negotiations": 2,
               "closedWon": 6,
               "active": 5
@@ -3421,7 +3421,7 @@
               "active": 2
             },
             "005Ts0000060ICnIAM": {
-              "qualified": 5,
+              "qualified": 3,
               "negotiations": 0,
               "closedWon": 0,
               "active": 0
@@ -3432,9 +3432,9 @@
           "week": "W40",
           "teams": {
             "complex": {
-              "qualified": 0,
+              "qualified": 2,
               "negotiations": 0,
-              "closedWon": 17,
+              "closedWon": 25,
               "active": 0
             },
             "density": {
@@ -3494,12 +3494,84 @@
               }
             },
             "005Ts0000060ICnIAM": {
-              "qualified": 0,
+              "qualified": 2,
               "negotiations": 0,
-              "closedWon": 17,
+              "closedWon": 25,
               "active": 0,
               "accounts": {
                 "closedWon": [
+                  {
+                    "id": "006Qs00000mhzasIAA",
+                    "name": "Hygge Pizza Kaufland Alba",
+                    "city": "—",
+                    "stage": "Onboarding",
+                    "date": "2026-09-28",
+                    "sfOpportunityId": "006Qs00000mhzasIAA",
+                    "sfAccountId": "001Qs00000v4Vz1IAE"
+                  },
+                  {
+                    "id": "006Qs00000mhzCgIAI",
+                    "name": "Hygge Pizza Pitesti Exercitiului",
+                    "city": "—",
+                    "stage": "Onboarding",
+                    "date": "2026-09-28",
+                    "sfOpportunityId": "006Qs00000mhzCgIAI",
+                    "sfAccountId": "001Qs00000v4gpUIAQ"
+                  },
+                  {
+                    "id": "006Qs00000mhmnLIAQ",
+                    "name": "Hygge Pizza Pitesti Gavana",
+                    "city": "—",
+                    "stage": "Onboarding",
+                    "date": "2026-09-28",
+                    "sfOpportunityId": "006Qs00000mhmnLIAQ",
+                    "sfAccountId": "001Qs00000v4R7LIAU"
+                  },
+                  {
+                    "id": "006Qs00000mhqnjIAA",
+                    "name": "Hygge Pizza Ploiesti Sud",
+                    "city": "—",
+                    "stage": "Onboarding",
+                    "date": "2026-09-28",
+                    "sfOpportunityId": "006Qs00000mhqnjIAA",
+                    "sfAccountId": "001Qs00000v4SjLIAU"
+                  },
+                  {
+                    "id": "006Qs00000mhxlyIAA",
+                    "name": "Hygge Pizza Ploiesti Nord",
+                    "city": "—",
+                    "stage": "Onboarding",
+                    "date": "2026-09-28",
+                    "sfOpportunityId": "006Qs00000mhxlyIAA",
+                    "sfAccountId": "001Qs00000v4OW6IAM"
+                  },
+                  {
+                    "id": "006Qs00000mhxVqIAI",
+                    "name": "Hygge Pizza Neamt Bistritei",
+                    "city": "—",
+                    "stage": "Onboarding",
+                    "date": "2026-09-28",
+                    "sfOpportunityId": "006Qs00000mhxVqIAI",
+                    "sfAccountId": "001Qs00000v4Oe7IAE"
+                  },
+                  {
+                    "id": "006Qs00000mVGJOIA4",
+                    "name": "Hygge Pizza Neamt Obor",
+                    "city": "—",
+                    "stage": "Onboarding",
+                    "date": "2026-09-28",
+                    "sfOpportunityId": "006Qs00000mVGJOIA4",
+                    "sfAccountId": "001Qs00000ulEgoIAE"
+                  },
+                  {
+                    "id": "006Qs00000mVG4sIAG",
+                    "name": "Hygge Pizza Braila",
+                    "city": "—",
+                    "stage": "Onboarding",
+                    "date": "2026-09-28",
+                    "sfOpportunityId": "006Qs00000mVG4sIAG",
+                    "sfAccountId": "001Qs00000ukt6BIAQ"
+                  },
                   {
                     "id": "006Qs00000lmYM6IAM",
                     "name": "Hygge Pizza Grand Arena",
@@ -3653,6 +3725,26 @@
                     "sfOpportunityId": "006Qs00000lmX8KIAU",
                     "sfAccountId": "001Qs00000tjvH0IAI"
                   }
+                ],
+                "qualified": [
+                  {
+                    "id": "006Qs00000mhuswIAA",
+                    "name": "Hygge Drobeta",
+                    "city": "—",
+                    "stage": "New Opportunity",
+                    "date": "2026-09-28",
+                    "sfOpportunityId": "006Qs00000mhuswIAA",
+                    "sfAccountId": "001Qs00000v4QjCIAU"
+                  },
+                  {
+                    "id": "006Qs00000mhuksIAA",
+                    "name": "Hygge Craiova",
+                    "city": "—",
+                    "stage": "New Opportunity",
+                    "date": "2026-09-28",
+                    "sfOpportunityId": "006Qs00000mhuksIAA",
+                    "sfAccountId": "001Qs00000v4Oz4IAE"
+                  }
                 ]
               }
             }
@@ -3670,15 +3762,15 @@
         "rows": [
           {
             "metric": "Leads",
-            "current": 1,
-            "prior": 15,
-            "changePercent": -93.3
+            "current": 3,
+            "prior": 13,
+            "changePercent": -76.9
           },
           {
             "metric": "Qualified",
-            "current": 3,
-            "prior": 68,
-            "changePercent": -95.6
+            "current": 5,
+            "prior": 66,
+            "changePercent": -92.4
           },
           {
             "metric": "Negotiations",
@@ -3688,9 +3780,9 @@
           },
           {
             "metric": "Closed Won",
-            "current": 17,
+            "current": 25,
             "prior": 48,
-            "changePercent": -64.6
+            "changePercent": -47.9
           },
           {
             "metric": "Active",
@@ -3778,6 +3870,21 @@
         "mtdTarget": 30
       },
       {
+        "ownerId": "005Ts0000060ICnIAM",
+        "name": "Ionut-Mădălin Gavrilă",
+        "pipelineCount": 37,
+        "stageCounts": {
+          "Onboarding": 26,
+          "New Opportunity": 9,
+          "Contract sent": 2
+        },
+        "wonMtd": 26,
+        "activatedMtd": 5,
+        "wonYtd": 2,
+        "segment": "complex",
+        "mtdTarget": 10
+      },
+      {
         "ownerId": "005Ts000005c4hFIAQ",
         "name": "Corneliu-Ștefan Radu",
         "pipelineCount": 33,
@@ -3811,23 +3918,6 @@
         "wonYtd": 24,
         "segment": "density",
         "mtdTarget": 30
-      },
-      {
-        "ownerId": "005Ts0000060ICnIAM",
-        "name": "Ionut-Mădălin Gavrilă",
-        "pipelineCount": 32,
-        "stageCounts": {
-          "New Opportunity": 18,
-          "Contract sent": 7,
-          "Ready for TA": 1,
-          "Negotiation": 4,
-          "Signed / Onb Checklist": 2
-        },
-        "wonMtd": 18,
-        "activatedMtd": 5,
-        "wonYtd": 2,
-        "segment": "complex",
-        "mtdTarget": 10
       },
       {
         "ownerId": "005Qs00000Pr1HKIAZ",
@@ -5712,6 +5802,268 @@
             ]
           },
           {
+            "ownerId": "005Ts0000060ICnIAM",
+            "name": "Ionut-Mădălin Gavrilă",
+            "segment": "complex",
+            "wonMtd": 26,
+            "activatedMtd": 5,
+            "wonItems": [
+              {
+                "id": "006Qs00000mhzasIAA",
+                "name": "Hygge Pizza Kaufland Alba",
+                "city": "—",
+                "closeDate": "2026-09-28T12:59:19.000+0000",
+                "sfOpportunityId": "006Qs00000mhzasIAA",
+                "sfAccountId": "001Qs00000v4Vz1IAE"
+              },
+              {
+                "id": "006Qs00000mhzCgIAI",
+                "name": "Hygge Pizza Pitesti Exercitiului",
+                "city": "—",
+                "closeDate": "2026-09-28T12:52:11.000+0000",
+                "sfOpportunityId": "006Qs00000mhzCgIAI",
+                "sfAccountId": "001Qs00000v4gpUIAQ"
+              },
+              {
+                "id": "006Qs00000mhmnLIAQ",
+                "name": "Hygge Pizza Pitesti Gavana",
+                "city": "—",
+                "closeDate": "2026-09-28T12:51:00.000+0000",
+                "sfOpportunityId": "006Qs00000mhmnLIAQ",
+                "sfAccountId": "001Qs00000v4R7LIAU"
+              },
+              {
+                "id": "006Qs00000mhqnjIAA",
+                "name": "Hygge Pizza Ploiesti Sud",
+                "city": "—",
+                "closeDate": "2026-09-28T12:45:47.000+0000",
+                "sfOpportunityId": "006Qs00000mhqnjIAA",
+                "sfAccountId": "001Qs00000v4SjLIAU"
+              },
+              {
+                "id": "006Qs00000mhxlyIAA",
+                "name": "Hygge Pizza Ploiesti Nord",
+                "city": "—",
+                "closeDate": "2026-09-28T12:44:26.000+0000",
+                "sfOpportunityId": "006Qs00000mhxlyIAA",
+                "sfAccountId": "001Qs00000v4OW6IAM"
+              },
+              {
+                "id": "006Qs00000mhxVqIAI",
+                "name": "Hygge Pizza Neamt Bistritei",
+                "city": "—",
+                "closeDate": "2026-09-28T12:43:22.000+0000",
+                "sfOpportunityId": "006Qs00000mhxVqIAI",
+                "sfAccountId": "001Qs00000v4Oe7IAE"
+              },
+              {
+                "id": "006Qs00000mVGJOIA4",
+                "name": "Hygge Pizza Neamt Obor",
+                "city": "—",
+                "closeDate": "2026-09-28T12:37:32.000+0000",
+                "sfOpportunityId": "006Qs00000mVGJOIA4",
+                "sfAccountId": "001Qs00000ulEgoIAE"
+              },
+              {
+                "id": "006Qs00000mVG4sIAG",
+                "name": "Hygge Pizza Braila",
+                "city": "—",
+                "closeDate": "2026-09-28T12:32:55.000+0000",
+                "sfOpportunityId": "006Qs00000mVG4sIAG",
+                "sfAccountId": "001Qs00000ukt6BIAQ"
+              },
+              {
+                "id": "006Qs00000lmYM6IAM",
+                "name": "Hygge Pizza Grand Arena",
+                "city": "—",
+                "closeDate": "2026-09-28T11:07:36.000+0000",
+                "sfOpportunityId": "006Qs00000lmYM6IAM",
+                "sfAccountId": "001Qs00000tjtNGIAY"
+              },
+              {
+                "id": "006Qs00000mhHoTIAU",
+                "name": "Hygge Pizza Vergului",
+                "city": "—",
+                "closeDate": "2026-09-28T10:51:39.000+0000",
+                "sfOpportunityId": "006Qs00000mhHoTIAU",
+                "sfAccountId": "001Qs00000v3zG3IAI"
+              },
+              {
+                "id": "006Qs00000mhW11IAE",
+                "name": "Hygge Pizza Targoviste 2",
+                "city": "—",
+                "closeDate": "2026-09-28T10:47:26.000+0000",
+                "sfOpportunityId": "006Qs00000mhW11IAE",
+                "sfAccountId": "001Qs00000v3pwfIAA"
+              },
+              {
+                "id": "006Qs00000mhLiLIAU",
+                "name": "Hygge Pizza Targoviste 1",
+                "city": "—",
+                "closeDate": "2026-09-28T10:45:37.000+0000",
+                "sfOpportunityId": "006Qs00000mhLiLIAU",
+                "sfAccountId": "001Qs00000v425hIAA"
+              },
+              {
+                "id": "006Qs00000mhcWEIAY",
+                "name": "Hygge Pizza Brasov",
+                "city": "—",
+                "closeDate": "2026-09-28T10:44:33.000+0000",
+                "sfOpportunityId": "006Qs00000mhcWEIAY",
+                "sfAccountId": "001Qs00000v4G8eIAE"
+              },
+              {
+                "id": "006Qs00000mV4muIAC",
+                "name": "Hygge Pizza Ploiesti Vest",
+                "city": "—",
+                "closeDate": "2026-09-28T10:32:48.000+0000",
+                "sfOpportunityId": "006Qs00000mV4muIAC",
+                "sfAccountId": "001Ts0000078HNvIAM"
+              },
+              {
+                "id": "006Qs00000mhJVEIA2",
+                "name": "Hygge Pizza Giurgiu 2",
+                "city": "—",
+                "closeDate": "2026-09-28T10:24:17.000+0000",
+                "sfOpportunityId": "006Qs00000mhJVEIA2",
+                "sfAccountId": "001Qs00000v3uzYIAQ"
+              },
+              {
+                "id": "006Qs00000mgrE2IAI",
+                "name": "Hygge Pizza Giurgiu 1",
+                "city": "—",
+                "closeDate": "2026-09-28T10:22:58.000+0000",
+                "sfOpportunityId": "006Qs00000mgrE2IAI",
+                "sfAccountId": "001Qs00000v3Tb0IAE"
+              },
+              {
+                "id": "006Qs00000mhUSFIA2",
+                "name": "Hygge Pizza Emil Racovita",
+                "city": "—",
+                "closeDate": "2026-09-28T10:21:37.000+0000",
+                "sfOpportunityId": "006Qs00000mhUSFIA2",
+                "sfAccountId": "001Qs00000v4BDoIAM"
+              },
+              {
+                "id": "006Qs00000mhOxwIAE",
+                "name": "Hygge Pizza Orhideea",
+                "city": "—",
+                "closeDate": "2026-09-28T10:13:19.000+0000",
+                "sfOpportunityId": "006Qs00000mhOxwIAE",
+                "sfAccountId": "001Qs00000v47RyIAI"
+              },
+              {
+                "id": "006Qs00000mhXRiIAM",
+                "name": "Hygge Pizza Oradea",
+                "city": "—",
+                "closeDate": "2026-09-28T10:12:08.000+0000",
+                "sfOpportunityId": "006Qs00000mhXRiIAM",
+                "sfAccountId": "001Qs00000v47eqIAA"
+              },
+              {
+                "id": "006Qs00000mhXGQIA2",
+                "name": "Hygge Pizza Valcea 2",
+                "city": "—",
+                "closeDate": "2026-09-28T10:10:22.000+0000",
+                "sfOpportunityId": "006Qs00000mhXGQIA2",
+                "sfAccountId": "001Qs00000v3xR1IAI"
+              },
+              {
+                "id": "006Qs00000mhJqCIAU",
+                "name": "Hygge Pizza Pantelimon",
+                "city": "—",
+                "closeDate": "2026-09-28T10:08:49.000+0000",
+                "sfOpportunityId": "006Qs00000mhJqCIAU",
+                "sfAccountId": "001Qs00000v3whtIAA"
+              },
+              {
+                "id": "006Qs00000mhTvyIAE",
+                "name": "Hygge Pizza Bacau",
+                "city": "—",
+                "closeDate": "2026-09-28T10:07:35.000+0000",
+                "sfOpportunityId": "006Qs00000mhTvyIAE",
+                "sfAccountId": "001Qs00000v4DDyIAM"
+              },
+              {
+                "id": "006Qs00000mhGtwIAE",
+                "name": "Hygge Pizza Burdujeni",
+                "city": "—",
+                "closeDate": "2026-09-28T10:01:39.000+0000",
+                "sfOpportunityId": "006Qs00000mhGtwIAE",
+                "sfAccountId": "001Qs00000v3ksCIAQ"
+              },
+              {
+                "id": "006Qs00000mV9UpIAK",
+                "name": "Hygge Pizza Enescu",
+                "city": "—",
+                "closeDate": "2026-09-28T09:57:58.000+0000",
+                "sfOpportunityId": "006Qs00000mV9UpIAK",
+                "sfAccountId": "001Qs00000ul1mwIAA"
+              },
+              {
+                "id": "006Qs00000lmX8KIAU",
+                "name": "Hygge Pizza Binelui",
+                "city": "—",
+                "closeDate": "2026-09-28T09:50:58.000+0000",
+                "sfOpportunityId": "006Qs00000lmX8KIAU",
+                "sfAccountId": "001Qs00000tjvH0IAI"
+              },
+              {
+                "id": "006Qs00000jzxZ8IAI",
+                "name": "Simon's Burger",
+                "city": "—",
+                "closeDate": "2026-09-17T12:53:59.000+0000",
+                "sfOpportunityId": "006Qs00000jzxZ8IAI",
+                "sfAccountId": "001Qs00000jxWEvIAM"
+              }
+            ],
+            "activatedItems": [
+              {
+                "id": "006Qs00000lmMXqIAM",
+                "name": "Flacau Palas",
+                "city": "—",
+                "closeDate": "2026-09-11",
+                "sfOpportunityId": "006Qs00000lmMXqIAM",
+                "sfAccountId": "001Qs00000tjfkBIAQ"
+              },
+              {
+                "id": "006Qs00000jjdHqIAI",
+                "name": "Foom  Tanasescu",
+                "city": "—",
+                "closeDate": "2026-09-11",
+                "sfOpportunityId": "006Qs00000jjdHqIAI",
+                "sfAccountId": "001Qs00000qhrV4IAI"
+              },
+              {
+                "id": "006Qs00000krbN8IAI",
+                "name": "Taqueria by El Torito",
+                "city": "—",
+                "closeDate": "2026-09-04",
+                "sfOpportunityId": "006Qs00000krbN8IAI",
+                "sfAccountId": "0017Q00001HM7BDQA1",
+                "reactivated": true
+              },
+              {
+                "id": "006Qs00000krfkAIAQ",
+                "name": "El Torito",
+                "city": "—",
+                "closeDate": "2026-09-03",
+                "sfOpportunityId": "006Qs00000krfkAIAQ",
+                "sfAccountId": "0017Q00001HLsIFQA1",
+                "reactivated": true
+              },
+              {
+                "id": "006Qs00000krz9JIAQ",
+                "name": "Banjo Jack",
+                "city": "—",
+                "closeDate": "2026-09-03",
+                "sfOpportunityId": "006Qs00000krz9JIAQ",
+                "sfAccountId": "0017Q00001HLsFrQAL",
+                "reactivated": true
+              }
+            ]
+          },
+          {
             "ownerId": "005Ts00000BtX53IAF",
             "name": "Daniel-Marian Toltică",
             "segment": "density",
@@ -6103,204 +6455,6 @@
                 "closeDate": "2026-09-26",
                 "sfOpportunityId": "006Qs00000mUgUQIA0",
                 "sfAccountId": "001Qs00000ukcRrIAI"
-              }
-            ]
-          },
-          {
-            "ownerId": "005Ts0000060ICnIAM",
-            "name": "Ionut-Mădălin Gavrilă",
-            "segment": "complex",
-            "wonMtd": 18,
-            "activatedMtd": 5,
-            "wonItems": [
-              {
-                "id": "006Qs00000lmYM6IAM",
-                "name": "Hygge Pizza Grand Arena",
-                "city": "—",
-                "closeDate": "2026-09-28T11:07:36.000+0000",
-                "sfOpportunityId": "006Qs00000lmYM6IAM",
-                "sfAccountId": "001Qs00000tjtNGIAY"
-              },
-              {
-                "id": "006Qs00000mhHoTIAU",
-                "name": "Hygge Pizza Vergului",
-                "city": "—",
-                "closeDate": "2026-09-28T10:51:39.000+0000",
-                "sfOpportunityId": "006Qs00000mhHoTIAU",
-                "sfAccountId": "001Qs00000v3zG3IAI"
-              },
-              {
-                "id": "006Qs00000mhW11IAE",
-                "name": "Hygge Pizza Targoviste 2",
-                "city": "—",
-                "closeDate": "2026-09-28T10:47:26.000+0000",
-                "sfOpportunityId": "006Qs00000mhW11IAE",
-                "sfAccountId": "001Qs00000v3pwfIAA"
-              },
-              {
-                "id": "006Qs00000mhLiLIAU",
-                "name": "Hygge Pizza Targoviste 1",
-                "city": "—",
-                "closeDate": "2026-09-28T10:45:37.000+0000",
-                "sfOpportunityId": "006Qs00000mhLiLIAU",
-                "sfAccountId": "001Qs00000v425hIAA"
-              },
-              {
-                "id": "006Qs00000mhcWEIAY",
-                "name": "Hygge Pizza Brasov",
-                "city": "—",
-                "closeDate": "2026-09-28T10:44:33.000+0000",
-                "sfOpportunityId": "006Qs00000mhcWEIAY",
-                "sfAccountId": "001Qs00000v4G8eIAE"
-              },
-              {
-                "id": "006Qs00000mV4muIAC",
-                "name": "Hygge Pizza Ploiesti Vest",
-                "city": "—",
-                "closeDate": "2026-09-28T10:32:48.000+0000",
-                "sfOpportunityId": "006Qs00000mV4muIAC",
-                "sfAccountId": "001Ts0000078HNvIAM"
-              },
-              {
-                "id": "006Qs00000mhJVEIA2",
-                "name": "Hygge Pizza Giurgiu 2",
-                "city": "—",
-                "closeDate": "2026-09-28T10:24:17.000+0000",
-                "sfOpportunityId": "006Qs00000mhJVEIA2",
-                "sfAccountId": "001Qs00000v3uzYIAQ"
-              },
-              {
-                "id": "006Qs00000mgrE2IAI",
-                "name": "Hygge Pizza Giurgiu 1",
-                "city": "—",
-                "closeDate": "2026-09-28T10:22:58.000+0000",
-                "sfOpportunityId": "006Qs00000mgrE2IAI",
-                "sfAccountId": "001Qs00000v3Tb0IAE"
-              },
-              {
-                "id": "006Qs00000mhUSFIA2",
-                "name": "Hygge Pizza Emil Racovita",
-                "city": "—",
-                "closeDate": "2026-09-28T10:21:37.000+0000",
-                "sfOpportunityId": "006Qs00000mhUSFIA2",
-                "sfAccountId": "001Qs00000v4BDoIAM"
-              },
-              {
-                "id": "006Qs00000mhOxwIAE",
-                "name": "Hygge Pizza Orhideea",
-                "city": "—",
-                "closeDate": "2026-09-28T10:13:19.000+0000",
-                "sfOpportunityId": "006Qs00000mhOxwIAE",
-                "sfAccountId": "001Qs00000v47RyIAI"
-              },
-              {
-                "id": "006Qs00000mhXRiIAM",
-                "name": "Hygge Pizza Oradea",
-                "city": "—",
-                "closeDate": "2026-09-28T10:12:08.000+0000",
-                "sfOpportunityId": "006Qs00000mhXRiIAM",
-                "sfAccountId": "001Qs00000v47eqIAA"
-              },
-              {
-                "id": "006Qs00000mhXGQIA2",
-                "name": "Hygge Pizza Valcea 2",
-                "city": "—",
-                "closeDate": "2026-09-28T10:10:22.000+0000",
-                "sfOpportunityId": "006Qs00000mhXGQIA2",
-                "sfAccountId": "001Qs00000v3xR1IAI"
-              },
-              {
-                "id": "006Qs00000mhJqCIAU",
-                "name": "Hygge Pizza Pantelimon",
-                "city": "—",
-                "closeDate": "2026-09-28T10:08:49.000+0000",
-                "sfOpportunityId": "006Qs00000mhJqCIAU",
-                "sfAccountId": "001Qs00000v3whtIAA"
-              },
-              {
-                "id": "006Qs00000mhTvyIAE",
-                "name": "Hygge Pizza Bacau",
-                "city": "—",
-                "closeDate": "2026-09-28T10:07:35.000+0000",
-                "sfOpportunityId": "006Qs00000mhTvyIAE",
-                "sfAccountId": "001Qs00000v4DDyIAM"
-              },
-              {
-                "id": "006Qs00000mhGtwIAE",
-                "name": "Hygge Pizza Burdujeni",
-                "city": "—",
-                "closeDate": "2026-09-28T10:01:39.000+0000",
-                "sfOpportunityId": "006Qs00000mhGtwIAE",
-                "sfAccountId": "001Qs00000v3ksCIAQ"
-              },
-              {
-                "id": "006Qs00000mV9UpIAK",
-                "name": "Hygge Pizza Enescu",
-                "city": "—",
-                "closeDate": "2026-09-28T09:57:58.000+0000",
-                "sfOpportunityId": "006Qs00000mV9UpIAK",
-                "sfAccountId": "001Qs00000ul1mwIAA"
-              },
-              {
-                "id": "006Qs00000lmX8KIAU",
-                "name": "Hygge Pizza Binelui",
-                "city": "—",
-                "closeDate": "2026-09-28T09:50:58.000+0000",
-                "sfOpportunityId": "006Qs00000lmX8KIAU",
-                "sfAccountId": "001Qs00000tjvH0IAI"
-              },
-              {
-                "id": "006Qs00000jzxZ8IAI",
-                "name": "Simon's Burger",
-                "city": "—",
-                "closeDate": "2026-09-17T12:53:59.000+0000",
-                "sfOpportunityId": "006Qs00000jzxZ8IAI",
-                "sfAccountId": "001Qs00000jxWEvIAM"
-              }
-            ],
-            "activatedItems": [
-              {
-                "id": "006Qs00000lmMXqIAM",
-                "name": "Flacau Palas",
-                "city": "—",
-                "closeDate": "2026-09-11",
-                "sfOpportunityId": "006Qs00000lmMXqIAM",
-                "sfAccountId": "001Qs00000tjfkBIAQ"
-              },
-              {
-                "id": "006Qs00000jjdHqIAI",
-                "name": "Foom  Tanasescu",
-                "city": "—",
-                "closeDate": "2026-09-11",
-                "sfOpportunityId": "006Qs00000jjdHqIAI",
-                "sfAccountId": "001Qs00000qhrV4IAI"
-              },
-              {
-                "id": "006Qs00000krbN8IAI",
-                "name": "Taqueria by El Torito",
-                "city": "—",
-                "closeDate": "2026-09-04",
-                "sfOpportunityId": "006Qs00000krbN8IAI",
-                "sfAccountId": "0017Q00001HM7BDQA1",
-                "reactivated": true
-              },
-              {
-                "id": "006Qs00000krfkAIAQ",
-                "name": "El Torito",
-                "city": "—",
-                "closeDate": "2026-09-03",
-                "sfOpportunityId": "006Qs00000krfkAIAQ",
-                "sfAccountId": "0017Q00001HLsIFQA1",
-                "reactivated": true
-              },
-              {
-                "id": "006Qs00000krz9JIAQ",
-                "name": "Banjo Jack",
-                "city": "—",
-                "closeDate": "2026-09-03",
-                "sfOpportunityId": "006Qs00000krz9JIAQ",
-                "sfAccountId": "0017Q00001HLsFrQAL",
-                "reactivated": true
               }
             ]
           },
@@ -6765,7 +6919,7 @@
         "mtdAchievement": {
           "month": "September 2026",
           "targetWon": 260,
-          "actualWon": 181,
+          "actualWon": 189,
           "targetActivated": 215,
           "actualActivated": 159,
           "leadsMtd": 0,
@@ -6776,7 +6930,7 @@
             {
               "name": "Complex",
               "target": 50,
-              "actual": 35,
+              "actual": 43,
               "type": "won"
             },
             {
@@ -9124,7 +9278,7 @@
       }
     },
     "myPipeline": {
-      "generatedAt": "2026-09-28T11:13:59.427Z",
+      "generatedAt": "2026-09-28T13:45:55.551Z",
       "stagesIncluded": [
         "New Opportunity",
         "Reachout",
@@ -9148,10 +9302,10 @@
       },
       "totals": {
         "opportunities": 1842,
-        "leads": 6229,
+        "leads": 6227,
         "accounts": 978,
         "opportunitiesShown": 990,
-        "leadsShown": 132
+        "leadsShown": 137
       },
       "agents": [
         {
@@ -9190,12 +9344,12 @@
           "segment": "complex",
           "totals": {
             "opportunities": 308,
-            "leads": 27,
+            "leads": 25,
             "accounts": 130
           },
           "shown": {
             "opportunities": 133,
-            "leads": 20,
+            "leads": 25,
             "accounts": 130
           }
         },
@@ -22118,12 +22272,12 @@
         },
         {
           "type": "opportunity",
-          "id": "006Qs00000mVGJOIA4",
-          "name": "Hygge Neamt Obor",
+          "id": "006Qs00000mhuswIAA",
+          "name": "Hygge Drobeta",
           "stage": "New Opportunity",
           "rawStage": "New Opportunity",
-          "account": "Hygge Neamt Obor",
-          "accountId": "001Qs00000ulEgoIAE",
+          "account": "Hygge Drobeta",
+          "accountId": "001Qs00000v4QjCIAU",
           "city": null,
           "date": "2026-09-30",
           "ownerId": "005Ts0000060ICnIAM",
@@ -22132,12 +22286,12 @@
         },
         {
           "type": "opportunity",
-          "id": "006Qs00000mVG4sIAG",
-          "name": "Hygge Braila",
+          "id": "006Qs00000mhuksIAA",
+          "name": "Hygge Craiova",
           "stage": "New Opportunity",
           "rawStage": "New Opportunity",
-          "account": "Hygge Braila",
-          "accountId": "001Qs00000ukt6BIAQ",
+          "account": "Hygge Craiova",
+          "accountId": "001Qs00000v4Oz4IAE",
           "city": null,
           "date": "2026-09-30",
           "ownerId": "005Ts0000060ICnIAM",
@@ -23182,17 +23336,45 @@
         },
         {
           "type": "lead",
-          "id": "00QQs00000aDEoPMAW",
-          "name": "daniel andriesa",
+          "id": "00QQs00000aCHTUMA4",
+          "name": "MOH’D ELIZABETH Fatima",
           "stage": "Lead Check",
           "rawStage": "Lead Check",
-          "account": "kora grill",
+          "account": "Hygge Targu Jiu",
           "accountId": null,
-          "city": "Cluj-Napoca",
+          "city": "Targu Jiu",
           "date": "2026-09-22",
-          "ownerId": "005Ts000001Ak10IAC",
-          "ownerName": "Silviu-Mihnea Voicu",
-          "segment": "density"
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QQs00000aCHTSMA4",
+          "name": "MOH’D ELIZABETH Fatima",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "Hygge Alba Iulia",
+          "accountId": null,
+          "city": "Alba Iulia",
+          "date": "2026-09-22",
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QQs00000aCHTRMA4",
+          "name": "MOH’D ELIZABETH Fatima",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "Hygge Pitesti Exercitiului",
+          "accountId": null,
+          "city": "Pitesti",
+          "date": "2026-09-22",
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
         },
         {
           "type": "lead",
@@ -23224,34 +23406,6 @@
         },
         {
           "type": "lead",
-          "id": "00QQs00000aCHTRMA4",
-          "name": "MOH’D ELIZABETH Fatima",
-          "stage": "Lead Check",
-          "rawStage": "Lead Check",
-          "account": "Hygge Pitesti Exercitiului",
-          "accountId": null,
-          "city": "Pitesti",
-          "date": "2026-09-22",
-          "ownerId": "005Ts0000060ICnIAM",
-          "ownerName": "Ionut-Mădălin Gavrilă",
-          "segment": "complex"
-        },
-        {
-          "type": "lead",
-          "id": "00QQs00000aCHTSMA4",
-          "name": "MOH’D ELIZABETH Fatima",
-          "stage": "Lead Check",
-          "rawStage": "Lead Check",
-          "account": "Hygge Alba Iulia",
-          "accountId": null,
-          "city": "Alba Iulia",
-          "date": "2026-09-22",
-          "ownerId": "005Ts0000060ICnIAM",
-          "ownerName": "Ionut-Mădălin Gavrilă",
-          "segment": "complex"
-        },
-        {
-          "type": "lead",
           "id": "00QQs00000aCHTNMA4",
           "name": "MOH’D ELIZABETH Fatima",
           "stage": "Lead Check",
@@ -23266,20 +23420,6 @@
         },
         {
           "type": "lead",
-          "id": "00QQs00000aCHTUMA4",
-          "name": "MOH’D ELIZABETH Fatima",
-          "stage": "Lead Check",
-          "rawStage": "Lead Check",
-          "account": "Hygge Targu Jiu",
-          "accountId": null,
-          "city": "Targu Jiu",
-          "date": "2026-09-22",
-          "ownerId": "005Ts0000060ICnIAM",
-          "ownerName": "Ionut-Mădălin Gavrilă",
-          "segment": "complex"
-        },
-        {
-          "type": "lead",
           "id": "00QQs00000aCHTOMA4",
           "name": "MOH’D ELIZABETH Fatima",
           "stage": "Lead Check",
@@ -23287,34 +23427,6 @@
           "account": "Hygge Ploiesti Nord",
           "accountId": null,
           "city": "Ploiesti",
-          "date": "2026-09-22",
-          "ownerId": "005Ts0000060ICnIAM",
-          "ownerName": "Ionut-Mădălin Gavrilă",
-          "segment": "complex"
-        },
-        {
-          "type": "lead",
-          "id": "00QQs00000aCHTTMA4",
-          "name": "MOH’D ELIZABETH Fatima",
-          "stage": "Lead Check",
-          "rawStage": "Lead Check",
-          "account": "Hygge Drobeta",
-          "accountId": null,
-          "city": "Drobeta-Turnu Severin",
-          "date": "2026-09-22",
-          "ownerId": "005Ts0000060ICnIAM",
-          "ownerName": "Ionut-Mădălin Gavrilă",
-          "segment": "complex"
-        },
-        {
-          "type": "lead",
-          "id": "00QQs00000aCF6cMAG",
-          "name": "MOH’D ELIZABETH FATIMA",
-          "stage": "Lead Check",
-          "rawStage": "Lead Check",
-          "account": "Hygge Craiova",
-          "accountId": null,
-          "city": "Craiova",
           "date": "2026-09-22",
           "ownerId": "005Ts0000060ICnIAM",
           "ownerName": "Ionut-Mădălin Gavrilă",
@@ -23350,20 +23462,6 @@
         },
         {
           "type": "lead",
-          "id": "00QQs00000aC80KMAS",
-          "name": "Alexandru Fodi",
-          "stage": "Lead Check",
-          "rawStage": "Lead Check",
-          "account": "Hygge Targoviste 1",
-          "accountId": null,
-          "city": "Targoviste",
-          "date": "2026-09-22",
-          "ownerId": "005Ts0000060ICnIAM",
-          "ownerName": "Ionut-Mădălin Gavrilă",
-          "segment": "complex"
-        },
-        {
-          "type": "lead",
           "id": "00QQs00000aC80JMAS",
           "name": "Alexandru Fodi",
           "stage": "Lead Check",
@@ -23371,20 +23469,6 @@
           "account": "Hygge Brasov",
           "accountId": null,
           "city": "Brasov",
-          "date": "2026-09-22",
-          "ownerId": "005Ts0000060ICnIAM",
-          "ownerName": "Ionut-Mădălin Gavrilă",
-          "segment": "complex"
-        },
-        {
-          "type": "lead",
-          "id": "00QQs00000aC80LMAS",
-          "name": "Alexandru Fodi",
-          "stage": "Lead Check",
-          "rawStage": "Lead Check",
-          "account": "Hygge Targoviste 2",
-          "accountId": null,
-          "city": "Targoviste",
           "date": "2026-09-22",
           "ownerId": "005Ts0000060ICnIAM",
           "ownerName": "Ionut-Mădălin Gavrilă",
@@ -23406,13 +23490,13 @@
         },
         {
           "type": "lead",
-          "id": "00QQs00000aCEGzMAO",
-          "name": "Alexandru Radu",
+          "id": "00QQs00000aC80KMAS",
+          "name": "Alexandru Fodi",
           "stage": "Lead Check",
           "rawStage": "Lead Check",
-          "account": "Hygge Resita 2",
+          "account": "Hygge Targoviste 1",
           "accountId": null,
-          "city": "Resita",
+          "city": "Targoviste",
           "date": "2026-09-22",
           "ownerId": "005Ts0000060ICnIAM",
           "ownerName": "Ionut-Mădălin Gavrilă",
@@ -23420,13 +23504,27 @@
         },
         {
           "type": "lead",
-          "id": "00QQs00000aCDftMAG",
-          "name": "Alexandru Trailescu",
+          "id": "00QQs00000aC80LMAS",
+          "name": "Alexandru Fodi",
           "stage": "Lead Check",
           "rawStage": "Lead Check",
-          "account": "Hygge Comanesti",
+          "account": "Hygge Targoviste 2",
           "accountId": null,
-          "city": "Bacau",
+          "city": "Targoviste",
+          "date": "2026-09-22",
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QQs00000aCEGzMAO",
+          "name": "Alexandru Radu",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "Hygge Resita 2",
+          "accountId": null,
+          "city": "Resita",
           "date": "2026-09-22",
           "ownerId": "005Ts0000060ICnIAM",
           "ownerName": "Ionut-Mădălin Gavrilă",
@@ -23459,6 +23557,132 @@
           "ownerId": "005Ts0000060ICnIAM",
           "ownerName": "Ionut-Mădălin Gavrilă",
           "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QQs00000aCDftMAG",
+          "name": "Alexandru Trailescu",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "Hygge Comanesti",
+          "accountId": null,
+          "city": "Bacau",
+          "date": "2026-09-22",
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QQs00000UYQq1MAH",
+          "name": "Laith Almohammad",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "el petra shawarma",
+          "accountId": null,
+          "city": "Iasi",
+          "date": "2026-04-01",
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QQs00000UMVxcMAH",
+          "name": "Suta de Grame Timisoara",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "Suta de Grame Timisoara",
+          "accountId": null,
+          "city": "Timisoara",
+          "date": "2026-03-27",
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QTs00000V12HBMAZ",
+          "name": "Full House",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "Full House",
+          "accountId": null,
+          "city": "Galati",
+          "date": "2025-11-01",
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QTs00000V0ucwMAB",
+          "name": "3F",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "3F",
+          "accountId": null,
+          "city": "Arad",
+          "date": "2025-11-01",
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QTs00000V0TcIMAV",
+          "name": "Jud Shaorma Arabeasca",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "Jud Shaorma Arabeasca",
+          "accountId": null,
+          "city": "Iasi",
+          "date": "2025-11-01",
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QTs00000UzqEGMAZ",
+          "name": "Chicsalad",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "Chicsalad",
+          "accountId": null,
+          "city": "Cluj-Napoca",
+          "date": "2025-11-01",
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QTs00000UzhlkMAB",
+          "name": "The Hub Delivery",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "The Hub Delivery",
+          "accountId": null,
+          "city": "Iasi",
+          "date": "2025-11-01",
+          "ownerId": "005Ts0000060ICnIAM",
+          "ownerName": "Ionut-Mădălin Gavrilă",
+          "segment": "complex"
+        },
+        {
+          "type": "lead",
+          "id": "00QQs00000aDEoPMAW",
+          "name": "daniel andriesa",
+          "stage": "Lead Check",
+          "rawStage": "Lead Check",
+          "account": "kora grill",
+          "accountId": null,
+          "city": "Cluj-Napoca",
+          "date": "2026-09-22",
+          "ownerId": "005Ts000001Ak10IAC",
+          "ownerName": "Silviu-Mihnea Voicu",
+          "segment": "density"
         },
         {
           "type": "lead",
@@ -37700,11 +37924,11 @@
         },
         {
           "type": "account",
-          "id": "001Qs00000ulEgoIAE",
-          "name": "Hygge Neamt Obor",
+          "id": "001Qs00000v4QjCIAU",
+          "name": "Hygge Drobeta",
           "stage": "New Opportunity",
-          "account": "Hygge Neamt Obor",
-          "accountId": "001Qs00000ulEgoIAE",
+          "account": "Hygge Drobeta",
+          "accountId": "001Qs00000v4QjCIAU",
           "city": null,
           "date": null,
           "ownerId": "005Ts0000060ICnIAM",
@@ -37714,11 +37938,11 @@
         },
         {
           "type": "account",
-          "id": "001Qs00000ukt6BIAQ",
-          "name": "Hygge Braila",
+          "id": "001Qs00000v4Oz4IAE",
+          "name": "Hygge Craiova",
           "stage": "New Opportunity",
-          "account": "Hygge Braila",
-          "accountId": "001Qs00000ukt6BIAQ",
+          "account": "Hygge Craiova",
+          "accountId": "001Qs00000v4Oz4IAE",
           "city": null,
           "date": null,
           "ownerId": "005Ts0000060ICnIAM",
@@ -40399,31 +40623,31 @@
       {
         "name": "Salesforce",
         "status": "connected",
-        "lastSync": "2026-09-28T11:13:58.184Z",
+        "lastSync": "2026-09-28T13:45:54.203Z",
         "icon": "cloud"
       },
       {
         "name": "Google Sheet (Hitlist)",
         "status": "connected",
-        "lastSync": "2026-09-28T11:13:58.184Z",
+        "lastSync": "2026-09-28T13:45:54.203Z",
         "icon": "table_chart"
       },
       {
         "name": "Boltable Deploy",
         "status": "connected",
-        "lastSync": "2026-09-28T11:13:58.184Z",
+        "lastSync": "2026-09-28T13:45:54.203Z",
         "icon": "deployed_code"
       },
       {
         "name": "MOps Dashboard (SF)",
         "status": "connected",
-        "lastSync": "2026-09-28T11:13:58.184Z",
+        "lastSync": "2026-09-28T13:45:54.203Z",
         "icon": "dashboard"
       }
     ]
   },
   "accountsPerformance": {
-    "generatedAt": "2026-09-28T11:13:59.739Z",
+    "generatedAt": "2026-09-28T13:45:55.886Z",
     "windowDays": 90,
     "country": "Romania",
     "currency": "EUR",
@@ -184636,7 +184860,7 @@
     ]
   },
   "inboundTeam": {
-    "generatedAt": "2026-09-28T11:14:00.379Z",
+    "generatedAt": "2026-09-28T13:45:56.632Z",
     "monthKey": "2026-09",
     "monthLabel": "September 2026",
     "currentWeek": "W40",
@@ -200777,7 +201001,7 @@
     }
   },
   "churnPrevention": {
-    "generatedAt": "2026-09-28T11:14:00.649Z",
+    "generatedAt": "2026-09-28T13:45:56.938Z",
     "year": 2026,
     "country": "Romania",
     "metricsNote": "YTD Romania activations by Complex + Density reps. SF Status__c is the source of truth for inactive (archived/inactive), hidden, and deleted; Databricks provider_status is a platform cross-check. Never ordered = zero delivered orders in the activation month and every month after (fact_provider_monthly); accounts with any order in the current query month are not shown as without orders. Lifetime first_order_date is display-only.",
