@@ -93,7 +93,10 @@ export function buildCacheManifest({ full = false } = {}) {
             ? " (current window — re-pull EVERY refresh)"
             : " (CLOSED month — immutable; read from disk, re-pull only with --full)"),
         format: "sf-records",
-        bounds: [0, 1999],
+        // Team stage-history crossed the 2,000-row SOQL cap in September 2026
+        // (2,016 rows). That month is stored as a local merge of two half-month
+        // pulls, so the chunk file can exceed 1,999 while still being complete.
+        bounds: kind === "stage-history" ? [0, 3999] : [0, 1999],
         cap: null,
         refreshedEachRun: isFresh,
         closedMonthChunk: !isFresh,

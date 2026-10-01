@@ -188,9 +188,9 @@ function mergeKind(kind, year) {
       console.error(`[${kind}] Unexpected format in ${file} — skipping.`);
       continue;
     }
-    if (recs.length >= 2000) {
+    if (recs.length === 2000) {
       console.error(
-        `[${kind}] WARNING ${file} has ${recs.length} rows — at/over the 2,000 SOQL cap; ` +
+        `[${kind}] WARNING ${file} has ${recs.length} rows — exactly the 2,000 SOQL cap; ` +
           "this chunk may be TRUNCATED. Split the window further and re-pull.",
       );
     }

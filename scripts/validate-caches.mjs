@@ -187,7 +187,13 @@ function main() {
       );
       continue;
     }
-    if (entry.source !== "local-merge" && !dbTable && !entry.cap && count >= 2000) {
+    // A single SOQL pull cannot return more than ~2,000 rows. Exactly 2,000 is
+    // the truncation signature. A stage-history month that was merged from
+    // half-month pulls (September 2026 = 2,016) is complete when done=true
+    // and the count is not exactly 2,000; the bounds check below still applies.
+    const mergedStageMonth = /sf-stage-history-\d{4}-\d{2}\.json$/.test(name);
+    const soqlCap = count >= 2000 && !(mergedStageMonth && count !== 2000);
+    if (entry.source !== "local-merge" && !dbTable && !entry.cap && soqlCap) {
       errors.push(
         `${name}: ${count} rows — at/over the ~2,000-row SOQL cap; almost certainly TRUNCATED. Split the window and re-pull. ${hint(entry)}`,
       );
