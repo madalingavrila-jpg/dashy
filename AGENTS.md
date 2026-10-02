@@ -197,12 +197,24 @@ targets they were run with. Resolution order: `perRep` (month match or unscoped)
 `perRepByMonth[selectedMonth]` → segment default. Archived so far: **2026-07**
 (Density 23/rep, Boboc 15 → 153; Complex 5/rep, Radu 4 → 24; Inbound 45) and
 **2026-08** (Density 23/rep, Toltică 21, Roșu 15 → 151; Complex 5/rep → 25;
-Inbound 45). **September 2026 Activated targets** (Activated MTD only; Won unchanged
-except Oroles): Density **29**/rep for remaining visible Density reps; **Oroles
-Won/Activated = 0**; Boboc is hidden from September UI. Complex **6**/rep × 5 → 30
-(country plan 50+ from pipeline overdelivery); Inbound Ana-Maria Preda & Catalin
-Corbeanu **60** each → 120 (stored in `perRep`; the Inbound tab is actuals-only so
-not displayed as a target there). Country Activated plan **370**.
+Inbound 45) and **2026-09** (Density activated 29/rep, Oroles won+activated 0,
+Complex activated 6/rep, Inbound 60 each). **Q4 2026 Activated targets** come from
+the RO resource-allocation sheet individual columns (Oct / Nov / Dec), Activated
+only; Won stays at the segment default except Oroles and Boboc, who are **0 / 0**
+(both hidden). October is the live `perRep` month; Nov and Dec are in
+`perRepByMonth`.
+
+| Rep | Oct | Nov | Dec |
+|-----|-----|-----|-----|
+| Mihnea, Georgian | 18 | 24 | 16 |
+| Eusebiu, Ciprian, Toltică | 23 | 24 | 16 |
+| Paul, Andrei, Vlad, Corne | 7 | 7 | 5 |
+| Madalin | 4 | 7 | 5 |
+| Catalin Corbeanu | 30 | 31 | 26 |
+| Ana-Maria Preda | 4 | 4 | 3 |
+
+October team Activated (visible reps) = Density 105 + Complex 32 = **137**.
+November **155**. December **105**. Inbound is separate (34 / 35 / 29).
 
 ### MTD Won vs Activated (hybrid — aligned with SF dashboard)
 
