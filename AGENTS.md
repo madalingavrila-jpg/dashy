@@ -648,21 +648,18 @@ container filesystem is **ephemeral** — durable saves go to **File Storage (S3
 
 **Production (Boltable):** File Storage is enabled (`boltable-dashy`,
 `eu-central-1`, IRSA). Each save writes locally **and** to
-`s3://boltable-dashy/data/target-config.json`. On boot the API prefers the S3
-copy (and seeds S3 from the repo file on first run if the object is missing).
-**S3 is the sole durable store** — there is no GitHub dual-write for targets.
+`s3://boltable-dashy/data/target-config.json`. On boot, if the repo file's
+`updatedAt` is newer than the S3 object, that file is published to S3 (this is
+how a laptop deploy applies targets without going through Boltable SSO).
+Otherwise the API prefers the S3 copy and mirrors it down. A later Settings
+save gets a newer `updatedAt` and keeps winning. **S3 is the durable store.**
 
-**Cursor agents: editing `data/target-config.json` and deploying does NOT change
-production targets.** `readTargetConfig` prefers the S3 object whenever it exists
-and then mirrors it *down* onto the repo file, so a committed edit is silently
-overwritten on the next boot. The repo file only seeds S3 when the object is
-missing (first run). Neither `npm run upload-s3` nor `PUT /api/publish/dashboard`
-carries target config — the publish API accepts dashboard assets only. The only
-way to change live targets is **Settings → Save targets on production**
-(`PUT /api/target-config` → S3), which an agent cannot reach: the endpoint is
-behind Boltable SSO (302) and there are no local AWS credentials. Keep the repo
-file updated as the source of record, but **ask the user to save the change in
-Settings** and do not report a target change as live until they confirm it.
+**Cursor agents:** set `updatedAt` to now when editing `data/target-config.json`,
+then deploy (`boltable/main`). Do not report the change as live until the new
+pod has booted. Neither `npm run upload-s3` nor `PUT /api/publish/dashboard`
+carries target config. `PUT /api/target-config` is behind Boltable SSO (302)
+and there are no local AWS credentials, so the boot publish is the path that
+reaches S3.
 
 **Local dev:** without IRSA, saves are filesystem-only for the current process.
 

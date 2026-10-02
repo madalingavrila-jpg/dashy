@@ -154,8 +154,33 @@ async function readS3TargetConfig(): Promise<TargetConfigPayload | null> {
   }
 }
 
+function configUpdatedAtMs(payload: TargetConfigPayload | null | undefined): number {
+  const parsed = payload?.updatedAt ? Date.parse(payload.updatedAt) : Number.NaN;
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
 export async function readTargetConfig(): Promise<TargetConfigPayload> {
   const fromS3 = await readS3TargetConfig();
+  const local = await readLocalTargetConfig();
+
+  // A committed file with a newer updatedAt is the save the laptop could not
+  // PUT through Boltable SSO. Publish it once; a later Settings save gets a
+  // newer timestamp and keeps winning after that.
+  if (local && configUpdatedAtMs(local) > configUpdatedAtMs(fromS3)) {
+    try {
+      await putS3Object(TARGET_CONFIG_S3_KEY, serializeTargetConfig(local));
+      console.log(
+        `[target-config] published newer local file to s3://${config.s3Bucket}/${TARGET_CONFIG_S3_KEY} (${local.updatedAt})`,
+      );
+      return local;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (config.isProduction || isS3LikelyAvailable()) {
+        console.warn("[target-config] newer local file was not published to S3:", message);
+      }
+    }
+  }
+
   if (fromS3) {
     try {
       await writeFile(targetConfigPath(), serializeTargetConfig(fromS3), "utf8");
@@ -165,7 +190,6 @@ export async function readTargetConfig(): Promise<TargetConfigPayload> {
     return fromS3;
   }
 
-  const local = await readLocalTargetConfig();
   if (local) {
     try {
       await putS3Object(TARGET_CONFIG_S3_KEY, serializeTargetConfig(local));

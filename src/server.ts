@@ -15,6 +15,7 @@ import {
   startDashboardS3Poller,
   syncDashboardAssets,
 } from "./services/dashboardS3.js";
+import { readTargetConfig } from "./services/targetConfig.js";
 
 const staticIndexPath = path.join(config.staticDir, "index.html");
 const precomputedDashboardPath = getPrecomputedApiPath();
@@ -199,6 +200,10 @@ const server = app.listen(config.port, config.host, () => {
     );
     preloadApiAssets();
     preloadDashboardCache();
+    void readTargetConfig().catch((error) => {
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn("[target-config] startup publish failed:", message);
+    });
     void syncDashboardAssets()
       .then((result) => {
         console.log(`[dashy] dashboard S3 sync: ${result.action}`);
