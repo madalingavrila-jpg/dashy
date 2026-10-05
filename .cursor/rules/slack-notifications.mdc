@@ -33,11 +33,28 @@ Bianca, send directly without per-message confirmation.
 
 ### Message template
 
-- **Slack DM:**
-  `Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated <updatedAt>). Please check the data when you get a chance.`
+- **Slack DM:** run `node scripts/refresh-snapshot.mjs` after `npm run build` and
+  send its output verbatim. It renders the greeting plus a **snapshot of the
+  update** (added 2026-10-05) from the freshly built `data/dashboard.json`:
 
-Replace `<updatedAt>` with the `data/dashboard.json` `updatedAt` value from the
-completed refresh.
+  ```
+  Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated <updatedAt>). Please check the data when you get a chance.
+
+  *Snapshot of this update*
+  *YTD:* Won … · Activated …
+  *<Month> MTD (team):* Won … · Activated … · Leads … · Qualified …
+  *<Prior month> (closed):* Won … · Activated …
+  *Inbound MTD:* Won … · Activated …
+  *Week W..:* Leads … · Qualified … · Negotiations … · Closed Won … · Active …
+  *Accounts performance:* … roster accounts · GMV €… · … orders
+  *Churn watch:* … problem status · … never ordered
+  *MOPS:* … open cases (… onboarding) · … ready to activate
+  *My Pipeline:* … open opps · … open leads
+  ```
+
+  The snapshot shows **actuals only** — targets are omitted because
+  `dashboard.json` holds segment defaults while the live site applies
+  `data/target-config.json` overrides at runtime.
 
 > Sends to **other** recipients still require asking the user first or an
 > explicit instruction.

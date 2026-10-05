@@ -84,9 +84,13 @@ Two hard-won caveats baked into the manifest:
    the full policy. **Slack only (updated 2026-07-09): do NOT email this recurring
    notification anymore.**
 
-   - **Slack DM:** `Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated <updatedAt>). Please check the data when you get a chance.`
-
-   Replace `<updatedAt>` with the refreshed `data/dashboard.json` `updatedAt`.
+   - **Slack DM:** `node scripts/refresh-snapshot.mjs` — send its output verbatim.
+     It prints `Hi Bianca — dashy data refresh is done ✅ Latest SF + Databricks data is live on dashy.boltable.eu (updated <updatedAt>). Please check the data when you get a chance.`
+     followed by a **snapshot of the update** (YTD Won/Activated, current-month
+     and prior-month actuals, inbound MTD, current week, accounts performance,
+     churn watch, MOPS, My Pipeline) read from the freshly built
+     `data/dashboard.json`. Actuals only — no targets (overrides live in
+     `target-config.json`, not in `dashboard.json`).
 
 **Overview totals + snapshot are DERIVED, never hardcoded:**
 - `salesPipeline.totals.won` / `totals.activated` (YTD) are computed in `build-dashboard-data.mjs`
